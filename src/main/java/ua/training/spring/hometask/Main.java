@@ -4,17 +4,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.training.spring.hometask.dao.AbstractDomainObjectDao;
 import ua.training.spring.hometask.dao.impl.UserDaoImpl;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.service.UserService;
+import ua.training.spring.hometask.service.impl.UserServiceImpl;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
-        User user=applicationContext.getBean("vlad" ,User.class);
-        System.out.println(user);
-        AbstractDomainObjectDao<User> dao= applicationContext.getBean(UserDaoImpl.class);
-        dao.save(new User());
-        System.out.println(dao.getAll());
+        UserService userService = applicationContext.getBean(UserServiceImpl.class);
+        userService.save(new User());
+        userService.save(new User());
+        System.out.println(userService.getAll());
+
 
     }
 

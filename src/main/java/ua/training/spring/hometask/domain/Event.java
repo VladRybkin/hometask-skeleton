@@ -194,4 +194,14 @@ public class Event extends DomainObject {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "name='" + name + '\'' +
+                ", airDates=" + airDates +
+                ", basePrice=" + basePrice +
+                ", rating=" + rating +
+                ", auditoriums=" + auditoriums +
+                '}';
+    }
 }

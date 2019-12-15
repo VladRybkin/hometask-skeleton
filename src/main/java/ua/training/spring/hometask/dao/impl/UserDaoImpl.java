@@ -2,19 +2,24 @@ package ua.training.spring.hometask.dao.impl;
 
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.AbstractDomainObjectDao;
+import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.exceptions.UserNotFoundException;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
 @Component
-public class UserDaoImpl implements AbstractDomainObjectDao<User> {
+public class UserDaoImpl implements UserDao {
 
     private static final Map<Long, User> users = new HashMap<>();
 
     @Override
     public User save(@Nonnull User object) {
+        object.setId((long) (users.size() + 1));
         users.put(object.getId(), object);
         return object;
     }
@@ -33,5 +38,18 @@ public class UserDaoImpl implements AbstractDomainObjectDao<User> {
     @Override
     public Collection<User> getAll() {
         return users.values();
+    }
+
+    @Override
+    public User getUserByEmail(String email) throws Exception {
+        Optional<User> optionalUser = users.values().stream().filter(user -> user.getEmail().equals(email)).findAny();
+        User user;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+        } else {
+            throw new UserNotFoundException("User with Email " + email + " not found");
+        }
+        return user;
+
     }
 }
