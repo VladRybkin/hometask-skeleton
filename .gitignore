@@ -1,4 +1,11 @@
+# personal settings
+.DS_Store
+
+# Intellij
+.idea/*
+!.idea/runConfigurations/
+*.iml
+
+
+# Maven related files
 /target/
-.classpath
-.project
-.settings
