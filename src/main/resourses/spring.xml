@@ -10,6 +10,15 @@
 
 
     <bean id="vlad" class="ua.training.spring.hometask.domain.User"/>
+    
+    <bean id="auditoriums" class="ua.training.spring.hometask.service.impl.DefaultAuditoriumService">
+        <constructor-arg>
+            <set>
+                <value></value>
+            </set>
+
+        </constructor-arg>
+    </bean>
 
     <context:component-scan base-package="ua.training.spring.hometask"/>
 </beans>

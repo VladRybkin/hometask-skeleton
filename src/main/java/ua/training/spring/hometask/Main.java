@@ -9,14 +9,20 @@ import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 import ua.training.spring.hometask.service.impl.UserServiceImpl;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
         UserService userService = applicationContext.getBean(UserServiceImpl.class);
-        userService.save(new User());
-        userService.save(new User());
         System.out.println(userService.getAll());
+
+        List list= Arrays.asList(1, 4, 5, 6);
+        List list1=Arrays.asList(1, 4, 5, 6);
+
+        System.out.println(list.containsAll(list1));
 
 
     }

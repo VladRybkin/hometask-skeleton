@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(@Nonnull Long id) {
+
         return users.get(id);
     }
 

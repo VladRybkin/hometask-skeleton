@@ -3,14 +3,13 @@ package ua.training.spring.hometask.dao.impl;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.exceptions.EventNotFoundException;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 
 @Component
 public class EventDaoImpl implements EventDao {
@@ -43,16 +42,32 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event getByName(String name) {
-        return null;
+        Optional<Event> optionalEvent = events.values().stream().filter(user -> user.getName().equals(name)).findAny();
+        Event event;
+        if (optionalEvent.isPresent()) {
+            event = optionalEvent.get();
+        } else {
+            throw new EventNotFoundException("Event with name " + name + " not found");
+        }
+        return event;
     }
 
     @Override
     public Set<Event> getForDateRange(LocalDate from, LocalDate to) {
-        return null;
+        Set<Event> filteredEvents = new HashSet<>();
+
+        return filteredEvents;
     }
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        return null;
+        Set<Event> filteredEvents = new HashSet<>();
+
+        events.values().forEach(event -> event.getAirDates().stream()
+                .filter(localDate -> localDate.isBefore(to)).map(localDate -> event)
+                .forEach(filteredEvents::add));
+
+        return filteredEvents;
+
     }
 }
