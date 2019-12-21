@@ -11,11 +11,13 @@
     <bean id="discountStrategies" class="java.util.HashSet">
         <constructor-arg>
             <set value-type="ua.training.spring.hometask.service.strategy.DiscountStrategy">
-                <ref bean="defaultDiscountStrategy"/>
+                <ref bean="birthdayDiscountStrategy"/>
+                <ref bean="tenthTicketDiscountStrategy"/>
             </set>
         </constructor-arg>
     </bean>
-    <bean id="defaultDiscountStrategy" class="ua.training.spring.hometask.service.strategy.DefaultDiscountStrategy"/>
+    <bean id="birthdayDiscountStrategy" class="ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy"/>
+    <bean id="tenthTicketDiscountStrategy" class="ua.training.spring.hometask.service.strategy.TenthTicketStrategy"/>
 
 
     <context:component-scan base-package="ua.training.spring.hometask"/>
