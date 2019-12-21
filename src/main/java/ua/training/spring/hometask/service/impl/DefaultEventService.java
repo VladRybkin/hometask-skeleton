@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
-public class EventServiceImpl implements EventService {
+public class DefaultEventService implements EventService {
 
     @Autowired
     EventDao eventDao;

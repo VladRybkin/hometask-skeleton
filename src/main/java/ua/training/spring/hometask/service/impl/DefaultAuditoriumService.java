@@ -23,13 +23,13 @@ public class DefaultAuditoriumService implements AuditoriumService {
     @Nonnull
     @Override
     public Set<Auditorium> getAll() {
-        return null;
+        return auditoriums;
     }
 
     @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
-        return null;
+        return auditoriums.stream().filter(au -> au.getName().equals(name)).findAny().get();
     }
 
 

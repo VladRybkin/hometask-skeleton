@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 
 @Component
-public class UserServiceImpl implements UserService {
+public class DefaultUserService implements UserService {
 
     @Autowired
     UserDao userDao;
