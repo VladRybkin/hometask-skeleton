@@ -6,6 +6,6 @@ import ua.training.spring.hometask.domain.User;
 
 public interface DiscountStrategy {
 
-    double calculateDiscount(User user);
+    int calculateDiscount(User user);
 
 }

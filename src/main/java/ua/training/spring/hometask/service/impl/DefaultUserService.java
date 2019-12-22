@@ -2,7 +2,6 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.dao.AbstractDomainObjectDao;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;

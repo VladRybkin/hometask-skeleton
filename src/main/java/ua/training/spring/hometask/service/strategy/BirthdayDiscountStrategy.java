@@ -3,14 +3,23 @@ package ua.training.spring.hometask.service.strategy;
 
 import ua.training.spring.hometask.domain.User;
 
+import java.time.LocalDateTime;
+
 
 public class BirthdayDiscountStrategy implements DiscountStrategy {
 
-    public BirthdayDiscountStrategy() {
-    }
 
     @Override
-    public double calculateDiscount(User user) {
-        return 0;
+    public int calculateDiscount(User user) {
+        LocalDateTime dateOfBirth = user.getDateOfBirth();
+        int discount = 0;
+        if (dateOfBirth != null) {
+
+            if (dateOfBirth.getMonth().equals(LocalDateTime.now().getMonth()) &
+                    Integer.valueOf(dateOfBirth.getDayOfMonth()).equals(LocalDateTime.now().getDayOfMonth())) {
+                discount = 20;
+            }
+        }
+        return discount;
     }
 }

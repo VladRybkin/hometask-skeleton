@@ -1,5 +1,7 @@
 package ua.training.spring.hometask.domain;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -14,6 +16,16 @@ public class User extends DomainObject {
     private String lastName;
 
     private String email;
+
+    private LocalDateTime dateOfBirth;
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     private NavigableSet<Ticket> tickets = new TreeSet<>();
 
@@ -55,39 +67,23 @@ public class User extends DomainObject {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+
+        User user = (User) o;
+
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) {
             return false;
         }
-        User other = (User) obj;
-        if (email == null) {
-            if (other.email != null) {
-                return false;
-            }
-        } else if (!email.equals(other.email)) {
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) {
             return false;
         }
-        if (firstName == null) {
-            if (other.firstName != null) {
-                return false;
-            }
-        } else if (!firstName.equals(other.firstName)) {
-            return false;
-        }
-        if (lastName == null) {
-            if (other.lastName != null) {
-                return false;
-            }
-        } else if (!lastName.equals(other.lastName)) {
-            return false;
-        }
-        return true;
+        return email != null ? email.equals(user.email) : user.email == null;
     }
 
     @Override
@@ -96,6 +92,7 @@ public class User extends DomainObject {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", tickets=" + tickets +
                 '}';
     }
