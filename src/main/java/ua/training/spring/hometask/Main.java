@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.DiscountService;
@@ -25,6 +26,7 @@ public class Main {
         DiscountService discountService=applicationContext.getBean(DiscountService.class);
         System.out.println(discountService);
         User user=new User();
+
         user.setDateOfBirth(LocalDateTime.now());
         System.out.println(discountService.getDiscount(user, new Event(), LocalDateTime.now(), 5));
 
