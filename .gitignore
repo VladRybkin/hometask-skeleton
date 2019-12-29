@@ -6,4 +6,4 @@
 
 
 # Maven related files
-/target/
+/target/.idea
