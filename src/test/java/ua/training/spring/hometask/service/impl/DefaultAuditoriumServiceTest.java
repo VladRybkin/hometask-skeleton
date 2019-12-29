@@ -19,7 +19,6 @@ class DefaultAuditoriumServiceTest {
     @Test
     void getAll() {
 
-
     }
 
     @Test
