@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.Mockito.*;
 
@@ -35,6 +36,8 @@ class DefaultEventServiceTest {
 
     private static LocalDate localDateTo;
 
+    private static LocalDateTime localDateTimeNext;
+
     private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
 
     @BeforeEach
@@ -43,6 +46,7 @@ class DefaultEventServiceTest {
         testEvent = new Event(TEST_EVENT_NAME);
         localDateFrom = LocalDate.now().minusDays(5);
         localDateTo = LocalDate.now();
+        localDateTimeNext = LocalDateTime.now().plusDays(5);
     }
 
     @Test
@@ -62,6 +66,10 @@ class DefaultEventServiceTest {
 
     @Test
     void getNextEvents() {
+        Set<Event> events = new HashSet<>();
+        lenient().when(eventService.getNextEvents(localDateTimeNext)).thenReturn(events);
+        eventService.getNextEvents(localDateTimeNext);
+        verify(eventDao).getNextEvents(localDateTimeNext);
     }
 
     @Test
