@@ -1,3 +1,5 @@
+# personal settings
+.DS_Store
 
 # Intellij
 .idea/*
