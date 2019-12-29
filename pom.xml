@@ -13,7 +13,8 @@
         <packaging>jar</packaging>
         <spring.version>5.1.5.RELEASE</spring.version>
         <findbugs.version>3.0.1</findbugs.version>
-        <junit.version>4.12</junit.version>
+        <junit.jupiter.version>5.5.2</junit.jupiter.version>
+        <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version>
     </properties>
 
     <build>
@@ -114,11 +115,18 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

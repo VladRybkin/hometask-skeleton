@@ -1,14 +1,17 @@
 package ua.training.spring.hometask.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 /**
  * @author Yuriy_Tkach
@@ -17,7 +20,7 @@ public class TestEvent {
 
 	private Event event;
 
-	@Before
+	@BeforeEach
 	public void initEvent() {
 		event = new Event();
 		event.setBasePrice(1.1);
