@@ -24,8 +24,9 @@ public class DefaultBookingService implements BookingService {
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         double ratingBonus = getBonusForEventRating(event.getRating());
-        double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, user.getTickets().size());
-        double discount = discountService.getDiscount(user, event, dateTime, user.getTickets().size());
+        int ticketsAmount=user.getTickets().size();
+        double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, ticketsAmount);
+        double discount = discountService.getDiscount(user, event, dateTime, ticketsAmount);
         double finalPrize = applyDiscounts(totalPrize, discount);
 
         return finalPrize;
