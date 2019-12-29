@@ -1,7 +1,6 @@
 
 # Intellij
 .idea/*
-.idea/libraries/*
 !.idea/runConfigurations/
 *.iml
 
