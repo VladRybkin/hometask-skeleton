@@ -12,6 +12,7 @@ import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -46,9 +47,9 @@ class DefaultUserServiceTest {
 
     @Test
     void save() {
-//        lenient().when(userService.save(testUser)).thenReturn(testUser);
-//        userService.save(testUser);
-//        verify(userDao).save(testUser);
+        lenient().when(userService.save(testUser)).thenReturn(testUser);
+        userService.save(testUser);
+        verify(userDao).save(testUser);
     }
 
     @Test
@@ -66,7 +67,8 @@ class DefaultUserServiceTest {
 
     @Test
     void getAll() {
-        lenient().when(userService.getAll()).thenReturn(new ArrayList<User>());
+        List<User> users=new ArrayList<>();
+        lenient().when(userService.getAll()).thenReturn(users);
         userService.getAll();
         verify(userDao).getAll();
     }

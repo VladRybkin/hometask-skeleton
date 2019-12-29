@@ -19,6 +19,13 @@ public class User extends DomainObject {
 
     private LocalDateTime dateOfBirth;
 
+    public User() {
+    }
+
+    public User(String email) {
+        this.email = email;
+    }
+
     public LocalDateTime getDateOfBirth() {
         return dateOfBirth;
     }

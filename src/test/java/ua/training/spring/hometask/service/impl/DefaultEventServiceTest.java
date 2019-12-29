@@ -58,8 +58,9 @@ class DefaultEventServiceTest {
 
     @Test
     void getForDateRange() {
+        Set<Event>events=new HashSet<>();
         lenient().when(eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now()))
-                .thenReturn(new HashSet<Event>());
+                .thenReturn(events);
         eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now());
         verify(eventDao).getForDateRange(LocalDate.now().minusDays(5), LocalDate.now());
     }
@@ -87,6 +88,7 @@ class DefaultEventServiceTest {
 
     @Test
     void getById() {
+        when(eventService.getById(ID)).thenReturn(testEvent);
         eventService.getById(ID);
         verify(eventDao).getById(ID);
     }

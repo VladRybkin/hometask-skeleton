@@ -3,6 +3,7 @@ package ua.training.spring.hometask.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.UserDao;
+import ua.training.spring.hometask.dao.impl.UserDaoImpl;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
@@ -15,6 +16,7 @@ public class DefaultUserService implements UserService {
 
     @Autowired
     UserDao userDao;
+
 
     @Nullable
     @Override
@@ -41,5 +43,9 @@ public class DefaultUserService implements UserService {
     @Override
     public Collection<User> getAll() {
         return userDao.getAll();
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

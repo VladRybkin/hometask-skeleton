@@ -18,17 +18,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("Auditorium.xml", "DiscountStrategies.xml");
 
-        LocalDateTime localDateTime=LocalDateTime.now();
-        System.out.println(localDateTime.getDayOfMonth());
+
 
         Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
         AuditoriumService auditoriumService=applicationContext.getBean(AuditoriumService.class);
+        System.out.println(auditoriumService.getAll());
         DiscountService discountService=applicationContext.getBean(DiscountService.class);
-        System.out.println(discountService);
-        User user=new User();
 
-        user.setDateOfBirth(LocalDateTime.now());
-        System.out.println(discountService.getDiscount(user, new Event(), LocalDateTime.now(), 5));
 
 
 

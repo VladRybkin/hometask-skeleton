@@ -9,7 +9,7 @@ public class TenthTicketStrategy implements DiscountStrategy {
     public int calculateDiscount(User user, Event event) {
         int discount = 0;
         int ticketCount = user.getTickets().size();
-        for (int i = 1; i < user.getTickets().size(); i++) {
+        for (int i = 0; i < ticketCount; i++) {
             if (i % 10 == 0) {
                 discount = discount + 5;
             }

@@ -19,6 +19,6 @@
     <bean id="birthdayDiscountStrategy" class="ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy"/>
     <bean id="tenthTicketDiscountStrategy" class="ua.training.spring.hometask.service.strategy.TenthTicketStrategy"/>
 
-
+    <context:annotation-config/>
     <context:component-scan base-package="ua.training.spring.hometask"/>
 </beans>

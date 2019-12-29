@@ -15,7 +15,6 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
         LocalDateTime dateOfBirth = user.getDateOfBirth();
         int discount = 0;
         if (dateOfBirth != null) {
-
             if (dateOfBirth.getMonth().equals(LocalDateTime.now().getMonth()) &
                     Integer.valueOf(dateOfBirth.getDayOfMonth()).equals(LocalDateTime.now().getDayOfMonth())) {
                 discount = 20;
