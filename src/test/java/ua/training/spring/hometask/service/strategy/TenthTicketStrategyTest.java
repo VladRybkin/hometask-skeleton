@@ -31,6 +31,10 @@ class TenthTicketStrategyTest {
 
     private NavigableSet<Ticket> tickets;
 
+    private static final double TENTH_TICKET_DISCOUNT=5;
+
+    private static final Integer ZERO_DISCOUNT=0;
+
 
     @BeforeEach()
     void setUp() {
@@ -46,20 +50,20 @@ class TenthTicketStrategyTest {
     }
 
     @Test
-    void calculateDiscountWithTenTickers() {
+    void calculateDiscountWithTenTickets() {
         assertEquals(testUserWithTenTickets.getTickets().size(), 10);
-        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets, testEvent), 5);
+        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets), TENTH_TICKET_DISCOUNT);
     }
 
     @Test
     void calculateDiscountWithoutTenTickers() {
-        assertEquals(testUserWithoutTenTickets.getTickets().size(), 0);
-        assertEquals(testUserWithoutTenTickets.getTickets().size(), 0);
+        assertEquals(testUserWithoutTenTickets.getTickets().size(), ZERO_DISCOUNT);
+        assertEquals(testUserWithoutTenTickets.getTickets().size(), ZERO_DISCOUNT);
     }
 
     private void addTickets(Set<Ticket> set, int amount) {
-        for (int i = 1; i < amount + 1; i++) {
-            set.add(new Ticket(testUserWithTenTickets, testEvent, LocalDateTime.now(), i));
+        for (int i = 1; i <= amount; i++) {
+            set.add(new Ticket(testUserWithTenTickets, testEvent, LocalDateTime.now(), i, 100));
         }
 
     }

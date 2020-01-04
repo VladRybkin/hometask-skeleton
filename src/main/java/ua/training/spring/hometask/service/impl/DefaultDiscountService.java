@@ -22,8 +22,9 @@ public class DefaultDiscountService implements DiscountService {
     public double getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
 
         double discount = 0;
+
         for (DiscountStrategy discountStrategy : discountStrategies) {
-            double lastCalc = discountStrategy.calculateDiscount(user, event);
+            double lastCalc = discountStrategy.calculateDiscount(user);
             if (lastCalc > discount) {
                 discount = lastCalc;
             }

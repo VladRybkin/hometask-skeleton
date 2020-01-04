@@ -25,6 +25,10 @@ class BirthdayDiscountStrategyTest {
 
     private Event testEvent;
 
+    private static final double BIRTHDAY_DISCOUNT=5;
+
+    private static final double ZERO_DISCOUNT=0;
+
 
     @BeforeEach()
     void setUp() {
@@ -37,14 +41,14 @@ class BirthdayDiscountStrategyTest {
 
 
     @Test
-    void calculateDiscountForUserWithBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithBirthday, testEvent), 20);
+    void ShouldCalculateDiscountForUserWithBirthday() {
+        assertEquals(discountStrategy.calculateDiscount(testUserWithBirthday), BIRTHDAY_DISCOUNT);
 
     }
 
     @Test
-    void calculateDiscountForUserWithoutBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithoutBirthday, testEvent), 0);
+    void ShouldCalculateDiscountForUserWithoutBirthday() {
+        assertEquals(discountStrategy.calculateDiscount(testUserWithoutBirthday), ZERO_DISCOUNT);
 
     }
 }

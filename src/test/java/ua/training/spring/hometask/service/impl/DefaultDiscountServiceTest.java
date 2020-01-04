@@ -11,7 +11,7 @@ import ua.training.spring.hometask.service.DiscountService;
 import java.time.LocalDateTime;
 
 
-public class DefaultDiscountServiceTest {
+ class DefaultDiscountServiceTest {
 
     private DiscountService discountService;
 

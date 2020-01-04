@@ -3,7 +3,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.junit.jupiter.api.Test;
 
-public class DefaultBookingServiceTest {
+ class DefaultBookingServiceTest {
 
     @Test
     public void getTicketsPrice() {
