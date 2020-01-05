@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,7 +68,7 @@ class DefaultUserServiceTest {
 
     @Test
     void getAll() {
-        List<User> users=new ArrayList<>();
+        List<User> users = Lists.newArrayList();
         lenient().when(userService.getAll()).thenReturn(users);
         userService.getAll();
         verify(userDao).getAll();

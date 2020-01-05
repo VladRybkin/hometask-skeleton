@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="vipSeats" class="java.util.HashSet">
+        <constructor-arg>
+            <set value-type="java.lang.Long">
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+                <value>5</value>
+                <value>6</value>
+                <value>7</value>
+            </set>
+        </constructor-arg>
+
+    </bean>
+
+
+    <bean id="auditorium1" class="ua.training.spring.hometask.domain.Auditorium">
+        <property name="name" value="The first auditorium"/>
+        <property name="numberOfSeats" value="50"/>
+        <property name="vipSeats" ref="vipSeats"/>
+    </bean>
+
+    <bean id="auditorium2" class="ua.training.spring.hometask.domain.Auditorium">
+        <property name="name" value="The second auditorium"/>
+        <property name="numberOfSeats" value="40"/>
+        <property name="vipSeats" ref="vipSeats"/>
+    </bean>
+
+    <bean name="auditoriumService" class="ua.training.spring.hometask.service.impl.DefaultAuditoriumService">
+        <constructor-arg name="auditoriums">
+            <list>
+                <ref bean="auditorium1"/>
+                <ref bean="auditorium2"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    <context:annotation-config/>
+    <context:component-scan base-package="ua.training.spring.hometask"/>
+</beans>

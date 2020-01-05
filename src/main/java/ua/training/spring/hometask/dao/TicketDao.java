@@ -1,5 +1,7 @@
 package ua.training.spring.hometask.dao;
 
-public class TicketDao {
+import ua.training.spring.hometask.domain.Ticket;
+
+public interface TicketDao extends AbstractDomainObjectDao<Ticket> {
 
 }

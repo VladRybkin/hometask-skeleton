@@ -19,14 +19,8 @@ public interface DiscountService {
      * 
      * @param user
      *            User that buys tickets. Can be <code>null</code>
-     * @param event
-     *            Event that tickets are bought for
-     * @param airDateTime
-     *            The date and time event will be aired
-     * @param numberOfTickets
-     *            Number of tickets that user buys
-     * @return discount value from 0 to 100
+
      */
-    double getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets);
+    double getDiscount(@Nullable User user);
 
 }

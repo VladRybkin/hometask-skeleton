@@ -25,9 +25,9 @@ class BirthdayDiscountStrategyTest {
 
     private Event testEvent;
 
-    private static final double BIRTHDAY_DISCOUNT=5;
+    private static final double BIRTHDAY_DISCOUNT = 10;
 
-    private static final double ZERO_DISCOUNT=0;
+    private static final double ZERO_DISCOUNT = 0;
 
 
     @BeforeEach()

@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.strategy;
 
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,9 +32,9 @@ class TenthTicketStrategyTest {
 
     private NavigableSet<Ticket> tickets;
 
-    private static final double TENTH_TICKET_DISCOUNT=5;
+    private static final double TENTH_TICKET_DISCOUNT = 5;
 
-    private static final Integer ZERO_DISCOUNT=0;
+    private static final Integer ZERO_DISCOUNT = 0;
 
 
     @BeforeEach()
@@ -44,8 +45,8 @@ class TenthTicketStrategyTest {
         testEvent = new Event("testname");
         tickets = new TreeSet<>();
 
-        addTickets(tickets, 10);
-        testUserWithTenTickets.getTickets().addAll(tickets);
+        addTickets(10, testUserWithTenTickets);
+
 
     }
 
@@ -61,10 +62,12 @@ class TenthTicketStrategyTest {
         assertEquals(testUserWithoutTenTickets.getTickets().size(), ZERO_DISCOUNT);
     }
 
-    private void addTickets(Set<Ticket> set, int amount) {
+    private void addTickets(int amount, User user) {
+        Set<Ticket> tickets = Sets.newTreeSet();
         for (int i = 1; i <= amount; i++) {
-            set.add(new Ticket(testUserWithTenTickets, testEvent, LocalDateTime.now(), i, 100));
+            tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, 100));
         }
+        user.getTickets().addAll(tickets);
 
     }
 }

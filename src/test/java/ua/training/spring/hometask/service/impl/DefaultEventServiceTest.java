@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,7 +68,7 @@ class DefaultEventServiceTest {
 
     @Test
     void getNextEvents() {
-        Set<Event> events = new HashSet<>();
+        Set<Event> events = Sets.newHashSet();
         lenient().when(eventService.getNextEvents(localDateTimeNext)).thenReturn(events);
         eventService.getNextEvents(localDateTimeNext);
         verify(eventDao).getNextEvents(localDateTimeNext);

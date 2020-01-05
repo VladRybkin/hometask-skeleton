@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
@@ -19,8 +20,15 @@ public class DefaultDiscountService implements DiscountService {
 
     private Set<DiscountStrategy> discountStrategies;
 
+    public DefaultDiscountService() {
+    }
+
+    public DefaultDiscountService(Set<DiscountStrategy> discountStrategies) {
+        this.discountStrategies = discountStrategies;
+    }
+
     @Override
-    public double getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
+    public double getDiscount(@Nullable User user) {
         double discount = 0;
         OptionalDouble optionalDiscount = discountStrategies.stream().mapToDouble(getDiscountStrategyToDoubleFunction(user)).max();
         if (optionalDiscount.isPresent()) {

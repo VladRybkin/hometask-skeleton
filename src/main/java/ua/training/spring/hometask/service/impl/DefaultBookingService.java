@@ -46,7 +46,7 @@ public class DefaultBookingService implements BookingService {
         int ticketsAmount = tickets.size();
 
         double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, ticketsAmount);
-        double discount = discountService.getDiscount(user, event, dateTime, ticketsAmount);
+        double discount = discountService.getDiscount(user);
         double finalPrize = applyDiscounts(totalPrize, discount);
 
         return finalPrize;

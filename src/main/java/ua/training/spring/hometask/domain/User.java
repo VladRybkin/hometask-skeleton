@@ -100,7 +100,6 @@ public class User extends DomainObject {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", tickets=" + tickets +
                 '}';
     }
 }
