@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 public class BirthdayDiscountStrategy implements DiscountStrategy {
 
+    private final static int birthdayDiscount=10;
 
     @Override
     public double calculateDiscount(User user) {
@@ -17,7 +18,7 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
         if (dateOfBirth != null) {
             if (dateOfBirth.getMonth().equals(LocalDateTime.now().getMonth()) &
                     Integer.valueOf(dateOfBirth.getDayOfMonth()).equals(LocalDateTime.now().getDayOfMonth())) {
-                discount = 10;
+                discount = birthdayDiscount;
             }
         }
         return discount;

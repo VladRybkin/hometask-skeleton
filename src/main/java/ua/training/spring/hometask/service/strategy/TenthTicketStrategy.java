@@ -10,6 +10,8 @@ import java.util.List;
 
 public class TenthTicketStrategy implements DiscountStrategy {
 
+    private final static int TenthTicketDiscount=50;
+
     @Override
     public double calculateDiscount(User user) {
 
@@ -36,7 +38,7 @@ public class TenthTicketStrategy implements DiscountStrategy {
 
     private double calculateFiftyPercentDiscount(Ticket ticket) {
         double ticketPrize = ticket.getBasePrice();
-        double discount = ticketPrize != 0 ? (ticketPrize / 100) * 50 : 0;
+        double discount = ticketPrize != 0 ? (ticketPrize / 100) * TenthTicketDiscount : 0;
         double finalPrize = ticketPrize - discount;
 
         return finalPrize;
