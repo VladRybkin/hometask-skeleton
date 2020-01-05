@@ -10,16 +10,15 @@ import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.ToDoubleFunction;
 
-@Service
+
 public class DefaultDiscountService implements DiscountService {
 
-    @Autowired
-    Set<DiscountStrategy> discountStrategies;
+
+    private Set<DiscountStrategy> discountStrategies;
 
     @Override
     public double getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
@@ -34,5 +33,9 @@ public class DefaultDiscountService implements DiscountService {
 
     private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(@Nullable User user) {
         return strategy -> strategy.calculateDiscount(user);
+    }
+
+    public void setDiscountStrategies(Set<DiscountStrategy> discountStrategies) {
+        this.discountStrategies = discountStrategies;
     }
 }

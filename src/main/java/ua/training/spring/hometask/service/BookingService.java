@@ -40,7 +40,7 @@ public interface BookingService {
      * @param tickets
      *            Set of tickets
      */
-    public void bookTickets(@Nonnull Set<Ticket> tickets);
+    public void bookTickets(@Nonnull Set<Ticket> tickets, User user);
 
     /**
      * Getting all purchased tickets for event on specific air date and time

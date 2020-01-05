@@ -9,11 +9,16 @@ import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.DiscountService;
+import ua.training.spring.hometask.service.EventService;
+import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultBookingService implements BookingService {
@@ -21,10 +26,16 @@ public class DefaultBookingService implements BookingService {
     @Autowired
     DiscountService discountService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    EventService eventService;
+
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         double ratingBonus = getBonusForEventRating(event.getRating());
-        int ticketsAmount=user.getTickets().size();
+        int ticketsAmount=user.getTickets().stream().filter(eventFilter(event)).collect(Collectors.toSet()).size();
         double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, ticketsAmount);
         double discount = discountService.getDiscount(user, event, dateTime, ticketsAmount);
         double finalPrize = applyDiscounts(totalPrize, discount);
@@ -32,10 +43,21 @@ public class DefaultBookingService implements BookingService {
         return finalPrize;
     }
 
+    private Predicate<Ticket> eventFilter(@Nonnull Event event) {
+        return ticket -> ticket.getEvent().equals(event);
+    }
+
 
     @Override
-    public void bookTickets(@Nonnull Set<Ticket> tickets) {
+    public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
+        user.getTickets().addAll(tickets);
+        tickets.forEach(setUserToTicket(user));
+        userService.save(user);
 
+    }
+
+    private Consumer<Ticket> setUserToTicket(User user) {
+        return ticket -> ticket.setUser(user);
     }
 
     @Nonnull
@@ -73,5 +95,7 @@ public class DefaultBookingService implements BookingService {
         return (basePrice * ratingBonus) * size;
     }
 
-
+    public void setDiscountService(DiscountService discountService) {
+        this.discountService = discountService;
+    }
 }

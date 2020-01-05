@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
+@Component
 public class DefaultEventService implements EventService {
 
     @Autowired
@@ -54,5 +56,9 @@ public class DefaultEventService implements EventService {
     @Override
     public Collection<Event> getAll() {
         return eventDao.getAll();
+    }
+
+    public void setEventDao(EventDao eventDao) {
+        this.eventDao = eventDao;
     }
 }

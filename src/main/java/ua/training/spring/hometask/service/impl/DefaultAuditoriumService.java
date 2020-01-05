@@ -31,5 +31,7 @@ public class DefaultAuditoriumService implements AuditoriumService {
         return auditoriums.stream().filter(au -> au.getName().equals(name)).findAny().get();
     }
 
-
+    public void setAuditoriums(Set<Auditorium> auditoriums) {
+        this.auditoriums = auditoriums;
+    }
 }
