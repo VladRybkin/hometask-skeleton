@@ -15,7 +15,9 @@ import ua.training.spring.hometask.service.UserService;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
+import java.util.NavigableSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -35,16 +37,19 @@ public class DefaultBookingService implements BookingService {
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
         double ratingBonus = getBonusForEventRating(event.getRating());
-        int ticketsAmount=user.getTickets().stream().filter(eventFilter(event)).collect(Collectors.toSet()).size();
+
+        NavigableSet<Ticket> tickets = user.getTickets()
+                .stream()
+                .filter(eventFilter(event)
+                        .and(seatsFilter(seats)))
+                .collect(Collectors.toCollection(TreeSet::new));
+        int ticketsAmount = tickets.size();
+
         double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, ticketsAmount);
         double discount = discountService.getDiscount(user, event, dateTime, ticketsAmount);
         double finalPrize = applyDiscounts(totalPrize, discount);
 
         return finalPrize;
-    }
-
-    private Predicate<Ticket> eventFilter(@Nonnull Event event) {
-        return ticket -> ticket.getEvent().equals(event);
     }
 
 
@@ -56,9 +61,6 @@ public class DefaultBookingService implements BookingService {
 
     }
 
-    private Consumer<Ticket> setUserToTicket(User user) {
-        return ticket -> ticket.setUser(user);
-    }
 
     @Nonnull
     @Override
@@ -89,6 +91,18 @@ public class DefaultBookingService implements BookingService {
             finalPrize = totalPrize;
         }
         return finalPrize;
+    }
+
+    private Predicate<Ticket> eventFilter(@Nonnull Event event) {
+        return ticket -> ticket.getEvent().equals(event);
+    }
+
+    private Predicate<Ticket> seatsFilter(@Nonnull Set<Long> seats) {
+        return ticket -> seats.contains(ticket.getSeat());
+    }
+
+    private Consumer<Ticket> setUserToTicket(User user) {
+        return ticket -> ticket.setUser(user);
     }
 
     private double getTotalPrize(double basePrice, double ratingBonus, double size) {

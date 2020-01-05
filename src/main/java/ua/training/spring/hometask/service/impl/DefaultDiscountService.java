@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
