@@ -32,7 +32,9 @@ class TenthTicketStrategyTest {
 
     private NavigableSet<Ticket> tickets;
 
-    private static final int TENTH_TICKET_DISCOUNT = 5;
+    private static final int TENTH_TICKET_DISCOUNT = 50;
+
+    private static final int TICKETS_AMOUNT = 10;
 
     private static final Integer ZERO_DISCOUNT = 0;
 
@@ -46,15 +48,15 @@ class TenthTicketStrategyTest {
         testEvent = new Event("testname");
         tickets = new TreeSet<>();
 
-        addTickets(10, testUserWithTenTickets);
+        addTickets(TICKETS_AMOUNT, testUserWithTenTickets);
 
 
     }
 
     @Test
     void calculateDiscountWithTenTickets() {
-        assertEquals(testUserWithTenTickets.getTickets().size(), 10);
-        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets), TENTH_TICKET_DISCOUNT);
+        assertEquals(testUserWithTenTickets.getTickets().size(), TICKETS_AMOUNT);
+        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets), 5);
     }
 
     @Test

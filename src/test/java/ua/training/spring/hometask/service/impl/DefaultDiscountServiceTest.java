@@ -36,7 +36,13 @@ class DefaultDiscountServiceTest {
 
     private static final int NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT = 9;
 
+    private static final int TENTH_TICKET_STRATEGY_DISCOUNT_VALUE = 50;
+
+    private static final int BIRTHDAY_STRATEGY_DISCOUNT_VALUE = 10;
+
     private static final double ZERO_DISCOUNT = 0;
+
+
 
 
     @BeforeEach
@@ -44,6 +50,10 @@ class DefaultDiscountServiceTest {
 
         birthdayStrategy = new BirthdayDiscountStrategy();
         tenthTicketStrategy = new TenthTicketStrategy();
+
+        ((TenthTicketStrategy) tenthTicketStrategy).setTenthTicketDiscount(TENTH_TICKET_STRATEGY_DISCOUNT_VALUE);
+        ((BirthdayDiscountStrategy) birthdayStrategy).setBirthdayDiscount(BIRTHDAY_STRATEGY_DISCOUNT_VALUE);
+
         testEvent = new Event("testname");
 
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
