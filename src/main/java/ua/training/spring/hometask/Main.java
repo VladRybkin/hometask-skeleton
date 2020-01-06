@@ -10,6 +10,9 @@ import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.impl.DefaultBookingService;
 import ua.training.spring.hometask.service.impl.DefaultTicketService;
+import ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy;
+import ua.training.spring.hometask.service.strategy.DiscountStrategy;
+import ua.training.spring.hometask.service.strategy.TenthTicketStrategy;
 import ua.training.spring.hometask.shellCommands.UserCommand;
 
 
@@ -20,13 +23,15 @@ public class Main {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("auditorium.xml",
                 "discount-strategies.xml");
 //        Bootstrap.main(args);
-//        Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
-//        AuditoriumService auditoriumService = applicationContext.getBean(AuditoriumService.class);
-//        System.out.println(auditoriumService.getAll());
+        Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
+        AuditoriumService auditoriumService = applicationContext.getBean(AuditoriumService.class);
+        System.out.println(auditoriumService.getAll());
         DiscountService discountService = applicationContext.getBean(DiscountService.class);
         System.out.println(discountService);
-        System.out.println(applicationContext.getBean(DefaultBookingService.class));
-
+        BirthdayDiscountStrategy birthdayDiscountStrategy=applicationContext.getBean(BirthdayDiscountStrategy.class);
+        TenthTicketStrategy tenthti=applicationContext.getBean(TenthTicketStrategy.class);
+        System.out.println(birthdayDiscountStrategy.getBirthdayDiscount());
+        System.out.println(tenthti.getTenthTicketDiscount());
 
 
     }

@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.strategy;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 
@@ -10,7 +11,8 @@ import java.util.List;
 
 public class TenthTicketStrategy implements DiscountStrategy {
 
-    private final static int TenthTicketDiscount=50;
+    @Value("${tenthTicket.discount}")
+    private int tenthTicketDiscount;
 
     @Override
     public double calculateDiscount(User user) {
@@ -38,7 +40,7 @@ public class TenthTicketStrategy implements DiscountStrategy {
 
     private double calculateFiftyPercentDiscount(Ticket ticket) {
         double ticketPrize = ticket.getBasePrice();
-        double discount = ticketPrize != 0 ? (ticketPrize / 100) * TenthTicketDiscount : 0;
+        double discount = ticketPrize != 0 ? (ticketPrize / 100) * tenthTicketDiscount : 0;
         double finalPrize = ticketPrize - discount;
 
         return finalPrize;
@@ -51,5 +53,13 @@ public class TenthTicketStrategy implements DiscountStrategy {
             return 0;
         }
 
+    }
+
+    public int getTenthTicketDiscount() {
+        return tenthTicketDiscount;
+    }
+
+    public void setTenthTicketDiscount(int tenthTicketDiscount) {
+        this.tenthTicketDiscount = tenthTicketDiscount;
     }
 }

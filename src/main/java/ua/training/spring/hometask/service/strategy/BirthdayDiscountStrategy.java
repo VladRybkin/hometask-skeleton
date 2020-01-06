@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.strategy;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 
@@ -9,7 +10,8 @@ import java.time.LocalDateTime;
 
 public class BirthdayDiscountStrategy implements DiscountStrategy {
 
-    private final static int birthdayDiscount=10;
+    @Value("${birthday.discount}")
+    private int birthdayDiscount;
 
     @Override
     public double calculateDiscount(User user) {
@@ -22,5 +24,13 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
             }
         }
         return discount;
+    }
+
+    public int getBirthdayDiscount() {
+        return birthdayDiscount;
+    }
+
+    public void setBirthdayDiscount(int birthdayDiscount) {
+        this.birthdayDiscount = birthdayDiscount;
     }
 }

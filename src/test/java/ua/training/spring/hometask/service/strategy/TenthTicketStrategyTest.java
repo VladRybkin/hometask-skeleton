@@ -32,7 +32,7 @@ class TenthTicketStrategyTest {
 
     private NavigableSet<Ticket> tickets;
 
-    private static final double TENTH_TICKET_DISCOUNT = 5;
+    private static final int TENTH_TICKET_DISCOUNT = 5;
 
     private static final Integer ZERO_DISCOUNT = 0;
 
@@ -40,6 +40,7 @@ class TenthTicketStrategyTest {
     @BeforeEach()
     void setUp() {
         discountStrategy = new TenthTicketStrategy();
+        ((TenthTicketStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
         testUserWithTenTickets = new User();
         testUserWithoutTenTickets = new User();
         testEvent = new Event("testname");
