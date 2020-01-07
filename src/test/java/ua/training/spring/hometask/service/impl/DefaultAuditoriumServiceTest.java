@@ -9,13 +9,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import ua.training.spring.hometask.domain.Auditorium;
+import ua.training.spring.hometask.exceptions.AuditoriumNotFoundException;
 import ua.training.spring.hometask.service.AuditoriumService;
 
+import java.util.Collections;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +37,8 @@ class DefaultAuditoriumServiceTest {
     private static final String FIRST_AUDITORIUM_NAME = "first";
 
     private static final String SECOND_AUDITORIUM_NAME = "second";
+
+    private static final String INCORRECT_AUDITORIUM_NAME = "incorrect";
 
     @BeforeEach()
     void setUp() {
@@ -52,4 +58,12 @@ class DefaultAuditoriumServiceTest {
         assertEquals(auditoriumService.getByName(FIRST_AUDITORIUM_NAME), firstAuditorium);
         assertEquals(auditoriumService.getByName(SECOND_AUDITORIUM_NAME), secondAuditorium);
     }
+
+    @Test
+    void ShouldThrowExceptionForIncorrectAuditoriumName() {
+        assertThrows(AuditoriumNotFoundException.class, () -> {
+            auditoriumService.getByName(INCORRECT_AUDITORIUM_NAME);
+        });
+    }
+
 }

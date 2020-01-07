@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.exceptions.TicketNotFoundException;
 import ua.training.spring.hometask.service.TicketService;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ public class DefaultTicketService implements TicketService {
 
     @Override
     public Ticket getById(@Nonnull Long id) {
+
         return ticketDao.getById(id);
     }
 
@@ -35,4 +37,6 @@ public class DefaultTicketService implements TicketService {
     public Collection<Ticket> getAll() {
         return ticketDao.getAll();
     }
+
+
 }

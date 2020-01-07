@@ -32,6 +32,7 @@ public class EventDaoImpl implements EventDao {
     @Override
     public Event getById(@Nonnull Long id) {
         return events.get(id);
+
     }
 
     @Nonnull
@@ -42,14 +43,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event getByName(String name) {
-        Optional<Event> optionalEvent = events.values().stream().filter(user -> user.getName().equals(name)).findAny();
-        Event event;
-        if (optionalEvent.isPresent()) {
-            event = optionalEvent.get();
-        } else {
-            throw new EventNotFoundException("Event with name " + name + " not found");
-        }
-        return event;
+
+        return events.values().stream().filter(user -> user.getName().equals(name)).findAny().orElse(null);
     }
 
     @Override

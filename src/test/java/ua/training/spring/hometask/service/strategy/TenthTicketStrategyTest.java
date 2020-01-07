@@ -13,6 +13,7 @@ import ua.training.spring.hometask.domain.User;
 import java.time.LocalDateTime;
 
 import java.util.NavigableSet;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -41,6 +42,7 @@ class TenthTicketStrategyTest {
 
     @BeforeEach()
     void setUp() {
+
         discountStrategy = new TenthTicketStrategy();
         ((TenthTicketStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
         testUserWithTenTickets = new User();
@@ -57,6 +59,7 @@ class TenthTicketStrategyTest {
     void calculateDiscountWithTenTickets() {
         assertEquals(testUserWithTenTickets.getTickets().size(), TICKETS_AMOUNT);
         assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets), 5);
+
     }
 
     @Test

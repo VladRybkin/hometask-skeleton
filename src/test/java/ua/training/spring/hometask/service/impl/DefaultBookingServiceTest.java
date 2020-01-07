@@ -16,21 +16,19 @@ class DefaultBookingServiceTest {
 
     @BeforeEach()
     void setUp() {
-
         bookingService = new DefaultBookingService();
+    }
+
+    @Test
+    void getTicketsPrice() {
 
     }
 
     @Test
-    public void getTicketsPrice() {
-
+    void bookTickets() {
     }
 
     @Test
-    public void bookTickets() {
-    }
-
-    @Test
-    public void getPurchasedTicketsForEvent() {
+    void getPurchasedTicketsForEvent() {
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.exceptions.UserNotFoundException;
 import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
@@ -22,6 +23,7 @@ public class DefaultUserService implements UserService {
     public User getUserByEmail(@Nonnull String email) throws Exception {
         return userDao.getUserByEmail(email);
     }
+
 
     @Override
     public User save(@Nonnull User object) {
@@ -43,6 +45,7 @@ public class DefaultUserService implements UserService {
     public Collection<User> getAll() {
         return userDao.getAll();
     }
+
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

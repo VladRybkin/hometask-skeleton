@@ -31,7 +31,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getById(@Nonnull Long id) {
-
         return users.get(id);
     }
 
@@ -43,14 +42,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) throws Exception {
-        Optional<User> optionalUser = users.values().stream().filter(user -> user.getEmail().equals(email)).findAny();
-        User user;
-        if (optionalUser.isPresent()) {
-            user = optionalUser.get();
-        } else {
-            throw new UserNotFoundException("User with Email " + email + " not found");
-        }
-        return user;
-
+        return users.values().stream().filter(user -> user.getEmail().equals(email)).findAny().orElse(null);
     }
 }

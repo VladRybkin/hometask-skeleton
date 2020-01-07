@@ -31,7 +31,7 @@ class DefaultEventServiceTest {
 
     private Event testEvent;
 
-    private static Long ID;
+    private static Long ID = 666L;
 
     private static LocalDate localDateFrom;
 
@@ -43,7 +43,7 @@ class DefaultEventServiceTest {
 
     @BeforeEach
     void setUp() {
-        ID = 666L;
+
         testEvent = new Event(TEST_EVENT_NAME);
         localDateFrom = LocalDate.now().minusDays(5);
         localDateTo = LocalDate.now();
@@ -59,7 +59,7 @@ class DefaultEventServiceTest {
 
     @Test
     void getForDateRange() {
-        Set<Event>events=new HashSet<>();
+        Set<Event> events = new HashSet<>();
         lenient().when(eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now()))
                 .thenReturn(events);
         eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now());

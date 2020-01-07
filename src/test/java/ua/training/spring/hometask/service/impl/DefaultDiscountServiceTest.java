@@ -1,6 +1,8 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,18 +15,19 @@ import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 import ua.training.spring.hometask.service.strategy.TenthTicketStrategy;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class DefaultDiscountServiceTest {
 
+
+    private DiscountStrategy birthdayStrategy = new BirthdayDiscountStrategy();
+
+    private DiscountStrategy tenthTicketStrategy = new TenthTicketStrategy();
+
     private DiscountService discountService;
-
-    private DiscountStrategy birthdayStrategy;
-
-    private DiscountStrategy tenthTicketStrategy;
 
     private Event testEvent;
 
@@ -43,24 +46,18 @@ class DefaultDiscountServiceTest {
     private static final double ZERO_DISCOUNT = 0;
 
 
-
-
     @BeforeEach
     void setUp() {
-
-        birthdayStrategy = new BirthdayDiscountStrategy();
-        tenthTicketStrategy = new TenthTicketStrategy();
 
         ((TenthTicketStrategy) tenthTicketStrategy).setTenthTicketDiscount(TENTH_TICKET_STRATEGY_DISCOUNT_VALUE);
         ((BirthdayDiscountStrategy) birthdayStrategy).setBirthdayDiscount(BIRTHDAY_STRATEGY_DISCOUNT_VALUE);
 
         testEvent = new Event("testname");
 
+
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
 
         discountService = new DefaultDiscountService(discountStrategies);
-
-
     }
 
     @Test
@@ -68,7 +65,6 @@ class DefaultDiscountServiceTest {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
         assertEquals(discountService.getDiscount(user), BIRTHDAY_DISCOUNT);
-
     }
 
     @Test
@@ -76,24 +72,29 @@ class DefaultDiscountServiceTest {
         User user = new User();
         addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertEquals(discountService.getDiscount(user), TENTH_TICKET_DISCOUNT);
-
     }
 
     @Test
-    void shouldReturnZeroDiscount() {
+    void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
+        user.setDateOfBirth(LocalDateTime.now().minusDays(10));
         addTickets(NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertEquals(discountService.getDiscount(user), ZERO_DISCOUNT);
-
     }
 
     @Test
-    void shouldChooseHigherDiscountStrategy() {
+    void shouldChooseBirthdayAsHigherDiscountStrategy() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
         addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertEquals(discountService.getDiscount(user), BIRTHDAY_DISCOUNT);
+    }
 
+    @Test
+    void shouldReturnZeroDiscountAsUserHasNoTickets() {
+        User user = new User();
+        user.setTickets(new TreeSet<>(ImmutableSet.of()));
+        assertEquals(discountService.getDiscount(user), ZERO_DISCOUNT);
     }
 
 
@@ -103,6 +104,5 @@ class DefaultDiscountServiceTest {
             tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, 100));
         }
         user.getTickets().addAll(tickets);
-
     }
 }

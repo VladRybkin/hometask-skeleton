@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.exceptions.EventNotFoundException;
 import ua.training.spring.hometask.service.EventService;
 
 import javax.annotation.Nonnull;
@@ -18,6 +19,7 @@ public class DefaultEventService implements EventService {
 
     @Autowired
     EventDao eventDao;
+
 
     @Nullable
     @Override
@@ -50,6 +52,7 @@ public class DefaultEventService implements EventService {
     @Override
     public Event getById(@Nonnull Long id) {
         return eventDao.getById(id);
+
     }
 
     @Nonnull
@@ -58,7 +61,11 @@ public class DefaultEventService implements EventService {
         return eventDao.getAll();
     }
 
+
+
     public void setEventDao(EventDao eventDao) {
         this.eventDao = eventDao;
     }
+
+
 }

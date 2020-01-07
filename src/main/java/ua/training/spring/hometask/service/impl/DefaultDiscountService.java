@@ -1,15 +1,13 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 
-import javax.annotation.Nonnull;
+
 import javax.annotation.Nullable;
-import java.time.LocalDateTime;
+
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.ToDoubleFunction;

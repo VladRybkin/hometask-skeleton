@@ -21,11 +21,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class DefaultUserServiceTest {
 
+    @InjectMocks
+    private UserService userService = new DefaultUserService();
 
     @Mock
     private UserDao userDao;
-    @InjectMocks
-    private UserService userService = new DefaultUserService();
 
     private static final String USER_EMAIL = "User@gmail.com";
 
