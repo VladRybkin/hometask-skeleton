@@ -54,7 +54,6 @@ class DefaultDiscountServiceTest {
 
         testEvent = new Event("testname");
 
-
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
 
         discountService = new DefaultDiscountService(discountStrategies);
@@ -93,7 +92,8 @@ class DefaultDiscountServiceTest {
     @Test
     void shouldReturnZeroDiscountAsUserHasNoTickets() {
         User user = new User();
-        user.setTickets(new TreeSet<>(ImmutableSet.of()));
+        user.setTickets(new TreeSet<>());
+        assertEquals(user.getTickets().size(), Collections.emptyList().size());
         assertEquals(discountService.getDiscount(user), ZERO_DISCOUNT);
     }
 

@@ -52,7 +52,6 @@ class TenthTicketStrategyTest {
 
         addTickets(TICKETS_AMOUNT, testUserWithTenTickets);
 
-
     }
 
     @Test

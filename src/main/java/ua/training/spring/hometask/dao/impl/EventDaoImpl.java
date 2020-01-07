@@ -3,12 +3,11 @@ package ua.training.spring.hometask.dao.impl;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.exceptions.EventNotFoundException;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Predicate;
 
 
 @Component
@@ -48,21 +47,32 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public Set<Event> getForDateRange(LocalDate from, LocalDate to) {
+    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
         Set<Event> filteredEvents = new HashSet<>();
+        events.values().forEach(event -> event.getAirDates().stream()
+                .filter(filterAfterDate(from).and(filterBeforeDate(to))).map(localDate -> event)
+                .forEach(filteredEvents::add));
 
         return filteredEvents;
     }
 
+
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
         Set<Event> filteredEvents = new HashSet<>();
-
         events.values().forEach(event -> event.getAirDates().stream()
-                .filter(localDate -> localDate.isBefore(to)).map(localDate -> event)
+                .filter(filterBeforeDate(to)).map(localDate -> event)
                 .forEach(filteredEvents::add));
 
         return filteredEvents;
 
+    }
+
+    private Predicate<LocalDateTime> filterBeforeDate(LocalDateTime to) {
+        return localDate -> localDate.isBefore(to);
+    }
+
+    private Predicate<LocalDateTime> filterAfterDate(LocalDateTime from) {
+        return localDate -> localDate.isAfter(from);
     }
 }
