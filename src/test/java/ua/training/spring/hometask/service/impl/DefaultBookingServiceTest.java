@@ -54,7 +54,7 @@ class DefaultBookingServiceTest {
 
     @Test
     void getTicketsPrice() {
-        Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L);
+        Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         User testUserWithTenTickets = buildUserWithTicketAmount(10);
         System.out.println(bookingService.getTicketsPrice(testEvent, testUserWithTenTickets, seats));
 
@@ -127,13 +127,13 @@ class DefaultBookingServiceTest {
 
     private DiscountStrategy buildBirthdayTicketStrategy(){
         BirthdayDiscountStrategy discountStrategy=new BirthdayDiscountStrategy();
-        discountStrategy.setBirthdayDiscount(50);
+        discountStrategy.setBirthdayDiscount(10);
         return discountStrategy;
     }
 
     private DiscountStrategy buildTenthTicketStrategy(){
         TenthTicketStrategy discountStrategy=new TenthTicketStrategy();
-        discountStrategy.setTenthTicketDiscount(10);
+        discountStrategy.setTenthTicketDiscount(50);
         return discountStrategy;
     }
 }

@@ -31,7 +31,6 @@ class TenthTicketStrategyTest {
 
     private Event testEvent;
 
-    private NavigableSet<Ticket> tickets;
 
     private static final int TENTH_TICKET_DISCOUNT = 50;
 
@@ -48,7 +47,6 @@ class TenthTicketStrategyTest {
         testUserWithTenTickets = new User();
         testUserWithoutTenTickets = new User();
         testEvent = new Event("testname");
-        tickets = new TreeSet<>();
 
         addTickets(TICKETS_AMOUNT, testUserWithTenTickets);
 
