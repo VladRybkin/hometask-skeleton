@@ -14,7 +14,7 @@ import ua.training.spring.hometask.service.TicketService;
 
 import java.util.List;
 
-import static org.mockito.Mockito.lenient;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,7 +41,7 @@ public class DefaultTicketServiceTest {
 
     @Test
     void save() {
-        lenient().when(ticketService.save(testTicket)).thenReturn(testTicket);
+        when(ticketService.save(testTicket)).thenReturn(testTicket);
         ticketService.save(testTicket);
         verify(ticketDao).save(testTicket);
     }
@@ -62,7 +62,7 @@ public class DefaultTicketServiceTest {
     @Test
     void getAll() {
         List<Ticket> tickets = Lists.newArrayList();
-        lenient().when(ticketService.getAll()).thenReturn(tickets);
+        when(ticketService.getAll()).thenReturn(tickets);
         ticketService.getAll();
         verify(ticketDao).getAll();
     }

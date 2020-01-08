@@ -31,11 +31,11 @@ public class DefaultBookingService implements BookingService {
     @Autowired
     UserService userService;
 
-    @Autowired
-    EventService eventService;
+
+
 
     @Override
-    public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
+    public double getTicketsPrice(@Nonnull Event event,  @Nullable User user, @Nonnull Set<Long> seats) {
         double ratingBonus = getBonusForEventRating(event.getRating());
 
         NavigableSet<Ticket> tickets = user.getTickets()
@@ -112,4 +112,10 @@ public class DefaultBookingService implements BookingService {
     public void setDiscountService(DiscountService discountService) {
         this.discountService = discountService;
     }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+
 }

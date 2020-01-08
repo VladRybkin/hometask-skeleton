@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.exceptions.EventNotFoundException;
+
 import ua.training.spring.hometask.service.EventService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -29,7 +29,7 @@ public class DefaultEventService implements EventService {
 
     @Nonnull
     @Override
-    public Set<Event> getForDateRange(@Nonnull LocalDate from, @Nonnull LocalDate to) {
+    public Set<Event> getForDateRange(@Nonnull LocalDateTime from, @Nonnull LocalDateTime to) {
         return eventDao.getForDateRange(from, to);
     }
 
@@ -60,7 +60,6 @@ public class DefaultEventService implements EventService {
     public Collection<Event> getAll() {
         return eventDao.getAll();
     }
-
 
 
     public void setEventDao(EventDao eventDao) {

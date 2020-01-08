@@ -2,7 +2,6 @@ package ua.training.spring.hometask.service.strategy;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 
 import java.time.LocalDateTime;

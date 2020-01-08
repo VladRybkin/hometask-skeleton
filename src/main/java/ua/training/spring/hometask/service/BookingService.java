@@ -21,8 +21,7 @@ public interface BookingService {
      * @param event
      *            Event to get base ticket price, vip seats and other
      *            information
-     * @param dateTime
-     *            Date and time of event air
+
      * @param user
      *            User that buys ticket could be needed to calculate discount.
      *            Can be <code>null</code>
@@ -30,7 +29,7 @@ public interface BookingService {
      *            Set of seat numbers that user wants to buy
      * @return total price
      */
-    public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user,
+    public double getTicketsPrice(@Nonnull Event event, @Nullable User user,
             @Nonnull Set<Long> seats);
 
     /**

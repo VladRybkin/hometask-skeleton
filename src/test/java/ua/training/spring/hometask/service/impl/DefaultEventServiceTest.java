@@ -15,7 +15,7 @@ import ua.training.spring.hometask.service.EventService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,11 +34,7 @@ class DefaultEventServiceTest {
 
     private static Long ID = 666L;
 
-    private static LocalDate localDateFrom;
-
-    private static LocalDate localDateTo;
-
-    private static LocalDateTime localDateTimeNext;
+    private  LocalDateTime localDateTimeNext;
 
     private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
 
@@ -46,14 +42,14 @@ class DefaultEventServiceTest {
     void setUp() {
 
         testEvent = new Event(TEST_EVENT_NAME);
-        localDateFrom = LocalDate.now().minusDays(5);
-        localDateTo = LocalDate.now();
+        LocalDate localDateFrom = LocalDate.now().minusDays(5);
+        LocalDate localDateTo = LocalDate.now();
         localDateTimeNext = LocalDateTime.now().plusDays(5);
     }
 
     @Test
     void getByName() {
-        lenient().when(eventService.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
+        when(eventService.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
         eventService.getByName(TEST_EVENT_NAME);
         verify(eventDao).getByName(TEST_EVENT_NAME);
     }
@@ -61,23 +57,25 @@ class DefaultEventServiceTest {
     @Test
     void getForDateRange() {
         Set<Event> events = new HashSet<>();
-        lenient().when(eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now()))
+        LocalDateTime minusFiveDaysTime=LocalDateTime.now().minusDays(5);
+        LocalDateTime timeNow=LocalDateTime.now();
+       when(eventService.getForDateRange(minusFiveDaysTime, timeNow))
                 .thenReturn(events);
-        eventService.getForDateRange(LocalDate.now().minusDays(5), LocalDate.now());
-        verify(eventDao).getForDateRange(LocalDate.now().minusDays(5), LocalDate.now());
+        eventService.getForDateRange(minusFiveDaysTime, timeNow);
+        verify(eventDao).getForDateRange(minusFiveDaysTime, timeNow);
     }
 
     @Test
     void getNextEvents() {
         Set<Event> events = Sets.newHashSet();
-        lenient().when(eventService.getNextEvents(localDateTimeNext)).thenReturn(events);
+        when(eventService.getNextEvents(localDateTimeNext)).thenReturn(events);
         eventService.getNextEvents(localDateTimeNext);
         verify(eventDao).getNextEvents(localDateTimeNext);
     }
 
     @Test
     void save() {
-        lenient().when(eventService.save(testEvent)).thenReturn(testEvent);
+        when(eventService.save(testEvent)).thenReturn(testEvent);
         eventService.save(testEvent);
         verify(eventDao).save(testEvent);
     }
@@ -97,7 +95,7 @@ class DefaultEventServiceTest {
 
     @Test
     void getAll() {
-        lenient().when(eventService.getAll()).thenReturn(Lists.newArrayList());
+        when(eventService.getAll()).thenReturn(Lists.newArrayList());
         eventService.getAll();
         verify(eventDao).getAll();
     }

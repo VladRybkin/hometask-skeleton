@@ -14,6 +14,7 @@ public class TenthTicketStrategy implements DiscountStrategy {
     @Value("${tenthTicket.discount}")
     private int tenthTicketDiscount;
 
+
     @Override
     public double calculateDiscount(User user) {
 
