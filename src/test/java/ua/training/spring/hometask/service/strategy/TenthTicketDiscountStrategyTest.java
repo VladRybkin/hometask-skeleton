@@ -12,15 +12,12 @@ import ua.training.spring.hometask.domain.User;
 
 import java.time.LocalDateTime;
 
-import java.util.NavigableSet;
-import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class TenthTicketStrategyTest {
+class TenthTicketDiscountStrategyTest {
 
 
     private DiscountStrategy discountStrategy;
@@ -42,8 +39,8 @@ class TenthTicketStrategyTest {
     @BeforeEach()
     void setUp() {
 
-        discountStrategy = new TenthTicketStrategy();
-        ((TenthTicketStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
+        discountStrategy = new TenthTicketDiscountStrategy();
+        ((TenthTicketDiscountStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
         testUserWithTenTickets = new User();
         testUserWithoutTenTickets = new User();
         testEvent = new Event("testname");

@@ -3,17 +3,12 @@ package ua.training.spring.hometask;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.shell.Bootstrap;
 import ua.training.spring.hometask.domain.Auditorium;
 
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.DiscountService;
-import ua.training.spring.hometask.service.impl.DefaultBookingService;
-import ua.training.spring.hometask.service.impl.DefaultTicketService;
 import ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy;
-import ua.training.spring.hometask.service.strategy.DiscountStrategy;
-import ua.training.spring.hometask.service.strategy.TenthTicketStrategy;
-import ua.training.spring.hometask.shellCommands.UserCommand;
+import ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy;
 
 
 public class Main {
@@ -29,7 +24,7 @@ public class Main {
         DiscountService discountService = applicationContext.getBean(DiscountService.class);
         System.out.println(discountService);
         BirthdayDiscountStrategy birthdayDiscountStrategy=applicationContext.getBean(BirthdayDiscountStrategy.class);
-        TenthTicketStrategy tenthti=applicationContext.getBean(TenthTicketStrategy.class);
+        TenthTicketDiscountStrategy tenthti=applicationContext.getBean(TenthTicketDiscountStrategy.class);
         System.out.println(birthdayDiscountStrategy.getBirthdayDiscount());
         System.out.println(tenthti.getTenthTicketDiscount());
 

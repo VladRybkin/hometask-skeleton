@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NavigableSet;
 
 
-public class TenthTicketStrategy implements DiscountStrategy {
+public class TenthTicketDiscountStrategy implements DiscountStrategy {
 
     @Value("${tenthTicket.discount}")
     private int tenthTicketDiscount;

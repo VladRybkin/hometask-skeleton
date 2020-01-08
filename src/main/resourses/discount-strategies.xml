@@ -18,7 +18,7 @@
     </bean>
     <bean id="birthdayDiscountStrategy" class="ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy"/>
 
-    <bean id="tenthTicketDiscountStrategy" class="ua.training.spring.hometask.service.strategy.TenthTicketStrategy"/>
+    <bean id="tenthTicketDiscountStrategy" class="ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy"/>
 
     <bean id="discountService" class="ua.training.spring.hometask.service.impl.DefaultDiscountService">
         <property name="discountStrategies" ref="discountStrategies"/>

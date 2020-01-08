@@ -9,7 +9,6 @@ import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.DiscountService;
-import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
@@ -34,8 +33,6 @@ public class DefaultBookingService implements BookingService {
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
-        double ratingBonus = getBonusForEventRating(event.getRating());
-
         NavigableSet<Ticket> filteredTickets = user.getTickets()
                 .stream()
                 .filter(eventFilter(event)
@@ -44,9 +41,8 @@ public class DefaultBookingService implements BookingService {
 
         double totalPrize = getTotalPrize(filteredTickets);
         double discount = discountService.getDiscount(user, filteredTickets);
-        double finalPrize = applyDiscounts(totalPrize, discount);
 
-        return finalPrize;
+        return applyDiscounts(totalPrize, discount);
     }
 
 
