@@ -62,14 +62,14 @@ class DefaultDiscountServiceTest {
     void shouldChooseBirthdayStrategyDiscount() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
-        assertEquals(discountService.getDiscount(user), BIRTHDAY_DISCOUNT);
+        assertEquals(discountService.getDiscount(user, user.getTickets()), BIRTHDAY_DISCOUNT);
     }
 
     @Test
     void shouldChooseTenthTicketStrategy() {
         User user = new User();
         addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertEquals(discountService.getDiscount(user), TENTH_TICKET_DISCOUNT);
+        assertEquals(discountService.getDiscount(user, user.getTickets()), TENTH_TICKET_DISCOUNT);
     }
 
     @Test
@@ -77,7 +77,7 @@ class DefaultDiscountServiceTest {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now().minusDays(10));
         addTickets(NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertEquals(discountService.getDiscount(user), ZERO_DISCOUNT);
+        assertEquals(discountService.getDiscount(user, user.getTickets()), ZERO_DISCOUNT);
     }
 
     @Test
@@ -85,7 +85,7 @@ class DefaultDiscountServiceTest {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
         addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertEquals(discountService.getDiscount(user), BIRTHDAY_DISCOUNT);
+        assertEquals(discountService.getDiscount(user, user.getTickets()), BIRTHDAY_DISCOUNT);
     }
 
     @Test
@@ -93,7 +93,7 @@ class DefaultDiscountServiceTest {
         User user = new User();
         user.setTickets(new TreeSet<>());
         assertEquals(user.getTickets().size(), Collections.emptyList().size());
-        assertEquals(discountService.getDiscount(user), ZERO_DISCOUNT);
+        assertEquals(discountService.getDiscount(user, user.getTickets()), ZERO_DISCOUNT);
     }
 
 

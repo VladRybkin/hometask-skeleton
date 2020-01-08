@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.strategy.DiscountStrategy;
@@ -8,6 +9,7 @@ import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 
 import javax.annotation.Nullable;
 
+import java.util.NavigableSet;
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.ToDoubleFunction;
@@ -26,9 +28,9 @@ public class DefaultDiscountService implements DiscountService {
     }
 
     @Override
-    public double getDiscount(@Nullable User user) {
+    public double getDiscount(@Nullable User user, NavigableSet<Ticket>tickets) {
         double discount = 0;
-        OptionalDouble optionalDiscount = discountStrategies.stream().mapToDouble(getDiscountStrategyToDoubleFunction(user)).max();
+        OptionalDouble optionalDiscount = discountStrategies.stream().mapToDouble(getDiscountStrategyToDoubleFunction(user, tickets)).max();
         if (optionalDiscount.isPresent()) {
             discount = optionalDiscount.getAsDouble();
         }
@@ -36,8 +38,8 @@ public class DefaultDiscountService implements DiscountService {
         return discount;
     }
 
-    private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(@Nullable User user) {
-        return strategy -> strategy.calculateDiscount(user);
+    private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(User user, NavigableSet<Ticket>tickets ) {
+        return strategy -> strategy.calculateDiscount(user, tickets);
     }
 
     public void setDiscountStrategies(Set<DiscountStrategy> discountStrategies) {

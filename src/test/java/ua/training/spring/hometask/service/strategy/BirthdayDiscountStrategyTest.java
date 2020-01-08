@@ -43,12 +43,12 @@ class BirthdayDiscountStrategyTest {
 
     @Test
     void ShouldCalculateDiscountForUserWithBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithBirthday), BIRTHDAY_DISCOUNT);
+        assertEquals(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), BIRTHDAY_DISCOUNT);
 
     }
 
     @Test
     void ShouldCalculateDiscountForUserWithoutBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithoutBirthday), ZERO_DISCOUNT);
+        assertEquals(discountStrategy.calculateDiscount(testUserWithoutBirthday, testUserWithoutBirthday.getTickets()), ZERO_DISCOUNT);
     }
 }

@@ -57,7 +57,7 @@ class TenthTicketStrategyTest {
     @Test
     void calculateDiscountWithTenTickets() {
         assertEquals(testUserWithTenTickets.getTickets().size(), TICKETS_AMOUNT);
-        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets), 5);
+        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets, testUserWithTenTickets.getTickets()), 5);
 
     }
 

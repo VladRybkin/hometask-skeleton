@@ -1,12 +1,14 @@
 package ua.training.spring.hometask.service.strategy;
 
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Value;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableSet;
 
 
 public class TenthTicketStrategy implements DiscountStrategy {
@@ -16,24 +18,25 @@ public class TenthTicketStrategy implements DiscountStrategy {
 
 
     @Override
-    public double calculateDiscount(User user) {
+    public double calculateDiscount(User user,NavigableSet<Ticket> tickets) {
 
-        List<Ticket> userTickets = new ArrayList<>(user.getTickets());
-        double totalPrize = userTickets.stream().mapToDouble(Ticket::getBasePrice).sum();
-        applyDiscounts(userTickets);
-        double totalPrizeWithDiscount = userTickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+
+        double totalPrize = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+        applyDiscounts(tickets);
+        double totalPrizeWithDiscount = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
 
         return calculatePercentDifference(totalPrize, totalPrizeWithDiscount);
     }
 
-    private void applyDiscounts(List<Ticket> userTickets) {
+    private void applyDiscounts(NavigableSet<Ticket> userTickets) {
+        List<Ticket>ticketsList= Lists.newArrayList(userTickets);
         int ticketCount = userTickets.size();
 
         if (ticketCount >= 10) {
 
             for (int i = 0; i < ticketCount; i++) {
                 if (i % 10 == 0) {
-                    userTickets.get(i).setBasePrice(calculateFiftyPercentDiscount(userTickets.get(i)));
+                    ticketsList.get(i).setBasePrice(calculateFiftyPercentDiscount(ticketsList.get(i)));
                 }
             }
         }

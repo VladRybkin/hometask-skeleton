@@ -2,9 +2,11 @@ package ua.training.spring.hometask.service.strategy;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 
 import java.time.LocalDateTime;
+import java.util.NavigableSet;
 
 
 public class BirthdayDiscountStrategy implements DiscountStrategy {
@@ -13,7 +15,7 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
     private int birthdayDiscount;
 
     @Override
-    public double calculateDiscount(User user) {
+    public double calculateDiscount(User user, NavigableSet<Ticket>tickets) {
         LocalDateTime dateOfBirth = user.getDateOfBirth();
         int discount = 0;
         if (dateOfBirth != null) {

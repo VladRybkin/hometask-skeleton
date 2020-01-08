@@ -32,21 +32,18 @@ public class DefaultBookingService implements BookingService {
     UserService userService;
 
 
-
-
     @Override
-    public double getTicketsPrice(@Nonnull Event event,  @Nullable User user, @Nonnull Set<Long> seats) {
+    public double getTicketsPrice(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
         double ratingBonus = getBonusForEventRating(event.getRating());
 
-        NavigableSet<Ticket> tickets = user.getTickets()
+        NavigableSet<Ticket> filteredTickets = user.getTickets()
                 .stream()
                 .filter(eventFilter(event)
                         .and(seatsFilter(seats)))
                 .collect(Collectors.toCollection(TreeSet::new));
-        int ticketsAmount = tickets.size();
 
-        double totalPrize = getTotalPrize(event.getBasePrice(), ratingBonus, ticketsAmount);
-        double discount = discountService.getDiscount(user);
+        double totalPrize = getTotalPrize(filteredTickets);
+        double discount = discountService.getDiscount(user, filteredTickets);
         double finalPrize = applyDiscounts(totalPrize, discount);
 
         return finalPrize;
@@ -93,6 +90,12 @@ public class DefaultBookingService implements BookingService {
         return finalPrize;
     }
 
+
+    private double getTotalPrize(NavigableSet<Ticket> tickets) {
+
+        return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+    }
+
     private Predicate<Ticket> eventFilter(@Nonnull Event event) {
         return ticket -> ticket.getEvent().equals(event);
     }
@@ -103,10 +106,6 @@ public class DefaultBookingService implements BookingService {
 
     private Consumer<Ticket> setUserToTicket(User user) {
         return ticket -> ticket.setUser(user);
-    }
-
-    private double getTotalPrize(double basePrice, double ratingBonus, double size) {
-        return (basePrice * ratingBonus) * size;
     }
 
     public void setDiscountService(DiscountService discountService) {
