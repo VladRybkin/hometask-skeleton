@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultAuditoriumServiceTest {
+ class DefaultAuditoriumServiceTest {
 
 
     private AuditoriumService auditoriumService;

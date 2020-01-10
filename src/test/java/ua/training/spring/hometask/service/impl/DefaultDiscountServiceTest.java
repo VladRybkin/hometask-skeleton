@@ -21,6 +21,7 @@ import java.util.stream.IntStream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class DefaultDiscountServiceTest {
@@ -38,7 +39,7 @@ class DefaultDiscountServiceTest {
 
     private static final double TENTH_TICKET_DISCOUNT = 5;
 
-    private static final int FOR_TENTH_TICKET_STRATEGY_AMOUNT = 20;
+    private static final int ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT = 20;
 
     private static final int NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT = 9;
 
@@ -70,11 +71,12 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
-    void shouldChooseTenthTicketStrategy() {
+    void shouldChooseTenthTicketStrategyDiscount() {
         User user = new User();
-        addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
+        addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertThat(discountService.getDiscount(user, user.getTickets()),is( TENTH_TICKET_DISCOUNT));
     }
+
 
     @Test
     void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
@@ -85,10 +87,17 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
+    void shouldReturnZeroDiscountIfBirthdayIsNull() {
+        User user = new User();
+        assertNull(user.getDateOfBirth());
+        assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
+    }
+
+    @Test
     void shouldChooseBirthdayAsHigherDiscountStrategy() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
-        addTickets(FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
+        addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertThat(discountService.getDiscount(user, user.getTickets()), is(BIRTHDAY_DISCOUNT));
     }
 
@@ -99,6 +108,7 @@ class DefaultDiscountServiceTest {
         assertThat(user.getTickets().size(), is( Collections.emptyList().size()));
         assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
     }
+
 
 
 

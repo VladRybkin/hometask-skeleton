@@ -40,7 +40,6 @@ class TenthTicketDiscountStrategyTest {
         discountStrategy = new TenthTicketDiscountStrategy();
         ((TenthTicketDiscountStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
 
-
     }
 
     @Test
@@ -78,12 +77,12 @@ class TenthTicketDiscountStrategyTest {
 
     private void addTickets(int amount, User user) {
         Set<Ticket> tickets = Sets.newHashSet();
-        IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets, TICKET_BASE_PRICE));
+        IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets));
         user.getTickets().addAll(tickets);
 
     }
 
-    private IntConsumer addTicket(User user, Set<Ticket> tickets, int basePrice) {
+    private IntConsumer addTicket(User user, Set<Ticket> tickets) {
         return i -> tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, TICKET_BASE_PRICE));
     }
 }

@@ -46,7 +46,6 @@ class BirthdayDiscountStrategyTest {
     @Test
     void ShouldCalculateDiscountForUserWithBirthday() {
         assertThat(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), is(BIRTHDAY_DISCOUNT));
-
     }
 
     @Test
