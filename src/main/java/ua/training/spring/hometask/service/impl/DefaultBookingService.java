@@ -10,6 +10,7 @@ import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.DiscountService;
+import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,8 @@ public class DefaultBookingService implements BookingService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TicketService ticketService;
 
 
     @Override
@@ -45,21 +48,14 @@ public class DefaultBookingService implements BookingService {
     }
 
 
-    private Ticket createTicket(Event event, Long seat) {
-        Ticket ticket = new Ticket();
-        double eventBonus = getBonusForEventRating(event.getRating());
-        ticket.setEvent(event);
-        ticket.setBasePrice(event.getBasePrice() * eventBonus);
-        ticket.setSeat(seat);
-        return ticket;
-
-    }
 
 
+    //should be added annotation transaction for correct tickets.saveALL for one commit
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
         user.getTickets().addAll(tickets);
         tickets.forEach(setUserToTicket(user));
+        tickets.forEach(ticket -> ticketService.save(ticket));
         userService.save(user);
 
     }
@@ -70,6 +66,17 @@ public class DefaultBookingService implements BookingService {
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
 
         return null;
+    }
+
+
+    private Ticket createTicket(Event event, Long seat) {
+        Ticket ticket = new Ticket();
+        double eventBonus = getBonusForEventRating(event.getRating());
+        ticket.setEvent(event);
+        ticket.setBasePrice(event.getBasePrice() * eventBonus);
+        ticket.setSeat(seat);
+        return ticket;
+
     }
 
     private double getBonusForEventRating(EventRating eventRating) {

@@ -9,14 +9,14 @@ import java.util.Collection;
 public interface AbstractDomainObjectDao<T extends DomainObject> {
 
 
-    public T save(@Nonnull T object);
+    public T save(T object);
 
     /**
      * Removing object from storage
      *
      * @param object Object to remove
      */
-    public void remove(@Nonnull T object);
+    public void remove( T object);
 
     /**
      * Getting object by id from storage
@@ -24,14 +24,14 @@ public interface AbstractDomainObjectDao<T extends DomainObject> {
      * @param id id of the object
      * @return Found object or <code>null</code>
      */
-    public T getById(@Nonnull Long id);
+    public T getById( Long id);
 
     /**
      * Getting all objects from storage
      *
      * @return collection of objects
      */
-    public @Nonnull
+    public
     Collection<T> getAll();
 
 }

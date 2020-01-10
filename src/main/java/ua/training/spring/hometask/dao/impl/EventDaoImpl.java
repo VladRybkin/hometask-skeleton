@@ -16,7 +16,7 @@ public class EventDaoImpl implements EventDao {
     private static final Map<Long, Event> events = new HashMap<>();
 
     @Override
-    public Event save(@Nonnull Event object) {
+    public Event save( Event object) {
         object.setId((long) (events.size() + 1));
         events.put(object.getId(), object);
         return object;
@@ -24,12 +24,12 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public void remove(@Nonnull Event object) {
+    public void remove(Event object) {
         events.remove(object.getId());
     }
 
     @Override
-    public Event getById(@Nonnull Long id) {
+    public Event getById( Long id) {
         return events.get(id);
 
     }

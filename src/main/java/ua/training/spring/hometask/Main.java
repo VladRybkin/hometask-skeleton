@@ -20,14 +20,7 @@ public class Main {
                 "discount-strategies.xml");
         //        Bootstrap.main(args);
         Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
-        AuditoriumService auditoriumService = applicationContext.getBean(AuditoriumService.class);
-        System.out.println(auditoriumService.getAll());
-        DiscountService discountService = applicationContext.getBean(DiscountService.class);
-        System.out.println(discountService);
-        BirthdayDiscountStrategy birthdayDiscountStrategy = applicationContext.getBean(BirthdayDiscountStrategy.class);
-        TenthTicketDiscountStrategy tenthti = applicationContext.getBean(TenthTicketDiscountStrategy.class);
-        System.out.println(birthdayDiscountStrategy.getBirthdayDiscount());
-        System.out.println(tenthti.getTenthTicketDiscount());
+    
 
 
     }

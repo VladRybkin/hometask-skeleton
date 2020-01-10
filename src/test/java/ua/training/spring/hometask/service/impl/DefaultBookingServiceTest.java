@@ -3,7 +3,6 @@ package ua.training.spring.hometask.service.impl;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +20,6 @@ import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -35,11 +33,11 @@ class DefaultBookingServiceTest {
 
     private Event testHighRatingEvent;
 
-    private static final int BIRTHDAY_STRATEGY_DISCOUNT=10;
+    private static final int BIRTHDAY_STRATEGY_DISCOUNT = 10;
 
-    private static final int TENTH_TICKET_STRATEGY_DISCOUNT=50;
+    private static final int TENTH_TICKET_STRATEGY_DISCOUNT = 50;
 
-    private static final double TICKET_BASE_PRICE =100;
+    private static final double TICKET_BASE_PRICE = 100;
 
 
     @BeforeEach()
@@ -165,7 +163,6 @@ class DefaultBookingServiceTest {
 
         return user;
     }
-
 
 
     private void addTickets(int amount, User user, Event event) {
