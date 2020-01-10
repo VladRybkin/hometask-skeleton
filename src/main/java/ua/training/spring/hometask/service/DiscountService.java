@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service;
 
 import java.time.LocalDateTime;
 import java.util.NavigableSet;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,6 +24,6 @@ public interface DiscountService {
      *            User that buys tickets. Can be <code>null</code>
 
      */
-    double getDiscount(@Nullable User user, NavigableSet<Ticket>tickets);
+    double getDiscount(@Nullable User user, Set<Ticket> tickets);
 
 }

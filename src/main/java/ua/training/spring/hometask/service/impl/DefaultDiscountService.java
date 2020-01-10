@@ -28,7 +28,7 @@ public class DefaultDiscountService implements DiscountService {
     }
 
     @Override
-    public double getDiscount(@Nullable User user, NavigableSet<Ticket>tickets) {
+    public double getDiscount(@Nullable User user, Set<Ticket>tickets) {
         double discount = 0;
         OptionalDouble optionalDiscount = discountStrategies.stream().mapToDouble(getDiscountStrategyToDoubleFunction(user, tickets)).max();
         if (optionalDiscount.isPresent()) {
@@ -38,7 +38,7 @@ public class DefaultDiscountService implements DiscountService {
         return discount;
     }
 
-    private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(User user, NavigableSet<Ticket>tickets ) {
+    private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(User user, Set<Ticket>tickets ) {
         return strategy -> strategy.calculateDiscount(user, tickets);
     }
 

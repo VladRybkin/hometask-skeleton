@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.domain.Event;
@@ -15,6 +16,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.NavigableSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Consumer;
@@ -32,17 +34,24 @@ public class DefaultBookingService implements BookingService {
 
 
     @Override
-    public double getTicketsPrice(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
-        NavigableSet<Ticket> filteredTickets = user.getTickets()
-                .stream()
-                .filter(eventFilter(event)
-                        .and(seatsFilter(seats)))
-                .collect(Collectors.toCollection(TreeSet::new));
+    public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
+        Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
 
-        double totalPrize = getTotalPrize(filteredTickets);
-        double discount = discountService.getDiscount(user, filteredTickets);
+        double totalPrize = getTotalPrize(tickets);
+        double discount = discountService.getDiscount(user, tickets);
 
         return applyDiscounts(totalPrize, discount);
+    }
+
+
+    private Ticket createTicket(Event event, Long seat) {
+        Ticket ticket = new Ticket();
+        double eventBonus = getBonusForEventRating(event.getRating());
+        ticket.setEvent(event);
+        ticket.setBasePrice(event.getBasePrice() * eventBonus);
+        ticket.setSeat(seat);
+        return ticket;
+
     }
 
 
@@ -63,16 +72,17 @@ public class DefaultBookingService implements BookingService {
     }
 
     private double getBonusForEventRating(EventRating eventRating) {
-        if (eventRating.equals(EventRating.LOW)) {
+        if (Objects.equals(eventRating, EventRating.LOW)) {
             return 1;
         }
-        if (eventRating.equals(EventRating.MID)) {
+        if (Objects.equals(eventRating, EventRating.MID)) {
             return 1.5;
         }
-        if (eventRating.equals(EventRating.HIGH)) {
+        if (Objects.equals(eventRating, EventRating.HIGH)) {
+
             return 2;
         } else {
-            return 0;
+            return 1;
         }
     }
 
@@ -87,7 +97,7 @@ public class DefaultBookingService implements BookingService {
     }
 
 
-    private double getTotalPrize(NavigableSet<Ticket> tickets) {
+    private double getTotalPrize(Set<Ticket> tickets) {
 
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
     }

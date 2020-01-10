@@ -13,7 +13,11 @@ import ua.training.spring.hometask.domain.User;
 import java.time.LocalDateTime;
 
 import java.util.Set;
+import java.util.function.IntConsumer;
+import java.util.stream.IntStream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,18 +26,12 @@ class TenthTicketDiscountStrategyTest {
 
     private DiscountStrategy discountStrategy;
 
-    private User testUserWithTenTickets;
 
-    private User testUserWithoutTenTickets;
+    private Event testEvent = new Event("test");
 
-    private Event testEvent;
-
+    private static final int TICKET_BASE_PRICE = 100;
 
     private static final int TENTH_TICKET_DISCOUNT = 50;
-
-    private static final int TICKETS_AMOUNT = 10;
-
-    private static final Integer ZERO_DISCOUNT = 0;
 
 
     @BeforeEach()
@@ -41,33 +39,51 @@ class TenthTicketDiscountStrategyTest {
 
         discountStrategy = new TenthTicketDiscountStrategy();
         ((TenthTicketDiscountStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
-        testUserWithTenTickets = new User();
-        testUserWithoutTenTickets = new User();
-        testEvent = new Event("testname");
 
-        addTickets(TICKETS_AMOUNT, testUserWithTenTickets);
 
     }
 
     @Test
     void calculateDiscountWithTenTickets() {
-        assertEquals(testUserWithTenTickets.getTickets().size(), TICKETS_AMOUNT);
-        assertEquals(discountStrategy.calculateDiscount(testUserWithTenTickets, testUserWithTenTickets.getTickets()), 5);
+        User user = new User();
+        int ticketAmount = 10;
+        double expected_discountForAtLeastTenthTickets = 5;
+        addTickets(ticketAmount, user);
+
+        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
 
     }
 
     @Test
-    void calculateDiscountWithoutTenTickers() {
-        assertEquals(testUserWithoutTenTickets.getTickets().size(), ZERO_DISCOUNT);
-        assertEquals(testUserWithoutTenTickets.getTickets().size(), ZERO_DISCOUNT);
+    void calculateDiscountWithManyTickets() {
+        User user = new User();
+        int ticketAmount = 100;
+        double expected_discountForAtHundredTickets = 5;
+        addTickets(ticketAmount, user);
+
+        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtHundredTickets));
+
+    }
+
+    @Test
+    void calculateDiscountWitZeroTickers() {
+        User user = new User();
+        int ticketAmount = 0;
+        double expected_discountForAtLeastTenthTickets = 0;
+        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
     }
 
     private void addTickets(int amount, User user) {
-        Set<Ticket> tickets = Sets.newTreeSet();
-        for (int i = 1; i <= amount; i++) {
-            tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, 100));
-        }
+        Set<Ticket> tickets = Sets.newHashSet();
+        IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets, TICKET_BASE_PRICE));
         user.getTickets().addAll(tickets);
 
+    }
+
+    private IntConsumer addTicket(User user, Set<Ticket> tickets, int basePrice) {
+        return i -> tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, TICKET_BASE_PRICE));
     }
 }

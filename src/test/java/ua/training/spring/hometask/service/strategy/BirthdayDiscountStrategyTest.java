@@ -8,6 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ class BirthdayDiscountStrategyTest {
 
     private Event testEvent;
 
-    private static final int BIRTHDAY_DISCOUNT = 10;
+    private static final double BIRTHDAY_DISCOUNT = 10;
 
     private static final double ZERO_DISCOUNT = 0;
 
@@ -33,7 +35,7 @@ class BirthdayDiscountStrategyTest {
     @BeforeEach()
     void setUp() {
         discountStrategy = new BirthdayDiscountStrategy();
-        ((BirthdayDiscountStrategy) discountStrategy).setBirthdayDiscount(BIRTHDAY_DISCOUNT);
+        ((BirthdayDiscountStrategy) discountStrategy).setBirthdayDiscount((int) BIRTHDAY_DISCOUNT);
         testUserWithBirthday = new User();
         testEvent = new Event();
         testUserWithoutBirthday = new User();
@@ -43,12 +45,12 @@ class BirthdayDiscountStrategyTest {
 
     @Test
     void ShouldCalculateDiscountForUserWithBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), BIRTHDAY_DISCOUNT);
+        assertThat(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), is(BIRTHDAY_DISCOUNT));
 
     }
 
     @Test
     void ShouldCalculateDiscountForUserWithoutBirthday() {
-        assertEquals(discountStrategy.calculateDiscount(testUserWithoutBirthday, testUserWithoutBirthday.getTickets()), ZERO_DISCOUNT);
+        assertThat(discountStrategy.calculateDiscount(testUserWithoutBirthday, testUserWithoutBirthday.getTickets()), is(ZERO_DISCOUNT));
     }
 }

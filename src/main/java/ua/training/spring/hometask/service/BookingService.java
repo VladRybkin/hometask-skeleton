@@ -29,7 +29,7 @@ public interface BookingService {
      *            Set of seat numbers that user wants to buy
      * @return total price
      */
-    public double getTicketsPrice(@Nonnull Event event, @Nullable User user,
+    public double getTicketsPrice(@Nonnull Event event, @Nonnull User user,
             @Nonnull Set<Long> seats);
 
     /**

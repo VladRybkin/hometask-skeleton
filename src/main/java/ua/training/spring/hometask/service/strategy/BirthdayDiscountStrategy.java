@@ -7,6 +7,8 @@ import ua.training.spring.hometask.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.NavigableSet;
+import java.util.Objects;
+import java.util.Set;
 
 
 public class BirthdayDiscountStrategy implements DiscountStrategy {
@@ -15,10 +17,10 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
     private int birthdayDiscount;
 
     @Override
-    public double calculateDiscount(User user, NavigableSet<Ticket>tickets) {
+    public double calculateDiscount(User user, Set<Ticket> tickets) {
         LocalDateTime dateOfBirth = user.getDateOfBirth();
         int discount = 0;
-        if (dateOfBirth != null) {
+        if (!Objects.isNull(dateOfBirth) ) {
             if (dateOfBirth.getMonth().equals(LocalDateTime.now().getMonth()) &
                     Integer.valueOf(dateOfBirth.getDayOfMonth()).equals(LocalDateTime.now().getDayOfMonth())) {
                 discount = birthdayDiscount;

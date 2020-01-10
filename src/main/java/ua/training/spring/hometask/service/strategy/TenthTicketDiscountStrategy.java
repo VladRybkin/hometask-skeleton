@@ -9,6 +9,7 @@ import ua.training.spring.hometask.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NavigableSet;
+import java.util.Set;
 
 
 public class TenthTicketDiscountStrategy implements DiscountStrategy {
@@ -18,8 +19,7 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
 
 
     @Override
-    public double calculateDiscount(User user,NavigableSet<Ticket> tickets) {
-
+    public double calculateDiscount(User user, Set<Ticket> tickets) {
 
         double totalPrize = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
         applyDiscounts(tickets);
@@ -28,8 +28,8 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
         return calculatePercentDifference(totalPrize, totalPrizeWithDiscount);
     }
 
-    private void applyDiscounts(NavigableSet<Ticket> userTickets) {
-        List<Ticket>ticketsList= Lists.newArrayList(userTickets);
+    private void applyDiscounts(Set<Ticket> userTickets) {
+        List<Ticket> ticketsList = Lists.newArrayList(userTickets);
         int ticketCount = userTickets.size();
 
         if (ticketCount >= 10) {

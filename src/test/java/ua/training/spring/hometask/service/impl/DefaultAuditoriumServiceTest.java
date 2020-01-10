@@ -12,13 +12,12 @@ import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.exceptions.AuditoriumNotFoundException;
 import ua.training.spring.hometask.service.AuditoriumService;
 
-import java.util.Collections;
+
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -55,8 +54,8 @@ public class DefaultAuditoriumServiceTest {
 
     @Test
     void getByName() {
-        assertEquals(auditoriumService.getByName(FIRST_AUDITORIUM_NAME), firstAuditorium);
-        assertEquals(auditoriumService.getByName(SECOND_AUDITORIUM_NAME), secondAuditorium);
+        assertThat(auditoriumService.getByName(FIRST_AUDITORIUM_NAME), is(firstAuditorium));
+        assertThat(auditoriumService.getByName(SECOND_AUDITORIUM_NAME), is(secondAuditorium));
     }
 
     @Test

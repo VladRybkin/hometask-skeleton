@@ -3,6 +3,7 @@ package ua.training.spring.hometask.service.impl;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,8 @@ import ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -39,16 +42,15 @@ class DefaultBookingServiceTest {
 
         testEvent = buildTestEventWithHighRating();
 
-
     }
 
     @Test
     void shouldCalculateTotalPrizeWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
-        User testUserWithTenTickets = buildUserWithTicketAmount(10);
+        User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
         double price = bookingService.getTicketsPrice(testEvent, testUserWithTenTickets, seats);
-        assertEquals(price, expectedPriceWithoutDiscount);
+        assertThat(price, is(expectedPriceWithoutDiscount));
 
     }
 
@@ -56,28 +58,28 @@ class DefaultBookingServiceTest {
     void shouldCalculateTotalPrizeWithTenTicketsDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
-        User testUserWithTenTickets = buildUserWithTicketAmount(10);
+        User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
         double price = bookingService.getTicketsPrice(testEvent, testUserWithTenTickets, seats);
-        assertEquals(price, expectedPriceWithTenthTicketsDiscount);
+        assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
     }
 
     @Test
     void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
         Set<Long> seats = Sets.newHashSet();
         double expectedPriceWithTenthTicketsDiscount = 0;
-        User testUserWithTenTickets = buildUserWithTicketAmount(10);
+        User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
         double price = bookingService.getTicketsPrice(testEvent, testUserWithTenTickets, seats);
-        assertEquals(price, expectedPriceWithTenthTicketsDiscount);
+        assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
     }
 
 
     @Test
     void shouldCalculateZeroTotalPriceForUserWithoutTickets() {
-        Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
+        Set<Long> seats = Sets.newHashSet();
+        User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(0);
         double expectedPriceWithTenthTicketsDiscount = 0;
-        User testUserWithTenTickets = buildUserWithTicketAmount(0);
         double price = bookingService.getTicketsPrice(testEvent, testUserWithTenTickets, seats);
-        assertEquals(price, expectedPriceWithTenthTicketsDiscount);
+        assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
     }
 
 
@@ -99,7 +101,7 @@ class DefaultBookingServiceTest {
         event.setId(1L);
         event.setName("testEvent");
         event.setBasePrice(100);
-        event.setRating(EventRating.HIGH);
+        event.setRating(EventRating.LOW);
 
         return event;
     }
@@ -133,11 +135,11 @@ class DefaultBookingServiceTest {
 
     }
 
-    private User buildUserWithTicketAmount(int amount) {
+    private User buildUserWithTicketAmountWithOneHundredPrice(int amount) {
         User user = new User();
         user.setFirstName("TestUser");
         LocalDateTime testDate = LocalDateTime.now();
-        Set<Ticket> tickets = Sets.newTreeSet();
+        Set<Ticket> tickets = Sets.newHashSet();
         for (int i = 1; i <= amount; i++) {
             tickets.add(new Ticket(user, testEvent, testDate, i, 100));
         }

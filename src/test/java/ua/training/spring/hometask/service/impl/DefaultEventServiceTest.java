@@ -32,9 +32,9 @@ class DefaultEventServiceTest {
 
     private Event testEvent;
 
-    private static Long ID = 666L;
+    private static final Long ID = 666L;
 
-    private  LocalDateTime localDateTimeNext;
+    private LocalDateTime localDateTimeNext;
 
     private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
 
@@ -42,8 +42,6 @@ class DefaultEventServiceTest {
     void setUp() {
 
         testEvent = new Event(TEST_EVENT_NAME);
-        LocalDate localDateFrom = LocalDate.now().minusDays(5);
-        LocalDate localDateTo = LocalDate.now();
         localDateTimeNext = LocalDateTime.now().plusDays(5);
     }
 
@@ -57,9 +55,9 @@ class DefaultEventServiceTest {
     @Test
     void getForDateRange() {
         Set<Event> events = new HashSet<>();
-        LocalDateTime minusFiveDaysTime=LocalDateTime.now().minusDays(5);
-        LocalDateTime timeNow=LocalDateTime.now();
-       when(eventService.getForDateRange(minusFiveDaysTime, timeNow))
+        LocalDateTime minusFiveDaysTime = LocalDateTime.now().minusDays(5);
+        LocalDateTime timeNow = LocalDateTime.now();
+        when(eventService.getForDateRange(minusFiveDaysTime, timeNow))
                 .thenReturn(events);
         eventService.getForDateRange(minusFiveDaysTime, timeNow);
         verify(eventDao).getForDateRange(minusFiveDaysTime, timeNow);
