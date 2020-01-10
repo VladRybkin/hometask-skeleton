@@ -33,6 +33,7 @@ public class DefaultBookingService implements BookingService {
     UserService userService;
 
 
+
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());

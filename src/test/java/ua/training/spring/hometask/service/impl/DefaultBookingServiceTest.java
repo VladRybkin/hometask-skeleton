@@ -35,11 +35,17 @@ class DefaultBookingServiceTest {
 
     private Event testHighRatingEvent;
 
+    private static final int BIRTHDAY_STRATEGY_DISCOUNT=10;
+
+    private static final int TENTH_TICKET_STRATEGY_DISCOUNT=50;
+
+    private static final double TICKET_BASE_PRICE =100;
+
 
     @BeforeEach()
     void setUp() {
-        DiscountStrategy birthdayStrategy = buildBirthdayTicketStrategy(10);
-        DiscountStrategy tenthTicketStrategy = buildTenthTicketStrategy(50);
+        DiscountStrategy birthdayStrategy = buildBirthdayTicketStrategy(BIRTHDAY_STRATEGY_DISCOUNT);
+        DiscountStrategy tenthTicketStrategy = buildTenthTicketStrategy(TENTH_TICKET_STRATEGY_DISCOUNT);
 
         DiscountService discountService = new DefaultDiscountService(Sets.newHashSet(birthdayStrategy, tenthTicketStrategy));
 
@@ -118,7 +124,7 @@ class DefaultBookingServiceTest {
         NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
 
         event.setName("testEvent");
-        event.setBasePrice(100);
+        event.setBasePrice(TICKET_BASE_PRICE);
         event.setRating(eventRating);
         return event;
     }
@@ -170,7 +176,7 @@ class DefaultBookingServiceTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets, Event event) {
-        return i -> tickets.add(new Ticket(user, event, LocalDateTime.now(), i, 100));
+        return i -> tickets.add(new Ticket(user, event, LocalDateTime.now(), i, TICKET_BASE_PRICE));
     }
 
 
