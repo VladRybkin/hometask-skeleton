@@ -14,12 +14,12 @@ public class Auditorium {
 
     private long numberOfSeats;
 
-    private Set<Long> vipSeats = Collections.emptySet();
+    private Set<String> vipSeats = Collections.emptySet();
 
     public Auditorium() {
     }
 
-    public Auditorium(String name, long numberOfSeats, Set<Long> vipSeats) {
+    public Auditorium(String name, long numberOfSeats, Set<String> vipSeats) {
         this.name = name;
         this.numberOfSeats = numberOfSeats;
         this.vipSeats = vipSeats;
@@ -56,11 +56,11 @@ public class Auditorium {
         return LongStream.range(1, numberOfSeats+1).boxed().collect(Collectors.toSet());
     }
 
-    public Set<Long> getVipSeats() {
+    public Set<String> getVipSeats() {
         return vipSeats;
     }
 
-    public void setVipSeats(Set<Long> vipSeats) {
+    public void setVipSeats(Set<String> vipSeats) {
         this.vipSeats = vipSeats;
     }
 

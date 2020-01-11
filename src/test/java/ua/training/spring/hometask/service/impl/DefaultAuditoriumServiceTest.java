@@ -43,8 +43,8 @@ class DefaultAuditoriumServiceTest {
 
     @BeforeEach()
     void setUp() {
-        firstAuditorium = new Auditorium(FIRST_AUDITORIUM_NAME, 60, Sets.newHashSet(1L, 2L));
-        secondAuditorium = new Auditorium(SECOND_AUDITORIUM_NAME, 50, Sets.newHashSet(3L, 4L));
+        firstAuditorium = new Auditorium(FIRST_AUDITORIUM_NAME, 60, Sets.newHashSet("1", "2"));
+        secondAuditorium = new Auditorium(SECOND_AUDITORIUM_NAME, 50, Sets.newHashSet("3", "4"));
         auditoriums = Sets.newHashSet(firstAuditorium, secondAuditorium);
         auditoriumService = new DefaultAuditoriumService(auditoriums);
     }
