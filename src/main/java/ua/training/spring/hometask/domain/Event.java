@@ -8,9 +8,7 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-/**
- * @author Yuriy_Tkach
- */
+
 public class Event extends DomainObject {
 
     private String name;

@@ -1,14 +1,11 @@
 package ua.training.spring.hometask.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.TreeSet;
 
-/**
- * @author Yuriy_Tkach
- */
 public class User extends DomainObject {
 
     private String firstName;

@@ -8,6 +8,7 @@ import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.service.UserService;
 
+
 @Component
 public class UserCommand implements CommandMarker {
 
@@ -15,7 +16,7 @@ public class UserCommand implements CommandMarker {
     private UserService userService;
 
 
-    @CliAvailabilityIndicator({ "print hello" })
+    @CliAvailabilityIndicator({"print hello"})
     public boolean isUserCommandsAvailable() {
         return true;
     }
@@ -28,4 +29,6 @@ public class UserCommand implements CommandMarker {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+
 }

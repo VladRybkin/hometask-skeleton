@@ -26,4 +26,5 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="ua.training.spring.hometask"/>
+    <context:property-placeholder location="classpath:local.properties"/>
 </beans>

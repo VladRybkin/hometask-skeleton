@@ -7,9 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
-/**
- * @author Yuriy_Tkach
- */
+
 public class Auditorium {
 
     private String name;

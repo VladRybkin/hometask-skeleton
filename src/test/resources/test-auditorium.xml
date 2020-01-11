@@ -25,15 +25,14 @@
 
 
     <bean id="auditorium1" class="ua.training.spring.hometask.domain.Auditorium">
-
         <property name="name" value="The first auditorium"/>
-        <property name="numberOfSeats" value="${first.auditorium.seats.number}"/>
+        <property name="numberOfSeats" value="50"/>
         <property name="vipSeats" ref="vipSeats"/>
     </bean>
 
     <bean id="auditorium2" class="ua.training.spring.hometask.domain.Auditorium">
         <property name="name" value="The second auditorium"/>
-        <property name="numberOfSeats" value="${second.auditorium.seats.number}"/>
+        <property name="numberOfSeats" value="40"/>
         <property name="vipSeats" ref="vipSeats"/>
     </bean>
 
