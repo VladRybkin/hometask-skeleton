@@ -33,7 +33,7 @@ public class Auditorium {
      * @return number of vip seats in request
      */
     public long countVipSeats(Collection<Long> seats) {
-        return seats.stream().filter(seat -> vipSeats.contains(seat)).count();
+        return seats.stream().filter(seat -> vipSeats.contains(String.valueOf(seat))).count();
     }
 
     public String getName() {
