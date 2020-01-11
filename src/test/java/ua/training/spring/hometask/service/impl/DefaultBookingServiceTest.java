@@ -132,12 +132,12 @@ class DefaultBookingServiceTest {
         Auditorium auditorium1 = new Auditorium();
         auditorium1.setName("auditorium1");
         auditorium1.setNumberOfSeats(60);
-        auditorium1.setVipSeats(Sets.newHashSet(1L, 2L, 3L));
+        auditorium1.setVipSeats(Sets.newHashSet("1", "2", "3"));
 
         Auditorium auditorium2 = new Auditorium();
         auditorium2.setName("auditorium2");
         auditorium2.setNumberOfSeats(50);
-        auditorium2.setVipSeats(Sets.newHashSet(4L, 5L, 6L));
+        auditorium2.setVipSeats(Sets.newHashSet("4","5", "6"));
         Map<LocalDateTime, Auditorium> auditoriumMap = Maps.newTreeMap();
         NavigableSet<LocalDateTime> airDates = initLocalDateTimes();
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium1));
