@@ -41,7 +41,7 @@ public class DefaultTicketServiceTest {
 
     @Test
     void save() {
-        when(ticketService.save(testTicket)).thenReturn(testTicket);
+
         ticketService.save(testTicket);
         verify(ticketDao).save(testTicket);
     }
@@ -54,15 +54,14 @@ public class DefaultTicketServiceTest {
 
     @Test
     void getById() {
-        when(ticketService.getById(ID)).thenReturn(testTicket);
+
         ticketService.getById(ID);
         verify(ticketDao).getById(ID);
     }
 
     @Test
     void getAll() {
-        List<Ticket> tickets = Lists.newArrayList();
-        when(ticketService.getAll()).thenReturn(tickets);
+
         ticketService.getAll();
         verify(ticketDao).getAll();
     }

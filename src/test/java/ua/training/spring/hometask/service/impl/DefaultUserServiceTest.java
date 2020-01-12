@@ -15,6 +15,8 @@ import ua.training.spring.hometask.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 
@@ -41,14 +43,12 @@ class DefaultUserServiceTest {
 
     @Test
     void getUserByEmail() throws Exception {
-        when(userService.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
         userService.getUserByEmail(USER_EMAIL);
         verify(userDao).getUserByEmail(USER_EMAIL);
     }
 
     @Test
     void save() {
-        when(userService.save(testUser)).thenReturn(testUser);
         userService.save(testUser);
         verify(userDao).save(testUser);
     }
@@ -61,15 +61,14 @@ class DefaultUserServiceTest {
 
     @Test
     void getById() {
-        when(userService.getById(ID)).thenReturn(testUser);
         userService.getById(ID);
         verify(userDao).getById(ID);
     }
 
     @Test
     void getAll() {
-        List<User> users = Lists.newArrayList();
-        when(userService.getAll()).thenReturn(users);
+
+
         userService.getAll();
         verify(userDao).getAll();
     }
