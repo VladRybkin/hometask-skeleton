@@ -41,14 +41,14 @@ class DefaultUserServiceTest {
 
     @Test
     void getUserByEmail() throws Exception {
-        lenient().when(userService.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
+        when(userService.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
         userService.getUserByEmail(USER_EMAIL);
         verify(userDao).getUserByEmail(USER_EMAIL);
     }
 
     @Test
     void save() {
-        lenient().when(userService.save(testUser)).thenReturn(testUser);
+        when(userService.save(testUser)).thenReturn(testUser);
         userService.save(testUser);
         verify(userDao).save(testUser);
     }
@@ -69,7 +69,7 @@ class DefaultUserServiceTest {
     @Test
     void getAll() {
         List<User> users = Lists.newArrayList();
-        lenient().when(userService.getAll()).thenReturn(users);
+        when(userService.getAll()).thenReturn(users);
         userService.getAll();
         verify(userDao).getAll();
     }
