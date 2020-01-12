@@ -9,9 +9,7 @@
 
 
 
-    <bean id="consoleCommands" class="org.springframework.shell.commands.ConsoleCommands"/>
-    <bean id="quitCommands" class="org.springframework.shell.commands.ExitCommands"/>
-    <bean id="helpCommands" class="org.springframework.shell.commands.HelpCommands"/>
+
 
 
     <import resource="classpath:auditorium.xml"/>
