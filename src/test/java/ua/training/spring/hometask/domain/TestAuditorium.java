@@ -11,9 +11,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-/**
- * @author Yuriy_Tkach
- */
+
 public class TestAuditorium {
 	
 	@Test

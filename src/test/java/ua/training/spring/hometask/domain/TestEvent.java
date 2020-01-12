@@ -13,9 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-/**
- * @author Yuriy_Tkach
- */
+
 public class TestEvent {
 
 	private Event event;
