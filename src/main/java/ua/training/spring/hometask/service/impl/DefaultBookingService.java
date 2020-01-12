@@ -65,7 +65,7 @@ public class DefaultBookingService implements BookingService {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
 
-        return null;
+        return ticketService.getPurchasedTicketsForEvent(event, dateTime) ;
     }
 
 

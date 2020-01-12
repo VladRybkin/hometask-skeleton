@@ -18,13 +18,13 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("auditorium.xml",
-                "discount-strategies.xml");
-//                Bootstrap.main(args);
-        Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
-        AuditoriumService auditoriumService = applicationContext.getBean(AuditoriumService.class);
-        System.out.println(applicationContext.getBean(UserCommand.class));
-        System.out.println(auditoriumService.getAll());
+//        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("auditorium.xml",
+//                "discount-strategies.xml", "META-INF/spring/spring-shell-plugin.xml");
+                Bootstrap.main(args);
+//        Auditorium auditorium = applicationContext.getBean("auditorium1", Auditorium.class);
+//        AuditoriumService auditoriumService = applicationContext.getBean(AuditoriumService.class);
+//        System.out.println(applicationContext.getBean(UserCommand.class));
+//        System.out.println(auditoriumService.getAll());
 
 
 

@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.UserDao;
@@ -42,7 +43,7 @@ public class DefaultUserService implements UserService {
     @Nonnull
     @Override
     public Collection<User> getAll() {
-        return userDao.getAll();
+        return Lists.newArrayList(userDao.getAll());
     }
 
 
