@@ -31,8 +31,7 @@ public class InitApplication {
     @Autowired
     private TicketService ticketService;
 
-    @Autowired
-    private BookingService bookingService;
+
 
     @PostConstruct
     void init() {
@@ -41,6 +40,7 @@ public class InitApplication {
         Event event = buildEvent();
         eventService.save(event);
         saveTickets(10, event);
+        System.out.println("init method executed");
 
     }
 
@@ -102,7 +102,5 @@ public class InitApplication {
         this.ticketService = ticketService;
     }
 
-    public void setBookingService(BookingService bookingService) {
-        this.bookingService = bookingService;
-    }
+
 }
