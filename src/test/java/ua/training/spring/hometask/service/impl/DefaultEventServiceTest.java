@@ -13,7 +13,6 @@ import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.HashSet;
