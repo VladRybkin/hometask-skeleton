@@ -42,7 +42,9 @@ class DefaultEventServiceTest {
     @BeforeEach
     void setUp() {
 
-        testEvent = new Event(TEST_EVENT_NAME);
+        testEvent = new Event();
+        testEvent.setName(TEST_EVENT_NAME);
+        testEvent.setId(ID);
         localDateTimeNext = LocalDateTime.now().plusDays(5);
     }
 
