@@ -106,16 +106,6 @@ class DefaultBookingServiceTest {
     }
 
 
-    @Test
-    void bookTickets() {
-
-    }
-
-    @Test
-    void getPurchasedTicketsForEvent() {
-    }
-
-
     private Event buildTestEventWithRating(EventRating eventRating) {
         Event event = new Event();
         NavigableSet<LocalDateTime> airDates = initLocalDateTimes();
@@ -137,7 +127,7 @@ class DefaultBookingServiceTest {
         Auditorium auditorium2 = new Auditorium();
         auditorium2.setName("auditorium2");
         auditorium2.setNumberOfSeats(50);
-        auditorium2.setVipSeats(Sets.newHashSet("4","5", "6"));
+        auditorium2.setVipSeats(Sets.newHashSet("4", "5", "6"));
         Map<LocalDateTime, Auditorium> auditoriumMap = Maps.newTreeMap();
         NavigableSet<LocalDateTime> airDates = initLocalDateTimes();
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium1));

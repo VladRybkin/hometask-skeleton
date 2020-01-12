@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+    <bean id="consoleCommands" class="org.springframework.shell.commands.ConsoleCommands"/>
+    <bean id="quitCommands" class="org.springframework.shell.commands.ExitCommands"/>
+    <bean id="helpCommands" class="org.springframework.shell.commands.HelpCommands"/>
+
+
+    <import resource="classpath:auditorium.xml"/>
+    <import resource="classpath:discount-strategies.xml"/>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="ua.training.spring.hometask"/>
+    <context:property-placeholder location="classpath:local.properties"/>
+</beans>

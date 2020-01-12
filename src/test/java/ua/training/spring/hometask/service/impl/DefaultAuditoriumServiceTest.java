@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.exceptions.AuditoriumNotFoundException;
@@ -24,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @ExtendWith(MockitoExtension.class)
+@ContextConfiguration("/test-auditorium.xml")
 class DefaultAuditoriumServiceTest {
 
 
@@ -52,7 +52,6 @@ class DefaultAuditoriumServiceTest {
     @Test
     void getAll() {
         assertThat(auditoriumService.getAll(), containsInAnyOrder(auditoriums.toArray()));
-
     }
 
     @Test
