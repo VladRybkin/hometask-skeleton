@@ -83,5 +83,19 @@ public class TheatreCommand implements CommandMarker {
         return bookingService.getTicketsPrice(event, user, seats);
     }
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    public void setBookingService(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 }
