@@ -1,4 +1,4 @@
-mvn clean install or mvn -DskipTests=true clean install 
+mvn clean package or mvn -DskipTests=true clean package 
 
 
 
