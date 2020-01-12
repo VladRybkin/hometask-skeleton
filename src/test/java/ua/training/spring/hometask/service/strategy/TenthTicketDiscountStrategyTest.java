@@ -27,7 +27,7 @@ class TenthTicketDiscountStrategyTest {
     private DiscountStrategy discountStrategy;
 
 
-    private Event testEvent = new Event("test");
+    private Event testEvent;
 
     private static final int TICKET_BASE_PRICE = 100;
 
@@ -36,7 +36,7 @@ class TenthTicketDiscountStrategyTest {
 
     @BeforeEach()
     void setUp() {
-
+        testEvent=buildTestEvent();
         discountStrategy = new TenthTicketDiscountStrategy();
         ((TenthTicketDiscountStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
 
@@ -75,6 +75,18 @@ class TenthTicketDiscountStrategyTest {
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
     }
 
+    private Event buildTestEvent() {
+        Event event = new Event();
+        event.setName("testEvent");
+        Set<LocalDateTime> airDates = Sets.newTreeSet();
+        LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4);
+        LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5);
+        airDates.add(firstDate);
+        airDates.add(secondDate);
+        event.getAirDates().addAll(airDates);
+        return event;
+    }
+
     private void addTickets(int amount, User user) {
         Set<Ticket> tickets = Sets.newHashSet();
         IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets));
@@ -83,6 +95,6 @@ class TenthTicketDiscountStrategyTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets) {
-        return i -> tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, TICKET_BASE_PRICE));
+        return i -> tickets.add(new Ticket(user, testEvent, testEvent.getAirDates().first(), i, TICKET_BASE_PRICE));
     }
 }

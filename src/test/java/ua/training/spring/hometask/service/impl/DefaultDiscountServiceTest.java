@@ -1,11 +1,11 @@
 package ua.training.spring.hometask.service.impl;
 
 
-
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
@@ -56,25 +56,26 @@ class DefaultDiscountServiceTest {
         ((TenthTicketDiscountStrategy) tenthTicketStrategy).setTenthTicketDiscount(TENTH_TICKET_STRATEGY_DISCOUNT_VALUE);
         ((BirthdayDiscountStrategy) birthdayStrategy).setBirthdayDiscount(BIRTHDAY_STRATEGY_DISCOUNT_VALUE);
 
-        testEvent = new Event("testname");
+        testEvent = buildTestEvent(EventRating.LOW);
 
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
 
         discountService = new DefaultDiscountService(discountStrategies);
     }
 
+
     @Test
     void shouldChooseBirthdayStrategyDiscount() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
-        assertThat(discountService.getDiscount(user, user.getTickets()),is( BIRTHDAY_DISCOUNT));
+        assertThat(discountService.getDiscount(user, user.getTickets()), is(BIRTHDAY_DISCOUNT));
     }
 
     @Test
     void shouldChooseTenthTicketStrategyDiscount() {
         User user = new User();
         addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertThat(discountService.getDiscount(user, user.getTickets()),is( TENTH_TICKET_DISCOUNT));
+        assertThat(discountService.getDiscount(user, user.getTickets()), is(TENTH_TICKET_DISCOUNT));
     }
 
 
@@ -105,12 +106,25 @@ class DefaultDiscountServiceTest {
     void shouldReturnZeroDiscountAsUserHasNoTickets() {
         User user = new User();
         user.setTickets(new TreeSet<>());
-        assertThat(user.getTickets().size(), is( Collections.emptyList().size()));
+        assertThat(user.getTickets().size(), is(Collections.emptyList().size()));
         assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
     }
 
 
-
+    private Event buildTestEvent(EventRating eventRating) {
+        Event event = new Event();
+        double eventBasePrice=100;
+        event.setName("testEvent");
+        event.setRating(eventRating);
+        event.setBasePrice(eventBasePrice);
+        Set<LocalDateTime> airDates = Sets.newTreeSet();
+        LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4);
+        LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5);
+        airDates.add(firstDate);
+        airDates.add(secondDate);
+        event.getAirDates().addAll(airDates);
+        return event;
+    }
 
 
     private void addTickets(int amount, User user) {
@@ -121,6 +135,6 @@ class DefaultDiscountServiceTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets) {
-        return i -> tickets.add(new Ticket(user, testEvent, LocalDateTime.now(), i, 100));
+        return i -> tickets.add(new Ticket(user, testEvent, testEvent.getAirDates().first(), i, 100));
     }
 }

@@ -50,9 +50,9 @@ class DefaultBookingServiceTest {
         bookingService = new DefaultBookingService();
         bookingService.setDiscountService(discountService);
 
-        testLowRatingEvent = buildTestEventWithRating(EventRating.LOW);
-        testMidRatingEvent = buildTestEventWithRating(EventRating.MID);
-        testHighRatingEvent = buildTestEventWithRating(EventRating.HIGH);
+        testLowRatingEvent = buildTestEvent(EventRating.LOW);
+        testMidRatingEvent = buildTestEvent(EventRating.MID);
+        testHighRatingEvent = buildTestEvent(EventRating.HIGH);
 
     }
 
@@ -106,14 +106,17 @@ class DefaultBookingServiceTest {
     }
 
 
-    private Event buildTestEventWithRating(EventRating eventRating) {
+    private Event buildTestEvent(EventRating eventRating) {
         Event event = new Event();
-        NavigableSet<LocalDateTime> airDates = initLocalDateTimes();
-        NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
-
         event.setName("testEvent");
-        event.setBasePrice(TICKET_BASE_PRICE);
         event.setRating(eventRating);
+        event.setBasePrice(TICKET_BASE_PRICE);
+        Set<LocalDateTime> airDates = Sets.newTreeSet();
+        LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4);
+        LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5);
+        airDates.add(firstDate);
+        airDates.add(secondDate);
+        event.getAirDates().addAll(airDates);
         return event;
     }
 
@@ -163,7 +166,7 @@ class DefaultBookingServiceTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets, Event event) {
-        return i -> tickets.add(new Ticket(user, event, LocalDateTime.now(), i, TICKET_BASE_PRICE));
+        return i -> tickets.add(new Ticket(user, event, event.getAirDates().first(), i, TICKET_BASE_PRICE));
     }
 
 

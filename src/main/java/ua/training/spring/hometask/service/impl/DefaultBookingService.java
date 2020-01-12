@@ -49,8 +49,6 @@ public class DefaultBookingService implements BookingService {
 
 
 
-
-    //should be added annotation transaction for correct tickets.saveALL for one commit
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
         user.getTickets().addAll(tickets);
@@ -65,7 +63,7 @@ public class DefaultBookingService implements BookingService {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
 
-        return ticketService.getPurchasedTicketsForEvent(event, dateTime) ;
+        return ticketService.getPurchasedTicketsForEvent(event, dateTime);
     }
 
 

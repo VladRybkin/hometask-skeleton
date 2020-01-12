@@ -8,27 +8,23 @@ import org.springframework.shell.core.annotation.CliCommand;
 
 import org.springframework.shell.core.annotation.CliOption;
 import org.springframework.stereotype.Component;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.UserService;
 
-import javax.annotation.PostConstruct;
 import java.util.Collection;
 
 
 @Component
-public class UserCommand implements CommandMarker {
+public class TheatreCommand implements CommandMarker {
 
     @Autowired
     UserService userService;
 
-    @PostConstruct
-    void print() {
-        User user = new User();
-        user.setFirstName("Vlad");
-        user.setId(1L);
-        user.setEmail("VladTV@mail");
-        userService.save(user);
-    }
+    @Autowired
+    EventService eventService;
+
 
     @CliAvailabilityIndicator({"print", "all user", "id user", "email user"})
     public boolean isUserCommandsAvailable() {
@@ -56,6 +52,12 @@ public class UserCommand implements CommandMarker {
     public User getById(@CliOption(key = "mail") String email) throws Exception {
 
         return userService.getUserByEmail(email);
+    }
+
+    @CliCommand(value = "all event", help = "get all events")
+    public Collection<Event> getById() throws Exception {
+
+        return eventService.getAll();
     }
 
 
