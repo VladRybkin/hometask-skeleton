@@ -36,10 +36,11 @@ public class InitApplication {
 
     @PostConstruct
     void init() {
-        User user=buildUser();
+        User user = buildUser();
         userService.save(user);
-        Event event=buildEvent();
+        Event event = buildEvent();
         eventService.save(event);
+        saveTickets(10, event);
 
     }
 
@@ -72,19 +73,16 @@ public class InitApplication {
         return user;
     }
 
-    private void saveTickets(){
 
-    }
-
-    private void addTickets(int amount, User user, Event event) {
-        Set<Ticket> tickets = Sets.newHashSet();
+    private void saveTickets(int amount, Event event) {
+        Set<Ticket> tickets = Sets.newTreeSet();
         IntStream.rangeClosed(1, amount).forEach(addTicket(tickets, event));
-        user.getTickets().addAll(tickets);
+        tickets.forEach(ticketService::save);
 
     }
 
-    private IntConsumer addTicket( Set<Ticket> tickets, Event event) {
-        return i -> tickets.add(new Ticket( event, event.getAirDates().first(), i, 100));
+    private IntConsumer addTicket(Set<Ticket> tickets, Event event) {
+        return seat -> tickets.add(new Ticket(event, event.getAirDates().first(), seat, 100));
     }
 
 

@@ -9,8 +9,10 @@ import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.shell.core.annotation.CliOption;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.EventService;
+import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import java.util.Collection;
@@ -24,6 +26,9 @@ public class TheatreCommand implements CommandMarker {
 
     @Autowired
     EventService eventService;
+
+    @Autowired
+    TicketService ticketService;
 
 
     @CliAvailabilityIndicator({"print", "all user", "id user", "email user"})
@@ -55,9 +60,15 @@ public class TheatreCommand implements CommandMarker {
     }
 
     @CliCommand(value = "all event", help = "get all events")
-    public Collection<Event> getById() throws Exception {
+    public Collection<Event> getAllEvent() throws Exception {
 
         return eventService.getAll();
+    }
+
+    @CliCommand(value = "all ticket", help = "get all tickets")
+    public Collection<Ticket> getById() throws Exception {
+
+        return ticketService.getAll();
     }
 
 

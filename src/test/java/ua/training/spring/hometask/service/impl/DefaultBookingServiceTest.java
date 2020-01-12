@@ -166,7 +166,7 @@ class DefaultBookingServiceTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets, Event event) {
-        return i -> tickets.add(new Ticket(user, event, event.getAirDates().first(), i, TICKET_BASE_PRICE));
+        return seat -> tickets.add(new Ticket(user, event, event.getAirDates().first(), seat, TICKET_BASE_PRICE));
     }
 
 
