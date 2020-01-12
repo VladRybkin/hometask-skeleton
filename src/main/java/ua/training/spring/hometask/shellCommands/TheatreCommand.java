@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.shellCommands;
 
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.core.CommandMarker;
 import org.springframework.shell.core.annotation.CliAvailabilityIndicator;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import java.util.Collection;
+import java.util.Set;
 
 
 @Component
@@ -30,16 +33,15 @@ public class TheatreCommand implements CommandMarker {
     @Autowired
     TicketService ticketService;
 
+    @Autowired
+    BookingService bookingService;
 
-    @CliAvailabilityIndicator({"print", "all user", "id user", "email user"})
+
+    @CliAvailabilityIndicator({"print", "all user", "id user", "email user", "all event", "all ticket", "ticket price"})
     public boolean isUserCommandsAvailable() {
         return true;
     }
 
-    @CliCommand(value = "print hello", help = "print hello world")
-    public String print(@CliOption(key = "word") String word) {
-        return word;
-    }
 
     @CliCommand(value = "all user", help = "get all users")
     public Collection<User> getAllUsers() {
@@ -66,9 +68,19 @@ public class TheatreCommand implements CommandMarker {
     }
 
     @CliCommand(value = "all ticket", help = "get all tickets")
-    public Collection<Ticket> getById() throws Exception {
+    public Collection<Ticket> getAllTickets() throws Exception {
 
         return ticketService.getAll();
+    }
+
+
+    @CliCommand(value = "ticket price", help = "ticket price")
+    public double getTicketsPrice() throws Exception {
+        User user = userService.getById(1L);
+        Event event = eventService.getById(1L);
+        Set<Long> seats = Sets.newHashSet(1L, 2L);
+
+        return bookingService.getTicketsPrice(event, user, seats);
     }
 
 
