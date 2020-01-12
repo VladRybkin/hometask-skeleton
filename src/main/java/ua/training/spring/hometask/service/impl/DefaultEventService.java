@@ -59,7 +59,7 @@ public class DefaultEventService implements EventService {
     @Nonnull
     @Override
     public Collection<Event> getAll() {
-        return Lists.newArrayList(eventDao.getAll());
+        return eventDao.getAll();
     }
 
 

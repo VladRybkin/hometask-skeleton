@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,9 +14,10 @@ import ua.training.spring.hometask.service.EventService;
 
 import java.time.LocalDateTime;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +37,8 @@ class DefaultEventServiceTest {
 
     private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
 
+    private static Set<Event> testEventsSet = Sets.newHashSet();
+
     @BeforeEach
     void setUp() {
 
@@ -46,8 +48,8 @@ class DefaultEventServiceTest {
 
     @Test
     void getByName() {
-
-        eventService.getByName(TEST_EVENT_NAME);
+        when(eventDao.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
+        assertThat(eventService.getByName(TEST_EVENT_NAME), is(testEvent));
         verify(eventDao).getByName(TEST_EVENT_NAME);
     }
 
@@ -56,23 +58,23 @@ class DefaultEventServiceTest {
 
         LocalDateTime minusFiveDaysTime = LocalDateTime.now().minusDays(5);
         LocalDateTime timeNow = LocalDateTime.now();
+        when(eventDao.getForDateRange(minusFiveDaysTime, timeNow)).thenReturn(testEventsSet);
 
-        eventService.getForDateRange(minusFiveDaysTime, timeNow);
+        assertThat(eventService.getForDateRange(minusFiveDaysTime, timeNow), is(testEventsSet));
         verify(eventDao).getForDateRange(minusFiveDaysTime, timeNow);
     }
 
     @Test
     void getNextEvents() {
-        Set<Event> events = Sets.newHashSet();
-
-        eventService.getNextEvents(localDateTimeNext);
+        when(eventDao.getNextEvents(localDateTimeNext)).thenReturn(testEventsSet);
+        assertThat(eventService.getNextEvents(localDateTimeNext), is(testEventsSet));
         verify(eventDao).getNextEvents(localDateTimeNext);
     }
 
     @Test
     void save() {
-
-        eventService.save(testEvent);
+        when(eventDao.save(testEvent)).thenReturn(testEvent);
+        assertThat(eventService.save(testEvent), is(testEvent));
         verify(eventDao).save(testEvent);
     }
 
@@ -84,15 +86,15 @@ class DefaultEventServiceTest {
 
     @Test
     void getById() {
-
-        eventService.getById(ID);
+        when(eventDao.getById(ID)).thenReturn(testEvent);
+        assertThat(eventService.getById(ID), is(testEvent));
         verify(eventDao).getById(ID);
     }
 
     @Test
     void getAll() {
-
-        eventService.getAll();
+        when(eventDao.getAll()).thenReturn(testEventsSet);
+        assertThat(eventService.getAll(), is(testEventsSet));
         verify(eventDao).getAll();
     }
 }

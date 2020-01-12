@@ -15,6 +15,9 @@ import ua.training.spring.hometask.service.TicketService;
 import java.util.List;
 
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -36,13 +39,14 @@ public class DefaultTicketServiceTest {
     @BeforeEach
     void setUp() {
         testTicket = new Ticket();
+        testTicket.setId(ID);
     }
 
 
     @Test
     void save() {
-
-        ticketService.save(testTicket);
+        when(ticketDao.save(testTicket)).thenReturn(testTicket);
+        assertThat(ticketService.save(testTicket), is(testTicket));
         verify(ticketDao).save(testTicket);
     }
 
@@ -54,15 +58,16 @@ public class DefaultTicketServiceTest {
 
     @Test
     void getById() {
-
-        ticketService.getById(ID);
+        when(ticketDao.getById(ID)).thenReturn(testTicket);
+        assertThat(ticketService.getById(ID), is(testTicket));
         verify(ticketDao).getById(ID);
     }
 
     @Test
     void getAll() {
-
-        ticketService.getAll();
+        List<Ticket>tickets=Lists.newArrayList();
+        when(ticketDao.getAll()).thenReturn(tickets);
+        assertThat(ticketService.getAll(), is(tickets));
         verify(ticketDao).getAll();
     }
 

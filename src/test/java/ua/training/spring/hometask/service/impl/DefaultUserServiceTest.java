@@ -37,19 +37,23 @@ class DefaultUserServiceTest {
 
     @BeforeEach
     void setUp() {
-        testUser = new User(USER_EMAIL);
+        testUser = new User();
+        testUser.setId(ID);
+        testUser.setEmail(USER_EMAIL);
     }
 
 
     @Test
     void getUserByEmail() throws Exception {
-        userService.getUserByEmail(USER_EMAIL);
+        when(userDao.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
+        assertThat(userService.getUserByEmail(USER_EMAIL), is(testUser));
         verify(userDao).getUserByEmail(USER_EMAIL);
     }
 
     @Test
     void save() {
-        userService.save(testUser);
+        when(userDao.save(testUser)).thenReturn(testUser);
+        assertThat(userService.save(testUser), is(testUser));
         verify(userDao).save(testUser);
     }
 
@@ -61,15 +65,16 @@ class DefaultUserServiceTest {
 
     @Test
     void getById() {
+        when(userDao.getById(ID)).thenReturn(testUser);
         userService.getById(ID);
         verify(userDao).getById(ID);
     }
 
     @Test
     void getAll() {
-
-
-        userService.getAll();
+        List<User>users=Lists.newArrayList();
+        when(userDao.getAll()).thenReturn(users);
+        assertThat(userService.getAll(), is(users));
         verify(userDao).getAll();
     }
 }
