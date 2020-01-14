@@ -1,7 +1,10 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
+
 import java.time.LocalDateTime;
-import java.util.Objects;
+
 
 
 public class Ticket extends DomainObject implements Comparable<Ticket> {
@@ -75,40 +78,24 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(dateTime, event, seat);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Ticket ticket = (Ticket) o;
+        return seat == ticket.seat &&
+                Double.compare(ticket.basePrice, basePrice) == 0 &&
+                com.google.common.base.Objects.equal(user, ticket.user) &&
+                com.google.common.base.Objects.equal(event, ticket.event) &&
+                com.google.common.base.Objects.equal(dateTime, ticket.dateTime);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Ticket other = (Ticket) obj;
-        if (dateTime == null) {
-            if (other.dateTime != null) {
-                return false;
-            }
-        } else if (!dateTime.equals(other.dateTime)) {
-            return false;
-        }
-        if (event == null) {
-            if (other.event != null) {
-                return false;
-            }
-        } else if (!event.equals(other.event)) {
-            return false;
-        }
-        if (seat != other.seat) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hashCode(user, event, dateTime, seat, basePrice);
     }
 
     @Override
@@ -116,28 +103,24 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         if (other == null) {
             return 1;
         }
-        int result = dateTime.compareTo(other.getDateTime());
+        return ComparisonChain.start()
+                .compare(dateTime, other.getDateTime())
+                .compare(event.getName(), other.getEvent().getName())
+                .compare(seat, other.getSeat())
+                .compare(basePrice, other.getBasePrice())
+                .result();
 
-        if (result == 0) {
-            result = event.getName().compareTo(other.getEvent().getName());
-        }
-        if (result == 0) {
-            result = Long.compare(seat, other.getSeat());
-        }
-        if (result == 0) {
-            result = Double.compare(basePrice, other.getBasePrice());
-        }
 
-        return result;
     }
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "user=" + user +
-                ", event=" + event +
-                ", dateTime=" + dateTime +
-                ", seat=" + seat +
-                '}';
+        return Objects.toStringHelper(this)
+                .add("user", user)
+                .add("event", event)
+                .add("dateTime", dateTime)
+                .add("seat", seat)
+                .add("basePrice", basePrice)
+                .toString();
     }
 }

@@ -1,9 +1,10 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+
 import java.time.LocalDateTime;
 
 import java.util.NavigableSet;
-import java.util.Objects;
 import java.util.TreeSet;
 
 public class User extends DomainObject {
@@ -66,11 +67,6 @@ public class User extends DomainObject {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, email);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -78,26 +74,24 @@ public class User extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         User user = (User) o;
+        return Objects.equal(firstName, user.firstName) &&
+                com.google.common.base.Objects.equal(lastName, user.lastName) &&
+                com.google.common.base.Objects.equal(email, user.email);
+    }
 
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) {
-            return false;
-        }
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) {
-            return false;
-        }
-        return email != null ? email.equals(user.email) : user.email == null;
+    @Override
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(firstName, lastName, email);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + super.getId() + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
+        return Objects.toStringHelper(this)
+                .add("firstName", firstName)
+                .add("lastName", lastName)
+                .add("email", email)
+                .add("dateOfBirth", dateOfBirth)
+                .toString();
     }
 }

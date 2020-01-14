@@ -65,38 +65,30 @@ public class Auditorium {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Auditorium that = (Auditorium) o;
+        return numberOfSeats == that.numberOfSeats &&
+                com.google.common.base.Objects.equal(name, that.name) &&
+                com.google.common.base.Objects.equal(vipSeats, that.vipSeats);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Auditorium other = (Auditorium) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(name, numberOfSeats, vipSeats);
     }
 
     @Override
     public String toString() {
-        return "Auditorium{" +
-                "name='" + name + '\'' +
-                ", numberOfSeats=" + numberOfSeats +
-                ", vipSeats=" + vipSeats +
-                '}';
+        return com.google.common.base.Objects.toStringHelper(this)
+                .add("name", name)
+                .add("numberOfSeats", numberOfSeats)
+                .add("vipSeats", vipSeats)
+                .toString();
     }
 }

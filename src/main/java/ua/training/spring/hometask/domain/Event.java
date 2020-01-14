@@ -1,10 +1,11 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
 import java.util.NavigableSet;
-import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -174,7 +175,7 @@ public class Event extends DomainObject {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hashCode(name);
     }
 
     @Override
@@ -195,7 +196,7 @@ public class Event extends DomainObject {
 
     @Override
     public String toString() {
-        return com.google.common.base.Objects.toStringHelper(this)
+        return Objects.toStringHelper(this)
                 .add("name", name)
                 .add("airDates", airDates)
                 .add("basePrice", basePrice)
