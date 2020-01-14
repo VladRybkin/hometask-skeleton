@@ -178,35 +178,29 @@ public class Event extends DomainObject {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Event other = (Event) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+        Event event = (Event) o;
+        return Double.compare(event.basePrice, basePrice) == 0 &&
+                com.google.common.base.Objects.equal(name, event.name) &&
+                com.google.common.base.Objects.equal(airDates, event.airDates) &&
+                rating == event.rating &&
+                com.google.common.base.Objects.equal(auditoriums, event.auditoriums);
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "name='" + name + '\'' +
-                ", airDates=" + airDates +
-                ", basePrice=" + basePrice +
-                ", rating=" + rating +
-                ", auditoriums=" + auditoriums +
-                '}';
+        return com.google.common.base.Objects.toStringHelper(this)
+                .add("name", name)
+                .add("airDates", airDates)
+                .add("basePrice", basePrice)
+                .add("rating", rating)
+                .add("auditoriums", auditoriums)
+                .toString();
     }
 }
