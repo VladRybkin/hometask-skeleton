@@ -22,9 +22,9 @@ public class Main {
         ctx.register(BeansConfiguration.class);
 
         ctx.refresh();
-        EventService eventService=ctx.getBean(EventService.class);
-        eventService.getByName("4");
+        EventService eventService = ctx.getBean(EventService.class);
 
+        eventService.getByName("4");
 
         //        Bootstrap.main(args);
     }

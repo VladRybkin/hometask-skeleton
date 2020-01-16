@@ -4,6 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -25,7 +26,11 @@ public class CounterAspect {
     @After("setGetByNameEventCount()")
     public void printEventGetByNameCount(JoinPoint joinPoint) {
         getByNameEventCount.getAndIncrement();
-        System.out.println("advice method called count = " + getByNameEventCount + " " + joinPoint.getTarget().getClass());
+
+        System.out.println("advice method called count = "
+                + getByNameEventCount + " in "
+                + joinPoint.getTarget().getClass()
+                +"with args "+Arrays.toString(joinPoint.getArgs()));
 
     }
 
