@@ -12,10 +12,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <packaging>jar</packaging>
         <spring.version>5.1.5.RELEASE</spring.version>
+        <aspectj.version>1.8.9</aspectj.version>
         <findbugs.version>3.0.1</findbugs.version>
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
-        <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version>
-        <harmchest.version>2.1</harmchest.version>
+        <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version><harmchest.version>2.1</harmchest.version>
+
     </properties>
 
     <build>
@@ -97,6 +98,18 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <dependency>
