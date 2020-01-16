@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import org.springframework.stereotype.Component;
+
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;

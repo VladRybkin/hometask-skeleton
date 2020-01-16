@@ -16,6 +16,7 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
     @Value("${birthday.discount}")
     private int birthdayDiscount;
 
+
     @Override
     public double calculateDiscount(User user, Set<Ticket> tickets) {
         LocalDateTime dateOfBirth = user.getDateOfBirth();

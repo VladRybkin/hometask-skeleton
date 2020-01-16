@@ -11,9 +11,8 @@
 
 
 
-
-    <import resource="classpath:auditorium.xml"/>
-    <import resource="classpath:discount-strategies.xml"/>
+    <!--<import resource="classpath:auditorium.xml"/>-->
+    <!--<import resource="classpath:discount-strategies.xml"/>-->
 
     <context:annotation-config/>
     <context:component-scan base-package="ua.training.spring.hometask"/>
