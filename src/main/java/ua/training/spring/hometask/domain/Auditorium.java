@@ -27,9 +27,8 @@ public class Auditorium {
 
     /**
      * Counts how many vip seats are there in supplied <code>seats</code>
-     * 
-     * @param seats
-     *            Seats to process
+     *
+     * @param seats Seats to process
      * @return number of vip seats in request
      */
     public long countVipSeats(Collection<Long> seats) {
@@ -51,9 +50,9 @@ public class Auditorium {
     public void setNumberOfSeats(long numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
-    
+
     public Set<Long> getAllSeats() {
-        return LongStream.range(1, numberOfSeats+1).boxed().collect(Collectors.toSet());
+        return LongStream.range(1, numberOfSeats + 1).boxed().collect(Collectors.toSet());
     }
 
     public Set<String> getVipSeats() {
@@ -63,6 +62,7 @@ public class Auditorium {
     public void setVipSeats(Set<String> vipSeats) {
         this.vipSeats = vipSeats;
     }
+
 
     @Override
     public boolean equals(Object o) {
