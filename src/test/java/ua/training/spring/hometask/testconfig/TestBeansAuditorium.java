@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.config;
+package ua.training.spring.hometask.testconfig;
 
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,16 +6,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ua.training.spring.hometask.domain.Auditorium;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.impl.DefaultAuditoriumService;
 
 import java.util.Set;
 
-
 @Configuration
-@PropertySource("classpath:local.properties")
-public class BeansAuditorium {
+@PropertySource("classpath:test-local.properties")
+public class TestBeansAuditorium {
+
 
     @Value("${first.auditorium.seats.number}")
     private String greenAuditoriumNumberOfSeats;
@@ -56,12 +55,10 @@ public class BeansAuditorium {
         return auditoriums;
     }
 
-    @Bean
+    @Bean(name = "auditoriumService")
     public AuditoriumService auditoriumService() {
         return new DefaultAuditoriumService(auditoriums());
     }
-
-
 
 
 }
