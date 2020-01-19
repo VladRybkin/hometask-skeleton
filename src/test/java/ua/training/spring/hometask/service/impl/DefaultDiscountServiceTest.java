@@ -19,6 +19,7 @@ import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -106,7 +107,7 @@ class DefaultDiscountServiceTest {
     void shouldReturnZeroDiscountAsUserHasNoTickets() {
         User user = new User();
         user.setTickets(new TreeSet<>());
-        assertThat(user.getTickets().size(), is(Collections.emptyList().size()));
+        assertThat(user.getTickets(), is(empty()));
         assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
     }
 

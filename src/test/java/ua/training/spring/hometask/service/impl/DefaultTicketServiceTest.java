@@ -16,6 +16,7 @@ import java.util.List;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
@@ -66,6 +67,7 @@ public class DefaultTicketServiceTest {
     @Test
     void getAll() {
         List<Ticket>tickets=Lists.newArrayList();
+        tickets.add(testTicket);
         when(ticketDao.getAll()).thenReturn(tickets);
         assertThat(ticketService.getAll(), is(tickets));
         verify(ticketDao).getAll();

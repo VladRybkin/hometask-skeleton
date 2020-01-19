@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
@@ -46,6 +47,7 @@ class DefaultEventServiceTest {
         testEvent.setName(TEST_EVENT_NAME);
         testEvent.setId(ID);
         localDateTimeNext = LocalDateTime.now().plusDays(5);
+        testEventsSet.add(testEvent);
     }
 
     @Test

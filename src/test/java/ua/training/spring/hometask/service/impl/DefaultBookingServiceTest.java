@@ -120,7 +120,7 @@ class DefaultBookingServiceTest {
         return event;
     }
 
-    private NavigableMap<LocalDateTime, Auditorium> initAuditoriums() {
+    private Map<LocalDateTime, Auditorium> initAuditoriums() {
 
         Auditorium auditorium1 = new Auditorium();
         auditorium1.setName("auditorium1");
@@ -136,7 +136,8 @@ class DefaultBookingServiceTest {
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium1));
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium2));
 
-        return Maps.newTreeMap();
+
+        return auditoriumMap;
 
     }
 

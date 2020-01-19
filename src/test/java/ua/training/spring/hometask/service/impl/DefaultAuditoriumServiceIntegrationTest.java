@@ -16,6 +16,7 @@ import ua.training.spring.hometask.testconfig.TestBeansAuditorium;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
@@ -34,7 +35,7 @@ class DefaultAuditoriumServiceIntegrationTest {
     @Test
     void getAll() {
         int expectedAuditoriumsSize = 2;
-        assertThat(auditoriumService.getAll().size(), is(expectedAuditoriumsSize));
+        assertThat(auditoriumService.getAll(), hasSize(expectedAuditoriumsSize));
 
     }
 
