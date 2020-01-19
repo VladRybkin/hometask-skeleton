@@ -14,12 +14,8 @@ public class CounterAspect {
 
     private AtomicLong getByNameEventCount = new AtomicLong(0);
 
-    @Pointcut("execution(* *.getByName(String))")
-    public void getByNameEvent() {
-    }
-
-    @Pointcut("getByNameEvent() && within(ua.training.spring.hometask.service.impl.DefaultEventService)")
-    void setGetByNameEventCount() {
+    @Pointcut("execution(* ua.training.spring.hometask.service.impl.DefaultEventService.getByName(String))")
+    public void setGetByNameEventCount() {
     }
 
 

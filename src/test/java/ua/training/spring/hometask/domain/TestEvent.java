@@ -2,11 +2,13 @@ package ua.training.spring.hometask.domain;
 
 
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -43,12 +45,12 @@ public class TestEvent {
 		event.addAirDateTime(date);
 
 		assertThat( event.getAirDates(), hasSize(size+1));
-//		assertThat(event.getAirDates(), contains(date));
+		assertThat(event.getAirDates(), hasItems(date));
 
 		event.removeAirDateTime(date);
 
 		assertThat( event.getAirDates(), hasSize(size));
-		assertThat(event.getAirDates(), not(contains(date)));
+		assertThat(event.getAirDates(), not(hasItems(date)));
 	}
 
 	@Test
