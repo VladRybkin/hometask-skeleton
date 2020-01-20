@@ -9,16 +9,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.TicketService;
 
 import java.util.List;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doNothing;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +25,7 @@ public class DefaultTicketServiceTest {
 
 
     @InjectMocks
-    private TicketService ticketService = new DefaultTicketService();
+    private DefaultTicketService ticketService;
 
     @Mock
     private TicketDao ticketDao;
@@ -66,7 +64,7 @@ public class DefaultTicketServiceTest {
 
     @Test
     void getAll() {
-        List<Ticket>tickets=Lists.newArrayList();
+        List<Ticket> tickets = Lists.newArrayList();
         tickets.add(testTicket);
         when(ticketDao.getAll()).thenReturn(tickets);
         assertThat(ticketService.getAll(), is(tickets));

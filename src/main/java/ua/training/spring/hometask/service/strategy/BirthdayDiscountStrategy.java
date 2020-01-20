@@ -27,6 +27,7 @@ public class BirthdayDiscountStrategy implements DiscountStrategy {
                 discount = birthdayDiscount;
             }
         }
+
         return discount;
     }
 

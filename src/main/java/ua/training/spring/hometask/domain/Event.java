@@ -188,10 +188,10 @@ public class Event extends DomainObject {
         }
         Event event = (Event) o;
         return Double.compare(event.basePrice, basePrice) == 0 &&
-                com.google.common.base.Objects.equal(name, event.name) &&
-                com.google.common.base.Objects.equal(airDates, event.airDates) &&
+                Objects.equal(name, event.name) &&
+                Objects.equal(airDates, event.airDates) &&
                 rating == event.rating &&
-                com.google.common.base.Objects.equal(auditoriums, event.auditoriums);
+                Objects.equal(auditoriums, event.auditoriums);
     }
 
     @Override

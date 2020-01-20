@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.domain.Event;
@@ -28,13 +27,13 @@ import java.util.stream.Collectors;
 public class DefaultBookingService implements BookingService {
 
     @Autowired
-    DiscountService discountService;
+    private DiscountService discountService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
 
     @Override
@@ -48,21 +47,18 @@ public class DefaultBookingService implements BookingService {
     }
 
 
-
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
         user.getTickets().addAll(tickets);
         tickets.forEach(setUserToTicket(user));
         tickets.forEach(ticket -> ticketService.save(ticket));
         userService.save(user);
-
     }
 
 
     @Nonnull
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
-
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);
     }
 
@@ -73,6 +69,7 @@ public class DefaultBookingService implements BookingService {
         ticket.setEvent(event);
         ticket.setBasePrice(event.getBasePrice() * eventBonus);
         ticket.setSeat(seat);
+
         return ticket;
 
     }
@@ -85,7 +82,6 @@ public class DefaultBookingService implements BookingService {
             return 1.5;
         }
         if (Objects.equals(eventRating, EventRating.HIGH)) {
-
             return 2;
         } else {
             return 1;
@@ -99,12 +95,12 @@ public class DefaultBookingService implements BookingService {
         } else {
             finalPrize = totalPrize;
         }
+
         return finalPrize;
     }
 
 
     private double getTotalPrize(Set<Ticket> tickets) {
-
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
     }
 

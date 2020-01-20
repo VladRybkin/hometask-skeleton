@@ -53,7 +53,6 @@ class DefaultBookingServiceTest {
         testLowRatingEvent = buildTestEvent(EventRating.LOW);
         testMidRatingEvent = buildTestEvent(EventRating.MID);
         testHighRatingEvent = buildTestEvent(EventRating.HIGH);
-
     }
 
     @Test
@@ -63,7 +62,6 @@ class DefaultBookingServiceTest {
         User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
         double price = bookingService.getTicketsPrice(testLowRatingEvent, testUserWithTenTickets, seats);
         assertThat(price, is(expectedPriceWithoutDiscount));
-
     }
 
     @Test
@@ -136,9 +134,7 @@ class DefaultBookingServiceTest {
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium1));
         airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium2));
 
-
         return auditoriumMap;
-
     }
 
     private NavigableSet<LocalDateTime> initLocalDateTimes() {
@@ -147,14 +143,12 @@ class DefaultBookingServiceTest {
         Set<LocalDateTime> localDateTimes = Sets.newHashSet(nextMonth, fiveDaysLater);
 
         return Sets.newTreeSet(localDateTimes);
-
     }
 
     private User buildUserWithTicketAmountWithOneHundredPrice(int amount) {
         User user = new User();
         user.setFirstName("TestUser");
         addTickets(amount, user, testLowRatingEvent);
-
         return user;
     }
 

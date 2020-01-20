@@ -24,9 +24,11 @@ public class Main {
         ctx.refresh();
         EventService eventService = ctx.getBean(EventService.class);
 
-        eventService.getByName("4");
-
+        eventService.getByName("first event");
         //        Bootstrap.main(args);
+
+
+
     }
 
 

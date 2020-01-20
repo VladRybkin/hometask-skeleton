@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.*;
 class DefaultEventServiceTest {
 
     @InjectMocks
-    private EventService eventService = new DefaultEventService();
+    private DefaultEventService eventService;
 
     @Mock
     private EventDao eventDao;
@@ -42,7 +41,6 @@ class DefaultEventServiceTest {
 
     @BeforeEach
     void setUp() {
-
         testEvent = new Event();
         testEvent.setName(TEST_EVENT_NAME);
         testEvent.setId(ID);

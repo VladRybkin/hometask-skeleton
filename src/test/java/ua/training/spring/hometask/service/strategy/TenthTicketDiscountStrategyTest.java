@@ -18,9 +18,8 @@ import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+
 class TenthTicketDiscountStrategyTest {
 
 
@@ -39,7 +38,6 @@ class TenthTicketDiscountStrategyTest {
         testEvent=buildTestEvent();
         discountStrategy = new TenthTicketDiscountStrategy();
         ((TenthTicketDiscountStrategy) discountStrategy).setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
-
     }
 
     @Test
@@ -51,7 +49,6 @@ class TenthTicketDiscountStrategyTest {
 
         assertThat(user.getTickets().size(), is(ticketAmount));
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
-
     }
 
     @Test
@@ -63,7 +60,6 @@ class TenthTicketDiscountStrategyTest {
 
         assertThat(user.getTickets().size(), is(ticketAmount));
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtHundredTickets));
-
     }
 
     @Test
@@ -91,7 +87,6 @@ class TenthTicketDiscountStrategyTest {
         Set<Ticket> tickets = Sets.newHashSet();
         IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets));
         user.getTickets().addAll(tickets);
-
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets) {

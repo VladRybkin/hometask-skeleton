@@ -21,7 +21,6 @@ import java.util.stream.IntStream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
@@ -114,7 +113,7 @@ class DefaultDiscountServiceTest {
 
     private Event buildTestEvent(EventRating eventRating) {
         Event event = new Event();
-        double eventBasePrice=100;
+        double eventBasePrice = 100;
         event.setName("testEvent");
         event.setRating(eventRating);
         event.setBasePrice(eventBasePrice);
@@ -132,7 +131,6 @@ class DefaultDiscountServiceTest {
         Set<Ticket> tickets = Sets.newHashSet();
         IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets));
         user.getTickets().addAll(tickets);
-
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets) {

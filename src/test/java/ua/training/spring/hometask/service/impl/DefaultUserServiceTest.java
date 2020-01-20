@@ -12,11 +12,10 @@ import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.*;
 class DefaultUserServiceTest {
 
     @InjectMocks
-    private UserService userService = new DefaultUserService();
+    private DefaultUserService userService;
 
     @Mock
     private UserDao userDao;
@@ -73,7 +72,7 @@ class DefaultUserServiceTest {
 
     @Test
     void getAll() {
-        List<User>users=Lists.newArrayList();
+        List<User> users = Lists.newArrayList();
         users.add(testUser);
         when(userDao.getAll()).thenReturn(users);
         assertThat(userService.getAll(), is(users));

@@ -1,8 +1,10 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -74,8 +76,8 @@ public class Auditorium {
         }
         Auditorium that = (Auditorium) o;
         return numberOfSeats == that.numberOfSeats &&
-                com.google.common.base.Objects.equal(name, that.name) &&
-                com.google.common.base.Objects.equal(vipSeats, that.vipSeats);
+                Objects.equal(name, that.name) &&
+                Objects.equal(vipSeats, that.vipSeats);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class Auditorium {
 
     @Override
     public String toString() {
-        return com.google.common.base.Objects.toStringHelper(this)
+        return Objects.toStringHelper(this)
                 .add("name", name)
                 .add("numberOfSeats", numberOfSeats)
                 .add("vipSeats", vipSeats)

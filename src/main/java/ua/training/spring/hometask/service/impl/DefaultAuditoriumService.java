@@ -36,7 +36,6 @@ public class DefaultAuditoriumService implements AuditoriumService {
         } else {
             throw new AuditoriumNotFoundException("Auditorium with name:" + name + " not found");
         }
-
     }
 
     public void setAuditoriums(Set<Auditorium> auditoriums) {
