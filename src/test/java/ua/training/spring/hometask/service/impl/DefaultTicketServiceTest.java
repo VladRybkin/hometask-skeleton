@@ -36,34 +36,34 @@ public class DefaultTicketServiceTest {
     private Ticket testTicket;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         testTicket = new Ticket();
         testTicket.setId(ID);
     }
 
 
     @Test
-    void save() {
+    public void save() {
         when(ticketDao.save(testTicket)).thenReturn(testTicket);
         assertThat(ticketService.save(testTicket), is(testTicket));
         verify(ticketDao).save(testTicket);
     }
 
     @Test
-    void remove() {
+    public void remove() {
         ticketService.remove(testTicket);
         verify(ticketDao).remove(testTicket);
     }
 
     @Test
-    void getById() {
+    public void getById() {
         when(ticketDao.getById(ID)).thenReturn(testTicket);
         assertThat(ticketService.getById(ID), is(testTicket));
         verify(ticketDao).getById(ID);
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
         List<Ticket> tickets = Lists.newArrayList();
         tickets.add(testTicket);
         when(ticketDao.getAll()).thenReturn(tickets);

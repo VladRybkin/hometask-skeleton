@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.is;
 
 
 @ExtendWith(MockitoExtension.class)
-class DefaultBookingServiceTest {
+public class DefaultBookingServiceTest {
 
     private DefaultBookingService bookingService;
 
@@ -41,7 +41,7 @@ class DefaultBookingServiceTest {
 
 
     @BeforeEach()
-    void setUp() {
+    public void setUp() {
         DiscountStrategy birthdayStrategy = buildBirthdayTicketStrategy(BIRTHDAY_STRATEGY_DISCOUNT);
         DiscountStrategy tenthTicketStrategy = buildTenthTicketStrategy(TENTH_TICKET_STRATEGY_DISCOUNT);
 
@@ -56,7 +56,7 @@ class DefaultBookingServiceTest {
     }
 
     @Test
-    void shouldCalculateTotalPrizeWithoutDiscount() {
+    public void shouldCalculateTotalPrizeWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
         User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
@@ -65,7 +65,7 @@ class DefaultBookingServiceTest {
     }
 
     @Test
-    void shouldCalculateTotalPrizeWithTenTicketsDiscount() {
+    public void shouldCalculateTotalPrizeWithTenTicketsDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
         User user = buildUserWithTicketAmountWithOneHundredPrice(10);
@@ -74,7 +74,7 @@ class DefaultBookingServiceTest {
     }
 
     @Test
-    void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
+    public void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
         Set<Long> seats = Sets.newHashSet();
         double expectedPriceWithTenthTicketsDiscount = 0;
         User user = buildUserWithTicketAmountWithOneHundredPrice(10);
@@ -84,7 +84,7 @@ class DefaultBookingServiceTest {
 
 
     @Test
-    void shouldCalculateZeroTotalPriceForUserWithoutTickets() {
+    public void shouldCalculateZeroTotalPriceForUserWithoutTickets() {
         Set<Long> seats = Sets.newHashSet();
         User user = buildUserWithTicketAmountWithOneHundredPrice(0);
         double expectedPriceWithTenthTicketsDiscount = 0;
@@ -94,7 +94,7 @@ class DefaultBookingServiceTest {
 
 
     @Test
-    void shouldCalculateZeroTotalPriceForUserWithBirthdayWithoutTickets() {
+    public void shouldCalculateZeroTotalPriceForUserWithBirthdayWithoutTickets() {
         Set<Long> seats = Sets.newHashSet();
         User user = buildUserWithTicketAmountWithOneHundredPrice(0);
         user.setDateOfBirth(LocalDateTime.now());

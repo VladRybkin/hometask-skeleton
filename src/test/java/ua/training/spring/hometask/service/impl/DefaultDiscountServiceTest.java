@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-class DefaultDiscountServiceTest {
+public class DefaultDiscountServiceTest {
 
 
     private DiscountStrategy birthdayStrategy = new BirthdayDiscountStrategy();
@@ -51,7 +51,7 @@ class DefaultDiscountServiceTest {
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
 
         ((TenthTicketDiscountStrategy) tenthTicketStrategy).setTenthTicketDiscount(TENTH_TICKET_STRATEGY_DISCOUNT_VALUE);
         ((BirthdayDiscountStrategy) birthdayStrategy).setBirthdayDiscount(BIRTHDAY_STRATEGY_DISCOUNT_VALUE);
@@ -65,14 +65,14 @@ class DefaultDiscountServiceTest {
 
 
     @Test
-    void shouldChooseBirthdayStrategyDiscount() {
+    public void shouldChooseBirthdayStrategyDiscount() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
         assertThat(discountService.getDiscount(user, user.getTickets()), is(BIRTHDAY_DISCOUNT));
     }
 
     @Test
-    void shouldChooseTenthTicketStrategyDiscount() {
+    public void shouldChooseTenthTicketStrategyDiscount() {
         User user = new User();
         addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
         assertThat(discountService.getDiscount(user, user.getTickets()), is(TENTH_TICKET_DISCOUNT));
@@ -80,7 +80,7 @@ class DefaultDiscountServiceTest {
 
 
     @Test
-    void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
+    public void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now().minusDays(10));
         addTickets(NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
@@ -88,14 +88,14 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
-    void shouldReturnZeroDiscountIfBirthdayIsNull() {
+    public void shouldReturnZeroDiscountIfBirthdayIsNull() {
         User user = new User();
         assertNull(user.getDateOfBirth());
         assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
     }
 
     @Test
-    void shouldChooseBirthdayAsHigherDiscountStrategy() {
+    public void shouldChooseBirthdayAsHigherDiscountStrategy() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
         addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
@@ -103,7 +103,7 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
-    void shouldReturnZeroDiscountAsUserHasNoTickets() {
+    public void shouldReturnZeroDiscountAsUserHasNoTickets() {
         User user = new User();
         user.setTickets(new TreeSet<>());
         assertThat(user.getTickets(), is(empty()));

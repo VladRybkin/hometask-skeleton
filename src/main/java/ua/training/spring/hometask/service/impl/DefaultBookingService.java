@@ -104,14 +104,6 @@ public class DefaultBookingService implements BookingService {
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
     }
 
-    private Predicate<Ticket> eventFilter(@Nonnull Event event) {
-        return ticket -> ticket.getEvent().equals(event);
-    }
-
-    private Predicate<Ticket> seatsFilter(@Nonnull Set<Long> seats) {
-        return ticket -> seats.contains(ticket.getSeat());
-    }
-
     private Consumer<Ticket> setUserToTicket(User user) {
         return ticket -> ticket.setUser(user);
     }

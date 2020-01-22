@@ -17,7 +17,7 @@ public class TestEvent {
     private Event event;
 
     @BeforeEach
-    public void initEvent() {
+     void initEvent() {
         event = new Event();
         event.setBasePrice(1.1);
         event.setName("aaa");

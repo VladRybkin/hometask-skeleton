@@ -197,6 +197,7 @@ public class Event extends DomainObject {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
+                .add("id", super.getId())
                 .add("name", name)
                 .add("airDates", airDates)
                 .add("basePrice", basePrice)

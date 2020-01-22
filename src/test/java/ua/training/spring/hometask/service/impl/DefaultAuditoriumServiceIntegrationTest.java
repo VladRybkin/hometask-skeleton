@@ -25,22 +25,21 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ContextConfiguration(classes = TestBeansAuditorium.class)
-class DefaultAuditoriumServiceIntegrationTest {
+public class DefaultAuditoriumServiceIntegrationTest {
 
 
     @Autowired
     private AuditoriumService auditoriumService;
 
-
     @Test
-    void getAll() {
+    public void getAll() {
         int expectedAuditoriumsSize = 2;
         assertThat(auditoriumService.getAll(), hasSize(expectedAuditoriumsSize));
 
     }
 
     @Test
-    void getByName() {
+    public void getByName() {
         String expectedFirstAuditoriumName = "green auditorium";
         String expectedSecondAuditoriumName = "red auditorium";
         assertThat(auditoriumService.getByName(expectedFirstAuditoriumName).getName(), is(expectedFirstAuditoriumName));
@@ -48,7 +47,7 @@ class DefaultAuditoriumServiceIntegrationTest {
     }
 
     @Test
-    void ShouldThrowExceptionForIncorrectAuditoriumName() {
+    public void ShouldThrowExceptionForIncorrectAuditoriumName() {
         String expectedFirstAuditoriumIncorrectName = "incorrect name";
         assertThrows(AuditoriumNotFoundException.class, () -> {
             auditoriumService.getByName(expectedFirstAuditoriumIncorrectName);

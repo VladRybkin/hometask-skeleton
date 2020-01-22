@@ -39,6 +39,7 @@ public class InitApplication {
         userService.save(user);
         Event event = buildEvent();
         eventService.save(event);
+
         saveTickets(10, event);
         System.out.println("init method executed");
 

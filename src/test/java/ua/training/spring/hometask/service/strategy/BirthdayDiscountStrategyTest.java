@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
 import java.time.LocalDateTime;
 
 
-class BirthdayDiscountStrategyTest {
+public class BirthdayDiscountStrategyTest {
 
 
     private DiscountStrategy discountStrategy;
@@ -21,14 +21,13 @@ class BirthdayDiscountStrategyTest {
 
     private User testUserWithoutBirthday;
 
-
     private static final double BIRTHDAY_DISCOUNT = 10;
 
     private static final double ZERO_DISCOUNT = 0;
 
 
     @BeforeEach()
-    void setUp() {
+    public void setUp() {
         discountStrategy = new BirthdayDiscountStrategy();
         ((BirthdayDiscountStrategy) discountStrategy).setBirthdayDiscount((int) BIRTHDAY_DISCOUNT);
         testUserWithBirthday = new User();
@@ -38,12 +37,12 @@ class BirthdayDiscountStrategyTest {
 
 
     @Test
-    void ShouldCalculateDiscountForUserWithBirthday() {
+    public void ShouldCalculateDiscountForUserWithBirthday() {
         assertThat(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), is(BIRTHDAY_DISCOUNT));
     }
 
     @Test
-    void ShouldCalculateDiscountForUserWithoutBirthday() {
+    public void ShouldCalculateDiscountForUserWithoutBirthday() {
         assertThat(discountStrategy.calculateDiscount(testUserWithoutBirthday, testUserWithoutBirthday.getTickets()), is(ZERO_DISCOUNT));
     }
 }
