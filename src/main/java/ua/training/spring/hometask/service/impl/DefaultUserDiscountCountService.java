@@ -62,6 +62,11 @@ public class DefaultUserDiscountCountService implements UserDiscountService {
 
     }
 
+    @Override
+    public DiscountCountInfo getByName(String name) {
+        return userDiscountDao.getByName(name);
+    }
+
     private DiscountCountInfo createUserDiscountCounter(String name) {
         return new DiscountCountInfo.Builder()
                 .withCountBirthdayDiscount(0)
@@ -69,5 +74,7 @@ public class DefaultUserDiscountCountService implements UserDiscountService {
                 .withUserName(name).build();
     }
 
-
+    public void setUserDiscountDao(UserDiscountDao userDiscountDao) {
+        this.userDiscountDao = userDiscountDao;
+    }
 }

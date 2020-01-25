@@ -31,7 +31,6 @@ public class TicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket getById(Long id) {
-
         return tickets.get(id);
     }
 

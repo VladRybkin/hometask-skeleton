@@ -44,8 +44,10 @@ public class Main {
         bookingService.bookTickets(new HashSet<>(tickets), users.get(0));
         User user=users.get(0);
         User user1=new User();
+        user1.setFirstName("user1");
         user1.setDateOfBirth(LocalDateTime.now());
 //        user1.setDateOfBirth(LocalDateTime.now());
+        bookingService.bookTicket(tickets.get(0), user);
 
         bookingService.getTicketsPrice(eventService.getByName("first event"), user,Sets.newHashSet(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L));
         bookingService.getTicketsPrice(eventService.getByName("first event"), user,Sets.newHashSet(1L,2L,3L,4L,5L,6L,7L,8L,9L,10L));

@@ -61,7 +61,6 @@ public class DefaultEventService implements EventService {
         return eventDao.getAll();
     }
 
-
     public void setEventDao(EventDao eventDao) {
         this.eventDao = eventDao;
     }

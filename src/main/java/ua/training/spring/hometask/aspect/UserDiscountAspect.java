@@ -45,5 +45,11 @@ public class UserDiscountAspect {
         }
     }
 
+    public void setDiscountCountService(DefaultUserDiscountCountService discountCountService) {
+        this.discountCountService = discountCountService;
+    }
 
+    public void setBirthdayDiscount(double birthdayDiscount) {
+        this.birthdayDiscount = birthdayDiscount;
+    }
 }

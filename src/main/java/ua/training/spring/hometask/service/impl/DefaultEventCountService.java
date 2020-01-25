@@ -79,6 +79,11 @@ public class DefaultEventCountService implements EventCountService {
         }
     }
 
+    @Override
+    public EventCountInfo getByName(String name) {
+        return eventCounterDao.getByName(name);
+    }
+
     private EventCountInfo createEventCounter(String eventName) {
         return new EventCountInfo.Builder()
                 .withEventName(eventName)
@@ -87,7 +92,6 @@ public class DefaultEventCountService implements EventCountService {
                 .withCountBookTicket(0)
                 .build();
     }
-
 
     public void setEventCounterDao(EventCounterDao eventCounterDao) {
         this.eventCounterDao = eventCounterDao;
