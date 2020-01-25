@@ -3,6 +3,7 @@ package ua.training.spring.hometask.aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.impl.DefaultUserDiscountCountService;
@@ -16,7 +17,8 @@ public class UserDiscountAspect {
     @Autowired
     private DefaultUserDiscountCountService discountCountService;
 
-    private static final double birthdayDiscount = 10;
+    @Value("${birthday.discount}")
+    private double birthdayDiscount;
 
 
     @AfterReturning(value =
