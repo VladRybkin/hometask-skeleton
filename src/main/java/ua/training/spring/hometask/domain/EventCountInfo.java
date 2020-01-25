@@ -77,4 +77,38 @@ public class EventCountInfo extends DomainObject {
                 .add("countGetPrice", countGetPrice)
                 .toString();
     }
+
+    public static class Builder {
+
+        private EventCountInfo newEventCountInfo;
+
+        public Builder() {
+            newEventCountInfo = new EventCountInfo();
+        }
+
+        public Builder withEventName(String eventName) {
+            newEventCountInfo.eventName = eventName;
+            return this;
+        }
+
+        public Builder withCountBookTicket(long countBookTickets) {
+            newEventCountInfo.countBookTickets = countBookTickets;
+            return this;
+        }
+
+        public Builder withCountGetByName(long countGetByName) {
+            newEventCountInfo.countGetByName = countGetByName;
+            return this;
+        }
+
+        public Builder withCountGetPrice(long countGetPrice) {
+            newEventCountInfo.countGetPrice = countGetPrice;
+            return this;
+        }
+
+        public EventCountInfo build() {
+            return newEventCountInfo;
+        }
+
+    }
 }

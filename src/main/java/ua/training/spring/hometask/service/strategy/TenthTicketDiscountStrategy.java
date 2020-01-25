@@ -33,7 +33,6 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
         int ticketCount = userTickets.size();
 
         if (ticketCount >= 10) {
-
             for (int i = 0; i < ticketCount; i++) {
                 if (i % 10 == 0) {
                     ticketsList.get(i).setBasePrice(calculateFiftyPercentDiscount(ticketsList.get(i)));
@@ -51,12 +50,12 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     }
 
     private double calculatePercentDifference(double totalPrize, double totalPrizeWithDiscount) {
+        double percentDifference = 0;
         if (totalPrize > totalPrizeWithDiscount) {
-            return ((totalPrize - totalPrizeWithDiscount) / totalPrize) * 100;
-        } else {
-            return 0;
+            percentDifference = ((totalPrize - totalPrizeWithDiscount) / totalPrize) * 100;
         }
 
+        return percentDifference;
     }
 
     public int getTenthTicketDiscount() {

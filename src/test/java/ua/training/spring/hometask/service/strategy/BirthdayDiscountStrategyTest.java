@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class BirthdayDiscountStrategyTest {
 
 
-    private DiscountStrategy discountStrategy;
+    private BirthdayDiscountStrategy discountStrategy;
 
     private User testUserWithBirthday;
 
@@ -29,7 +29,7 @@ public class BirthdayDiscountStrategyTest {
     @BeforeEach()
     public void setUp() {
         discountStrategy = new BirthdayDiscountStrategy();
-        ((BirthdayDiscountStrategy) discountStrategy).setBirthdayDiscount((int) BIRTHDAY_DISCOUNT);
+        discountStrategy.setBirthdayDiscount((int) BIRTHDAY_DISCOUNT);
         testUserWithBirthday = new User();
         testUserWithoutBirthday = new User();
         testUserWithBirthday.setDateOfBirth(LocalDateTime.now());

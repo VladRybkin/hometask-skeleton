@@ -42,31 +42,26 @@ public class DefaultEventCountService implements EventCountService {
     public void getByNameCountIncrement(String eventName) {
         EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
         if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = new EventCountInfo();
-            eventCountInfo.setEventName(eventName);
-            eventCountInfo.setCountGetByName(1);
-            eventCountInfo.setCountBookTickets(0);
-            eventCountInfo.setCountGetPrice(0);
-            save(eventCountInfo);
+            EventCountInfo eventCountInfo = createEventCounter(eventName);
+            eventCountInfo.setCountGetByName(eventCountInfo.getCountGetByName() + 1);
+            eventCounterDao.save(eventCountInfo);
         } else {
             foundEventCountInfo.setCountGetByName(foundEventCountInfo.getCountGetByName() + 1);
-            save(foundEventCountInfo);
+            eventCounterDao.save(foundEventCountInfo);
         }
     }
+
 
     @Override
     public void bookTicketsCountIncrement(String eventName) {
         EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
         if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = new EventCountInfo();
-            eventCountInfo.setEventName(eventName);
-            eventCountInfo.setCountGetByName(0);
-            eventCountInfo.setCountBookTickets(1);
-            eventCountInfo.setCountGetPrice(0);
-            save(eventCountInfo);
+            EventCountInfo eventCountInfo = createEventCounter(eventName);
+            eventCountInfo.setCountBookTickets(eventCountInfo.getCountBookTickets() + 1);
+            eventCounterDao.save(eventCountInfo);
         } else {
             foundEventCountInfo.setCountBookTickets(foundEventCountInfo.getCountBookTickets() + 1);
-            save(foundEventCountInfo);
+            eventCounterDao.save(foundEventCountInfo);
         }
 
     }
@@ -75,17 +70,27 @@ public class DefaultEventCountService implements EventCountService {
     public void getPriceCountIncrement(String eventName) {
         EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
         if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = new EventCountInfo();
-            eventCountInfo.setEventName(eventName);
-            eventCountInfo.setCountGetByName(0);
-            eventCountInfo.setCountBookTickets(0);
-            eventCountInfo.setCountGetPrice(1);
-            save(eventCountInfo);
+            EventCountInfo eventCountInfo = createEventCounter(eventName);
+            eventCountInfo.setCountGetPrice(eventCountInfo.getCountGetPrice() + 1);
+            eventCounterDao.save(eventCountInfo);
         } else {
             foundEventCountInfo.setCountGetPrice(foundEventCountInfo.getCountGetPrice() + 1);
-            save(foundEventCountInfo);
+            eventCounterDao.save(foundEventCountInfo);
         }
     }
 
+    private EventCountInfo createEventCounter(String eventName) {
+        return new EventCountInfo.Builder()
+                .withEventName(eventName)
+                .withCountGetPrice(0)
+                .withCountGetByName(0)
+                .withCountBookTicket(0)
+                .build();
+    }
+
+
+    public void setEventCounterDao(EventCounterDao eventCounterDao) {
+        this.eventCounterDao = eventCounterDao;
+    }
 
 }
