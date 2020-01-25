@@ -18,21 +18,17 @@ public class UserDiscountAspect {
 
     private static final double birthdayDiscount = 10;
 
-    private static final double tenthTicketDiscount = 5;
 
     @AfterReturning(value =
             "execution(* ua.training.spring.hometask.service.impl.DefaultDiscountService.getDiscount(..)) && args(user, ..)",
             returning = ("discount"),
             argNames = "discount,user")
     public void incrementUserDiscountCount(final Double discount, final User user) {
-        if (discount == tenthTicketDiscount) {
-            discountCountService.countTenthTicketDiscountIncrement(user.getEmail());
-        }
         if (discount == birthdayDiscount) {
             discountCountService.countBirthdayDiscountIncrement(user.getEmail());
+        } else if (discount != 0) {
+            discountCountService.countTenthTicketDiscountIncrement(user.getEmail());
         }
-
-
     }
 
     @AfterReturning(value =
@@ -40,14 +36,11 @@ public class UserDiscountAspect {
             returning = ("discount"),
             argNames = "discount,user")
     public void incrementTotalDiscountCount(final Double discount, final User user) {
-        if (discount == tenthTicketDiscount) {
-            discountCountService.countTenthTicketDiscountIncrement("tenth ticket discount");
-        }
         if (discount == birthdayDiscount) {
             discountCountService.countBirthdayDiscountIncrement("birthday discount");
+        } else if (discount != 0) {
+            discountCountService.countTenthTicketDiscountIncrement("birthday discount");
         }
-
-
     }
 
 
