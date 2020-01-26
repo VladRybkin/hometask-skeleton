@@ -3,7 +3,7 @@ package ua.training.spring.hometask.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.UserDiscountDao;
-import ua.training.spring.hometask.domain.DiscountCountInfo;
+import ua.training.spring.hometask.domain.UserDiscountCountInfo;
 import ua.training.spring.hometask.service.UserDiscountService;
 
 import java.util.Collection;
@@ -16,59 +16,59 @@ public class DefaultUserDiscountCountService implements UserDiscountService {
     private UserDiscountDao userDiscountDao;
 
     @Override
-    public DiscountCountInfo save(DiscountCountInfo object) {
+    public UserDiscountCountInfo save(UserDiscountCountInfo object) {
         return userDiscountDao.save(object);
     }
 
     @Override
-    public void remove(DiscountCountInfo object) {
+    public void remove(UserDiscountCountInfo object) {
         userDiscountDao.remove(object);
     }
 
     @Override
-    public DiscountCountInfo getById(Long id) {
+    public UserDiscountCountInfo getById(Long id) {
         return userDiscountDao.getById(id);
     }
 
     @Override
-    public Collection<DiscountCountInfo> getAll() {
+    public Collection<UserDiscountCountInfo> getAll() {
         return userDiscountDao.getAll();
     }
 
     @Override
     public void countTenthTicketDiscountIncrement(String name) {
-        DiscountCountInfo foundDiscountCountInfo = userDiscountDao.getByName(name);
-        if (Objects.isNull(foundDiscountCountInfo)) {
-            DiscountCountInfo eventCountInfo = createUserDiscountCounter(name);
+        UserDiscountCountInfo foundUserDiscountCountInfo = userDiscountDao.getByName(name);
+        if (Objects.isNull(foundUserDiscountCountInfo)) {
+            UserDiscountCountInfo eventCountInfo = createUserDiscountCounter(name);
             eventCountInfo.setCountTenthTicketDiscount(eventCountInfo.getCountTenthTicketDiscount() + 1);
             userDiscountDao.save(eventCountInfo);
         } else {
-            foundDiscountCountInfo.setCountTenthTicketDiscount(foundDiscountCountInfo.getCountTenthTicketDiscount() + 1);
-            userDiscountDao.save(foundDiscountCountInfo);
+            foundUserDiscountCountInfo.setCountTenthTicketDiscount(foundUserDiscountCountInfo.getCountTenthTicketDiscount() + 1);
+            userDiscountDao.save(foundUserDiscountCountInfo);
         }
     }
 
     @Override
     public void countBirthdayDiscountIncrement(String name) {
-        DiscountCountInfo foundDiscountCountInfo = userDiscountDao.getByName(name);
-        if (Objects.isNull(foundDiscountCountInfo)) {
-            DiscountCountInfo eventCountInfo = createUserDiscountCounter(name);
+        UserDiscountCountInfo foundUserDiscountCountInfo = userDiscountDao.getByName(name);
+        if (Objects.isNull(foundUserDiscountCountInfo)) {
+            UserDiscountCountInfo eventCountInfo = createUserDiscountCounter(name);
             eventCountInfo.setCountBirthdayDiscount(eventCountInfo.getCountBirthdayDiscount() + 1);
             userDiscountDao.save(eventCountInfo);
         } else {
-            foundDiscountCountInfo.setCountBirthdayDiscount(foundDiscountCountInfo.getCountBirthdayDiscount() + 1);
-            userDiscountDao.save(foundDiscountCountInfo);
+            foundUserDiscountCountInfo.setCountBirthdayDiscount(foundUserDiscountCountInfo.getCountBirthdayDiscount() + 1);
+            userDiscountDao.save(foundUserDiscountCountInfo);
         }
 
     }
 
     @Override
-    public DiscountCountInfo getByName(String name) {
+    public UserDiscountCountInfo getByName(String name) {
         return userDiscountDao.getByName(name);
     }
 
-    private DiscountCountInfo createUserDiscountCounter(String name) {
-        return new DiscountCountInfo.Builder()
+    private UserDiscountCountInfo createUserDiscountCounter(String name) {
+        return new UserDiscountCountInfo.Builder()
                 .withCountBirthdayDiscount(0)
                 .withCountTenthTicketDiscount(0)
                 .withUserName(name).build();

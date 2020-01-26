@@ -23,7 +23,6 @@ public class LuckyWinnerAspect {
         }
     }
 
-
     /*
     possibility 2% to win
      */

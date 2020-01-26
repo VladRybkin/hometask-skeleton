@@ -4,11 +4,14 @@ package ua.training.spring.hometask.service.impl;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy;
 import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 import ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy;
@@ -19,19 +22,21 @@ import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-
+@ExtendWith(MockitoExtension.class)
 public class DefaultDiscountServiceTest {
 
+    @InjectMocks
+    private DefaultDiscountService discountService;
 
-    private DiscountStrategy birthdayStrategy = new BirthdayDiscountStrategy();
+    @Mock
+    private BirthdayDiscountStrategy birthdayStrategy;
 
-    private DiscountStrategy tenthTicketStrategy = new TenthTicketDiscountStrategy();
-
-    private DiscountService discountService;
+    @Mock
+    private TenthTicketDiscountStrategy tenthTicketStrategy;
 
     private Event testEvent;
 
@@ -43,71 +48,49 @@ public class DefaultDiscountServiceTest {
 
     private static final int NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT = 9;
 
-    private static final int TENTH_TICKET_STRATEGY_DISCOUNT_VALUE = 50;
-
-    private static final int BIRTHDAY_STRATEGY_DISCOUNT_VALUE = 10;
-
     private static final double ZERO_DISCOUNT = 0;
 
 
     @BeforeEach
     public void setUp() {
-
-        ((TenthTicketDiscountStrategy) tenthTicketStrategy).setTenthTicketDiscount(TENTH_TICKET_STRATEGY_DISCOUNT_VALUE);
-        ((BirthdayDiscountStrategy) birthdayStrategy).setBirthdayDiscount(BIRTHDAY_STRATEGY_DISCOUNT_VALUE);
-
         testEvent = buildTestEvent(EventRating.LOW);
-
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
-
         discountService = new DefaultDiscountService(discountStrategies);
     }
-
 
     @Test
     public void shouldChooseBirthdayStrategyDiscount() {
         User user = new User();
         user.setDateOfBirth(LocalDateTime.now());
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(BIRTHDAY_DISCOUNT));
+        Set<Ticket> tickets = buildTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT);
+        when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(BIRTHDAY_DISCOUNT);
+        when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
+        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
+        verify(birthdayStrategy).calculateDiscount(user, tickets);
+        verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
 
     @Test
     public void shouldChooseTenthTicketStrategyDiscount() {
         User user = new User();
-        addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(TENTH_TICKET_DISCOUNT));
+        Set<Ticket> tickets = buildTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT);
+        when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
+        when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
+        assertThat(discountService.getDiscount(user, tickets), is(TENTH_TICKET_DISCOUNT));
+        verify(birthdayStrategy).calculateDiscount(user, tickets);
+        verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
 
 
     @Test
     public void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
-        user.setDateOfBirth(LocalDateTime.now().minusDays(10));
-        addTickets(NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
-    }
-
-    @Test
-    public void shouldReturnZeroDiscountIfBirthdayIsNull() {
-        User user = new User();
-        assertNull(user.getDateOfBirth());
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
-    }
-
-    @Test
-    public void shouldChooseBirthdayAsHigherDiscountStrategy() {
-        User user = new User();
-        user.setDateOfBirth(LocalDateTime.now());
-        addTickets(ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT, user);
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(BIRTHDAY_DISCOUNT));
-    }
-
-    @Test
-    public void shouldReturnZeroDiscountAsUserHasNoTickets() {
-        User user = new User();
-        user.setTickets(new TreeSet<>());
-        assertThat(user.getTickets(), is(empty()));
-        assertThat(discountService.getDiscount(user, user.getTickets()), is(ZERO_DISCOUNT));
+        Set<Ticket> tickets = buildTickets(NOT_ENOUGH_FOR_TENTH_TICKET_STRATEGY_AMOUNT);
+        when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
+        when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
+        assertThat(discountService.getDiscount(user, tickets), is(ZERO_DISCOUNT));
+        verify(birthdayStrategy).calculateDiscount(user, tickets);
+        verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
 
 
@@ -127,13 +110,14 @@ public class DefaultDiscountServiceTest {
     }
 
 
-    private void addTickets(int amount, User user) {
-        Set<Ticket> tickets = Sets.newHashSet();
-        IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets));
-        user.getTickets().addAll(tickets);
+    private Set<Ticket> buildTickets(int amount) {
+        Set<Ticket> tickets = Sets.newTreeSet();
+        IntStream.rangeClosed(1, amount).forEach(addTicket(tickets));
+        return tickets;
+
     }
 
-    private IntConsumer addTicket(User user, Set<Ticket> tickets) {
-        return i -> tickets.add(new Ticket(user, testEvent, testEvent.getAirDates().first(), i, 100));
+    private IntConsumer addTicket(Set<Ticket> tickets) {
+        return i -> tickets.add(new Ticket(null, testEvent, testEvent.getAirDates().first(), i, 100));
     }
 }

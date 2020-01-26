@@ -1,11 +1,11 @@
 package ua.training.spring.hometask.service;
 
 import ua.training.spring.hometask.dao.AbstractDomainObjectDao;
-import ua.training.spring.hometask.domain.DiscountCountInfo;
+import ua.training.spring.hometask.domain.UserDiscountCountInfo;
 
-public interface UserDiscountService extends AbstractDomainObjectDao<DiscountCountInfo> {
+public interface UserDiscountService extends AbstractDomainObjectDao<UserDiscountCountInfo> {
 
-    DiscountCountInfo getByName(String name);
+    UserDiscountCountInfo getByName(String name);
 
     void countTenthTicketDiscountIncrement(String name);
 

@@ -6,6 +6,8 @@ import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.domain.*;
 import ua.training.spring.hometask.service.DiscountService;
@@ -25,7 +27,11 @@ import static org.hamcrest.Matchers.is;
 @ExtendWith(MockitoExtension.class)
 public class DefaultBookingServiceTest {
 
+    @InjectMocks
     private DefaultBookingService bookingService;
+
+    @Mock
+    private DiscountService discountService;
 
     private Event testLowRatingEvent;
 
@@ -42,12 +48,7 @@ public class DefaultBookingServiceTest {
 
     @BeforeEach()
     public void setUp() {
-        DiscountStrategy birthdayStrategy = buildBirthdayTicketStrategy(BIRTHDAY_STRATEGY_DISCOUNT);
-        DiscountStrategy tenthTicketStrategy = buildTenthTicketStrategy(TENTH_TICKET_STRATEGY_DISCOUNT);
 
-        DiscountService discountService = new DefaultDiscountService(Sets.newHashSet(birthdayStrategy, tenthTicketStrategy));
-
-        bookingService = new DefaultBookingService();
         bookingService.setDiscountService(discountService);
 
         testLowRatingEvent = buildTestEvent(EventRating.LOW);

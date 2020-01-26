@@ -1,9 +1,9 @@
 package ua.training.spring.hometask.dao;
 
-import ua.training.spring.hometask.domain.DiscountCountInfo;
+import ua.training.spring.hometask.domain.UserDiscountCountInfo;
 
-public interface UserDiscountDao extends AbstractDomainObjectDao<DiscountCountInfo>{
+public interface UserDiscountDao extends AbstractDomainObjectDao<UserDiscountCountInfo>{
 
-    DiscountCountInfo getByName(String name);
+    UserDiscountCountInfo getByName(String name);
 
 }

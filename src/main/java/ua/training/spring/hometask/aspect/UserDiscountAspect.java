@@ -13,7 +13,6 @@ import ua.training.spring.hometask.service.impl.DefaultUserDiscountCountService;
 @Component
 public class UserDiscountAspect {
 
-
     @Autowired
     private DefaultUserDiscountCountService discountCountService;
 

@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.shell.Bootstrap;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.*;
 import ua.training.spring.hometask.service.*;
@@ -55,12 +56,12 @@ public class Main {
 //        System.out.println("discouuntttttttttt"+discountService.getDiscount(users.get(0), Sets.newHashSet(tickets)));
 
 
-//                Bootstrap.main(args);
+
 
         System.out.println(eventCountService.getAll());
         System.out.println(eventService.getAll());
         System.out.println(userDiscountService.getAll());
-
+//        Bootstrap.main(args);
 
 
     }
