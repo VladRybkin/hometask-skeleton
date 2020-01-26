@@ -1,16 +1,16 @@
 package ua.training.spring.hometask.dao.impl;
 
 import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.dao.AbstractDomainObjectDao;
+
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.exceptions.UserNotFoundException;
+
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+
 
 @Component
 public class UserDaoImpl implements UserDao {

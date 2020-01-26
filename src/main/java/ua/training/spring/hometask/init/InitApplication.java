@@ -38,9 +38,11 @@ public class InitApplication {
         User user = buildUser();
         userService.save(user);
         Event event = buildEvent();
+
         eventService.save(event);
         saveTickets(10, event);
         System.out.println("init method executed");
+
 
     }
 
@@ -70,6 +72,7 @@ public class InitApplication {
         user.setFirstName("Vlad");
         user.setId(1L);
         user.setEmail("VladTV@mail");
+
         return user;
     }
 

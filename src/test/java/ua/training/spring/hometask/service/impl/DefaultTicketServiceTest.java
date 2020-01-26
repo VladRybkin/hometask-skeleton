@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.TicketService;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doNothing;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +25,7 @@ public class DefaultTicketServiceTest {
 
 
     @InjectMocks
-    private TicketService ticketService = new DefaultTicketService();
+    private DefaultTicketService ticketService;
 
     @Mock
     private TicketDao ticketDao;
@@ -37,35 +36,36 @@ public class DefaultTicketServiceTest {
     private Ticket testTicket;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         testTicket = new Ticket();
         testTicket.setId(ID);
     }
 
 
     @Test
-    void save() {
+    public void save() {
         when(ticketDao.save(testTicket)).thenReturn(testTicket);
         assertThat(ticketService.save(testTicket), is(testTicket));
         verify(ticketDao).save(testTicket);
     }
 
     @Test
-    void remove() {
+    public void remove() {
         ticketService.remove(testTicket);
         verify(ticketDao).remove(testTicket);
     }
 
     @Test
-    void getById() {
+    public void getById() {
         when(ticketDao.getById(ID)).thenReturn(testTicket);
         assertThat(ticketService.getById(ID), is(testTicket));
         verify(ticketDao).getById(ID);
     }
 
     @Test
-    void getAll() {
-        List<Ticket>tickets=Lists.newArrayList();
+    public void getAll() {
+        List<Ticket> tickets = Lists.newArrayList();
+        tickets.add(testTicket);
         when(ticketDao.getAll()).thenReturn(tickets);
         assertThat(ticketService.getAll(), is(tickets));
         verify(ticketDao).getAll();

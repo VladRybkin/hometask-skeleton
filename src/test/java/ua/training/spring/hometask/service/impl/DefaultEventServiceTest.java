@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.service.EventService;
+
 
 import java.time.LocalDateTime;
 
@@ -21,10 +21,10 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class DefaultEventServiceTest {
+public class DefaultEventServiceTest {
 
     @InjectMocks
-    private EventService eventService = new DefaultEventService();
+    private DefaultEventService eventService;
 
     @Mock
     private EventDao eventDao;
@@ -40,23 +40,23 @@ class DefaultEventServiceTest {
     private static Set<Event> testEventsSet = Sets.newHashSet();
 
     @BeforeEach
-    void setUp() {
-
+    public void setUp() {
         testEvent = new Event();
         testEvent.setName(TEST_EVENT_NAME);
         testEvent.setId(ID);
         localDateTimeNext = LocalDateTime.now().plusDays(5);
+        testEventsSet.add(testEvent);
     }
 
     @Test
-    void getByName() {
+    public void getByName() {
         when(eventDao.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
         assertThat(eventService.getByName(TEST_EVENT_NAME), is(testEvent));
         verify(eventDao).getByName(TEST_EVENT_NAME);
     }
 
     @Test
-    void getForDateRange() {
+    public void getForDateRange() {
 
         LocalDateTime minusFiveDaysTime = LocalDateTime.now().minusDays(5);
         LocalDateTime timeNow = LocalDateTime.now();
@@ -67,34 +67,34 @@ class DefaultEventServiceTest {
     }
 
     @Test
-    void getNextEvents() {
+    public void getNextEvents() {
         when(eventDao.getNextEvents(localDateTimeNext)).thenReturn(testEventsSet);
         assertThat(eventService.getNextEvents(localDateTimeNext), is(testEventsSet));
         verify(eventDao).getNextEvents(localDateTimeNext);
     }
 
     @Test
-    void save() {
+    public void save() {
         when(eventDao.save(testEvent)).thenReturn(testEvent);
         assertThat(eventService.save(testEvent), is(testEvent));
         verify(eventDao).save(testEvent);
     }
 
     @Test
-    void remove() {
+    public  void remove() {
         eventService.remove(testEvent);
         verify(eventDao).remove(testEvent);
     }
 
     @Test
-    void getById() {
+    public  void getById() {
         when(eventDao.getById(ID)).thenReturn(testEvent);
         assertThat(eventService.getById(ID), is(testEvent));
         verify(eventDao).getById(ID);
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
         when(eventDao.getAll()).thenReturn(testEventsSet);
         assertThat(eventService.getAll(), is(testEventsSet));
         verify(eventDao).getAll();

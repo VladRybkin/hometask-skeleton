@@ -24,7 +24,6 @@ public class DefaultUserService implements UserService {
         return userDao.getUserByEmail(email);
     }
 
-
     @Override
     public User save(@Nonnull User object) {
         return userDao.save(object);
@@ -45,7 +44,6 @@ public class DefaultUserService implements UserService {
     public Collection<User> getAll() {
         return Lists.newArrayList(userDao.getAll());
     }
-
 
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;

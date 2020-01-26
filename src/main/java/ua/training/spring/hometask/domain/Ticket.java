@@ -88,9 +88,9 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
         Ticket ticket = (Ticket) o;
         return seat == ticket.seat &&
                 Double.compare(ticket.basePrice, basePrice) == 0 &&
-                com.google.common.base.Objects.equal(user, ticket.user) &&
-                com.google.common.base.Objects.equal(event, ticket.event) &&
-                com.google.common.base.Objects.equal(dateTime, ticket.dateTime);
+                Objects.equal(user, ticket.user) &&
+                Objects.equal(event, ticket.event) &&
+                Objects.equal(dateTime, ticket.dateTime);
     }
 
     @Override

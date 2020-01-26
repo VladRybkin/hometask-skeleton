@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.service.impl;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
@@ -61,7 +60,6 @@ public class DefaultEventService implements EventService {
     public Collection<Event> getAll() {
         return eventDao.getAll();
     }
-
 
     public void setEventDao(EventDao eventDao) {
         this.eventDao = eventDao;

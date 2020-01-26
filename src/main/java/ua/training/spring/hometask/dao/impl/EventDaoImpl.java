@@ -20,7 +20,6 @@ public class EventDaoImpl implements EventDao {
         object.setId((long) (events.size() + 1));
         events.put(object.getId(), object);
         return object;
-
     }
 
     @Override
@@ -31,7 +30,6 @@ public class EventDaoImpl implements EventDao {
     @Override
     public Event getById( Long id) {
         return events.get(id);
-
     }
 
     @Nonnull
@@ -42,7 +40,6 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event getByName(String name) {
-
         return events.values().stream().filter(user -> user.getName().equals(name)).findAny().orElse(null);
     }
 
@@ -65,7 +62,6 @@ public class EventDaoImpl implements EventDao {
                 .forEach(filteredEvents::add));
 
         return filteredEvents;
-
     }
 
     private Predicate<LocalDateTime> filterBeforeDate(LocalDateTime to) {

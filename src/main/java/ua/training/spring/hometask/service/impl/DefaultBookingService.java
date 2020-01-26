@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.domain.Event;
@@ -14,33 +13,28 @@ import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
-import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
 public class DefaultBookingService implements BookingService {
 
     @Autowired
-    DiscountService discountService;
+    private DiscountService discountService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
-
         double totalPrize = getTotalPrize(tickets);
         double discount = discountService.getDiscount(user, tickets);
 
@@ -48,24 +42,28 @@ public class DefaultBookingService implements BookingService {
     }
 
 
-
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
-        user.getTickets().addAll(tickets);
-        tickets.forEach(setUserToTicket(user));
-        tickets.forEach(ticket -> ticketService.save(ticket));
-        userService.save(user);
-
+        tickets.forEach(ticket -> bookTicket(ticket, user));
     }
 
 
     @Nonnull
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
-
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);
     }
 
+    @Nonnull
+    @Override
+    public Ticket bookTicket(Ticket ticket, User user) {
+        user.getTickets().add(ticket);
+        ticket.setUser(user);
+        userService.save(user);
+        ticketService.save(ticket);
+
+        return ticket;
+    }
 
     private Ticket createTicket(Event event, Long seat) {
         Ticket ticket = new Ticket();
@@ -73,6 +71,7 @@ public class DefaultBookingService implements BookingService {
         ticket.setEvent(event);
         ticket.setBasePrice(event.getBasePrice() * eventBonus);
         ticket.setSeat(seat);
+
         return ticket;
 
     }
@@ -85,7 +84,6 @@ public class DefaultBookingService implements BookingService {
             return 1.5;
         }
         if (Objects.equals(eventRating, EventRating.HIGH)) {
-
             return 2;
         } else {
             return 1;
@@ -99,21 +97,13 @@ public class DefaultBookingService implements BookingService {
         } else {
             finalPrize = totalPrize;
         }
+
         return finalPrize;
     }
 
 
     private double getTotalPrize(Set<Ticket> tickets) {
-
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
-    }
-
-    private Predicate<Ticket> eventFilter(@Nonnull Event event) {
-        return ticket -> ticket.getEvent().equals(event);
-    }
-
-    private Predicate<Ticket> seatsFilter(@Nonnull Set<Long> seats) {
-        return ticket -> seats.contains(ticket.getSeat());
     }
 
     private Consumer<Ticket> setUserToTicket(User user) {
@@ -128,5 +118,7 @@ public class DefaultBookingService implements BookingService {
         this.userService = userService;
     }
 
-
+    public void setTicketService(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 }

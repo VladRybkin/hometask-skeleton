@@ -1,8 +1,10 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -27,9 +29,8 @@ public class Auditorium {
 
     /**
      * Counts how many vip seats are there in supplied <code>seats</code>
-     * 
-     * @param seats
-     *            Seats to process
+     *
+     * @param seats Seats to process
      * @return number of vip seats in request
      */
     public long countVipSeats(Collection<Long> seats) {
@@ -51,9 +52,9 @@ public class Auditorium {
     public void setNumberOfSeats(long numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
-    
+
     public Set<Long> getAllSeats() {
-        return LongStream.range(1, numberOfSeats+1).boxed().collect(Collectors.toSet());
+        return LongStream.range(1, numberOfSeats + 1).boxed().collect(Collectors.toSet());
     }
 
     public Set<String> getVipSeats() {
@@ -63,6 +64,7 @@ public class Auditorium {
     public void setVipSeats(Set<String> vipSeats) {
         this.vipSeats = vipSeats;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -74,8 +76,8 @@ public class Auditorium {
         }
         Auditorium that = (Auditorium) o;
         return numberOfSeats == that.numberOfSeats &&
-                com.google.common.base.Objects.equal(name, that.name) &&
-                com.google.common.base.Objects.equal(vipSeats, that.vipSeats);
+                Objects.equal(name, that.name) &&
+                Objects.equal(vipSeats, that.vipSeats);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class Auditorium {
 
     @Override
     public String toString() {
-        return com.google.common.base.Objects.toStringHelper(this)
+        return Objects.toStringHelper(this)
                 .add("name", name)
                 .add("numberOfSeats", numberOfSeats)
                 .add("vipSeats", vipSeats)

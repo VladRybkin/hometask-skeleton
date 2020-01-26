@@ -31,7 +31,6 @@ public class DefaultTicketService implements TicketService {
 
     @Override
     public Ticket getById(@Nonnull Long id) {
-
         return ticketDao.getById(id);
     }
 

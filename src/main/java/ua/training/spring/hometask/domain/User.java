@@ -76,8 +76,8 @@ public class User extends DomainObject {
         }
         User user = (User) o;
         return Objects.equal(firstName, user.firstName) &&
-                com.google.common.base.Objects.equal(lastName, user.lastName) &&
-                com.google.common.base.Objects.equal(email, user.email);
+                Objects.equal(lastName, user.lastName) &&
+                Objects.equal(email, user.email);
     }
 
     @Override
