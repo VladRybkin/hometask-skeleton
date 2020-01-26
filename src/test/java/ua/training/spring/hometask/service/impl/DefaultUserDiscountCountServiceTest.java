@@ -45,7 +45,7 @@ public class DefaultUserDiscountCountServiceTest {
         long expectedAfterIncrement = 2;
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countTenthTicketDiscountIncrement(TEST_NAME);
-        assertThat(testUserDiscountInfo.getCountTenthTicketDiscount(), CoreMatchers.is(expectedAfterIncrement));
+        assertThat(testUserDiscountInfo.getCountTenthTicketDiscount(), is(expectedAfterIncrement));
         verify(discountDao).save(testUserDiscountInfo);
     }
 

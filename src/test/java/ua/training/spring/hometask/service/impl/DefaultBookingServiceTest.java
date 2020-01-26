@@ -76,8 +76,8 @@ public class DefaultBookingServiceTest {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
         double expectedDiscountWithTenthTickets = 5;
-
         User user = buildUser();
+
         when(discountService.getDiscount(any(User.class), anySet())).thenReturn(expectedDiscountWithTenthTickets);
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
@@ -117,6 +117,7 @@ public class DefaultBookingServiceTest {
         User user = buildUser();
         Ticket ticket = buildTicket();
         bookingService.bookTicket(ticket, user);
+
         assertThat(ticket.getUser(), is(user));
         assertThat(user.getTickets(), containsInAnyOrder(ticket));
         verify(ticketService).save(ticket);
@@ -128,6 +129,7 @@ public class DefaultBookingServiceTest {
         event.setName("testEvent");
         event.setRating(eventRating);
         event.setBasePrice(TICKET_BASE_PRICE);
+
         Set<LocalDateTime> airDates = Sets.newTreeSet();
         LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4);
         LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5);

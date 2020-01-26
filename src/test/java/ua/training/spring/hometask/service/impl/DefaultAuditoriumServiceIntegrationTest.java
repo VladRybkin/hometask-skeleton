@@ -27,7 +27,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @ContextConfiguration(classes = TestBeansAuditorium.class)
 public class DefaultAuditoriumServiceIntegrationTest {
 
-
     @Autowired
     private AuditoriumService auditoriumService;
 
@@ -35,7 +34,6 @@ public class DefaultAuditoriumServiceIntegrationTest {
     public void getAll() {
         int expectedAuditoriumsSize = 2;
         assertThat(auditoriumService.getAll(), hasSize(expectedAuditoriumsSize));
-
     }
 
     @Test
