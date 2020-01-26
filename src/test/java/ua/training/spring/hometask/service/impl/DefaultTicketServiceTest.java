@@ -70,11 +70,5 @@ public class DefaultTicketServiceTest {
         assertThat(ticketService.getAll(), is(tickets));
         verify(ticketDao).getAll();
     }
-    @Test
-    public void getPurchasedTicketsForEvent() {
-//        when(ticketDao.getPurchasedTicketsForEvent(ID)).thenReturn(testTicket);
-//        assertThat(ticketService.getById(ID), is(testTicket));
-//        verify(ticketDao).getById(ID);
-    }
 
 }

@@ -10,18 +10,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.domain.*;
-import ua.training.spring.hometask.service.DiscountService;
-import ua.training.spring.hometask.service.strategy.BirthdayDiscountStrategy;
-import ua.training.spring.hometask.service.strategy.DiscountStrategy;
-import ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy;
+import ua.training.spring.hometask.service.TicketService;
+import ua.training.spring.hometask.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.function.IntConsumer;
-import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +33,13 @@ public class DefaultBookingServiceTest {
     private DefaultBookingService bookingService;
 
     @Mock
-    private DiscountService discountService;
+    private DefaultDiscountService discountService;
+
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private TicketService ticketService;
 
     private Event testLowRatingEvent;
 
@@ -39,18 +47,12 @@ public class DefaultBookingServiceTest {
 
     private Event testHighRatingEvent;
 
-    private static final int BIRTHDAY_STRATEGY_DISCOUNT = 10;
-
-    private static final int TENTH_TICKET_STRATEGY_DISCOUNT = 50;
-
     private static final double TICKET_BASE_PRICE = 100;
 
 
     @BeforeEach()
     public void setUp() {
-
         bookingService.setDiscountService(discountService);
-
         testLowRatingEvent = buildTestEvent(EventRating.LOW);
         testMidRatingEvent = buildTestEvent(EventRating.MID);
         testHighRatingEvent = buildTestEvent(EventRating.HIGH);
@@ -60,50 +62,66 @@ public class DefaultBookingServiceTest {
     public void shouldCalculateTotalPrizeWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
-        User testUserWithTenTickets = buildUserWithTicketAmountWithOneHundredPrice(10);
-        double price = bookingService.getTicketsPrice(testLowRatingEvent, testUserWithTenTickets, seats);
+        double expectedDiscountWithTenthTickets = 0;
+        User testUser = buildUser();
+
+        when(discountService.getDiscount(any(User.class), anySet())).thenReturn(expectedDiscountWithTenthTickets);
+        double price = bookingService.getTicketsPrice(testLowRatingEvent, testUser, seats);
         assertThat(price, is(expectedPriceWithoutDiscount));
+        verify(discountService).getDiscount(any(User.class), anySet());
     }
 
     @Test
     public void shouldCalculateTotalPrizeWithTenTicketsDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
-        User user = buildUserWithTicketAmountWithOneHundredPrice(10);
+        double expectedDiscountWithTenthTickets = 5;
+
+        User user = buildUser();
+        when(discountService.getDiscount(any(User.class), anySet())).thenReturn(expectedDiscountWithTenthTickets);
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
+        verify(discountService).getDiscount(any(User.class), anySet());
     }
 
     @Test
     public void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
         Set<Long> seats = Sets.newHashSet();
         double expectedPriceWithTenthTicketsDiscount = 0;
-        User user = buildUserWithTicketAmountWithOneHundredPrice(10);
+        double expectedDiscountWithTenthTickets = 0;
+        User user = buildUser();
+
+        when(discountService.getDiscount(any(User.class), anySet())).thenReturn(expectedDiscountWithTenthTickets);
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
+        verify(discountService).getDiscount(any(User.class), anySet());
     }
 
 
     @Test
-    public void shouldCalculateZeroTotalPriceForUserWithoutTickets() {
-        Set<Long> seats = Sets.newHashSet();
-        User user = buildUserWithTicketAmountWithOneHundredPrice(0);
-        double expectedPriceWithTenthTicketsDiscount = 0;
-        double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
-        assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
-    }
-
-
-    @Test
-    public void shouldCalculateZeroTotalPriceForUserWithBirthdayWithoutTickets() {
-        Set<Long> seats = Sets.newHashSet();
-        User user = buildUserWithTicketAmountWithOneHundredPrice(0);
+    public void shouldCalculateTotalPriceForUserWithBirthday() {
+        Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
+        User user = buildUser();
         user.setDateOfBirth(LocalDateTime.now());
-        double expectedPriceWithTenthTicketsDiscount = 0;
+        double expectedPriceWithTenthTicketsDiscount = 900;
+        double expectedDiscountWithBirthday = 10;
+
+        when(discountService.getDiscount(any(User.class), anySet())).thenReturn(expectedDiscountWithBirthday);
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
+        verify(discountService).getDiscount(any(User.class), anySet());
     }
 
+    @Test
+    void bookTicket() {
+        User user = buildUser();
+        Ticket ticket = buildTicket();
+        bookingService.bookTicket(ticket, user);
+        assertThat(ticket.getUser(), is(user));
+        assertThat(user.getTickets(), containsInAnyOrder(ticket));
+        verify(ticketService).save(ticket);
+        verify(userService).save(user);
+    }
 
     private Event buildTestEvent(EventRating eventRating) {
         Event event = new Event();
@@ -119,62 +137,19 @@ public class DefaultBookingServiceTest {
         return event;
     }
 
-    private Map<LocalDateTime, Auditorium> initAuditoriums() {
-
-        Auditorium auditorium1 = new Auditorium();
-        auditorium1.setName("auditorium1");
-        auditorium1.setNumberOfSeats(60);
-        auditorium1.setVipSeats(Sets.newHashSet("1", "2", "3"));
-
-        Auditorium auditorium2 = new Auditorium();
-        auditorium2.setName("auditorium2");
-        auditorium2.setNumberOfSeats(50);
-        auditorium2.setVipSeats(Sets.newHashSet("4", "5", "6"));
-        Map<LocalDateTime, Auditorium> auditoriumMap = Maps.newTreeMap();
-        NavigableSet<LocalDateTime> airDates = initLocalDateTimes();
-        airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium1));
-        airDates.forEach(airDate -> auditoriumMap.put(airDate, auditorium2));
-
-        return auditoriumMap;
-    }
-
-    private NavigableSet<LocalDateTime> initLocalDateTimes() {
-        LocalDateTime nextMonth = LocalDateTime.now().plusMonths(1);
-        LocalDateTime fiveDaysLater = LocalDateTime.now().plusDays(5);
-        Set<LocalDateTime> localDateTimes = Sets.newHashSet(nextMonth, fiveDaysLater);
-
-        return Sets.newTreeSet(localDateTimes);
-    }
-
-    private User buildUserWithTicketAmountWithOneHundredPrice(int amount) {
+    private User buildUser() {
         User user = new User();
         user.setFirstName("TestUser");
-        addTickets(amount, user, testLowRatingEvent);
         return user;
     }
 
-
-    private void addTickets(int amount, User user, Event event) {
-        Set<Ticket> tickets = Sets.newHashSet();
-        IntStream.rangeClosed(1, amount).forEach(addTicket(user, tickets, event));
-        user.getTickets().addAll(tickets);
-
+    private Ticket buildTicket() {
+        Ticket ticket = new Ticket();
+        ticket.setBasePrice(100);
+        ticket.setEvent(testLowRatingEvent);
+        ticket.setDateTime(LocalDateTime.now());
+        ticket.setSeat(1);
+        return ticket;
     }
 
-    private IntConsumer addTicket(User user, Set<Ticket> tickets, Event event) {
-        return seat -> tickets.add(new Ticket(user, event, event.getAirDates().first(), seat, TICKET_BASE_PRICE));
-    }
-
-
-    private DiscountStrategy buildBirthdayTicketStrategy(int discount) {
-        BirthdayDiscountStrategy discountStrategy = new BirthdayDiscountStrategy();
-        discountStrategy.setBirthdayDiscount(discount);
-        return discountStrategy;
-    }
-
-    private DiscountStrategy buildTenthTicketStrategy(int discount) {
-        TenthTicketDiscountStrategy discountStrategy = new TenthTicketDiscountStrategy();
-        discountStrategy.setTenthTicketDiscount(discount);
-        return discountStrategy;
-    }
 }

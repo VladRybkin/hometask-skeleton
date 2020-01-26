@@ -17,6 +17,7 @@ import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 
@@ -46,7 +47,7 @@ public class TenthTicketDiscountStrategyTest {
         double expected_discountForAtLeastTenthTickets = 5;
         addTickets(ticketAmount, user);
 
-        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(user.getTickets(), hasSize(ticketAmount));
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
     }
 
@@ -57,7 +58,7 @@ public class TenthTicketDiscountStrategyTest {
         double expected_discountForAtHundredTickets = 5;
         addTickets(ticketAmount, user);
 
-        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(user.getTickets(), hasSize(ticketAmount));
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtHundredTickets));
     }
 
@@ -66,7 +67,7 @@ public class TenthTicketDiscountStrategyTest {
         User user = new User();
         int ticketAmount = 0;
         double expected_discountForAtLeastTenthTickets = 0;
-        assertThat(user.getTickets().size(), is(ticketAmount));
+        assertThat(user.getTickets(), hasSize(ticketAmount));
         assertThat(discountStrategy.calculateDiscount(user, user.getTickets()), is(expected_discountForAtLeastTenthTickets));
     }
 
