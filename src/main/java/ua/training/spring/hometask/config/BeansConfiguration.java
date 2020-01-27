@@ -8,7 +8,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "ua.training.spring.hometask")
 
-
 public class BeansConfiguration {
 
 }

@@ -1,11 +1,9 @@
 package ua.training.spring.hometask.service;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import ua.training.spring.hometask.domain.Event;
 
-import java.time.LocalDate;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Set;
 

@@ -11,14 +11,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 
-
 import java.time.LocalDateTime;
-
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class DefaultEventServiceTest {
@@ -81,13 +80,13 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public  void remove() {
+    public void remove() {
         eventService.remove(testEvent);
         verify(eventDao).remove(testEvent);
     }
 
     @Test
-    public  void getById() {
+    public void getById() {
         when(eventDao.getById(ID)).thenReturn(testEvent);
         assertThat(eventService.getById(ID), is(testEvent));
         verify(eventDao).getById(ID);

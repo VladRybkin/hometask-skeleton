@@ -5,10 +5,12 @@ import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.*;
-import ua.training.spring.hometask.service.*;
+import ua.training.spring.hometask.service.AuditoriumService;
+import ua.training.spring.hometask.service.EventService;
+import ua.training.spring.hometask.service.TicketService;
+import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.PostConstruct;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +32,6 @@ public class InitApplication {
 
     @Autowired
     private TicketService ticketService;
-
 
 
     @PostConstruct

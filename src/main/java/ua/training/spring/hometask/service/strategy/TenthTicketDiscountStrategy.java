@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NavigableSet;
 import java.util.Set;
 
 

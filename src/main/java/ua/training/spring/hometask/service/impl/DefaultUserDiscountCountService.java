@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.dao.UserDiscountDao;
 import ua.training.spring.hometask.domain.UserDiscountCountInfo;
 import ua.training.spring.hometask.service.UserDiscountService;
@@ -9,7 +9,7 @@ import ua.training.spring.hometask.service.UserDiscountService;
 import java.util.Collection;
 import java.util.Objects;
 
-@Component
+@Service
 public class DefaultUserDiscountCountService implements UserDiscountService {
 
     @Autowired

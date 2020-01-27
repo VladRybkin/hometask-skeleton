@@ -1,6 +1,6 @@
 package ua.training.spring.hometask.dao.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDiscountDao;
 import ua.training.spring.hometask.domain.UserDiscountCountInfo;
 
@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Repository
 public class UserDiscountCounterDaoImpl implements UserDiscountDao {
 
     private Map<Long, UserDiscountCountInfo> userDiscountCounts = new HashMap<>();

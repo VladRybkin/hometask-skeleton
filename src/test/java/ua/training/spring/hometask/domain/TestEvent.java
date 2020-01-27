@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -17,7 +16,7 @@ public class TestEvent {
     private Event event;
 
     @BeforeEach
-     void initEvent() {
+    void initEvent() {
         event = new Event();
         event.setBasePrice(1.1);
         event.setName("aaa");

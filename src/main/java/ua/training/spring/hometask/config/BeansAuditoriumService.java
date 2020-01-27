@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ua.training.spring.hometask.domain.Auditorium;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.impl.DefaultAuditoriumService;
 
@@ -60,8 +59,6 @@ public class BeansAuditoriumService {
     public AuditoriumService auditoriumService() {
         return new DefaultAuditoriumService(auditoriums());
     }
-
-
 
 
 }

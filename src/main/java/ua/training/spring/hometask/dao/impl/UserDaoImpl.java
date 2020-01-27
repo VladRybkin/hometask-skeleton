@@ -1,10 +1,8 @@
 package ua.training.spring.hometask.dao.impl;
 
-import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
-
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -12,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Component
+@Repository
 public class UserDaoImpl implements UserDao {
 
     private static final Map<Long, User> users = new HashMap<>();

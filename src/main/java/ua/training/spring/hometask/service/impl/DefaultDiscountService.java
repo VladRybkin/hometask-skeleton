@@ -6,10 +6,7 @@ import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 
-
 import javax.annotation.Nullable;
-
-
 import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.ToDoubleFunction;

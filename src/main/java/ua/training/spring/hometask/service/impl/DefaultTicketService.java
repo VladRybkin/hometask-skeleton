@@ -1,11 +1,10 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.exceptions.TicketNotFoundException;
 import ua.training.spring.hometask.service.TicketService;
 
 import javax.annotation.Nonnull;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
-@Component
+@Service
 public class DefaultTicketService implements TicketService {
 
     @Autowired

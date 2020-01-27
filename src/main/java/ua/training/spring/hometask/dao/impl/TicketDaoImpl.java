@@ -1,18 +1,16 @@
 package ua.training.spring.hometask.dao.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 
-
-import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class TicketDaoImpl implements TicketDao {
 
     private static final Map<Long, Ticket> tickets = new HashMap<>();
@@ -42,21 +40,21 @@ public class TicketDaoImpl implements TicketDao {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         return tickets.values().stream()
-                                .filter(purchasedFilter()
-                                .and(eventFilter(event)
+                .filter(purchasedFilter()
+                        .and(eventFilter(event)
                                 .and(filterDateTime(dateTime))))
-                                .collect(Collectors.toSet());
+                .collect(Collectors.toSet());
     }
 
     private Predicate<Ticket> purchasedFilter() {
-        return t-> !Objects.isNull(t.getUser());
+        return t -> !Objects.isNull(t.getUser());
     }
 
     private Predicate<Ticket> filterDateTime(LocalDateTime dateTime) {
-        return t->t.getDateTime().isEqual(dateTime);
+        return t -> t.getDateTime().isEqual(dateTime);
     }
 
     private Predicate<Ticket> eventFilter(Event event) {
-        return t-> Objects.equals(t.getEvent(), event);
+        return t -> Objects.equals(t.getEvent(), event);
     }
 }

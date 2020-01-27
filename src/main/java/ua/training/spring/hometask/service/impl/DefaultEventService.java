@@ -1,24 +1,22 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
-
 import ua.training.spring.hometask.service.EventService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
 
-@Component
+@Service
 public class DefaultEventService implements EventService {
 
     @Autowired
-    EventDao eventDao;
+    private EventDao eventDao;
 
 
     @Nullable

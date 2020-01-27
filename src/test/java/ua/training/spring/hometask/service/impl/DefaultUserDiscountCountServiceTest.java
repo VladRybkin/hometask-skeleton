@@ -2,7 +2,6 @@ package ua.training.spring.hometask.service.impl;
 
 
 import com.google.common.collect.Sets;
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -54,7 +53,7 @@ public class DefaultUserDiscountCountServiceTest {
         long expectedAfterIncrement = 2;
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countBirthdayDiscountIncrement(TEST_NAME);
-        assertThat(testUserDiscountInfo.getCountBirthdayDiscount(), CoreMatchers.is(expectedAfterIncrement));
+        assertThat(testUserDiscountInfo.getCountBirthdayDiscount(), is(expectedAfterIncrement));
         verify(discountDao).save(testUserDiscountInfo);
     }
 

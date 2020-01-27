@@ -2,7 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
@@ -11,11 +11,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 
-@Component
+@Service
 public class DefaultUserService implements UserService {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
 
     @Nullable

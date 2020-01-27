@@ -2,7 +2,6 @@ package ua.training.spring.hometask.dao;
 
 import ua.training.spring.hometask.domain.Event;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 

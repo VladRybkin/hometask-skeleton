@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventCounterDao;
 import ua.training.spring.hometask.domain.EventCountInfo;
-
 import ua.training.spring.hometask.service.EventCountService;
 
 import javax.annotation.Nonnull;

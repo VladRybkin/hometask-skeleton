@@ -3,7 +3,6 @@ package ua.training.spring.hometask.domain;
 import com.google.common.base.Objects;
 
 import java.time.LocalDateTime;
-
 import java.util.NavigableSet;
 import java.util.TreeSet;
 

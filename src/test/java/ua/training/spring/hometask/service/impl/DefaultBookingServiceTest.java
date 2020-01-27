@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,17 +8,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ua.training.spring.hometask.domain.*;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.verify;

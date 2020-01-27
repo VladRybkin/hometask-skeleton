@@ -17,7 +17,7 @@ import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 import ua.training.spring.hometask.service.strategy.TenthTicketDiscountStrategy;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Set;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 

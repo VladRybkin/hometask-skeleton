@@ -3,13 +3,12 @@ package ua.training.spring.hometask.service.strategy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import ua.training.spring.hometask.domain.User;
+
+import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
-import java.time.LocalDateTime;
 
 
 public class BirthdayDiscountStrategyTest {

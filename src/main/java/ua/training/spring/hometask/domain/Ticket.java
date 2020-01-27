@@ -6,7 +6,6 @@ import com.google.common.collect.ComparisonChain;
 import java.time.LocalDateTime;
 
 
-
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     private User user;
