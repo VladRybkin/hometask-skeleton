@@ -19,11 +19,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD;
 
 
 @ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ContextConfiguration(classes = TestBeansAuditorium.class)
 public class DefaultAuditoriumServiceIntegrationTest {
 
