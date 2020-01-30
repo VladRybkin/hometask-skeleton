@@ -3,7 +3,7 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
-public class EventCountInfo extends DomainObject {
+public class EventCount extends DomainObject {
 
     private String eventName;
 
@@ -54,7 +54,7 @@ public class EventCountInfo extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EventCountInfo that = (EventCountInfo) o;
+        EventCount that = (EventCount) o;
         return countGetByName == that.countGetByName &&
                 countBookTickets == that.countBookTickets &&
                 countGetPrice == that.countGetPrice &&
@@ -80,34 +80,34 @@ public class EventCountInfo extends DomainObject {
 
     public static class Builder {
 
-        private EventCountInfo newEventCountInfo;
+        private EventCount newEventCount;
 
         public Builder() {
-            newEventCountInfo = new EventCountInfo();
+            newEventCount = new EventCount();
         }
 
         public Builder withEventName(String eventName) {
-            newEventCountInfo.eventName = eventName;
+            newEventCount.eventName = eventName;
             return this;
         }
 
         public Builder withCountBookTicket(long countBookTickets) {
-            newEventCountInfo.countBookTickets = countBookTickets;
+            newEventCount.countBookTickets = countBookTickets;
             return this;
         }
 
         public Builder withCountGetByName(long countGetByName) {
-            newEventCountInfo.countGetByName = countGetByName;
+            newEventCount.countGetByName = countGetByName;
             return this;
         }
 
         public Builder withCountGetPrice(long countGetPrice) {
-            newEventCountInfo.countGetPrice = countGetPrice;
+            newEventCount.countGetPrice = countGetPrice;
             return this;
         }
 
-        public EventCountInfo build() {
-            return newEventCountInfo;
+        public EventCount build() {
+            return newEventCount;
         }
 
     }

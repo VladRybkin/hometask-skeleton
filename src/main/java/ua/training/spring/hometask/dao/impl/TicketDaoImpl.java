@@ -6,9 +6,14 @@ import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.Objects;
+
 
 @Repository
 public class TicketDaoImpl implements TicketDao {
@@ -57,4 +62,5 @@ public class TicketDaoImpl implements TicketDao {
     private Predicate<Ticket> eventFilter(Event event) {
         return t -> Objects.equals(t.getEvent(), event);
     }
+
 }

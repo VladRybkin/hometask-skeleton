@@ -32,7 +32,7 @@ public class Main {
         TicketService ticketService = ctx.getBean(TicketService.class);
         UserService userService = ctx.getBean(UserService.class);
         DiscountService discountService = ctx.getBean(DiscountService.class);
-        UserDiscountService userDiscountService = ctx.getBean(UserDiscountService.class);
+        UserDiscountCountService userDiscountCountService = ctx.getBean(UserDiscountCountService.class);
 
         //        bookingService.getTicketsPrice(new Event("vlad"), null, null);
         eventService.getByName("first event");
@@ -56,7 +56,7 @@ public class Main {
 
         System.out.println(eventCountService.getAll());
         System.out.println(eventService.getAll());
-        System.out.println(userDiscountService.getAll());
+        System.out.println(userDiscountCountService.getAll());
         //        Bootstrap.main(args);
 
     }

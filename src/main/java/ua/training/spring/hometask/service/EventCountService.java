@@ -1,10 +1,10 @@
 package ua.training.spring.hometask.service;
 
-import ua.training.spring.hometask.domain.EventCountInfo;
+import ua.training.spring.hometask.domain.EventCount;
 
-public interface EventCountService extends AbstractDomainObjectService<EventCountInfo> {
+public interface EventCountService extends AbstractDomainObjectService<EventCount> {
 
-    EventCountInfo getByName(String name);
+    EventCount getByName(String name);
 
     void getByNameCountIncrement(String eventName);
 

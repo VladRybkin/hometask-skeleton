@@ -2,7 +2,7 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
-public class UserDiscountCountInfo extends DomainObject {
+public class UserDiscountCount extends DomainObject {
 
     private String name;
 
@@ -10,10 +10,10 @@ public class UserDiscountCountInfo extends DomainObject {
 
     private long countBirthdayDiscount;
 
-    public UserDiscountCountInfo() {
+    public UserDiscountCount() {
     }
 
-    public UserDiscountCountInfo(String name, long countTenthTicketDiscount, long countBirthdayDiscount) {
+    public UserDiscountCount(String name, long countTenthTicketDiscount, long countBirthdayDiscount) {
         this.name = name;
         this.countTenthTicketDiscount = countTenthTicketDiscount;
         this.countBirthdayDiscount = countBirthdayDiscount;
@@ -51,7 +51,7 @@ public class UserDiscountCountInfo extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDiscountCountInfo that = (UserDiscountCountInfo) o;
+        UserDiscountCount that = (UserDiscountCount) o;
         return countTenthTicketDiscount == that.countTenthTicketDiscount &&
                 countBirthdayDiscount == that.countBirthdayDiscount &&
                 Objects.equal(name, that.name);
@@ -74,10 +74,10 @@ public class UserDiscountCountInfo extends DomainObject {
 
     public static class Builder {
 
-        private UserDiscountCountInfo newDiscountInfo;
+        private UserDiscountCount newDiscountInfo;
 
         public Builder() {
-            newDiscountInfo = new UserDiscountCountInfo();
+            newDiscountInfo = new UserDiscountCount();
         }
 
         public Builder withUserName(String nestedUserName) {
@@ -95,7 +95,7 @@ public class UserDiscountCountInfo extends DomainObject {
             return this;
         }
 
-        public UserDiscountCountInfo build() {
+        public UserDiscountCount build() {
             return newDiscountInfo;
         }
     }

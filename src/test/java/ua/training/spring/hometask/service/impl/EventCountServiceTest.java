@@ -8,14 +8,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ua.training.spring.hometask.dao.impl.EventCounterDaoImpl;
-import ua.training.spring.hometask.domain.EventCountInfo;
+import ua.training.spring.hometask.dao.EventCountDao;
+import ua.training.spring.hometask.domain.EventCount;
 
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 public class EventCountServiceTest {
@@ -24,15 +26,15 @@ public class EventCountServiceTest {
     private DefaultEventCountService eventCountService;
 
     @Mock
-    private EventCounterDaoImpl eventCounterDao;
+    private EventCountDao eventCounterDao;
 
-    private EventCountInfo testEventCountInfo;
+    private EventCount testEventCount;
 
     private static String TEST_NAME = "testname";
 
     @BeforeEach
     public void setUp() {
-        testEventCountInfo = new EventCountInfo.Builder()
+        testEventCount = new EventCount.Builder()
                 .withEventName(TEST_NAME)
                 .withCountBookTicket(1)
                 .withCountGetByName(1)
@@ -44,64 +46,64 @@ public class EventCountServiceTest {
     @Test
     public void getByNameCountIncrement() {
         long expectedAfterIncrement = 2;
-        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCountInfo);
+        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getByNameCountIncrement(TEST_NAME);
-        assertThat(testEventCountInfo.getCountGetByName(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCountInfo);
+        assertThat(testEventCount.getCountGetByName(), is(expectedAfterIncrement));
+        verify(eventCounterDao).save(testEventCount);
     }
 
     @Test
     public void bookTicketsCountIncrement() {
         long expectedAfterIncrement = 2;
-        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCountInfo);
+        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.bookTicketsCountIncrement(TEST_NAME);
-        assertThat(testEventCountInfo.getCountBookTickets(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCountInfo);
+        assertThat(testEventCount.getCountBookTickets(), is(expectedAfterIncrement));
+        verify(eventCounterDao).save(testEventCount);
     }
 
     @Test
     public void getPriceCountIncrement() {
         long expectedAfterIncrement = 2;
-        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCountInfo);
+        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getPriceCountIncrement(TEST_NAME);
-        assertThat(testEventCountInfo.getCountGetPrice(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCountInfo);
+        assertThat(testEventCount.getCountGetPrice(), is(expectedAfterIncrement));
+        verify(eventCounterDao).save(testEventCount);
     }
 
     @Test
     public void save() {
-        when(eventCounterDao.save(testEventCountInfo)).thenReturn(testEventCountInfo);
-        assertThat(eventCountService.save(testEventCountInfo), is(testEventCountInfo));
-        verify(eventCounterDao, times(1)).save(testEventCountInfo);
+        when(eventCounterDao.save(testEventCount)).thenReturn(testEventCount);
+        assertThat(eventCountService.save(testEventCount), is(testEventCount));
+        verify(eventCounterDao).save(testEventCount);
     }
 
     @Test
     public void getByName() {
-        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCountInfo);
-        assertThat(eventCountService.getByName(TEST_NAME), is(testEventCountInfo));
-        verify(eventCounterDao, times(1)).getByName(TEST_NAME);
+        when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
+        assertThat(eventCountService.getByName(TEST_NAME), is(testEventCount));
+        verify(eventCounterDao).getByName(TEST_NAME);
     }
 
     @Test
     public void remove() {
-        eventCountService.remove(testEventCountInfo);
-        verify(eventCounterDao, times(1)).remove(testEventCountInfo);
+        eventCountService.remove(testEventCount);
+        verify(eventCounterDao).remove(testEventCount);
     }
 
     @Test
     public void getById() {
         long testId = 666;
-        when(eventCounterDao.getById(testId)).thenReturn(testEventCountInfo);
-        assertThat(eventCountService.getById(testId), is(testEventCountInfo));
-        verify(eventCounterDao, times(1)).getById(testId);
+        when(eventCounterDao.getById(testId)).thenReturn(testEventCount);
+        assertThat(eventCountService.getById(testId), is(testEventCount));
+        verify(eventCounterDao).getById(testId);
     }
 
     @Test
     public void getAll() {
-        Set<EventCountInfo> userDiscountCountInfos = Sets.newHashSet();
-        userDiscountCountInfos.add(testEventCountInfo);
+        Set<EventCount> userDiscountCountInfos = Sets.newHashSet();
+        userDiscountCountInfos.add(testEventCount);
         when(eventCounterDao.getAll()).thenReturn(userDiscountCountInfos);
         assertThat(eventCountService.getAll(), is(userDiscountCountInfos));
-        verify(eventCounterDao, times(1)).getAll();
+        verify(eventCounterDao).getAll();
     }
 }

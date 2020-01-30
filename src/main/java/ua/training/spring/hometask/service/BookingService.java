@@ -8,9 +8,7 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-/**
- * @author Yuriy_Tkach
- */
+
 public interface BookingService {
 
 

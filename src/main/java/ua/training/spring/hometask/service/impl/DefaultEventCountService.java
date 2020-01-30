@@ -2,8 +2,8 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.dao.EventCounterDao;
-import ua.training.spring.hometask.domain.EventCountInfo;
+import ua.training.spring.hometask.dao.EventCountDao;
+import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.service.EventCountService;
 
 import javax.annotation.Nonnull;
@@ -14,77 +14,77 @@ import java.util.Objects;
 public class DefaultEventCountService implements EventCountService {
 
     @Autowired
-    private EventCounterDao eventCounterDao;
+    private EventCountDao eventCountDao;
 
     @Override
-    public EventCountInfo save(@Nonnull EventCountInfo object) {
-        return eventCounterDao.save(object);
+    public EventCount save(@Nonnull EventCount object) {
+        return eventCountDao.save(object);
     }
 
     @Override
-    public void remove(@Nonnull EventCountInfo object) {
-        eventCounterDao.remove(object);
+    public void remove(@Nonnull EventCount object) {
+        eventCountDao.remove(object);
     }
 
     @Override
-    public EventCountInfo getById(@Nonnull Long id) {
-        return eventCounterDao.getById(id);
+    public EventCount getById(@Nonnull Long id) {
+        return eventCountDao.getById(id);
     }
 
     @Nonnull
     @Override
-    public Collection<EventCountInfo> getAll() {
-        return eventCounterDao.getAll();
+    public Collection<EventCount> getAll() {
+        return eventCountDao.getAll();
     }
 
     @Override
     public void getByNameCountIncrement(String eventName) {
-        EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
-        if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = createEventCounter(eventName);
-            eventCountInfo.setCountGetByName(eventCountInfo.getCountGetByName() + 1);
-            eventCounterDao.save(eventCountInfo);
+        EventCount foundEventCount = eventCountDao.getByName(eventName);
+        if (Objects.isNull(foundEventCount)) {
+            EventCount eventCount = createEventCounter(eventName);
+            eventCount.setCountGetByName(eventCount.getCountGetByName() + 1);
+            eventCountDao.save(eventCount);
         } else {
-            foundEventCountInfo.setCountGetByName(foundEventCountInfo.getCountGetByName() + 1);
-            eventCounterDao.save(foundEventCountInfo);
+            foundEventCount.setCountGetByName(foundEventCount.getCountGetByName() + 1);
+            eventCountDao.save(foundEventCount);
         }
     }
 
 
     @Override
     public void bookTicketsCountIncrement(String eventName) {
-        EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
-        if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = createEventCounter(eventName);
-            eventCountInfo.setCountBookTickets(eventCountInfo.getCountBookTickets() + 1);
-            eventCounterDao.save(eventCountInfo);
+        EventCount foundEventCount = eventCountDao.getByName(eventName);
+        if (Objects.isNull(foundEventCount)) {
+            EventCount eventCount = createEventCounter(eventName);
+            eventCount.setCountBookTickets(eventCount.getCountBookTickets() + 1);
+            eventCountDao.save(eventCount);
         } else {
-            foundEventCountInfo.setCountBookTickets(foundEventCountInfo.getCountBookTickets() + 1);
-            eventCounterDao.save(foundEventCountInfo);
+            foundEventCount.setCountBookTickets(foundEventCount.getCountBookTickets() + 1);
+            eventCountDao.save(foundEventCount);
         }
 
     }
 
     @Override
     public void getPriceCountIncrement(String eventName) {
-        EventCountInfo foundEventCountInfo = eventCounterDao.getByName(eventName);
-        if (Objects.isNull(foundEventCountInfo)) {
-            EventCountInfo eventCountInfo = createEventCounter(eventName);
-            eventCountInfo.setCountGetPrice(eventCountInfo.getCountGetPrice() + 1);
-            eventCounterDao.save(eventCountInfo);
+        EventCount foundEventCount = eventCountDao.getByName(eventName);
+        if (Objects.isNull(foundEventCount)) {
+            EventCount eventCount = createEventCounter(eventName);
+            eventCount.setCountGetPrice(eventCount.getCountGetPrice() + 1);
+            eventCountDao.save(eventCount);
         } else {
-            foundEventCountInfo.setCountGetPrice(foundEventCountInfo.getCountGetPrice() + 1);
-            eventCounterDao.save(foundEventCountInfo);
+            foundEventCount.setCountGetPrice(foundEventCount.getCountGetPrice() + 1);
+            eventCountDao.save(foundEventCount);
         }
     }
 
     @Override
-    public EventCountInfo getByName(String name) {
-        return eventCounterDao.getByName(name);
+    public EventCount getByName(String name) {
+        return eventCountDao.getByName(name);
     }
 
-    private EventCountInfo createEventCounter(String eventName) {
-        return new EventCountInfo.Builder()
+    private EventCount createEventCounter(String eventName) {
+        return new EventCount.Builder()
                 .withEventName(eventName)
                 .withCountGetPrice(0)
                 .withCountGetByName(0)
@@ -92,8 +92,8 @@ public class DefaultEventCountService implements EventCountService {
                 .build();
     }
 
-    public void setEventCounterDao(EventCounterDao eventCounterDao) {
-        this.eventCounterDao = eventCounterDao;
+    public void setEventCountDao(EventCountDao eventCountDao) {
+        this.eventCountDao = eventCountDao;
     }
 
 }

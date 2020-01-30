@@ -4,7 +4,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.domain.*;
+
+import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.Auditorium;
+import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
@@ -43,8 +48,6 @@ public class InitApplication {
         eventService.save(event);
         saveTickets(10, event);
         System.out.println("init method executed");
-
-
     }
 
     private Event buildEvent() {

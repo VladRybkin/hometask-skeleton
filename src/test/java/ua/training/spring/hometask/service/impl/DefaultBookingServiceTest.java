@@ -44,10 +44,6 @@ public class DefaultBookingServiceTest {
 
     private Event testLowRatingEvent;
 
-    private Event testMidRatingEvent;
-
-    private Event testHighRatingEvent;
-
     private static final double TICKET_BASE_PRICE = 100;
 
 
@@ -55,8 +51,6 @@ public class DefaultBookingServiceTest {
     public void setUp() {
         bookingService.setDiscountService(discountService);
         testLowRatingEvent = buildTestEvent(EventRating.LOW);
-        testMidRatingEvent = buildTestEvent(EventRating.MID);
-        testHighRatingEvent = buildTestEvent(EventRating.HIGH);
     }
 
     @Test
