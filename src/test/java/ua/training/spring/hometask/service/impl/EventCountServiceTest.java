@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -73,14 +74,16 @@ public class EventCountServiceTest {
     @Test
     public void save() {
         when(eventCounterDao.save(testEventCount)).thenReturn(testEventCount);
-        assertThat(eventCountService.save(testEventCount), is(testEventCount));
+        EventCount persistedEventCount = eventCountService.save(testEventCount);
+        assertThat(persistedEventCount, is(testEventCount));
         verify(eventCounterDao).save(testEventCount);
     }
 
     @Test
     public void getByName() {
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
-        assertThat(eventCountService.getByName(TEST_NAME), is(testEventCount));
+        EventCount persistedEventCount = eventCountService.getByName(TEST_NAME);
+        assertThat(persistedEventCount, is(testEventCount));
         verify(eventCounterDao).getByName(TEST_NAME);
     }
 
@@ -94,16 +97,17 @@ public class EventCountServiceTest {
     public void getById() {
         long testId = 666;
         when(eventCounterDao.getById(testId)).thenReturn(testEventCount);
-        assertThat(eventCountService.getById(testId), is(testEventCount));
+        EventCount persistedEventCount = eventCountService.getById(testId);
+        assertThat(persistedEventCount, is(testEventCount));
         verify(eventCounterDao).getById(testId);
     }
 
     @Test
     public void getAll() {
-        Set<EventCount> userDiscountCountInfos = Sets.newHashSet();
-        userDiscountCountInfos.add(testEventCount);
-        when(eventCounterDao.getAll()).thenReturn(userDiscountCountInfos);
-        assertThat(eventCountService.getAll(), is(userDiscountCountInfos));
+        List<EventCount> givenEventCounts = Lists.newArrayList(testEventCount);
+        when(eventCounterDao.getAll()).thenReturn(givenEventCounts);
+        Collection<EventCount> persistedEvents = eventCountService.getAll();
+        assertThat(persistedEvents, is(givenEventCounts));
         verify(eventCounterDao).getAll();
     }
 }

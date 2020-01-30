@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Ticket;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -33,13 +34,15 @@ public class DefaultTicketServiceTest {
     @BeforeEach
     public void setUp() {
         testTicket = new Ticket();
-        testTicket.setId(ID);
     }
 
     @Test
     public void save() {
         when(ticketDao.save(testTicket)).thenReturn(testTicket);
-        assertThat(ticketService.save(testTicket), is(testTicket));
+
+        Ticket persistedTicket = ticketService.save(testTicket);
+
+        assertThat(persistedTicket, is(testTicket));
         verify(ticketDao).save(testTicket);
     }
 
@@ -52,16 +55,21 @@ public class DefaultTicketServiceTest {
     @Test
     public void getById() {
         when(ticketDao.getById(ID)).thenReturn(testTicket);
-        assertThat(ticketService.getById(ID), is(testTicket));
+
+        Ticket persistedTicket = ticketService.getById(ID);
+
+        assertThat(persistedTicket, is(testTicket));
         verify(ticketDao).getById(ID);
     }
 
     @Test
     public void getAll() {
-        List<Ticket> tickets = Lists.newArrayList();
-        tickets.add(testTicket);
-        when(ticketDao.getAll()).thenReturn(tickets);
-        assertThat(ticketService.getAll(), is(tickets));
+        List<Ticket> givenTickets = Lists.newArrayList(testTicket);
+        when(ticketDao.getAll()).thenReturn(givenTickets);
+
+        Collection persistedTickets = ticketService.getAll();
+
+        assertThat(persistedTickets, is(givenTickets));
         verify(ticketDao).getAll();
     }
 

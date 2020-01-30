@@ -12,6 +12,7 @@ import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,32 +51,42 @@ public class DefaultEventServiceTest {
     @Test
     public void getByName() {
         when(eventDao.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
-        assertThat(eventService.getByName(TEST_EVENT_NAME), is(testEvent));
+
+        Event persistedEvent = eventService.getByName(TEST_EVENT_NAME);
+
+        assertThat(persistedEvent, is(testEvent));
         verify(eventDao).getByName(TEST_EVENT_NAME);
     }
 
     @Test
     public void getForDateRange() {
-
         LocalDateTime minusFiveDaysTime = LocalDateTime.now().minusDays(5);
         LocalDateTime timeNow = LocalDateTime.now();
         when(eventDao.getForDateRange(minusFiveDaysTime, timeNow)).thenReturn(testEventsSet);
 
-        assertThat(eventService.getForDateRange(minusFiveDaysTime, timeNow), is(testEventsSet));
+        Set<Event> persistedEvents = eventService.getForDateRange(minusFiveDaysTime, timeNow);
+
+        assertThat(persistedEvents, is(testEventsSet));
         verify(eventDao).getForDateRange(minusFiveDaysTime, timeNow);
     }
 
     @Test
     public void getNextEvents() {
         when(eventDao.getNextEvents(localDateTimeNext)).thenReturn(testEventsSet);
-        assertThat(eventService.getNextEvents(localDateTimeNext), is(testEventsSet));
+
+        Set<Event> persistedEvents = eventService.getNextEvents(localDateTimeNext);
+
+        assertThat(persistedEvents, is(testEventsSet));
         verify(eventDao).getNextEvents(localDateTimeNext);
     }
 
     @Test
     public void save() {
         when(eventDao.save(testEvent)).thenReturn(testEvent);
-        assertThat(eventService.save(testEvent), is(testEvent));
+
+        Event persistedEvent = eventService.save(testEvent);
+
+        assertThat(persistedEvent, is(testEvent));
         verify(eventDao).save(testEvent);
     }
 
@@ -88,14 +99,20 @@ public class DefaultEventServiceTest {
     @Test
     public void getById() {
         when(eventDao.getById(ID)).thenReturn(testEvent);
-        assertThat(eventService.getById(ID), is(testEvent));
+
+        Event persistedEvent = eventService.getById(ID);
+
+        assertThat(persistedEvent, is(testEvent));
         verify(eventDao).getById(ID);
     }
 
     @Test
     public void getAll() {
         when(eventDao.getAll()).thenReturn(testEventsSet);
-        assertThat(eventService.getAll(), is(testEventsSet));
+
+        Collection persistedEvents = eventService.getAll();
+
+        assertThat(persistedEvents, is(testEventsSet));
         verify(eventDao).getAll();
     }
 }

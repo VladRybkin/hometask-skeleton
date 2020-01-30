@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -43,38 +44,49 @@ class DefaultUserServiceTest {
 
 
     @Test
-    public  void getUserByEmail() throws Exception {
+    public void getUserByEmail() throws Exception {
         when(userDao.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
-        assertThat(userService.getUserByEmail(USER_EMAIL), is(testUser));
+
+        User persistedUser = userService.getUserByEmail(USER_EMAIL);
+
+        assertThat(persistedUser, is(testUser));
         verify(userDao).getUserByEmail(USER_EMAIL);
     }
 
     @Test
     public void save() {
         when(userDao.save(testUser)).thenReturn(testUser);
-        assertThat(userService.save(testUser), is(testUser));
+
+        User persistedUser = userService.save(testUser);
+
+        assertThat(persistedUser, is(testUser));
         verify(userDao).save(testUser);
     }
 
     @Test
-    public  void remove() {
+    public void remove() {
         userService.remove(testUser);
         verify(userDao).remove(testUser);
     }
 
     @Test
-    public  void getById() {
+    public void getById() {
         when(userDao.getById(ID)).thenReturn(testUser);
-        userService.getById(ID);
+
+        User persistedUser = userService.getById(ID);
+
+        assertThat(persistedUser, is(testUser));
         verify(userDao).getById(ID);
     }
 
     @Test
-    public  void getAll() {
-        List<User> users = Lists.newArrayList();
-        users.add(testUser);
-        when(userDao.getAll()).thenReturn(users);
-        assertThat(userService.getAll(), is(users));
+    public void getAll() {
+        List<User> givenUsers = Lists.newArrayList(testUser);
+        when(userDao.getAll()).thenReturn(givenUsers);
+
+        Collection<User> persistedUsers = userService.getAll();
+
+        assertThat(persistedUsers, is(givenUsers));
         verify(userDao).getAll();
     }
 }

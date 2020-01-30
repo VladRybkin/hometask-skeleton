@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
 import ua.training.spring.hometask.domain.UserDiscountCount;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -62,14 +63,20 @@ public class DefaultUserDiscountCountServiceTest {
     @Test
     public void getByName() {
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
-        assertThat(userDiscountCountService.getByName(TEST_NAME), is(testUserDiscountInfo));
+
+        UserDiscountCount persistedUserDiscountCount = userDiscountCountService.getByName(TEST_NAME);
+
+        assertThat(persistedUserDiscountCount, is(testUserDiscountInfo));
         verify(discountDao).getByName(TEST_NAME);
     }
 
     @Test
     public void save() {
         when(discountDao.save(testUserDiscountInfo)).thenReturn(testUserDiscountInfo);
-        assertThat(userDiscountCountService.save(testUserDiscountInfo), is(testUserDiscountInfo));
+
+        UserDiscountCount persistedUserDiscountCount = userDiscountCountService.save(testUserDiscountInfo);
+
+        assertThat(persistedUserDiscountCount, is(testUserDiscountInfo));
         verify(discountDao).save(testUserDiscountInfo);
     }
 
@@ -83,16 +90,21 @@ public class DefaultUserDiscountCountServiceTest {
     public void getById() {
         long testId = 666;
         when(discountDao.getById(testId)).thenReturn(testUserDiscountInfo);
-        assertThat(userDiscountCountService.getById(testId), is(testUserDiscountInfo));
+
+        UserDiscountCount persistedDiscountCount = userDiscountCountService.getById(testId);
+
+        assertThat(persistedDiscountCount, is(testUserDiscountInfo));
         verify(discountDao).getById(testId);
     }
 
     @Test
     public void getAll() {
-        Set<UserDiscountCount> userDiscountCounts = Sets.newHashSet();
-        userDiscountCounts.add(testUserDiscountInfo);
-        when(discountDao.getAll()).thenReturn(userDiscountCounts);
-        assertThat(userDiscountCountService.getAll(), is(userDiscountCounts));
+        List<UserDiscountCount> givenUserDiscountCounts = Lists.newArrayList(testUserDiscountInfo);
+        when(discountDao.getAll()).thenReturn(givenUserDiscountCounts);
+
+        Collection<UserDiscountCount> persistedDiscounts = userDiscountCountService.getAll();
+
+        assertThat(persistedDiscounts, is(givenUserDiscountCounts));
         verify(discountDao).getAll();
     }
 
