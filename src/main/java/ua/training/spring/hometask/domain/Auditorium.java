@@ -81,7 +81,7 @@ public class Auditorium {
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(name, numberOfSeats, vipSeats);
+        return Objects.hashCode(name, numberOfSeats, vipSeats);
     }
 
     @Override

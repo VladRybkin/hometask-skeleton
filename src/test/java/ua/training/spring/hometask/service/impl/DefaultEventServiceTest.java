@@ -23,6 +23,10 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DefaultEventServiceTest {
 
+    private static final Long ID = 666L;
+
+    private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
+
     @InjectMocks
     private DefaultEventService eventService;
 
@@ -31,11 +35,7 @@ public class DefaultEventServiceTest {
 
     private Event testEvent;
 
-    private static final Long ID = 666L;
-
     private LocalDateTime localDateTimeNext;
-
-    private static final String TEST_EVENT_NAME = "TEST_EVENT_NAME";
 
     private static Set<Event> testEventsSet = Sets.newHashSet();
 

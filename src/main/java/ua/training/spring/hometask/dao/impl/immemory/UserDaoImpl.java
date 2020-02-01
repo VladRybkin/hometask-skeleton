@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dao.impl;
+package ua.training.spring.hometask.dao.impl.immemory;
 
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByEmail(String email) throws Exception {
+    public User getUserByEmail(String email) {
         return users.values().stream().filter(user -> user.getEmail().equals(email)).findAny().orElse(null);
     }
 }

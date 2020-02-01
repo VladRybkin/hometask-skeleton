@@ -23,17 +23,18 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class DefaultUserServiceTest {
 
+    private static final String USER_EMAIL = "User@gmail.com";
+
+    private static final Long ID = 666L;
+
     @InjectMocks
     private DefaultUserService userService;
 
     @Mock
     private UserDao userDao;
 
-    private static final String USER_EMAIL = "User@gmail.com";
-
-    private static final Long ID = 666L;
-
     private User testUser;
+
 
     @BeforeEach
     public void setUp() {

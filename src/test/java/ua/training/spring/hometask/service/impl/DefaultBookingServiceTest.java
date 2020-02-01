@@ -30,6 +30,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DefaultBookingServiceTest {
 
+    private static final double TICKET_BASE_PRICE = 100;
+
     @InjectMocks
     private DefaultBookingService bookingService;
 
@@ -43,8 +45,6 @@ public class DefaultBookingServiceTest {
     private TicketService ticketService;
 
     private Event testLowRatingEvent;
-
-    private static final double TICKET_BASE_PRICE = 100;
 
 
     @BeforeEach()

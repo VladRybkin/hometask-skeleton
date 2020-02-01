@@ -24,6 +24,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DefaultDiscountServiceTest {
 
+    private static final double BIRTHDAY_DISCOUNT = 10;
+
+    private static final double TENTH_TICKET_DISCOUNT = 5;
+
+    private static final double ZERO_DISCOUNT = 0;
+
     @InjectMocks
     private DefaultDiscountService discountService;
 
@@ -32,12 +38,6 @@ public class DefaultDiscountServiceTest {
 
     @Mock
     private TenthTicketDiscountStrategy tenthTicketStrategy;
-
-    private static final double BIRTHDAY_DISCOUNT = 10;
-
-    private static final double TENTH_TICKET_DISCOUNT = 5;
-
-    private static final double ZERO_DISCOUNT = 0;
 
 
     @BeforeEach

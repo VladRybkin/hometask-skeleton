@@ -41,13 +41,13 @@ public class InitApplication {
 
     @PostConstruct
     void init() {
-        User user = buildUser();
-        userService.save(user);
-        Event event = buildEvent();
-
-        eventService.save(event);
-        saveTickets(10, event);
-        System.out.println("init method executed");
+//        User user = buildUser();
+//        userService.save(user);
+//        Event event = buildEvent();
+//
+//        eventService.save(event);
+//        saveTickets(10, event);
+//        System.out.println("init method executed");
     }
 
     private Event buildEvent() {

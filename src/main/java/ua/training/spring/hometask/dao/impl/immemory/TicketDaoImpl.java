@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl;
+package ua.training.spring.hometask.dao.impl.immemory;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
@@ -16,6 +17,7 @@ import java.util.Objects;
 
 
 @Repository
+@Primary
 public class TicketDaoImpl implements TicketDao {
 
     private static final Map<Long, Ticket> tickets = new HashMap<>();
