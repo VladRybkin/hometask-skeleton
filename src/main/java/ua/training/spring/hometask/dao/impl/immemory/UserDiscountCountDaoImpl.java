@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.dao.impl.immemory;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
 import ua.training.spring.hometask.domain.UserDiscountCount;
@@ -10,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-@Primary
 public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     private Map<Long, UserDiscountCount> userDiscountCounts = new HashMap<>();

@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
+import ua.training.spring.hometask.dao.mapper.UserMapper;
 import ua.training.spring.hometask.domain.User;
 
 import java.util.Collection;
+
 
 @Repository
 @Primary
@@ -18,8 +20,11 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM `users` WHERE `email` = ?";
+        User user = jdbcTemplate.queryForObject(sql, new Object[]{email},
+                new UserMapper());
 
-        return null;
+        return user;
     }
 
     @Override
@@ -27,6 +32,7 @@ public class JdbcUserDaoImpl implements UserDao {
         String SQL = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `date_of_birth`) VALUES (?,?,?,?)";
         jdbcTemplate.update(SQL, object.getFirstName(), object.getLastName(), object.getEmail(),
                 object.getDateOfBirth());
+
         return object;
     }
 
@@ -38,14 +44,18 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public User getById(Long id) {
-//        String sql = "SELECT * FROM `users` WHERE `id` = ?";
-//        User user = jdbcTemplate.queryForObject(sql, id,
-//                new UserMapper());
-        return null;
+        String sql = "SELECT * FROM `users` WHERE `id` = ?";
+        User user = jdbcTemplate.queryForObject(sql, new Object[]{id},
+                new UserMapper());
+
+        return user;
     }
 
     @Override
     public Collection<User> getAll() {
-        return null;
+        String sql="select * from users";
+        Collection<User> users = jdbcTemplate.query(sql, new UserMapper());
+
+        return users;
     }
 }

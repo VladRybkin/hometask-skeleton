@@ -81,7 +81,7 @@ public class User extends DomainObject {
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(firstName, lastName, email);
+        return Objects.hashCode(firstName, lastName, email);
     }
 
     @Override

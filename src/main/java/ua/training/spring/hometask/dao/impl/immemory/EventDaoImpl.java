@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.dao.impl.immemory;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
@@ -17,7 +16,6 @@ import java.util.function.Predicate;
 
 
 @Repository
-@Primary
 public class EventDaoImpl implements EventDao {
 
     private static final Map<Long, Event> events = new HashMap<>();

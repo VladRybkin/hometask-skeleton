@@ -2,9 +2,20 @@ package ua.training.spring.hometask;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ua.training.spring.hometask.config.BeansConfiguration;
+import ua.training.spring.hometask.dao.mapper.TicketMapper;
+import ua.training.spring.hometask.dao.mapper.UserMapper;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.*;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 
 public class Main {
@@ -27,13 +38,18 @@ public class Main {
         User user=new User();
         user.setEmail("testemail2");
         user.setFirstName("TestFirst");
-        userService.save(user);
-        DiscountService discountService = ctx.getBean(DiscountService.class);
-        UserDiscountCountService userDiscountCountService = ctx.getBean(UserDiscountCountService.class);
+        Ticket ticket=new Ticket();
+        ticket.setSeat(1);
+        ticket.setBasePrice(100);
+
+        System.out.println(ticketService.getById(1l));
+
+
+    }
 
         //        Bootstrap.main(args);
 
-    }
+
 
 
 }
