@@ -24,7 +24,7 @@ public class TicketMapper implements RowMapper<Ticket> {
     public Ticket mapRow(ResultSet resultSet, int i) throws SQLException {
         Ticket ticket = new Ticket();
         long userId = resultSet.getLong("user_id");
-        long eventId=resultSet.getLong("event_id");
+        long eventId = resultSet.getLong("event_id");
 
         ticket.setId(resultSet.getLong("id"));
         ticket.setSeat(resultSet.getLong("seat"));
@@ -47,14 +47,20 @@ public class TicketMapper implements RowMapper<Ticket> {
     private void setUserToTicket(Ticket ticket, long userId) {
         if (userId != 0) {
             User user = userService.getById(userId);
-            ticket.setUser(user);
+
+            if (!Objects.isNull(user)) {
+                ticket.setUser(user);
+            }
         }
     }
 
     private void setEventToTicket(Ticket ticket, long eventId) {
         if (eventId != 0) {
             Event event = eventService.getById(eventId);
-            ticket.setEvent(event);
+
+            if (!Objects.isNull(event)) {
+                ticket.setEvent(event);
+            }
         }
     }
 }

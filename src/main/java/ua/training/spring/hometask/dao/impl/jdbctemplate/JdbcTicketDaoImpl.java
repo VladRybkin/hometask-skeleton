@@ -29,7 +29,7 @@ public class JdbcTicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket save(Ticket object) {
-        String SQL = "INSERT INTO `tickets`(`user_id`, `event_id`, `date_time`, `seat`, `base_price`) VALUES (?,?,?,?, ?)";
+        String SQL = "INSERT INTO `tickets`(`date_time`, `seat`, `base_price`) VALUES (?,?,?)";
         jdbcTemplate.update(SQL, String.valueOf(object.getDateTime()),
                 object.getSeat(), object.getBasePrice());
 

@@ -39,10 +39,11 @@ public class Main {
         user.setEmail("testemail2");
         user.setFirstName("TestFirst");
         Ticket ticket=new Ticket();
-        ticket.setSeat(1);
-        ticket.setBasePrice(100);
+        ticket.setSeat(3);
+        ticket.setBasePrice(103);
+        ticket.setDateTime(LocalDateTime.now());
+        ticketService.save(ticket);
 
-        System.out.println(ticketService.getById(1l));
 
 
     }
