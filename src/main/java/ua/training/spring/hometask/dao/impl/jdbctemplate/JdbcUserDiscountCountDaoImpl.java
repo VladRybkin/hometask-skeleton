@@ -17,11 +17,14 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private UserDiscountCountMapper discountCountMapper;
+
     @Override
     public UserDiscountCount getByName(String name) {
         String sql = "SELECT * FROM `user_discount_counts` WHERE `name` = ?";
         UserDiscountCount discountCount = jdbcTemplate.queryForObject(sql, new Object[]{name},
-                new UserDiscountCountMapper());
+                discountCountMapper);
 
         return discountCount;
     }
@@ -46,7 +49,7 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     public UserDiscountCount getById(Long id) {
         String sql = "SELECT * FROM `user_discount_counts` WHERE `id` = ?";
         UserDiscountCount discountCount = jdbcTemplate.queryForObject(sql, new Object[]{id},
-                new UserDiscountCountMapper());
+                discountCountMapper);
 
         return discountCount;
     }
@@ -54,7 +57,7 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     @Override
     public Collection<UserDiscountCount> getAll() {
         String sql = "select * from user_discount_counts";
-        Collection<UserDiscountCount> discountCounts = jdbcTemplate.query(sql, new UserDiscountCountMapper());
+        Collection<UserDiscountCount> discountCounts = jdbcTemplate.query(sql, discountCountMapper);
 
         return discountCounts;
     }

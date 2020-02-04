@@ -1,11 +1,13 @@
 package ua.training.spring.hometask.dao.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.EventCount;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Component
 public class EventCountMapper implements RowMapper<EventCount> {
 
     @Override

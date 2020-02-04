@@ -42,5 +42,17 @@ CREATE TABLE IF NOT EXISTS users (
   count_get_price INT(11)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+      CREATE TABLE IF NOT EXISTS air_dates (
+  id int(11) PRIMARY KEY AUTO_INCREMENT,
+  event_date VARCHAR(45),
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+    CREATE TABLE IF NOT EXISTS event_dates (
+    event_id int(11),
+    air_date_id int(11),
+    FOREIGN KEY (event_id) REFERENCES events (id),
+    FOREIGN KEY (air_date_id) REFERENCES air_dates (id)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 

@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,23 +20,16 @@ public class JdbcEventDaoImpl implements EventDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private EventMapper eventMapper;
+
     @Override
     public Event getByName(String name) {
         String sql = "SELECT * FROM `events` WHERE `name` = ?";
         Event event = jdbcTemplate.queryForObject(sql, new Object[]{name},
-                new EventMapper());
+                eventMapper);
 
         return event;
-    }
-
-    @Override
-    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        return null;
-    }
-
-    @Override
-    public Set<Event> getNextEvents(LocalDateTime to) {
-        return null;
     }
 
     @Override
@@ -64,8 +58,24 @@ public class JdbcEventDaoImpl implements EventDao {
     @Override
     public Collection<Event> getAll() {
         String sql = "SELECT * FROM events";
-        Collection<Event> events = jdbcTemplate.query(sql, new EventMapper());
+        Collection<Event> events = jdbcTemplate.query(sql, eventMapper);
 
         return events;
+    }
+
+    @Override
+    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date between ? and ?";
+        Object parameters[] = new Object[]{String.valueOf(from), String.valueOf(to)};
+        Collection<Event> events = jdbcTemplate.query(sql, parameters, eventMapper);
+        return Sets.newHashSet(events);
+    }
+
+    @Override
+    public Set<Event> getNextEvents(LocalDateTime to) {
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date < ?";
+        Object parameters[] = new Object[]{String.valueOf(to)};
+        Collection<Event> events = jdbcTemplate.query(sql,parameters, eventMapper);
+        return Sets.newHashSet(events);
     }
 }

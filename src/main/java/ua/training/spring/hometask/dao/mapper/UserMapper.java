@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.dao.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.User;
 
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Component
 public class UserMapper implements RowMapper<User> {
 
     @Override

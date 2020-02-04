@@ -18,7 +18,6 @@ public class DefaultEventService implements EventService {
     @Autowired
     private EventDao eventDao;
 
-
     @Nullable
     @Override
     public Event getByName(@Nonnull String name) {
@@ -50,7 +49,6 @@ public class DefaultEventService implements EventService {
     @Override
     public Event getById(@Nonnull Long id) {
         return eventDao.getById(id);
-
     }
 
     @Nonnull

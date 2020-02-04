@@ -18,11 +18,14 @@ public class JdbcUserDaoImpl implements UserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM `users` WHERE `email` = ?";
         User user = jdbcTemplate.queryForObject(sql, new Object[]{email},
-                new UserMapper());
+                userMapper);
 
         return user;
     }
@@ -46,15 +49,15 @@ public class JdbcUserDaoImpl implements UserDao {
     public User getById(Long id) {
         String sql = "SELECT * FROM `users` WHERE `id` = ?";
         User user = jdbcTemplate.queryForObject(sql, new Object[]{id},
-                new UserMapper());
+                userMapper);
 
         return user;
     }
 
     @Override
     public Collection<User> getAll() {
-        String sql="select * from users";
-        Collection<User> users = jdbcTemplate.query(sql, new UserMapper());
+        String sql = "select * from users";
+        Collection<User> users = jdbcTemplate.query(sql, userMapper);
 
         return users;
     }

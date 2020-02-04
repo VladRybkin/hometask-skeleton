@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,11 +9,9 @@ import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.dao.mapper.TicketMapper;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.domain.User;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -22,9 +21,15 @@ public class JdbcTicketDaoImpl implements TicketDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private TicketMapper ticketMapper;
+
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
-        return null;
+        Object parameters[] = new Object[]{event.getId(), String.valueOf(dateTime)};
+        String sql = "select * from tickets t where t.event_id=? AND t.date_time=?";
+        Collection<Ticket> tickets = jdbcTemplate.query(sql, parameters, ticketMapper);
+        return Sets.newHashSet(tickets);
     }
 
     @Override
@@ -46,7 +51,7 @@ public class JdbcTicketDaoImpl implements TicketDao {
     public Ticket getById(Long id) {
         String sql = "SELECT * FROM `tickets` WHERE `id` = ?";
         Ticket ticket = jdbcTemplate.queryForObject(sql, new Object[]{id},
-                new TicketMapper());
+                ticketMapper);
 
         return ticket;
     }
@@ -54,12 +59,9 @@ public class JdbcTicketDaoImpl implements TicketDao {
     @Override
     public Collection<Ticket> getAll() {
         String sql = "select * from tickets";
-        Collection<Ticket> tickets = jdbcTemplate.query(sql, new TicketMapper());
+        Collection<Ticket> tickets = jdbcTemplate.query(sql, ticketMapper);
 
         return tickets;
     }
 
-    private String prepareSqlQuery() {
-        return null;
-    }
 }

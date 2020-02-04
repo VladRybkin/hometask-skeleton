@@ -17,11 +17,14 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private EventCountMapper eventCountMapper;
+
     @Override
     public EventCount getByName(String name) {
         String sql = "SELECT * FROM `event_counts` WHERE `name` = ?";
         EventCount eventCount = jdbcTemplate.queryForObject(sql, new Object[]{name},
-                new EventCountMapper());
+                eventCountMapper);
 
         return eventCount;
     }
@@ -44,7 +47,7 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
     public EventCount getById(Long id) {
         String sql = "SELECT * FROM `event_counts` WHERE `id` = ?";
         EventCount eventCount = jdbcTemplate.queryForObject(sql, new Object[]{id},
-                new EventCountMapper());
+                eventCountMapper);
 
         return eventCount;
     }
@@ -52,7 +55,7 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
     @Override
     public Collection<EventCount> getAll() {
         String sql = "select * from event_counts";
-        Collection<EventCount> eventCounts = jdbcTemplate.query(sql, new EventCountMapper());
+        Collection<EventCount> eventCounts = jdbcTemplate.query(sql, eventCountMapper);
 
         return eventCounts;
     }

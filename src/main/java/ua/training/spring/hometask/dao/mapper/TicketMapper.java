@@ -2,6 +2,7 @@ package ua.training.spring.hometask.dao.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
@@ -13,11 +14,13 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Component
 public class TicketMapper implements RowMapper<Ticket> {
 
     @Autowired
     private UserService userService;
 
+    @Autowired
     private EventService eventService;
 
     @Override
@@ -62,5 +65,13 @@ public class TicketMapper implements RowMapper<Ticket> {
                 ticket.setEvent(event);
             }
         }
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setEventService(EventService eventService) {
+        this.eventService = eventService;
     }
 }
