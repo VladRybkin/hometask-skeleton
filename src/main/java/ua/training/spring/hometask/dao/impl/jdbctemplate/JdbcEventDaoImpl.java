@@ -65,7 +65,7 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date between ? and ?";
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE DATE_FORMAT(ai.event_date,'%Y-%m-%d-%H-%i-%s') BETWEEN DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s') AND DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s')";
         Object parameters[] = new Object[]{String.valueOf(from), String.valueOf(to)};
         Collection<Event> events = jdbcTemplate.query(sql, parameters, eventMapper);
         return Sets.newHashSet(events);
@@ -73,9 +73,17 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date < ?";
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE DATE_FORMAT(ai.event_date,'%Y-%m-%d-%H-%i-%s') < DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s')";
         Object parameters[] = new Object[]{String.valueOf(to)};
         Collection<Event> events = jdbcTemplate.query(sql,parameters, eventMapper);
         return Sets.newHashSet(events);
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setEventMapper(EventMapper eventMapper) {
+        this.eventMapper = eventMapper;
     }
 }

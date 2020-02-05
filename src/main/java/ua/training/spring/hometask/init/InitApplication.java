@@ -39,8 +39,8 @@ public class InitApplication {
     private TicketService ticketService;
 
 
-    @PostConstruct
-    void init() {
+//    @PostConstruct
+//    void init() {
 //        User user = buildUser();
 //        userService.save(user);
 //        Event event = buildEvent();
@@ -48,7 +48,7 @@ public class InitApplication {
 //        eventService.save(event);
 //        saveTickets(10, event);
 //        System.out.println("init method executed");
-    }
+//    }
 
     private Event buildEvent() {
         Event event = new Event();

@@ -9,7 +9,9 @@ import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 public class Main {
@@ -29,22 +31,21 @@ public class Main {
         BookingService bookingService = ctx.getBean(BookingService.class);
         TicketService ticketService = ctx.getBean(TicketService.class);
         UserService userService = ctx.getBean(UserService.class);
-        User user=new User();
+        User user = new User();
         user.setEmail("testemail2");
         user.setFirstName("TestFirst");
-        Event event=new Event();
+        Event event = new Event();
         event.setId(1L);
-        Ticket ticket=ticketService.getById(1L);
+        Ticket ticket = ticketService.getById(1L);
         System.out.println(eventService.getNextEvents(LocalDateTime.now()));
-
-
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDate localDate=localDateTime.toLocalDate();
+        System.out.println(eventService.getNextEvents(localDateTime.minusYears(10)));
 
 
     }
 
-        //        Bootstrap.main(args);
-
-
+    //        Bootstrap.main(args);
 
 
 }

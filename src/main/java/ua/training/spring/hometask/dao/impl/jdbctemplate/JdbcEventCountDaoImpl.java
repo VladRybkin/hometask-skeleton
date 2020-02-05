@@ -59,4 +59,12 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
 
         return eventCounts;
     }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setEventCountMapper(EventCountMapper eventCountMapper) {
+        this.eventCountMapper = eventCountMapper;
+    }
 }

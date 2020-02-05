@@ -47,23 +47,14 @@ public class DefaultDiscountServiceTest {
     }
 
     @Test
-    public void shouldChooseBirthdayStrategyDiscount() {
+    public void shouldChooseBirthdayStrategyDiscountAsHigher() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
+
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(BIRTHDAY_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
-        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
-        verify(birthdayStrategy).calculateDiscount(user, tickets);
-        verify(tenthTicketStrategy).calculateDiscount(user, tickets);
-    }
 
-    @Test
-    public void shouldChooseTenthTicketStrategyDiscount() {
-        User user = new User();
-        Set<Ticket> tickets = Sets.newTreeSet();
-        when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
-        when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
-        assertThat(discountService.getDiscount(user, tickets), is(TENTH_TICKET_DISCOUNT));
+        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
@@ -73,8 +64,10 @@ public class DefaultDiscountServiceTest {
     public void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
+
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
+
         assertThat(discountService.getDiscount(user, tickets), is(ZERO_DISCOUNT));
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);

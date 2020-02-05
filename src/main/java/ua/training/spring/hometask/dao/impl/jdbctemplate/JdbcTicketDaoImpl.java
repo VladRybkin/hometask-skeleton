@@ -10,6 +10,7 @@ import ua.training.spring.hometask.dao.mapper.TicketMapper;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -64,4 +65,11 @@ public class JdbcTicketDaoImpl implements TicketDao {
         return tickets;
     }
 
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setTicketMapper(TicketMapper ticketMapper) {
+        this.ticketMapper = ticketMapper;
+    }
 }

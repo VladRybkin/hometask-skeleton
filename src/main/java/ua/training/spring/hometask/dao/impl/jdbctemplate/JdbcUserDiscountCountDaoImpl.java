@@ -61,4 +61,12 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
         return discountCounts;
     }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setDiscountCountMapper(UserDiscountCountMapper discountCountMapper) {
+        this.discountCountMapper = discountCountMapper;
+    }
 }

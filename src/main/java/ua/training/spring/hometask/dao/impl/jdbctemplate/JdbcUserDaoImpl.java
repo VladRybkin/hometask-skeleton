@@ -61,4 +61,12 @@ public class JdbcUserDaoImpl implements UserDao {
 
         return users;
     }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 }
