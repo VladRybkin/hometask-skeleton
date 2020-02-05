@@ -21,13 +21,13 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DefaultTicketServiceTest {
 
+    private static final Long ID = 666L;
+
     @InjectMocks
     private DefaultTicketService ticketService;
 
     @Mock
     private TicketDao ticketDao;
-
-    private static final Long ID = 666L;
 
     private Ticket testTicket;
 

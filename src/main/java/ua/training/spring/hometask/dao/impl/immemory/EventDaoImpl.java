@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dao.impl;
+package ua.training.spring.hometask.dao.impl.immemory;
 
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;

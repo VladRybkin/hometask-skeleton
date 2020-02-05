@@ -24,6 +24,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DefaultDiscountServiceTest {
 
+    private static final double BIRTHDAY_DISCOUNT = 10;
+
+    private static final double TENTH_TICKET_DISCOUNT = 5;
+
+    private static final double ZERO_DISCOUNT = 0;
+
     @InjectMocks
     private DefaultDiscountService discountService;
 
@@ -33,12 +39,6 @@ public class DefaultDiscountServiceTest {
     @Mock
     private TenthTicketDiscountStrategy tenthTicketStrategy;
 
-    private static final double BIRTHDAY_DISCOUNT = 10;
-
-    private static final double TENTH_TICKET_DISCOUNT = 5;
-
-    private static final double ZERO_DISCOUNT = 0;
-
 
     @BeforeEach
     public void setUp() {
@@ -47,23 +47,14 @@ public class DefaultDiscountServiceTest {
     }
 
     @Test
-    public void shouldChooseBirthdayStrategyDiscount() {
+    public void shouldChooseBirthdayStrategyDiscountAsHigher() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
+
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(BIRTHDAY_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
-        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
-        verify(birthdayStrategy).calculateDiscount(user, tickets);
-        verify(tenthTicketStrategy).calculateDiscount(user, tickets);
-    }
 
-    @Test
-    public void shouldChooseTenthTicketStrategyDiscount() {
-        User user = new User();
-        Set<Ticket> tickets = Sets.newTreeSet();
-        when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
-        when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
-        assertThat(discountService.getDiscount(user, tickets), is(TENTH_TICKET_DISCOUNT));
+        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
@@ -73,8 +64,10 @@ public class DefaultDiscountServiceTest {
     public void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
+
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
+
         assertThat(discountService.getDiscount(user, tickets), is(ZERO_DISCOUNT));
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);

@@ -1,17 +1,17 @@
 package ua.training.spring.hometask;
 
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Date;
 
 
 public class Main {
@@ -31,35 +31,21 @@ public class Main {
         BookingService bookingService = ctx.getBean(BookingService.class);
         TicketService ticketService = ctx.getBean(TicketService.class);
         UserService userService = ctx.getBean(UserService.class);
-        DiscountService discountService = ctx.getBean(DiscountService.class);
-        UserDiscountCountService userDiscountCountService = ctx.getBean(UserDiscountCountService.class);
+        User user = new User();
+        user.setEmail("testemail2");
+        user.setFirstName("TestFirst");
+        Event event = new Event();
+        event.setId(1L);
+        Ticket ticket = ticketService.getById(1L);
+        System.out.println(eventService.getNextEvents(LocalDateTime.now()));
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDate localDate=localDateTime.toLocalDate();
+        System.out.println(eventService.getNextEvents(localDateTime.minusYears(10)));
 
-        //        bookingService.getTicketsPrice(new Event("vlad"), null, null);
-        eventService.getByName("first event");
-        //        eventService.getByName("first event");
-        //        eventService.getByName("first event");
-        List<Ticket> tickets = Lists.newArrayList(ticketService.getAll());
-        List<User> users = Lists.newArrayList(userService.getAll());
-        bookingService.bookTicket(tickets.get(0), users.get(0));
-        bookingService.bookTickets(new HashSet<>(tickets), users.get(0));
-        User user = users.get(0);
-        User user1 = new User();
-        user1.setFirstName("user1");
-        user1.setDateOfBirth(LocalDateTime.now());
-        //        user1.setDateOfBirth(LocalDateTime.now());
-        bookingService.bookTicket(tickets.get(0), user);
-
-        bookingService.getTicketsPrice(eventService.getByName("first event"), user, Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L));
-        bookingService.getTicketsPrice(eventService.getByName("first event"), user, Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L));
-        bookingService.getTicketsPrice(eventService.getByName("first event"), user1, Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L));
-        //        System.out.println("discouuntttttttttt"+discountService.getDiscount(users.get(0), Sets.newHashSet(tickets)));
-
-        System.out.println(eventCountService.getAll());
-        System.out.println(eventService.getAll());
-        System.out.println(userDiscountCountService.getAll());
-        //        Bootstrap.main(args);
 
     }
+
+    //        Bootstrap.main(args);
 
 
 }

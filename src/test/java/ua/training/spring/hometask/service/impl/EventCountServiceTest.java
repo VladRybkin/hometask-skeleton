@@ -23,6 +23,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class EventCountServiceTest {
 
+    private static final String TEST_NAME = "testname";
+
     @InjectMocks
     private DefaultEventCountService eventCountService;
 
@@ -31,7 +33,6 @@ public class EventCountServiceTest {
 
     private EventCount testEventCount;
 
-    private static String TEST_NAME = "testname";
 
     @BeforeEach
     public void setUp() {

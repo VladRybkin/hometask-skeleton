@@ -5,6 +5,6 @@ import ua.training.spring.hometask.domain.User;
 public interface UserDao extends AbstractDomainObjectDao<User> {
 
 
-    User getUserByEmail(String email) throws Exception;
+    User getUserByEmail(String email);
 
 }
