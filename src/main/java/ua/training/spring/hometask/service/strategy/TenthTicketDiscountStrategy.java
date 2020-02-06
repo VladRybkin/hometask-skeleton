@@ -19,11 +19,11 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     @Override
     public double calculateDiscount(User user, Set<Ticket> tickets) {
 
-        double totalPrize = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+        double totalPriсe = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
         applyDiscounts(tickets);
-        double totalPrizeWithDiscount = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+        double totalPriсeWithDiscount = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
 
-        return calculatePercentDifference(totalPrize, totalPrizeWithDiscount);
+        return calculatePercentDifference(totalPriсe, totalPriсeWithDiscount);
     }
 
     private void applyDiscounts(Set<Ticket> userTickets) {
@@ -40,17 +40,17 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     }
 
     private double calculateFiftyPercentDiscount(Ticket ticket) {
-        double ticketPrize = ticket.getBasePrice();
-        double discount = ticketPrize != 0 ? (ticketPrize / 100) * tenthTicketDiscount : 0;
-        double finalPrize = ticketPrize - discount;
+        double ticketPriсe = ticket.getBasePrice();
+        double discount = ticketPriсe != 0 ? (ticketPriсe / 100) * tenthTicketDiscount : 0;
+        double finalPriсe = ticketPriсe - discount;
 
-        return finalPrize;
+        return finalPriсe;
     }
 
-    private double calculatePercentDifference(double totalPrize, double totalPrizeWithDiscount) {
+    private double calculatePercentDifference(double totalPriсe, double totalPriсeWithDiscount) {
         double percentDifference = 0;
-        if (totalPrize > totalPrizeWithDiscount) {
-            percentDifference = ((totalPrize - totalPrizeWithDiscount) / totalPrize) * 100;
+        if (totalPriсe > totalPriсeWithDiscount) {
+            percentDifference = ((totalPriсe - totalPriсeWithDiscount) / totalPriсe) * 100;
         }
 
         return percentDifference;

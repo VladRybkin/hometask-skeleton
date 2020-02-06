@@ -35,10 +35,10 @@ public class DefaultBookingService implements BookingService {
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
-        double totalPrize = getTotalPrize(tickets);
+        double totalPriсe = getTotalPriсe(tickets);
         double discount = discountService.getDiscount(user, tickets);
 
-        return applyDiscounts(totalPrize, discount);
+        return applyDiscounts(totalPriсe, discount);
     }
 
 
@@ -90,19 +90,19 @@ public class DefaultBookingService implements BookingService {
         }
     }
 
-    private double applyDiscounts(double totalPrize, double discount) {
-        double finalPrize;
+    private double applyDiscounts(double totalPriсe, double discount) {
+        double finalPriсe;
         if (discount != 0) {
-            finalPrize = totalPrize - ((totalPrize / 100) * discount);
+            finalPriсe = totalPriсe - ((totalPriсe / 100) * discount);
         } else {
-            finalPrize = totalPrize;
+            finalPriсe = totalPriсe;
         }
 
-        return finalPrize;
+        return finalPriсe;
     }
 
 
-    private double getTotalPrize(Set<Ticket> tickets) {
+    private double getTotalPriсe(Set<Ticket> tickets) {
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
     }
 

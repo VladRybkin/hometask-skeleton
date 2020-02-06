@@ -54,7 +54,7 @@ public class DefaultBookingServiceTest {
     }
 
     @Test
-    public void shouldCalculateTotalPrizeWithoutDiscount() {
+    public void shouldCalculateTotalPriсeWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
         double expectedDiscountWithTenthTickets = 0;
@@ -67,7 +67,7 @@ public class DefaultBookingServiceTest {
     }
 
     @Test
-    public void shouldCalculateTotalPrizeWithTenTicketsDiscount() {
+    public void shouldCalculateTotalPriсeWithTenTicketsDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
         double expectedDiscountWithTenthTickets = 5;
