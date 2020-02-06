@@ -14,6 +14,7 @@ public class EventCountMapper implements RowMapper<EventCount> {
     public EventCount mapRow(ResultSet resultSet, int i) throws SQLException {
         EventCount eventCount = new EventCount();
         eventCount.setId(resultSet.getLong("id"));
+        eventCount.setEventName(resultSet.getString("name"));
         eventCount.setCountBookTickets(resultSet.getLong("count_book_tickets"));
         eventCount.setCountGetByName(resultSet.getLong("count_get_by_name"));
         eventCount.setCountGetPrice(resultSet.getLong("count_get_price"));
