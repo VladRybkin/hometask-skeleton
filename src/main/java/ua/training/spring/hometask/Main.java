@@ -2,6 +2,7 @@ package ua.training.spring.hometask;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
@@ -37,10 +38,12 @@ public class Main {
         Event event = new Event();
         event.setId(1L);
         Ticket ticket = ticketService.getById(1L);
+        System.out.println(ticket);
         System.out.println(eventService.getNextEvents(LocalDateTime.now()));
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate localDate=localDateTime.toLocalDate();
         System.out.println(eventService.getNextEvents(localDateTime.minusYears(10)));
+
 
 
     }
