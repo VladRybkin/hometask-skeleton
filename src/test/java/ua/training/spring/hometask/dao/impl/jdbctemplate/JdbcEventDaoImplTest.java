@@ -11,7 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
 import java.util.Collection;
@@ -21,80 +22,81 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
-
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class JdbcUserDaoImplTest {
+class JdbcEventDaoImplTest {
 
-    private static final String TABLE_NAME = "users";
+    private static final String TABLE_NAME = "events";
 
     @Autowired
-    private JdbcUserDaoImpl jdbcUserDao;
+    private JdbcEventDaoImpl jdbcEventDao;
 
     @Autowired
     @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
 
+
     @BeforeEach
     void setUp() {
-        jdbcUserDao.setJdbcTemplate(testJdbcTemplate);
+        jdbcEventDao.setJdbcTemplate(testJdbcTemplate);
     }
 
     @Test
-    void getUserByEmail() {
-        User user = buildTestUser();
-        jdbcUserDao.save(user);
-        User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
+    void getByName() {
+        Event event = buildTestEvent();
+        jdbcEventDao.save(event);
+        Event foundByName = jdbcEventDao.getByName(event.getName());
 
-        assertThat(foundByEmail, is(user));
+        assertThat(foundByName, is(event));
     }
 
-
     @Test
-    void shouldGetByIdPersistedUser() {
-        User user = buildTestUser();
-        jdbcUserDao.save(user);
-        User foundUser=jdbcUserDao.getById(1L);
+    void shouldGetByIdPersistedEvent() {
+        Event event = buildTestEvent();
+        jdbcEventDao.save(event);
+        Event foundById = jdbcEventDao.getById(1L);
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
-        assertThat(foundUser, is(user));
-
+        assertThat(foundById, is(event));
     }
-
 
     @Test
     void remove() {
-        User user = buildTestUser();
+        Event event = buildTestEvent();
 
-        jdbcUserDao.save(user);
-        jdbcUserDao.remove(user);
+        jdbcEventDao.save(event);
+        jdbcEventDao.remove(event);
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
-
     }
-
 
     @Test
     void getAll() {
-        User user = buildTestUser();
-        jdbcUserDao.save(user);
+        Event event = buildTestEvent();
+        jdbcEventDao.save(event);
 
-        Collection<User>persistedUsers=jdbcUserDao.getAll();
+        Collection<Event>persistedEvents=jdbcEventDao.getAll();
 
-        assertThat(persistedUsers, hasItems(user));
-        assertThat(persistedUsers, hasSize(1));
-
+        assertThat(persistedEvents, hasItems(event));
+        assertThat(persistedEvents, hasSize(1));
     }
 
-    private User buildTestUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("testEmail");
-        user.setFirstName("TestUser");
-        user.setLastName("testLastName");
-
-        return user;
+    @Test
+    void getForDateRange() {
     }
 
+    @Test
+    void getNextEvents() {
+    }
+
+    private Event buildTestEvent() {
+        Event event = new Event();
+        event.setId(1L);
+        event.setName("testEvent");
+        event.setRating(EventRating.HIGH);
+        event.setBasePrice(100);
+
+        return event;
+    }
 }
