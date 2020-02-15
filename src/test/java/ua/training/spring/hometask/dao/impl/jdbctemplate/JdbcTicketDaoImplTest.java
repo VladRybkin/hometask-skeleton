@@ -87,6 +87,7 @@ class JdbcTicketDaoImplTest {
         ticket.setBasePrice(100);
         ticket.setSeat(100);
 
+
         return ticket;
     }
 }

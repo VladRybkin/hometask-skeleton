@@ -15,6 +15,7 @@ import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -64,11 +65,12 @@ class JdbcEventDaoImplTest {
     @Test
     void remove() {
         Event event = buildTestEvent();
+        event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
         jdbcEventDao.save(event);
         jdbcEventDao.remove(event);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+//        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
     }
 
     @Test
@@ -84,10 +86,31 @@ class JdbcEventDaoImplTest {
 
     @Test
     void getForDateRange() {
+        Event event=buildTestEvent();
+        event.addAirDateTime(LocalDateTime.now().minusDays(3));
+
+        jdbcEventDao.save(event);
+
+        Collection<Event>persistedEvents=jdbcEventDao
+                .getForDateRange(LocalDateTime.now().minusDays(6), LocalDateTime.now());
+
+        assertThat(persistedEvents, hasSize(1));
+//        assertThat(persistedEvents, hasItems(event));
+
     }
 
     @Test
     void getNextEvents() {
+        Event event=buildTestEvent();
+        event.addAirDateTime(LocalDateTime.now().minusDays(3));
+
+        jdbcEventDao.save(event);
+
+        Collection<Event>persistedEvents=jdbcEventDao
+                .getNextEvents(LocalDateTime.now());
+
+        assertThat(persistedEvents, hasSize(1));
+
     }
 
     private Event buildTestEvent() {

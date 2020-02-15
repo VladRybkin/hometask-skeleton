@@ -44,14 +44,14 @@ CREATE TABLE IF NOT EXISTS users (
 
       CREATE TABLE IF NOT EXISTS air_dates (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  event_date VARCHAR(45),
+  event_date VARCHAR(45) UNIQUE,
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE IF NOT EXISTS event_dates (
     event_id int(11),
     air_date_id int(11),
-    FOREIGN KEY (event_id) REFERENCES events (id),
-    FOREIGN KEY (air_date_id) REFERENCES air_dates (id)
+    FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE,
+    FOREIGN KEY (air_date_id) REFERENCES air_dates (id) ON DELETE CASCADE
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
+import ua.training.spring.hometask.dao.mapper.AirDateMapper;
 import ua.training.spring.hometask.dao.mapper.EventMapper;
 import ua.training.spring.hometask.domain.Event;
+
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -17,11 +19,27 @@ import java.util.Set;
 @Primary
 public class JdbcEventDaoImpl implements EventDao {
 
+    private static final String insertEventsSQL = "INSERT INTO `events`(`name`, `base_price`, `rating`) VALUES (?,?,?)";
+
+    private static final String INSERT_INTO_AIR_DATES = "INSERT INTO air_dates (event_date) " +
+            "VALUES (?)";
+
+    private static final String FIND_AIR_DATE_BY_EVENT_DATE = "SELECT * FROM air_dates a WHERE a.event_date=?";
+
+    private static final String INSERT_RELATIONS = "INSERT INTO event_dates (event_id, air_date_id)" +
+            "(SELECT e.id, ed.id " +
+            "FROM events e, air_dates ed " +
+            "WHERE e.name = ? AND ed.event_date = ?)";
+
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private EventMapper eventMapper;
+
+    @Autowired
+    private AirDateMapper airDateMapper;
 
     @Override
     public Event getByName(String name) {
@@ -34,8 +52,16 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Event save(Event object) {
-        String SQL = "INSERT INTO `events`(`name`, `base_price`, `rating`) VALUES (?,?,?)";
-        jdbcTemplate.update(SQL, object.getName(), object.getBasePrice(), String.valueOf(object.getRating()));
+        String updateEventDatesRelationsSQL = "INSERT INTO event_dates  (event_id, air_date_id)" +
+                "(SELECT e.id, ed.id" +
+                "FROM events e, air_dates ed" +
+                "WHERE e.name = ? AND ed.event_date = ?)";
+        jdbcTemplate.update(insertEventsSQL, object.getName(), object.getBasePrice(), String.valueOf(object.getRating()));
+
+        object.getAirDates().forEach(airDate -> {
+            insertAirDateIfNotExist(airDate);
+            jdbcTemplate.update(INSERT_RELATIONS, object.getName(), String.valueOf(airDate));
+        });
 
         return object;
     }
@@ -65,7 +91,7 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE DATE_FORMAT(ai.event_date,'%Y-%m-%d-%H-%i-%s') BETWEEN DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s') AND DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s')";
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date BETWEEN ? AND ?";
         Object parameters[] = new Object[]{String.valueOf(from), String.valueOf(to)};
         Collection<Event> events = jdbcTemplate.query(sql, parameters, eventMapper);
         return Sets.newHashSet(events);
@@ -73,11 +99,20 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE DATE_FORMAT(ai.event_date,'%Y-%m-%d-%H-%i-%s') < DATE_FORMAT(?,'%Y-%m-%d-%H-%i-%s')";
+        String sql = "SELECT * FROM events ev left JOIN event_dates ed ON ev.id=ed.event_id JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date < ?";
         Object parameters[] = new Object[]{String.valueOf(to)};
-        Collection<Event> events = jdbcTemplate.query(sql,parameters, eventMapper);
+        Collection<Event> events = jdbcTemplate.query(sql, parameters, eventMapper);
         return Sets.newHashSet(events);
     }
+
+    private void insertAirDateIfNotExist(LocalDateTime airDate) {
+        if (jdbcTemplate.query(FIND_AIR_DATE_BY_EVENT_DATE, new Object[]{String.valueOf(airDate)}, airDateMapper).isEmpty()) {
+            jdbcTemplate.update(INSERT_INTO_AIR_DATES, String.valueOf(airDate));
+        }
+
+
+    }
+
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -86,4 +121,6 @@ public class JdbcEventDaoImpl implements EventDao {
     public void setEventMapper(EventMapper eventMapper) {
         this.eventMapper = eventMapper;
     }
+
+
 }

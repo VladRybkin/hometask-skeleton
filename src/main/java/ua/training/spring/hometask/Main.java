@@ -32,17 +32,30 @@ public class Main {
         BookingService bookingService = ctx.getBean(BookingService.class);
         TicketService ticketService = ctx.getBean(TicketService.class);
         UserService userService = ctx.getBean(UserService.class);
-        User user = new User();
-        user.setEmail("testemail2");
-        user.setFirstName("TestFirst");
-        Event event = new Event();
-        event.setId(1L);
-        Ticket ticket = ticketService.getById(1L);
-        System.out.println(ticket);
-        System.out.println(eventService.getNextEvents(LocalDateTime.now()));
-        LocalDateTime localDateTime = LocalDateTime.now();
-        LocalDate localDate=localDateTime.toLocalDate();
-        System.out.println(eventService.getNextEvents(localDateTime.minusYears(10)));
+//        User user = new User();
+//        user.setEmail("brithd");
+//        user.setFirstName("TestFirst");
+//        user.setDateOfBirth(LocalDateTime.now().minusDays(5));
+        User user1 = new User();
+        user1.setEmail("birthd3");
+        user1.setFirstName("Testsecond");
+        user1.setDateOfBirth(LocalDateTime.now().plusDays(5));
+        Event event=new Event();
+        event.setName("testlast");
+        event.setBasePrice(100);
+        event.addAirDateTime(LocalDateTime.now().minusDays(2));
+
+
+
+
+//        Event event = new Event();
+//        event.setName("eventNameMain");
+//        event.getAirDates().add(LocalDateTime.now().minusDays(5));
+//        event.getAirDates().add(LocalDateTime.now().minusDays(4));
+//        event.getAirDates().add(LocalDateTime.now().plusDays(5));
+//        eventService.save(event);
+
+
 
 
 

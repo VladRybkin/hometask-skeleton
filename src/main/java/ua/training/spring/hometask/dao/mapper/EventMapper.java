@@ -24,7 +24,7 @@ public class EventMapper implements RowMapper<Event> {
     }
 
     private void setRatingToEvent(Event event, String rating) {
-        if (!Objects.isNull(rating)) {
+        if (!Objects.equals(rating, "null")) {
             event.setRating(EventRating.valueOf(rating));
         }
     }
