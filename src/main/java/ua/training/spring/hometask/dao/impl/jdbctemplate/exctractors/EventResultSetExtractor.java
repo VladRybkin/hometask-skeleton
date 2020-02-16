@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.exctractors;
+package ua.training.spring.hometask.dao.impl.jdbctemplate.exctractors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
