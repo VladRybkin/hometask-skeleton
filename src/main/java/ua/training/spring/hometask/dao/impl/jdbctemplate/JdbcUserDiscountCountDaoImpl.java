@@ -29,6 +29,10 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     private static final String USER_DISCOUNT_COUNT_GET_BY_ID_QUERY =
             "SELECT * FROM `user_discount_counts` WHERE `id` = ?";
 
+    private static final String USER_DISCOUNT_COUNT_UPDATE_QUERY =
+            "UPDATE user_discount_counts u SET name=?, count_tenth_ticket_discount=?, u.count_birthday_discount=? " +
+                    "WHERE id=?";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -64,6 +68,17 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     @Override
     public Collection<UserDiscountCount> getAll() {
         return jdbcTemplate.query(USER_DISCOUNT_COUNT_GET_ALL_QUERY, discountCountMapper);
+    }
+
+    @Override
+    public boolean update(UserDiscountCount userDiscountCount) {
+        jdbcTemplate.update(USER_DISCOUNT_COUNT_UPDATE_QUERY,
+                userDiscountCount.getName(),
+                userDiscountCount.getCountTenthTicketDiscount(),
+                userDiscountCount.getCountBirthdayDiscount(),
+                userDiscountCount.getId());
+
+        return true;
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

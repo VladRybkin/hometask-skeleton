@@ -46,7 +46,7 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountGetByName(foundEventCount.getCountGetByName() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
     }
 
@@ -60,7 +60,7 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountBookTickets(foundEventCount.getCountBookTickets() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
 
     }
@@ -74,7 +74,7 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountGetPrice(foundEventCount.getCountGetPrice() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
     }
 

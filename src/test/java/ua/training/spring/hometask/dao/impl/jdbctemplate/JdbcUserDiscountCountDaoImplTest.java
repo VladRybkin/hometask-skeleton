@@ -72,11 +72,28 @@ class JdbcUserDiscountCountDaoImplTest {
     }
 
     @Test
+    void update() {
+        UserDiscountCount discountCount = buildUserDiscountCount();
+
+        jdbcUserDiscountCountDao.save(discountCount);
+
+        discountCount.setName("updated");
+        discountCount.setCountTenthTicketDiscount(600);
+        discountCount.setCountBirthdayDiscount(600);
+
+        jdbcUserDiscountCountDao.update(discountCount);
+
+        assertThat(jdbcUserDiscountCountDao.getById(1L), is(discountCount));
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+
+    }
+
+    @Test
     void getAll() {
         UserDiscountCount user = buildUserDiscountCount();
         jdbcUserDiscountCountDao.save(user);
 
-        Collection<UserDiscountCount> persistedDiscounts=jdbcUserDiscountCountDao.getAll();
+        Collection<UserDiscountCount> persistedDiscounts = jdbcUserDiscountCountDao.getAll();
 
         assertThat(persistedDiscounts, hasItems(user));
         assertThat(persistedDiscounts, hasSize(1));

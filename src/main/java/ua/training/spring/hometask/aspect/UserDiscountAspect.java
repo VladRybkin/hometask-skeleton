@@ -27,7 +27,8 @@ public class UserDiscountAspect {
     public void incrementUserDiscountCount(final Double discount, final User user) {
         if (discount == birthdayDiscount) {
             discountCountService.countBirthdayDiscountIncrement(user.getEmail());
-        } else if (discount != 0) {
+        }
+        else if (discount != 0) {
             discountCountService.countTenthTicketDiscountIncrement(user.getEmail());
         }
     }
@@ -39,7 +40,8 @@ public class UserDiscountAspect {
     public void incrementTotalDiscountCount(final Double discount, final User user) {
         if (discount == birthdayDiscount) {
             discountCountService.countBirthdayDiscountIncrement("birthday discount");
-        } else if (discount != 0) {
+        }
+        else if (discount != 0) {
             discountCountService.countTenthTicketDiscountIncrement("tenth ticket discount");
         }
     }

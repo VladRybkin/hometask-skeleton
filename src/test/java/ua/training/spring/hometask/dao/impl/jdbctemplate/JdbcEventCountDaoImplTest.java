@@ -71,6 +71,23 @@ class JdbcEventCountDaoImplTest {
     }
 
     @Test
+    void update() {
+        EventCount eventCount = buildTestEventCount();
+
+        jdbcEventCountDao.save(eventCount);
+
+        eventCount.setEventName("updated");
+        eventCount.setCountGetByName(600);
+        eventCount.setCountGetPrice(600);
+        eventCount.setCountBookTickets(600);
+
+        jdbcEventCountDao.update(eventCount);
+
+        assertThat(jdbcEventCountDao.getById(1L), is(eventCount));
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+    }
+
+    @Test
     void getAll() {
         EventCount testEventCount = buildTestEventCount();
         jdbcEventCountDao.save(testEventCount);

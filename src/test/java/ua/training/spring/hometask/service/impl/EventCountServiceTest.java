@@ -51,7 +51,7 @@ public class EventCountServiceTest {
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getByNameCountIncrement(TEST_NAME);
         assertThat(testEventCount.getCountGetByName(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCount);
+        verify(eventCounterDao).update(testEventCount);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class EventCountServiceTest {
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.bookTicketsCountIncrement(TEST_NAME);
         assertThat(testEventCount.getCountBookTickets(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCount);
+        verify(eventCounterDao).update(testEventCount);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class EventCountServiceTest {
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getPriceCountIncrement(TEST_NAME);
         assertThat(testEventCount.getCountGetPrice(), is(expectedAfterIncrement));
-        verify(eventCounterDao).save(testEventCount);
+        verify(eventCounterDao).update(testEventCount);
     }
 
     @Test
