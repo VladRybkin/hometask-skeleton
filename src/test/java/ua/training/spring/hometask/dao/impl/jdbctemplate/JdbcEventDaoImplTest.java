@@ -119,7 +119,7 @@ class JdbcEventDaoImplTest {
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(3), LocalDateTime.now());
-        event.getAirDates().clear();
+
 
         assertThat(persistedEvents, empty());
     }
@@ -146,7 +146,7 @@ class JdbcEventDaoImplTest {
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getNextEvents(LocalDateTime.now().minusDays(5));
-        event.getAirDates().clear();
+
 
         assertThat(persistedEvents, empty());
     }
