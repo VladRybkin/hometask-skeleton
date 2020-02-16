@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
-import ua.training.spring.hometask.dao.mapper.UserMapper;
+import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.UserMapper;
 import ua.training.spring.hometask.domain.User;
 
 import java.util.Collection;
@@ -15,6 +15,17 @@ import java.util.Collection;
 @Primary
 public class JdbcUserDaoImpl implements UserDao {
 
+    private static final String USER_GET_BY_EMAIL_QUERY = "SELECT * FROM `users` WHERE `email` = ?";
+
+    private static final String USERS_INSERT_QUERY =
+            "INSERT INTO `users`(`first_name`, `last_name`, `email`, `date_of_birth`) VALUES (?,?,?,?)";
+
+    private static final String USERS_DELETE_QUERY = "delete from users where id = ?";
+
+    private static final String USERS_GET_BY_ID_QUERY = "SELECT * FROM `users` WHERE `id` = ?";
+
+    private static final String USERS_GET_ALL_QUERY = "select * from users";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -23,17 +34,17 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        String sql = "SELECT * FROM `users` WHERE `email` = ?";
-        User user = jdbcTemplate.queryForObject(sql, new Object[]{email},
-                userMapper);
+        User user = jdbcTemplate.queryForObject(USER_GET_BY_EMAIL_QUERY, new Object[]{email}, userMapper);
 
         return user;
     }
 
     @Override
     public User save(User object) {
-        String SQL = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `date_of_birth`) VALUES (?,?,?,?)";
-        jdbcTemplate.update(SQL, object.getFirstName(), object.getLastName(), object.getEmail(),
+        jdbcTemplate.update(USERS_INSERT_QUERY,
+                object.getFirstName(),
+                object.getLastName(),
+                object.getEmail(),
                 object.getDateOfBirth());
 
         return object;
@@ -41,32 +52,21 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public void remove(User object) {
-        String SQL = "delete from users where id = ?";
-        jdbcTemplate.update(SQL, object.getId());
+        jdbcTemplate.update(USERS_DELETE_QUERY, object.getId());
     }
 
     @Override
     public User getById(Long id) {
-        String sql = "SELECT * FROM `users` WHERE `id` = ?";
-        User user = jdbcTemplate.queryForObject(sql, new Object[]{id},
-                userMapper);
-
-        return user;
+        return jdbcTemplate.queryForObject(USERS_GET_BY_ID_QUERY, new Object[]{id}, userMapper);
     }
 
     @Override
     public Collection<User> getAll() {
-        String sql = "select * from users";
-        Collection<User> users = jdbcTemplate.query(sql, userMapper);
-
-        return users;
+        return jdbcTemplate.query(USERS_GET_ALL_QUERY, userMapper);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 }

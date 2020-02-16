@@ -1,11 +1,11 @@
-package ua.training.spring.hometask.dao.mapper.exctractors;
+package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.exctractors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
-import ua.training.spring.hometask.dao.mapper.AirDateMapper;
-import ua.training.spring.hometask.dao.mapper.EventMapper;
+import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.AirDateMapper;
+import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.EventMapper;
 import ua.training.spring.hometask.domain.Event;
 
 import java.sql.ResultSet;

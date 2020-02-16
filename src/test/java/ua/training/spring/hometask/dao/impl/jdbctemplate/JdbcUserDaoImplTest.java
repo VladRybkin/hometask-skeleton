@@ -84,7 +84,6 @@ class JdbcUserDaoImplTest {
 
         assertThat(persistedUsers, hasItems(user));
         assertThat(persistedUsers, hasSize(1));
-
     }
 
     private User buildTestUser() {
