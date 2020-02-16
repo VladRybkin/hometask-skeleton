@@ -30,6 +30,7 @@ public class JdbcTicketDaoImpl implements TicketDao {
         Object parameters[] = new Object[]{event.getId(), String.valueOf(dateTime)};
         String sql = "select * from tickets t where t.event_id=? AND t.date_time=?";
         Collection<Ticket> tickets = jdbcTemplate.query(sql, parameters, ticketMapper);
+
         return Sets.newHashSet(tickets);
     }
 

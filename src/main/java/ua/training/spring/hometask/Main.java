@@ -10,6 +10,7 @@ import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.*;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -40,22 +41,17 @@ public class Main {
         user1.setEmail("birthd3");
         user1.setFirstName("Testsecond");
         user1.setDateOfBirth(LocalDateTime.now().plusDays(5));
-        Event event=new Event();
-        event.setName("testlast");
-        event.setBasePrice(100);
-        event.addAirDateTime(LocalDateTime.now().minusDays(2));
 
 
 
 
-//        Event event = new Event();
-//        event.setName("eventNameMain");
-//        event.getAirDates().add(LocalDateTime.now().minusDays(5));
-//        event.getAirDates().add(LocalDateTime.now().minusDays(4));
-//        event.getAirDates().add(LocalDateTime.now().plusDays(5));
-//        eventService.save(event);
 
-
+        Event event = new Event();
+        event.setName("eventNameMain");
+        event.getAirDates().add(LocalDateTime.now().minusDays(5));
+        event.getAirDates().add(LocalDateTime.now().minusDays(4));
+        event.getAirDates().add(LocalDateTime.now().plusDays(5));
+        eventService.save(event);
 
 
 

@@ -22,7 +22,7 @@ public class AirDateMapper implements RowMapper<LocalDateTime> {
     private LocalDateTime convertDate(String date) {
         LocalDateTime localDateTime = null;
 
-        if (!Objects.equals(date, "null")) {
+        if (!Objects.isNull(date)) {
             localDateTime = LocalDateTime.parse(date);
         }
         return localDateTime;

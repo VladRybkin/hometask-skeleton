@@ -20,6 +20,7 @@ public class EventMapper implements RowMapper<Event> {
         event.setBasePrice(resultSet.getDouble("base_price"));
         String eventRating = resultSet.getString("rating");
         setRatingToEvent(event, eventRating);
+
         return event;
     }
 
