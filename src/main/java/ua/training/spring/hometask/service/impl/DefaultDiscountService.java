@@ -24,10 +24,12 @@ public class DefaultDiscountService implements DiscountService {
         this.discountStrategies = discountStrategies;
     }
 
+
     @Override
     public double getDiscount(@Nullable User user, Set<Ticket> tickets) {
         double discount = 0;
-        OptionalDouble optionalDiscount = discountStrategies.stream().mapToDouble(getDiscountStrategyToDoubleFunction(user, tickets)).max();
+        OptionalDouble optionalDiscount = discountStrategies.stream()
+                .mapToDouble(getDiscountStrategyToDoubleFunction(user, tickets)).max();
         if (optionalDiscount.isPresent()) {
             discount = optionalDiscount.getAsDouble();
         }
