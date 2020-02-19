@@ -42,7 +42,12 @@ public class Main {
         user1.setFirstName("Testsecond");
         user1.setDateOfBirth(LocalDateTime.now().plusDays(5));
 
-        eventService.getByName("testEvent");
+        Event event=new Event();
+        event.setName("test5");
+        event.getAirDates().add(LocalDateTime.now());
+        event.getAirDates().add(LocalDateTime.MIN);
+        event.getAirDates().add(LocalDateTime.MAX);
+        eventService.save(event);
 
 
 

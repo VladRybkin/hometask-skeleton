@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
@@ -36,6 +37,7 @@ public class DefaultEventService implements EventService {
         return eventDao.getNextEvents(to);
     }
 
+    @Transactional
     @Override
     public Event save(@Nonnull Event object) {
         return eventDao.save(object);

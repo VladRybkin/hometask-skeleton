@@ -12,11 +12,10 @@ import javax.sql.DataSource;
 @Import(DataSourceBeans.class)
 public class JDBCTemplateBeans {
 
-    @Autowired
-    DataSource dataSource;
 
+    @Autowired
     @Bean
-    public JdbcTemplate jdbcTemplate() {
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 
