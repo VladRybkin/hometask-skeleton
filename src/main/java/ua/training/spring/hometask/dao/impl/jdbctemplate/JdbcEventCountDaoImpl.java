@@ -83,14 +83,16 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
 
     @Override
     public boolean update(EventCount eventCount) {
-        jdbcTemplate.update
+        boolean updated = false;
+        int affectedRows = jdbcTemplate.update
                 (EVEN_COUNT_UPDATE,
                         eventCount.getEventName(),
                         eventCount.getCountGetByName(),
                         eventCount.getCountBookTickets(),
                         eventCount.getCountGetPrice(),
                         eventCount.getId());
-        return true;
+        if (affectedRows > 0) updated = true;
+        return updated;
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

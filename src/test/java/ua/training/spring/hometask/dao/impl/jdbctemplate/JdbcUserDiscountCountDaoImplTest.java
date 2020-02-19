@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -81,8 +82,9 @@ class JdbcUserDiscountCountDaoImplTest {
         discountCount.setCountTenthTicketDiscount(600);
         discountCount.setCountBirthdayDiscount(600);
 
-        jdbcUserDiscountCountDao.update(discountCount);
+        boolean updated = jdbcUserDiscountCountDao.update(discountCount);
 
+        assertThat(updated, is(true));
         assertThat(jdbcUserDiscountCountDao.getById(1L), is(discountCount));
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
@@ -97,6 +99,25 @@ class JdbcUserDiscountCountDaoImplTest {
 
         assertThat(persistedDiscounts, hasItems(user));
         assertThat(persistedDiscounts, hasSize(1));
+    }
+
+    @Test
+    void shouldReturnNullWhenGetByEmail() {
+        UserDiscountCount discountCount = buildUserDiscountCount();
+
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+        UserDiscountCount foundByName = jdbcUserDiscountCountDao.getByName(discountCount.getName());
+
+        assertThat(foundByName, nullValue());
+    }
+
+    @Test
+    void shouldReturnNullWhenGetById() {
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+
+        UserDiscountCount foundById = jdbcUserDiscountCountDao.getById(1L);
+
+        assertThat(foundById, nullValue());
     }
 
     private UserDiscountCount buildUserDiscountCount() {

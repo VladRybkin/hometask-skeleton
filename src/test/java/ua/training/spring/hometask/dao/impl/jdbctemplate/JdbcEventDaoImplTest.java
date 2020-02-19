@@ -20,6 +20,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -53,6 +54,8 @@ class JdbcEventDaoImplTest {
 
         assertThat(foundByName, is(event));
     }
+
+
 
     @Test
     void shouldGetByIdPersistedEvent() {
@@ -149,6 +152,25 @@ class JdbcEventDaoImplTest {
 
 
         assertThat(persistedEvents, empty());
+    }
+
+    @Test
+    void shouldReturnNullWhenGetByName() {
+        Event event = buildTestEvent();
+
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+        Event foundByName = jdbcEventDao.getByName(event.getName());
+
+        assertThat(foundByName, nullValue());
+    }
+
+    @Test
+    void shouldReturnNullWhenGetById() {
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+
+        Event foundById = jdbcEventDao.getById(1L);
+
+        assertThat(foundById, nullValue());
     }
 
     private Event buildTestEvent() {

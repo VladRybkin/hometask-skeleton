@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -105,6 +106,15 @@ class JdbcTicketDaoImplTest {
 
         assertThat(persistedTickets, hasItems(user));
         assertThat(persistedTickets, hasSize(1));
+    }
+
+    @Test
+    void shouldReturnNullWhenGetById() {
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+
+        Ticket foundById = jdbcTicketDao.getById(1L);
+
+        assertThat(foundById, nullValue());
     }
 
     private Ticket buildTestTicket() {

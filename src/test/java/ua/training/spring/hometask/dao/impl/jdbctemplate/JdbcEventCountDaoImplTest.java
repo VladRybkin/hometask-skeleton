@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -54,7 +55,7 @@ class JdbcEventCountDaoImplTest {
         EventCount eventCount = buildTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
-        EventCount foundEvent=jdbcEventCountDao.getById(1L);
+        EventCount foundEvent = jdbcEventCountDao.getById(1L);
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundEvent, is(eventCount));
@@ -81,8 +82,9 @@ class JdbcEventCountDaoImplTest {
         eventCount.setCountGetPrice(600);
         eventCount.setCountBookTickets(600);
 
-        jdbcEventCountDao.update(eventCount);
+        boolean updated = jdbcEventCountDao.update(eventCount);
 
+        assertThat(updated, is(true));
         assertThat(jdbcEventCountDao.getById(1L), is(eventCount));
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
     }
@@ -92,10 +94,29 @@ class JdbcEventCountDaoImplTest {
         EventCount testEventCount = buildTestEventCount();
         jdbcEventCountDao.save(testEventCount);
 
-        Collection<EventCount>eventCounts=jdbcEventCountDao.getAll();
+        Collection<EventCount> eventCounts = jdbcEventCountDao.getAll();
 
         assertThat(eventCounts, hasItems(testEventCount));
         assertThat(eventCounts, hasSize(1));
+    }
+
+    @Test
+    void shouldReturnNullWhenGetByName() {
+        EventCount eventCount = buildTestEventCount();
+
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+        EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
+
+        assertThat(foundByName, nullValue());
+    }
+
+    @Test
+    void shouldReturnNullWhenGetById() {
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+
+        EventCount foundById = jdbcEventCountDao.getById(1L);
+
+        assertThat(foundById, nullValue());
     }
 
     private EventCount buildTestEventCount() {

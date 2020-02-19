@@ -88,13 +88,15 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public boolean update(UserDiscountCount userDiscountCount) {
-        jdbcTemplate.update(USER_DISCOUNT_COUNT_UPDATE_QUERY,
+        boolean updated = false;
+        int affectedRows = jdbcTemplate.update(USER_DISCOUNT_COUNT_UPDATE_QUERY,
                 userDiscountCount.getName(),
                 userDiscountCount.getCountTenthTicketDiscount(),
                 userDiscountCount.getCountBirthdayDiscount(),
                 userDiscountCount.getId());
+        if (affectedRows>0) updated=true;
 
-        return true;
+        return updated;
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

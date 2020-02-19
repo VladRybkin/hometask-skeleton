@@ -18,6 +18,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -50,7 +51,6 @@ class JdbcUserDaoImplTest {
         assertThat(foundByEmail, is(user));
     }
 
-
     @Test
     void shouldGetByIdPersistedUser() {
         User user = buildTestUser();
@@ -61,7 +61,6 @@ class JdbcUserDaoImplTest {
         assertThat(foundUser, is(user));
 
     }
-
 
     @Test
     void remove() {
@@ -74,7 +73,6 @@ class JdbcUserDaoImplTest {
 
     }
 
-
     @Test
     void getAll() {
         User user = buildTestUser();
@@ -84,6 +82,25 @@ class JdbcUserDaoImplTest {
 
         assertThat(persistedUsers, hasItems(user));
         assertThat(persistedUsers, hasSize(1));
+    }
+
+    @Test
+    void shouldReturnNullWhenGetByEmail() {
+        User user = buildTestUser();
+
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+        User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
+
+        assertThat(foundByEmail, nullValue());
+    }
+
+    @Test
+    void shouldReturnNullWhenGetById() {
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
+
+        User foundById = jdbcUserDao.getById(1L);
+
+        assertThat(foundById, nullValue());
     }
 
     private User buildTestUser() {
