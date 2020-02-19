@@ -92,6 +92,7 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
                         eventCount.getCountGetPrice(),
                         eventCount.getId());
         if (affectedRows > 0) updated = true;
+
         return updated;
     }
 
