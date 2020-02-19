@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.service.EventCountService;
@@ -16,27 +17,32 @@ public class DefaultEventCountService implements EventCountService {
     @Autowired
     private EventCountDao eventCountDao;
 
+    @Transactional
     @Override
     public EventCount save(@Nonnull EventCount object) {
         return eventCountDao.save(object);
     }
 
+    @Transactional
     @Override
     public void remove(@Nonnull EventCount object) {
         eventCountDao.remove(object);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EventCount getById(@Nonnull Long id) {
         return eventCountDao.getById(id);
     }
 
     @Nonnull
+    @Transactional(readOnly = true)
     @Override
     public Collection<EventCount> getAll() {
         return eventCountDao.getAll();
     }
 
+    @Transactional
     @Override
     public void getByNameCountIncrement(String eventName) {
         EventCount foundEventCount = eventCountDao.getByName(eventName);
@@ -46,11 +52,11 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountGetByName(foundEventCount.getCountGetByName() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
     }
 
-
+    @Transactional
     @Override
     public void bookTicketsCountIncrement(String eventName) {
         EventCount foundEventCount = eventCountDao.getByName(eventName);
@@ -60,11 +66,12 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountBookTickets(foundEventCount.getCountBookTickets() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
 
     }
 
+    @Transactional
     @Override
     public void getPriceCountIncrement(String eventName) {
         EventCount foundEventCount = eventCountDao.getByName(eventName);
@@ -74,10 +81,11 @@ public class DefaultEventCountService implements EventCountService {
             eventCountDao.save(eventCount);
         } else {
             foundEventCount.setCountGetPrice(foundEventCount.getCountGetPrice() + 1);
-            eventCountDao.save(foundEventCount);
+            eventCountDao.update(foundEventCount);
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EventCount getByName(String name) {
         return eventCountDao.getByName(name);

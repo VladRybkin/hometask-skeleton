@@ -3,12 +3,13 @@ package ua.training.spring.hometask.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
 @Configuration
+@PropertySource("classpath:local.properties")
 public class DataSourceBeans {
 
     @Value("${jdbc.driver}")
@@ -34,15 +35,5 @@ public class DataSourceBeans {
         return dataSource;
 
     }
-
-    @Bean
-    public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
-
-        return jdbcTemplate;
-    }
-
-
 
 }

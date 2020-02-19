@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
@@ -19,39 +20,46 @@ public class DefaultEventService implements EventService {
     private EventDao eventDao;
 
     @Nullable
+    @Transactional(readOnly = true)
     @Override
     public Event getByName(@Nonnull String name) {
         return eventDao.getByName(name);
     }
 
     @Nonnull
+    @Transactional(readOnly = true)
     @Override
     public Set<Event> getForDateRange(@Nonnull LocalDateTime from, @Nonnull LocalDateTime to) {
         return eventDao.getForDateRange(from, to);
     }
 
     @Nonnull
+    @Transactional(readOnly = true)
     @Override
     public Set<Event> getNextEvents(@Nonnull LocalDateTime to) {
         return eventDao.getNextEvents(to);
     }
 
+    @Transactional
     @Override
     public Event save(@Nonnull Event object) {
         return eventDao.save(object);
     }
 
+    @Transactional
     @Override
     public void remove(@Nonnull Event object) {
         eventDao.remove(object);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Event getById(@Nonnull Long id) {
         return eventDao.getById(id);
     }
 
     @Nonnull
+    @Transactional(readOnly = true)
     @Override
     public Collection<Event> getAll() {
         return eventDao.getAll();
