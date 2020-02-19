@@ -3,6 +3,7 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
@@ -68,7 +69,14 @@ public class JdbcTicketDaoImpl implements TicketDao {
 
     @Override
     public Ticket getById(Long id) {
-        return jdbcTemplate.queryForObject(TICKETS_GET_BY_ID_QUERY, new Object[]{id}, ticketMapper);
+        Ticket ticket;
+        try {
+            ticket = jdbcTemplate.queryForObject(TICKETS_GET_BY_ID_QUERY, new Object[]{id}, ticketMapper);
+        } catch (EmptyResultDataAccessException e) {
+            ticket = null;
+        }
+
+        return ticket;
     }
 
     @Override

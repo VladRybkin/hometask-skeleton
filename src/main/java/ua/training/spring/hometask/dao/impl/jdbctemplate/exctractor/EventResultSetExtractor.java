@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dao.impl.jdbctemplate.exctractors;
+package ua.training.spring.hometask.dao.impl.jdbctemplate.exctractor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -36,8 +36,7 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
             LocalDateTime airDate = airDateMapper.mapRow(resultSet, row);
 
             if (events.containsKey(event.getId())) {
-                addAirDateToEvent(airDate, event);
-                events.get(event.getId()).addAirDateTime(airDate);
+                addAirDateToEvent(airDate, events.get(event.getId()));
 
             } else {
                 addAirDateToEvent(airDate, event);

@@ -2,6 +2,7 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
@@ -41,8 +42,15 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public UserDiscountCount getByName(String name) {
-        return jdbcTemplate.queryForObject(USER_DISCOUNT_COUNT_GET_BY_NAME_QUERY,
-                new Object[]{name}, discountCountMapper);
+        UserDiscountCount userDiscountCount;
+        try {
+            userDiscountCount = jdbcTemplate.queryForObject(USER_DISCOUNT_COUNT_GET_BY_NAME_QUERY,
+                    new Object[]{name}, discountCountMapper);
+        } catch (EmptyResultDataAccessException e) {
+            userDiscountCount = null;
+        }
+
+        return userDiscountCount;
     }
 
     @Override
@@ -62,7 +70,15 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public UserDiscountCount getById(Long id) {
-        return jdbcTemplate.queryForObject(USER_DISCOUNT_COUNT_GET_BY_ID_QUERY, new Object[]{id}, discountCountMapper);
+        UserDiscountCount userDiscountCount;
+        try {
+            userDiscountCount = jdbcTemplate.queryForObject(USER_DISCOUNT_COUNT_GET_BY_ID_QUERY,
+                    new Object[]{id}, discountCountMapper);
+        } catch (EmptyResultDataAccessException e) {
+            userDiscountCount = null;
+        }
+
+        return userDiscountCount;
     }
 
     @Override

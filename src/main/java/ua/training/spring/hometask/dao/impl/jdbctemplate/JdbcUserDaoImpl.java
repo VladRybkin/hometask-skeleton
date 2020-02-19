@@ -2,6 +2,7 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
@@ -34,7 +35,12 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        User user = jdbcTemplate.queryForObject(USER_GET_BY_EMAIL_QUERY, new Object[]{email}, userMapper);
+        User user;
+        try {
+            user = jdbcTemplate.queryForObject(USER_GET_BY_EMAIL_QUERY, new Object[]{email}, userMapper);
+        } catch (EmptyResultDataAccessException e) {
+            user = null;
+        }
 
         return user;
     }
@@ -57,7 +63,14 @@ public class JdbcUserDaoImpl implements UserDao {
 
     @Override
     public User getById(Long id) {
-        return jdbcTemplate.queryForObject(USERS_GET_BY_ID_QUERY, new Object[]{id}, userMapper);
+        User user;
+        try {
+            user = jdbcTemplate.queryForObject(USERS_GET_BY_ID_QUERY, new Object[]{id}, userMapper);
+        } catch (EmptyResultDataAccessException e) {
+            user = null;
+        }
+
+        return user;
     }
 
     @Override

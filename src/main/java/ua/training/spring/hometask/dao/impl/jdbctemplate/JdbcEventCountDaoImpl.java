@@ -2,6 +2,7 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventCountDao;
@@ -37,7 +38,14 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
 
     @Override
     public EventCount getByName(String name) {
-        return jdbcTemplate.queryForObject(EVENT_COUNT_GET_BY_NAME_QUERY, new Object[]{name}, eventCountMapper);
+        EventCount eventCount;
+        try {
+            eventCount = jdbcTemplate.queryForObject(EVENT_COUNT_GET_BY_NAME_QUERY, new Object[]{name}, eventCountMapper);
+        } catch (EmptyResultDataAccessException e) {
+            eventCount = null;
+        }
+
+        return eventCount;
     }
 
     @Override
@@ -58,7 +66,14 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
 
     @Override
     public EventCount getById(Long id) {
-        return jdbcTemplate.queryForObject(EVENT_COUNT_GET_BY_ID_QUERY, new Object[]{id}, eventCountMapper);
+        EventCount eventCount;
+        try {
+            eventCount = jdbcTemplate.queryForObject(EVENT_COUNT_GET_BY_ID_QUERY, new Object[]{id}, eventCountMapper);
+        } catch (EmptyResultDataAccessException e) {
+            eventCount = null;
+        }
+
+        return eventCount;
     }
 
     @Override

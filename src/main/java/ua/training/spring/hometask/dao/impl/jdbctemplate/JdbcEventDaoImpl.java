@@ -3,12 +3,13 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.AirDateMapper;
 import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.EventMapper;
-import ua.training.spring.hometask.dao.impl.jdbctemplate.exctractors.EventResultSetExtractor;
+import ua.training.spring.hometask.dao.impl.jdbctemplate.exctractor.EventResultSetExtractor;
 import ua.training.spring.hometask.domain.Event;
 
 
@@ -65,9 +66,13 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Event getByName(String name) {
-
-        Event event = jdbcTemplate.queryForObject(GET_BY_NAME_QUERY, new Object[]{name},
-                eventMapper);
+        Event event;
+        try {
+            event = jdbcTemplate.queryForObject(GET_BY_NAME_QUERY, new Object[]{name},
+                    eventMapper);
+        } catch (EmptyResultDataAccessException e) {
+            event = null;
+        }
 
         return event;
     }
@@ -94,26 +99,25 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Event getById(Long id) {
-
-        Event event = jdbcTemplate.queryForObject(EVENT_GET_BY_ID_QUERY, new Object[]{id},
-                new EventMapper());
+        Event event;
+        try {
+            event = jdbcTemplate.queryForObject(EVENT_GET_BY_ID_QUERY, new Object[]{id},
+                    new EventMapper());
+        } catch (EmptyResultDataAccessException e) {
+            event = null;
+        }
 
         return event;
     }
 
     @Override
     public Collection<Event> getAll() {
-
-        Collection<Event> events = jdbcTemplate.query(EVENT_GET_ALL_QUERY, eventResultSetExtractor);
-
-        return events;
+        return jdbcTemplate.query(EVENT_GET_ALL_QUERY, eventResultSetExtractor);
     }
 
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-
         Object parameters[] = new Object[]{String.valueOf(from), String.valueOf(to)};
-
         Collection<Event> events =
                 jdbcTemplate.query(EVENT_GET_DATE_FOR_RANGE_QUERY, parameters, eventResultSetExtractor);
 
@@ -122,7 +126,6 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-
         Object parameters[] = new Object[]{String.valueOf(to)};
         Collection<Event> events = jdbcTemplate.query(GET_NEXT_EVENTS_QUERY, parameters, eventResultSetExtractor);
 
@@ -134,8 +137,6 @@ public class JdbcEventDaoImpl implements EventDao {
                 new Object[]{String.valueOf(airDate)}, airDateMapper).isEmpty()) {
             jdbcTemplate.update(INSERT_INTO_AIR_DATES, String.valueOf(airDate));
         }
-
-
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
