@@ -48,7 +48,7 @@ public class DefaultUserDiscountCountServiceTest {
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countTenthTicketDiscountIncrement(TEST_NAME);
         assertThat(testUserDiscountInfo.getCountTenthTicketDiscount(), is(expectedAfterIncrement));
-        verify(discountDao).save(testUserDiscountInfo);
+        verify(discountDao).update(testUserDiscountInfo);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class DefaultUserDiscountCountServiceTest {
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countBirthdayDiscountIncrement(TEST_NAME);
         assertThat(testUserDiscountInfo.getCountBirthdayDiscount(), is(expectedAfterIncrement));
-        verify(discountDao).save(testUserDiscountInfo);
+        verify(discountDao).update(testUserDiscountInfo);
     }
 
     @Test

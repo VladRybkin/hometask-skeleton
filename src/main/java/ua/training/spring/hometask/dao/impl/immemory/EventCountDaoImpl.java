@@ -16,14 +16,11 @@ public class EventCountDaoImpl implements EventCountDao {
 
     @Override
     public EventCount save(@Nonnull EventCount object) {
-        if (eventCounts.containsKey(object.getId())) {
-            eventCounts.put(object.getId(), object);
-            return object;
-        } else {
-            object.setId((long) (eventCounts.size() + 1));
-            eventCounts.put(object.getId(), object);
-            return object;
-        }
+
+        object.setId((long) (eventCounts.size() + 1));
+        eventCounts.put(object.getId(), object);
+        return object;
+
     }
 
     @Override
@@ -45,5 +42,15 @@ public class EventCountDaoImpl implements EventCountDao {
     @Override
     public EventCount getByName(String name) {
         return eventCounts.values().stream().filter(ev -> ev.getEventName().equals(name)).findAny().orElse(null);
+    }
+
+    @Override
+    public boolean update(EventCount eventCount) {
+        boolean update=false;
+        if (eventCounts.containsKey(eventCount.getId())){
+            eventCounts.put(eventCount.getId(), eventCount);
+            update=true;
+        }
+        return update;
     }
 }

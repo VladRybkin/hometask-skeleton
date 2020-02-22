@@ -1,5 +1,6 @@
 
-USE my_db_example;
+-- USE testTheatreDB;
+
 
 CREATE TABLE IF NOT EXISTS users (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -29,14 +30,14 @@ CREATE TABLE IF NOT EXISTS users (
 
   CREATE TABLE IF NOT EXISTS user_discount_counts (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(45) UNIQUE,
+  name VARCHAR(45),
   count_tenth_ticket_discount INT(11),
   count_birthday_discount INT(11)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
       CREATE TABLE IF NOT EXISTS event_counts (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(45) UNIQUE,
+  name VARCHAR(45),
   count_get_by_name INT(11),
   count_book_tickets INT(11),
   count_get_price INT(11)
@@ -53,6 +54,7 @@ CREATE TABLE IF NOT EXISTS users (
     FOREIGN KEY (event_id) REFERENCES events (id) ON DELETE CASCADE,
     FOREIGN KEY (air_date_id) REFERENCES air_dates (id) ON DELETE CASCADE
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 

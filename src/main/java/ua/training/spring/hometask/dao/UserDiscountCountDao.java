@@ -6,4 +6,5 @@ public interface UserDiscountCountDao extends AbstractDomainObjectDao<UserDiscou
 
     UserDiscountCount getByName(String name);
 
+    boolean update(UserDiscountCount userDiscountCount);
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.service.impl.DefaultUserDiscountCountService;
+import ua.training.spring.hometask.service.UserDiscountCountService;
 
 
 @Aspect
@@ -14,7 +14,7 @@ import ua.training.spring.hometask.service.impl.DefaultUserDiscountCountService;
 public class UserDiscountAspect {
 
     @Autowired
-    private DefaultUserDiscountCountService discountCountService;
+    private UserDiscountCountService discountCountService;
 
     @Value("${birthday.discount}")
     private double birthdayDiscount;
@@ -44,11 +44,4 @@ public class UserDiscountAspect {
         }
     }
 
-    public void setDiscountCountService(DefaultUserDiscountCountService discountCountService) {
-        this.discountCountService = discountCountService;
-    }
-
-    public void setBirthdayDiscount(double birthdayDiscount) {
-        this.birthdayDiscount = birthdayDiscount;
-    }
 }

@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dao.mapper;
+package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -20,11 +20,12 @@ public class EventMapper implements RowMapper<Event> {
         event.setBasePrice(resultSet.getDouble("base_price"));
         String eventRating = resultSet.getString("rating");
         setRatingToEvent(event, eventRating);
+
         return event;
     }
 
     private void setRatingToEvent(Event event, String rating) {
-        if (!Objects.isNull(rating)) {
+        if (!Objects.equals(rating, "null")) {
             event.setRating(EventRating.valueOf(rating));
         }
     }

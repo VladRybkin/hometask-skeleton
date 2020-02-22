@@ -3,6 +3,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
@@ -41,7 +42,7 @@ public class DefaultBookingService implements BookingService {
         return applyDiscounts(totalPriсe, discount);
     }
 
-
+    @Transactional
     @Override
     public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
         tickets.forEach(ticket -> bookTicket(ticket, user));
@@ -55,6 +56,7 @@ public class DefaultBookingService implements BookingService {
     }
 
     @Nonnull
+    @Transactional
     @Override
     public Ticket bookTicket(Ticket ticket, User user) {
         user.getTickets().add(ticket);

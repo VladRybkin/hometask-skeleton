@@ -76,12 +76,13 @@ public class User extends DomainObject {
         User user = (User) o;
         return Objects.equal(firstName, user.firstName) &&
                 Objects.equal(lastName, user.lastName) &&
-                Objects.equal(email, user.email);
+                Objects.equal(email, user.email) &&
+                Objects.equal(dateOfBirth, user.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(firstName, lastName, email);
+        return Objects.hashCode(firstName, lastName, email, dateOfBirth);
     }
 
     @Override

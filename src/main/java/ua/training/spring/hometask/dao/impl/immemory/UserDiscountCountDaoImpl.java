@@ -15,15 +15,11 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public UserDiscountCount save(UserDiscountCount object) {
-        if (userDiscountCounts.containsKey(object.getId())) {
-            userDiscountCounts.put(object.getId(), object);
-            return object;
-        } else {
-            object.setId((long) (userDiscountCounts.size() + 1));
-            userDiscountCounts.put(object.getId(), object);
-            return object;
-        }
+        object.setId((long) (userDiscountCounts.size() + 1));
+        userDiscountCounts.put(object.getId(), object);
+        return object;
     }
+
 
     @Override
     public void remove(UserDiscountCount object) {
@@ -43,5 +39,15 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
     @Override
     public UserDiscountCount getByName(String name) {
         return userDiscountCounts.values().stream().filter(ev -> ev.getName().equals(name)).findAny().orElse(null);
+    }
+
+    @Override
+    public boolean update(UserDiscountCount userDiscountCount) {
+        boolean updated = false;
+        if (userDiscountCounts.containsKey(userDiscountCount.getId())) {
+            userDiscountCounts.put(userDiscountCount.getId(), userDiscountCount);
+            updated = true;
+        }
+        return updated;
     }
 }

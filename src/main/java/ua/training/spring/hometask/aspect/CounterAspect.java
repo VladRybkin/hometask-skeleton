@@ -40,7 +40,4 @@ public class CounterAspect {
         eventCountService.bookTicketsCountIncrement(event.getName());
     }
 
-    public void setEventCountService(EventCountService eventCountService) {
-        this.eventCountService = eventCountService;
-    }
 }
