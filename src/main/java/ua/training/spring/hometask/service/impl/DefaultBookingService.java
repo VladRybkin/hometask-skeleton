@@ -50,7 +50,6 @@ public class DefaultBookingService implements BookingService {
 
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);

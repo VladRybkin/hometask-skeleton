@@ -29,14 +29,13 @@ public class DefaultEventCountService implements EventCountService {
         eventCountDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
+
     @Override
     public EventCount getById(@Nonnull Long id) {
         return eventCountDao.getById(id);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Collection<EventCount> getAll() {
         return eventCountDao.getAll();
@@ -85,7 +84,6 @@ public class DefaultEventCountService implements EventCountService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public EventCount getByName(String name) {
         return eventCountDao.getByName(name);

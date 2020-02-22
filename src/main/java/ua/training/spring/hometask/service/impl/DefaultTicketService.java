@@ -31,21 +31,18 @@ public class DefaultTicketService implements TicketService {
         ticketDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Ticket getById(@Nonnull Long id) {
         return ticketDao.getById(id);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Collection<Ticket> getAll() {
         return ticketDao.getAll();
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
         return ticketDao.getPurchasedTicketsForEvent(event, dateTime);

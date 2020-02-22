@@ -28,13 +28,11 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
         userDiscountCountDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public UserDiscountCount getById(Long id) {
         return userDiscountCountDao.getById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Collection<UserDiscountCount> getAll() {
         return userDiscountCountDao.getAll();
