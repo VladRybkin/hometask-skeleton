@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
 import ua.training.spring.hometask.domain.UserDiscountCount;
 import ua.training.spring.hometask.service.UserDiscountCountService;
@@ -15,11 +16,13 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
     @Autowired
     private UserDiscountCountDao userDiscountCountDao;
 
+    @Transactional
     @Override
     public UserDiscountCount save(UserDiscountCount object) {
         return userDiscountCountDao.save(object);
     }
 
+    @Transactional
     @Override
     public void remove(UserDiscountCount object) {
         userDiscountCountDao.remove(object);
@@ -35,6 +38,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
         return userDiscountCountDao.getAll();
     }
 
+    @Transactional
     @Override
     public void countTenthTicketDiscountIncrement(String name) {
         UserDiscountCount foundUserDiscountCount = userDiscountCountDao.getByName(name);
@@ -48,6 +52,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
         }
     }
 
+    @Transactional
     @Override
     public void countBirthdayDiscountIncrement(String name) {
         UserDiscountCount foundUserDiscountCount = userDiscountCountDao.getByName(name);
@@ -62,6 +67,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
 
     }
 
+    @Transactional
     @Override
     public UserDiscountCount getByName(String name) {
         return userDiscountCountDao.getByName(name);

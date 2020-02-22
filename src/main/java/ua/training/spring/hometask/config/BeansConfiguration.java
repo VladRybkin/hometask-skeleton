@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAspectJAutoProxy
 @PropertySource("classpath:local.properties")
 @ComponentScan(basePackages = "ua.training.spring.hometask")
-
 public class BeansConfiguration {
 
 }

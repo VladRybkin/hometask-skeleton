@@ -4,11 +4,9 @@ package ua.training.spring.hometask;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
-import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.domain.*;
 import ua.training.spring.hometask.service.*;
+import ua.training.spring.hometask.service.impl.DefaultEventCountService;
 
 import java.text.DateFormat;
 import java.time.LocalDate;
@@ -42,7 +40,12 @@ public class Main {
         user1.setFirstName("Testsecond");
         user1.setDateOfBirth(LocalDateTime.now().plusDays(5));
 
-        eventService.getByName("testEvent");
+        UserDiscountCountService defaultEventCountService=ctx.getBean(UserDiscountCountService.class);
+        System.out.println(eventCountService);
+
+        System.out.println(eventService.getAll());
+
+
 
 
 
