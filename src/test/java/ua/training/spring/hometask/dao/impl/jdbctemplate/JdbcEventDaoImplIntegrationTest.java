@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.hasSize;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class JdbcEventDaoImplTest {
+class JdbcEventDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "events";
 
