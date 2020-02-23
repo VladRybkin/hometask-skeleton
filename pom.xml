@@ -17,7 +17,6 @@
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version>
         <hamcrest.version>2.1</hamcrest.version>
-
     </properties>
 
     <build>
@@ -117,7 +116,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -136,7 +134,6 @@
             <version>${findbugs.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -149,6 +146,7 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
