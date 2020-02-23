@@ -47,7 +47,4 @@ public class DefaultUserService implements UserService {
         return Lists.newArrayList(userDao.getAll());
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 }

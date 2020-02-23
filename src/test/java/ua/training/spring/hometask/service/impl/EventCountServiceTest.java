@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class EventCountServiceTest {
+class EventCountServiceTest {
 
     private static final String TEST_NAME = "testname";
 
@@ -35,7 +35,7 @@ public class EventCountServiceTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testEventCount = new EventCount.Builder()
                 .withEventName(TEST_NAME)
                 .withCountBookTicket(1)
@@ -46,7 +46,7 @@ public class EventCountServiceTest {
 
 
     @Test
-    public void getByNameCountIncrement() {
+    void getByNameCountIncrement() {
         long expectedAfterIncrement = 2;
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getByNameCountIncrement(TEST_NAME);
@@ -55,7 +55,7 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void bookTicketsCountIncrement() {
+    void bookTicketsCountIncrement() {
         long expectedAfterIncrement = 2;
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.bookTicketsCountIncrement(TEST_NAME);
@@ -64,7 +64,7 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void getPriceCountIncrement() {
+    void getPriceCountIncrement() {
         long expectedAfterIncrement = 2;
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         eventCountService.getPriceCountIncrement(TEST_NAME);
@@ -73,7 +73,7 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void save() {
+    void save() {
         when(eventCounterDao.save(testEventCount)).thenReturn(testEventCount);
         EventCount persistedEventCount = eventCountService.save(testEventCount);
         assertThat(persistedEventCount, is(testEventCount));
@@ -81,7 +81,7 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void getByName() {
+    void getByName() {
         when(eventCounterDao.getByName(TEST_NAME)).thenReturn(testEventCount);
         EventCount persistedEventCount = eventCountService.getByName(TEST_NAME);
         assertThat(persistedEventCount, is(testEventCount));
@@ -89,13 +89,13 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         eventCountService.remove(testEventCount);
         verify(eventCounterDao).remove(testEventCount);
     }
 
     @Test
-    public void getById() {
+    void getById() {
         long testId = 666;
         when(eventCounterDao.getById(testId)).thenReturn(testEventCount);
         EventCount persistedEventCount = eventCountService.getById(testId);
@@ -104,7 +104,7 @@ public class EventCountServiceTest {
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         List<EventCount> givenEventCounts = Lists.newArrayList(testEventCount);
         when(eventCounterDao.getAll()).thenReturn(givenEventCounts);
         Collection<EventCount> persistedEvents = eventCountService.getAll();

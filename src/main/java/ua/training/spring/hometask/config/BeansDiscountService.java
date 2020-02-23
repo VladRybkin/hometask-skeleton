@@ -23,7 +23,6 @@ public class BeansDiscountService {
     @Value("${tenthTicket.discount}")
     private String tenthTicketDiscount;
 
-
     @Bean
     DiscountStrategy birthdayDiscountStrategy() {
         BirthdayDiscountStrategy birthdayDiscountStrategy = new BirthdayDiscountStrategy();

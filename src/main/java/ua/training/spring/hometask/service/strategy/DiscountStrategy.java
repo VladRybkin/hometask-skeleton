@@ -10,5 +10,4 @@ import java.util.Set;
 public interface DiscountStrategy {
 
     double calculateDiscount(User user, Set<Ticket> tickets);
-
 }

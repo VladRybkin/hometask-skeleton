@@ -12,10 +12,10 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 
-public class TestAuditorium {
+class TestAuditorium {
 
     @Test
-    public void testCountVips() {
+    void testCountVips() {
         Auditorium a = new Auditorium();
         a.setVipSeats(Stream.of("1", "2", "3").collect(Collectors.toSet()));
         assertThat(a.countVipSeats(Arrays.asList(10L, 20L, 30L)), is(0L));
@@ -23,10 +23,9 @@ public class TestAuditorium {
         assertThat(a.countVipSeats(Arrays.asList(10L, 2L, 3L, 4L, 5L, 6L)), is(2L));
     }
 
-    public void testGetAllSeats() {
+    void testGetAllSeats() {
         Auditorium a = new Auditorium();
         a.setNumberOfSeats(10);
         assertThat(a.getAllSeats(), hasSize(10));
     }
-
 }

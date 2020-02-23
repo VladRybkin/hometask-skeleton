@@ -79,8 +79,4 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
                 .withCountTenthTicketDiscount(0)
                 .withUserName(name).build();
     }
-
-    public void setUserDiscountCountDao(UserDiscountCountDao userDiscountCountDao) {
-        this.userDiscountCountDao = userDiscountCountDao;
-    }
 }

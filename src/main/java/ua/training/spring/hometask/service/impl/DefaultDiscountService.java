@@ -14,7 +14,6 @@ import java.util.function.ToDoubleFunction;
 
 public class DefaultDiscountService implements DiscountService {
 
-
     private Set<DiscountStrategy> discountStrategies;
 
     public DefaultDiscountService() {
@@ -23,7 +22,6 @@ public class DefaultDiscountService implements DiscountService {
     public DefaultDiscountService(Set<DiscountStrategy> discountStrategies) {
         this.discountStrategies = discountStrategies;
     }
-
 
     @Override
     public double getDiscount(@Nullable User user, Set<Ticket> tickets) {

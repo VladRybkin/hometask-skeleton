@@ -17,6 +17,7 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
     public UserDiscountCount save(UserDiscountCount object) {
         object.setId((long) (userDiscountCounts.size() + 1));
         userDiscountCounts.put(object.getId(), object);
+
         return object;
     }
 
@@ -48,6 +49,7 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
             userDiscountCounts.put(userDiscountCount.getId(), userDiscountCount);
             updated = true;
         }
+
         return updated;
     }
 }

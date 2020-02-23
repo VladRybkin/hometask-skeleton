@@ -8,5 +8,4 @@ public enum EventRating {
     MID,
 
     HIGH;
-
 }

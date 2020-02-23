@@ -94,7 +94,9 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
                 userDiscountCount.getCountTenthTicketDiscount(),
                 userDiscountCount.getCountBirthdayDiscount(),
                 userDiscountCount.getId());
-        if (affectedRows>0) updated=true;
+        if (affectedRows > 0) {
+            updated = true;
+        }
 
         return updated;
     }
@@ -102,5 +104,4 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 }

@@ -12,16 +12,14 @@ public class TheatreShellBannerProvider implements BannerProvider {
 
     @Override
     public String getBanner() {
-        StringBuilder banner = new StringBuilder();
-        banner.append("=======================================")
-                .append(OsUtils.LINE_SEPARATOR);
-        banner.append("          Movie Theater Shell          ")
-                .append(OsUtils.LINE_SEPARATOR);
-        banner.append("=======================================")
-                .append(OsUtils.LINE_SEPARATOR);
-        banner.append("Version:")
-                .append(this.getVersion());
-        return banner.toString();
+        return "======================================="
+                + OsUtils.LINE_SEPARATOR
+                + "          Movie Theater Shell          "
+                + OsUtils.LINE_SEPARATOR
+                + "======================================="
+                + OsUtils.LINE_SEPARATOR
+                + "Version:"
+                + this.getVersion();
     }
 
     @Override

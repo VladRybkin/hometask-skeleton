@@ -37,6 +37,7 @@ class JdbcUserDaoImplTest {
     @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
 
+
     @BeforeEach
     void setUp() {
         jdbcUserDao.setJdbcTemplate(testJdbcTemplate);
@@ -55,7 +56,7 @@ class JdbcUserDaoImplTest {
     void shouldGetByIdPersistedUser() {
         User user = buildTestUser();
         jdbcUserDao.save(user);
-        User foundUser=jdbcUserDao.getById(1L);
+        User foundUser = jdbcUserDao.getById(1L);
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundUser, is(user));
@@ -78,7 +79,7 @@ class JdbcUserDaoImplTest {
         User user = buildTestUser();
         jdbcUserDao.save(user);
 
-        Collection<User>persistedUsers=jdbcUserDao.getAll();
+        Collection<User> persistedUsers = jdbcUserDao.getAll();
 
         assertThat(persistedUsers, hasItems(user));
         assertThat(persistedUsers, hasSize(1));
@@ -112,5 +113,4 @@ class JdbcUserDaoImplTest {
 
         return user;
     }
-
 }

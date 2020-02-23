@@ -36,6 +36,7 @@ class JdbcUserDiscountCountDaoImplTest {
     @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
 
+
     @BeforeEach
     void setUp() {
         jdbcUserDiscountCountDao.setJdbcTemplate(testJdbcTemplate);

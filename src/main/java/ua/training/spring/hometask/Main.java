@@ -3,6 +3,7 @@ package ua.training.spring.hometask;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.shell.Bootstrap;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.*;
 import ua.training.spring.hometask.service.*;
@@ -31,31 +32,23 @@ public class Main {
         BookingService bookingService = ctx.getBean(BookingService.class);
         TicketService ticketService = ctx.getBean(TicketService.class);
         UserService userService = ctx.getBean(UserService.class);
-//        User user = new User();
-//        user.setEmail("brithd");
-//        user.setFirstName("TestFirst");
-//        user.setDateOfBirth(LocalDateTime.now().minusDays(5));
+        //        User user = new User();
+        //        user.setEmail("brithd");
+        //        user.setFirstName("TestFirst");
+        //        user.setDateOfBirth(LocalDateTime.now().minusDays(5));
         User user1 = new User();
         user1.setEmail("birthd3");
         user1.setFirstName("Testsecond");
         user1.setDateOfBirth(LocalDateTime.now().plusDays(5));
 
-        UserDiscountCountService defaultEventCountService=ctx.getBean(UserDiscountCountService.class);
+        UserDiscountCountService defaultEventCountService = ctx.getBean(UserDiscountCountService.class);
         System.out.println(eventCountService);
 
         System.out.println(eventService.getAll());
-
-
-
-
-
-
-
-
-
+        Bootstrap.main(args);
     }
 
-    //        Bootstrap.main(args);
+
 
 
 }

@@ -87,5 +87,4 @@ public class JdbcTicketDaoImpl implements TicketDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 }

@@ -10,5 +10,4 @@ public interface UserDiscountCountService extends AbstractDomainObjectDao<UserDi
     void countTenthTicketDiscountIncrement(String name);
 
     void countBirthdayDiscountIncrement(String name);
-
 }

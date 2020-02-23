@@ -59,10 +59,4 @@ public class DefaultEventService implements EventService {
     public Collection<Event> getAll() {
         return eventDao.getAll();
     }
-
-    public void setEventDao(EventDao eventDao) {
-        this.eventDao = eventDao;
-    }
-
-
 }
