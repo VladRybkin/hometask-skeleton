@@ -28,13 +28,11 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
         userDiscountCountDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public UserDiscountCount getById(Long id) {
         return userDiscountCountDao.getById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Collection<UserDiscountCount> getAll() {
         return userDiscountCountDao.getAll();
@@ -80,9 +78,5 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
                 .withCountBirthdayDiscount(0)
                 .withCountTenthTicketDiscount(0)
                 .withUserName(name).build();
-    }
-
-    public void setUserDiscountCountDao(UserDiscountCountDao userDiscountCountDao) {
-        this.userDiscountCountDao = userDiscountCountDao;
     }
 }

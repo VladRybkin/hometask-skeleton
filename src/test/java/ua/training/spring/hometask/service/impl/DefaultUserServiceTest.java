@@ -37,7 +37,7 @@ class DefaultUserServiceTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testUser = new User();
         testUser.setId(ID);
         testUser.setEmail(USER_EMAIL);
@@ -45,7 +45,7 @@ class DefaultUserServiceTest {
 
 
     @Test
-    public void getUserByEmail() throws Exception {
+    void getUserByEmail() throws Exception {
         when(userDao.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
 
         User persistedUser = userService.getUserByEmail(USER_EMAIL);
@@ -55,7 +55,7 @@ class DefaultUserServiceTest {
     }
 
     @Test
-    public void save() {
+    void save() {
         when(userDao.save(testUser)).thenReturn(testUser);
 
         User persistedUser = userService.save(testUser);
@@ -65,13 +65,13 @@ class DefaultUserServiceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         userService.remove(testUser);
         verify(userDao).remove(testUser);
     }
 
     @Test
-    public void getById() {
+    void getById() {
         when(userDao.getById(ID)).thenReturn(testUser);
 
         User persistedUser = userService.getById(ID);
@@ -81,7 +81,7 @@ class DefaultUserServiceTest {
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         List<User> givenUsers = Lists.newArrayList(testUser);
         when(userDao.getAll()).thenReturn(givenUsers);
 

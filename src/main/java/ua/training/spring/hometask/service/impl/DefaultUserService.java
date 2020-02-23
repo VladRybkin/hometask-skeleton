@@ -19,7 +19,6 @@ public class DefaultUserService implements UserService {
     private UserDao userDao;
 
     @Nullable
-    @Transactional(readOnly = true)
     @Override
     public User getUserByEmail(@Nonnull String email) throws Exception {
         return userDao.getUserByEmail(email);
@@ -37,20 +36,15 @@ public class DefaultUserService implements UserService {
         userDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getById(@Nonnull Long id) {
         return userDao.getById(id);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Collection<User> getAll() {
         return Lists.newArrayList(userDao.getAll());
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
 }

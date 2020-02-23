@@ -26,18 +26,19 @@ public class CounterAspect {
         eventCountService.getByNameCountIncrement(eventName);
     }
 
-    @AfterReturning(value = "execution(* ua.training.spring.hometask.service.impl.DefaultBookingService.getTicketsPrice(..))  && args (event, ..)")
+    @AfterReturning(value = "execution(* ua.training.spring.hometask." +
+            "service.impl.DefaultBookingService.getTicketsPrice(..))  && args (event, ..)")
     public void countGetTicketsPrice(Event event) {
         String eventName = event.getName();
         eventCountService.getPriceCountIncrement(eventName);
     }
 
 
-    @After(value = "execution(* ua.training.spring.hometask.service.impl.DefaultBookingService.bookTicket(..)) && args(ticket, ..)",
+    @After(value = "execution(* ua.training.spring.hometask." +
+            "service.impl.DefaultBookingService.bookTicket(..)) && args(ticket, ..)",
             argNames = "ticket")
     public void bookTicketsCount(Ticket ticket) {
         Event event = ticket.getEvent();
         eventCountService.bookTicketsCountIncrement(event.getName());
     }
-
 }

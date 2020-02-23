@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.hasSize;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class JdbcEventDaoImplTest {
+class JdbcEventDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "events";
 
@@ -54,7 +54,6 @@ class JdbcEventDaoImplTest {
 
         assertThat(foundByName, is(event));
     }
-
 
 
     @Test
@@ -123,7 +122,6 @@ class JdbcEventDaoImplTest {
         Collection<Event> persistedEvents = jdbcEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(3), LocalDateTime.now());
 
-
         assertThat(persistedEvents, empty());
     }
 
@@ -149,7 +147,6 @@ class JdbcEventDaoImplTest {
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getNextEvents(LocalDateTime.now().minusDays(5));
-
 
         assertThat(persistedEvents, empty());
     }

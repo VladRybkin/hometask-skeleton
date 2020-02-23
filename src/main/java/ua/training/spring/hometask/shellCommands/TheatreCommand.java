@@ -72,7 +72,6 @@ public class TheatreCommand implements CommandMarker {
         return ticketService.getAll();
     }
 
-
     @CliCommand(value = "ticket price", help = "ticket price")
     public double getTicketsPrice() throws Exception {
         User user = userService.getById(1L);
@@ -80,21 +79,5 @@ public class TheatreCommand implements CommandMarker {
         Set<Long> seats = Sets.newHashSet(1L, 2L);
 
         return bookingService.getTicketsPrice(event, user, seats);
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public void setEventService(EventService eventService) {
-        this.eventService = eventService;
-    }
-
-    public void setTicketService(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
-
-    public void setBookingService(BookingService bookingService) {
-        this.bookingService = bookingService;
     }
 }

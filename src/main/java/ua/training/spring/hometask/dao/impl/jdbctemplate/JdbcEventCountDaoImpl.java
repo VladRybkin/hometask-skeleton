@@ -91,7 +91,9 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
                         eventCount.getCountBookTickets(),
                         eventCount.getCountGetPrice(),
                         eventCount.getId());
-        if (affectedRows > 0) updated = true;
+        if (affectedRows > 0) {
+            updated = true;
+        }
 
         return updated;
     }
@@ -99,5 +101,4 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 }

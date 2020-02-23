@@ -9,5 +9,4 @@ import java.util.Set;
 public interface TicketDao extends AbstractDomainObjectDao<Ticket> {
 
     Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime);
-
 }

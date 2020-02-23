@@ -15,9 +15,10 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.anEmptyMap;
 
 
-public class TestEvent {
+class TestEvent {
 
     private Event event;
+
 
     @BeforeEach
     void initEvent() {
@@ -34,7 +35,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testAddRemoveAirDates() {
+    void testAddRemoveAirDates() {
         int size = event.getAirDates().size();
 
         LocalDateTime date = LocalDateTime.now().plusDays(5);
@@ -51,7 +52,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testCheckAirDates() {
+    void testCheckAirDates() {
         assertThat(event.airsOnDate(LocalDate.now()), is(true));
         assertThat(event.airsOnDate(LocalDate.now().plusDays(1)), is(true));
         assertThat(event.airsOnDate(LocalDate.now().minusDays(10)), is(false));
@@ -69,7 +70,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testAddRemoveAuditoriums() {
+    void testAddRemoveAuditoriums() {
         LocalDateTime time = event.getAirDates().first();
 
         assertThat(event.getAuditoriums(), is(anEmptyMap()));
@@ -84,7 +85,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testAddRemoveAuditoriumsWithAirDates() {
+    void testAddRemoveAuditoriumsWithAirDates() {
 
         LocalDateTime time = LocalDateTime.now().plusDays(10);
 
@@ -100,7 +101,7 @@ public class TestEvent {
     }
 
     @Test
-    public void testNotAddAuditoriumWithoutCorrectDate() {
+    void testNotAddAuditoriumWithoutCorrectDate() {
         LocalDateTime time = LocalDateTime.now().plusDays(10);
 
         boolean result = event.assignAuditorium(time, new Auditorium());
@@ -113,5 +114,4 @@ public class TestEvent {
 
         assertThat(event.getAuditoriums(), is(anEmptyMap()));
     }
-
 }

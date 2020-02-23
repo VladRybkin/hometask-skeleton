@@ -33,7 +33,5 @@ public class DataSourceBeans {
         dataSource.setPassword(JDBC_PASSWORD);
 
         return dataSource;
-
     }
-
 }

@@ -15,15 +15,14 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     @Value("${tenthTicket.discount}")
     private int tenthTicketDiscount;
 
-
     @Override
     public double calculateDiscount(User user, Set<Ticket> tickets) {
 
-        double totalPriсe = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+        double totalPrice = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
         applyDiscounts(tickets);
-        double totalPriсeWithDiscount = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
+        double totalPriceWithDiscount = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
 
-        return calculatePercentDifference(totalPriсe, totalPriсeWithDiscount);
+        return calculatePercentDifference(totalPrice, totalPriceWithDiscount);
     }
 
     private void applyDiscounts(Set<Ticket> userTickets) {
@@ -40,24 +39,20 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     }
 
     private double calculateFiftyPercentDiscount(Ticket ticket) {
-        double ticketPriсe = ticket.getBasePrice();
-        double discount = ticketPriсe != 0 ? (ticketPriсe / 100) * tenthTicketDiscount : 0;
-        double finalPriсe = ticketPriсe - discount;
+        double ticketPrice = ticket.getBasePrice();
+        double discount = ticketPrice != 0 ? (ticketPrice / 100) * tenthTicketDiscount : 0;
+        double finalPrice = ticketPrice - discount;
 
-        return finalPriсe;
+        return finalPrice;
     }
 
-    private double calculatePercentDifference(double totalPriсe, double totalPriсeWithDiscount) {
+    private double calculatePercentDifference(double totalPrice, double totalPriceWithDiscount) {
         double percentDifference = 0;
-        if (totalPriсe > totalPriсeWithDiscount) {
-            percentDifference = ((totalPriсe - totalPriсeWithDiscount) / totalPriсe) * 100;
+        if (totalPrice > totalPriceWithDiscount) {
+            percentDifference = ((totalPrice - totalPriceWithDiscount) / totalPrice) * 100;
         }
 
         return percentDifference;
-    }
-
-    public int getTenthTicketDiscount() {
-        return tenthTicketDiscount;
     }
 
     public void setTenthTicketDiscount(int tenthTicketDiscount) {

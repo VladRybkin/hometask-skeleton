@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultEventServiceTest {
+class DefaultEventServiceTest {
 
     private static final Long ID = 666L;
 
@@ -39,8 +39,9 @@ public class DefaultEventServiceTest {
 
     private static Set<Event> testEventsSet = Sets.newHashSet();
 
+
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testEvent = new Event();
         testEvent.setName(TEST_EVENT_NAME);
         testEvent.setId(ID);
@@ -49,7 +50,7 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void getByName() {
+    void getByName() {
         when(eventDao.getByName(TEST_EVENT_NAME)).thenReturn(testEvent);
 
         Event persistedEvent = eventService.getByName(TEST_EVENT_NAME);
@@ -59,7 +60,7 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void getForDateRange() {
+    void getForDateRange() {
         LocalDateTime minusFiveDaysTime = LocalDateTime.now().minusDays(5);
         LocalDateTime timeNow = LocalDateTime.now();
         when(eventDao.getForDateRange(minusFiveDaysTime, timeNow)).thenReturn(testEventsSet);
@@ -71,7 +72,7 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void getNextEvents() {
+    void getNextEvents() {
         when(eventDao.getNextEvents(localDateTimeNext)).thenReturn(testEventsSet);
 
         Set<Event> persistedEvents = eventService.getNextEvents(localDateTimeNext);
@@ -81,7 +82,7 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void save() {
+    void save() {
         when(eventDao.save(testEvent)).thenReturn(testEvent);
 
         Event persistedEvent = eventService.save(testEvent);
@@ -91,13 +92,13 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         eventService.remove(testEvent);
         verify(eventDao).remove(testEvent);
     }
 
     @Test
-    public void getById() {
+    void getById() {
         when(eventDao.getById(ID)).thenReturn(testEvent);
 
         Event persistedEvent = eventService.getById(ID);
@@ -107,7 +108,7 @@ public class DefaultEventServiceTest {
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         when(eventDao.getAll()).thenReturn(testEventsSet);
 
         Collection persistedEvents = eventService.getAll();

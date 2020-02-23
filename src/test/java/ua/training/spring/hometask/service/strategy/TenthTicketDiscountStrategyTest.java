@@ -18,8 +18,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 
-public class TenthTicketDiscountStrategyTest {
-
+class TenthTicketDiscountStrategyTest {
 
     private TenthTicketDiscountStrategy discountStrategy;
 
@@ -31,14 +30,14 @@ public class TenthTicketDiscountStrategyTest {
 
 
     @BeforeEach()
-    public void setUp() {
+    void setUp() {
         testEvent = buildTestEvent();
         discountStrategy = new TenthTicketDiscountStrategy();
         discountStrategy.setTenthTicketDiscount(TENTH_TICKET_DISCOUNT);
     }
 
     @Test
-    public void calculateDiscountWithTenTickets() {
+    void calculateDiscountWithTenTickets() {
         User user = new User();
         int ticketAmount = 10;
         double expected_discountForAtLeastTenthTickets = 5;
@@ -49,7 +48,7 @@ public class TenthTicketDiscountStrategyTest {
     }
 
     @Test
-    public void calculateDiscountWithManyTickets() {
+    void calculateDiscountWithManyTickets() {
         User user = new User();
         int ticketAmount = 100;
         double expected_discountForAtHundredTickets = 5;
@@ -60,7 +59,7 @@ public class TenthTicketDiscountStrategyTest {
     }
 
     @Test
-    public void calculateDiscountWitZeroTickers() {
+    void calculateDiscountWitZeroTickers() {
         User user = new User();
         int ticketAmount = 0;
         double expected_discountForAtLeastTenthTickets = 0;

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultDiscountServiceTest {
+class DefaultDiscountServiceTest {
 
     private static final double BIRTHDAY_DISCOUNT = 10;
 
@@ -41,13 +41,13 @@ public class DefaultDiscountServiceTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         Set<DiscountStrategy> discountStrategies = Sets.newHashSet(birthdayStrategy, tenthTicketStrategy);
         discountService = new DefaultDiscountService(discountStrategies);
     }
 
     @Test
-    public void shouldChooseBirthdayStrategyDiscountAsHigher() {
+    void shouldChooseBirthdayStrategyDiscountAsHigher() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
 
@@ -61,7 +61,7 @@ public class DefaultDiscountServiceTest {
 
 
     @Test
-    public void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
+    void shouldReturnZeroDiscountAsNotMatchAnyStrategy() {
         User user = new User();
         Set<Ticket> tickets = Sets.newTreeSet();
 
@@ -72,6 +72,4 @@ public class DefaultDiscountServiceTest {
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
-
-
 }

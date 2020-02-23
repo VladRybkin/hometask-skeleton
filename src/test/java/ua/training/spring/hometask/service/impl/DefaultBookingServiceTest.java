@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultBookingServiceTest {
+class DefaultBookingServiceTest {
 
     private static final double TICKET_BASE_PRICE = 100;
 
@@ -48,13 +48,12 @@ public class DefaultBookingServiceTest {
 
 
     @BeforeEach()
-    public void setUp() {
-        bookingService.setDiscountService(discountService);
+    void setUp() {
         testLowRatingEvent = buildTestEvent(EventRating.LOW);
     }
 
     @Test
-    public void shouldCalculateTotalPriсeWithoutDiscount() {
+    void shouldCalculateTotalPriсeWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
         double expectedDiscountWithTenthTickets = 0;
@@ -67,7 +66,7 @@ public class DefaultBookingServiceTest {
     }
 
     @Test
-    public void shouldCalculateTotalPriсeWithTenTicketsDiscount() {
+    void shouldCalculateTotalPriсeWithTenTicketsDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
         double expectedDiscountWithTenthTickets = 5;
@@ -80,7 +79,7 @@ public class DefaultBookingServiceTest {
     }
 
     @Test
-    public void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
+    void shouldCalculateZeroTotalPriceForZeroTicketsInParameter() {
         Set<Long> seats = Sets.newHashSet();
         double expectedPriceWithTenthTicketsDiscount = 0;
         double expectedDiscountWithTenthTickets = 0;
@@ -94,7 +93,7 @@ public class DefaultBookingServiceTest {
 
 
     @Test
-    public void shouldCalculateTotalPriceForUserWithBirthday() {
+    void shouldCalculateTotalPriceForUserWithBirthday() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         User user = buildUser();
         user.setDateOfBirth(LocalDateTime.now());
@@ -148,5 +147,4 @@ public class DefaultBookingServiceTest {
         ticket.setSeat(1);
         return ticket;
     }
-
 }

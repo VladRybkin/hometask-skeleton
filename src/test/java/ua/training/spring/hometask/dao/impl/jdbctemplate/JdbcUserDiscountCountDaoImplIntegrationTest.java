@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.hasSize;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-class JdbcUserDiscountCountDaoImplTest {
+class JdbcUserDiscountCountDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "user_discount_counts";
 
@@ -35,6 +35,7 @@ class JdbcUserDiscountCountDaoImplTest {
     @Autowired
     @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
+
 
     @BeforeEach
     void setUp() {

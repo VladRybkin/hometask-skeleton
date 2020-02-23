@@ -12,5 +12,4 @@ public interface TicketService extends AbstractDomainObjectDao<Ticket> {
 
     @Nonnull
     Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime);
-
 }
