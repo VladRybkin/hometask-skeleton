@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultUserDiscountCountServiceTest {
+class DefaultUserDiscountCountServiceTest {
 
     @InjectMocks
     private DefaultUserDiscountCountService userDiscountCountService;
@@ -33,8 +33,9 @@ public class DefaultUserDiscountCountServiceTest {
 
     private static String TEST_NAME = "testname";
 
+
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testUserDiscountInfo = new UserDiscountCount.Builder()
                 .withUserName(TEST_NAME)
                 .withCountBirthdayDiscount(1)
@@ -43,7 +44,7 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void countTenthTicketDiscountIncrement() {
+    void countTenthTicketDiscountIncrement() {
         long expectedAfterIncrement = 2;
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countTenthTicketDiscountIncrement(TEST_NAME);
@@ -52,7 +53,7 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void countBirthdayDiscountIncrement() {
+    void countBirthdayDiscountIncrement() {
         long expectedAfterIncrement = 2;
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
         userDiscountCountService.countBirthdayDiscountIncrement(TEST_NAME);
@@ -61,7 +62,7 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void getByName() {
+    void getByName() {
         when(discountDao.getByName(TEST_NAME)).thenReturn(testUserDiscountInfo);
 
         UserDiscountCount persistedUserDiscountCount = userDiscountCountService.getByName(TEST_NAME);
@@ -71,7 +72,7 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void save() {
+    void save() {
         when(discountDao.save(testUserDiscountInfo)).thenReturn(testUserDiscountInfo);
 
         UserDiscountCount persistedUserDiscountCount = userDiscountCountService.save(testUserDiscountInfo);
@@ -81,13 +82,13 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         userDiscountCountService.remove(testUserDiscountInfo);
         verify(discountDao).remove(testUserDiscountInfo);
     }
 
     @Test
-    public void getById() {
+    void getById() {
         long testId = 666;
         when(discountDao.getById(testId)).thenReturn(testUserDiscountInfo);
 
@@ -98,7 +99,7 @@ public class DefaultUserDiscountCountServiceTest {
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         List<UserDiscountCount> givenUserDiscountCounts = Lists.newArrayList(testUserDiscountInfo);
         when(discountDao.getAll()).thenReturn(givenUserDiscountCounts);
 
@@ -107,5 +108,4 @@ public class DefaultUserDiscountCountServiceTest {
         assertThat(persistedDiscounts, is(givenUserDiscountCounts));
         verify(discountDao).getAll();
     }
-
 }

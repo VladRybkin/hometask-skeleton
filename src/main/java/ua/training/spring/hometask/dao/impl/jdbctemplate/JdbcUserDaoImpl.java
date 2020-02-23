@@ -81,5 +81,4 @@ public class JdbcUserDaoImpl implements UserDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 }

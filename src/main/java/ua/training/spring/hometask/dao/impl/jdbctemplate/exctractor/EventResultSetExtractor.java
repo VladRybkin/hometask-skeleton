@@ -37,13 +37,10 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
 
             if (events.containsKey(event.getId())) {
                 addAirDateToEvent(airDate, events.get(event.getId()));
-
             } else {
                 addAirDateToEvent(airDate, event);
                 events.put(event.getId(), event);
-
             }
-
             row++;
         }
 
@@ -55,5 +52,4 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
             event.getAirDates().add(airDate);
         }
     }
-
 }

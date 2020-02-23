@@ -10,7 +10,6 @@ import java.util.Set;
 
 public interface EventService extends AbstractDomainObjectService<Event> {
 
-
     @Nullable
     Event getByName(@Nonnull String name);
 
@@ -21,5 +20,4 @@ public interface EventService extends AbstractDomainObjectService<Event> {
 
     @Nonnull
     Set<Event> getNextEvents(@Nonnull LocalDateTime to);
-
 }

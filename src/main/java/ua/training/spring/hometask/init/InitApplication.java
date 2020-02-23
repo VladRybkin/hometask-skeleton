@@ -38,17 +38,16 @@ public class InitApplication {
     @Autowired
     private TicketService ticketService;
 
-
-//    @PostConstruct
-//    void init() {
-//        User user = buildUser();
-//        userService.save(user);
-//        Event event = buildEvent();
-//
-//        eventService.save(event);
-//        saveTickets(10, event);
-//        System.out.println("init method executed");
-//    }
+    //    @PostConstruct
+    //    void init() {
+    //        User user = buildUser();
+    //        userService.save(user);
+    //        Event event = buildEvent();
+    //
+    //        eventService.save(event);
+    //        saveTickets(10, event);
+    //        System.out.println("init method executed");
+    //    }
 
     private Event buildEvent() {
         Event event = new Event();
@@ -108,6 +107,4 @@ public class InitApplication {
     public void setTicketService(TicketService ticketService) {
         this.ticketService = ticketService;
     }
-
-
 }

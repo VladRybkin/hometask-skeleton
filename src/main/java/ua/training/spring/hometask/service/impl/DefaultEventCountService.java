@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Objects;
 
-@Component
+@Service
 public class DefaultEventCountService implements EventCountService {
 
     @Autowired
@@ -29,14 +29,13 @@ public class DefaultEventCountService implements EventCountService {
         eventCountDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
+
     @Override
     public EventCount getById(@Nonnull Long id) {
         return eventCountDao.getById(id);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Collection<EventCount> getAll() {
         return eventCountDao.getAll();
@@ -85,7 +84,6 @@ public class DefaultEventCountService implements EventCountService {
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public EventCount getByName(String name) {
         return eventCountDao.getByName(name);
@@ -99,9 +97,4 @@ public class DefaultEventCountService implements EventCountService {
                 .withCountBookTicket(0)
                 .build();
     }
-
-    public void setEventCountDao(EventCountDao eventCountDao) {
-        this.eventCountDao = eventCountDao;
-    }
-
 }

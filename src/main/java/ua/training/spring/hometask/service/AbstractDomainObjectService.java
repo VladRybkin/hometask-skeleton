@@ -8,14 +8,11 @@ import java.util.Collection;
 
 public interface AbstractDomainObjectService<T extends DomainObject> {
 
-
     T save(@Nonnull T object);
 
     void remove(@Nonnull T object);
 
-
     T getById(@Nonnull Long id);
-
 
     @Nonnull
     Collection<T> getAll();

@@ -36,6 +36,7 @@ class JdbcEventCountDaoImplTest {
     @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
 
+
     @BeforeEach
     void setUp() {
         jdbcEventCountDao.setJdbcTemplate(testJdbcTemplate);

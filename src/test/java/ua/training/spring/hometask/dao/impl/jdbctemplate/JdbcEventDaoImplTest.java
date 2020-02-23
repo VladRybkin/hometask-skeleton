@@ -56,7 +56,6 @@ class JdbcEventDaoImplTest {
     }
 
 
-
     @Test
     void shouldGetByIdPersistedEvent() {
         Event event = buildTestEvent();
@@ -123,7 +122,6 @@ class JdbcEventDaoImplTest {
         Collection<Event> persistedEvents = jdbcEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(3), LocalDateTime.now());
 
-
         assertThat(persistedEvents, empty());
     }
 
@@ -149,7 +147,6 @@ class JdbcEventDaoImplTest {
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getNextEvents(LocalDateTime.now().minusDays(5));
-
 
         assertThat(persistedEvents, empty());
     }

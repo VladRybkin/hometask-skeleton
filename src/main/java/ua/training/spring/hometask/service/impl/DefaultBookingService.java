@@ -32,7 +32,6 @@ public class DefaultBookingService implements BookingService {
     @Autowired
     private TicketService ticketService;
 
-
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
@@ -50,7 +49,6 @@ public class DefaultBookingService implements BookingService {
 
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);
@@ -107,21 +105,5 @@ public class DefaultBookingService implements BookingService {
 
     private double getTotalPriсe(Set<Ticket> tickets) {
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
-    }
-
-    private Consumer<Ticket> setUserToTicket(User user) {
-        return ticket -> ticket.setUser(user);
-    }
-
-    public void setDiscountService(DiscountService discountService) {
-        this.discountService = discountService;
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public void setTicketService(TicketService ticketService) {
-        this.ticketService = ticketService;
     }
 }

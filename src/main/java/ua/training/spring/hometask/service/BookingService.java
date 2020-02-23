@@ -11,7 +11,6 @@ import java.util.Set;
 
 public interface BookingService {
 
-
     double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats);
 
     void bookTickets(@Nonnull Set<Ticket> tickets, User user);

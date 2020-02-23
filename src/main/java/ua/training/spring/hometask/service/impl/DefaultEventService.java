@@ -20,21 +20,18 @@ public class DefaultEventService implements EventService {
     private EventDao eventDao;
 
     @Nullable
-    @Transactional(readOnly = true)
     @Override
     public Event getByName(@Nonnull String name) {
         return eventDao.getByName(name);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Set<Event> getForDateRange(@Nonnull LocalDateTime from, @Nonnull LocalDateTime to) {
         return eventDao.getForDateRange(from, to);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Set<Event> getNextEvents(@Nonnull LocalDateTime to) {
         return eventDao.getNextEvents(to);
@@ -52,22 +49,14 @@ public class DefaultEventService implements EventService {
         eventDao.remove(object);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Event getById(@Nonnull Long id) {
         return eventDao.getById(id);
     }
 
     @Nonnull
-    @Transactional(readOnly = true)
     @Override
     public Collection<Event> getAll() {
         return eventDao.getAll();
     }
-
-    public void setEventDao(EventDao eventDao) {
-        this.eventDao = eventDao;
-    }
-
-
 }

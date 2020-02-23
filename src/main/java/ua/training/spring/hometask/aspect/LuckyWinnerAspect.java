@@ -14,7 +14,8 @@ import ua.training.spring.hometask.domain.User;
 public class LuckyWinnerAspect {
 
     @Before(value =
-            "execution(* ua.training.spring.hometask.service.impl.DefaultBookingService.bookTicket(..)) && args(ticket, user)",
+            "execution(* ua.training.spring.hometask.service." +
+                    "impl.DefaultBookingService.bookTicket(..)) && args(ticket, user)",
             argNames = "ticket,user ")
     public void incrementUserDiscountCount(Ticket ticket, User user) {
         if (checkLucky()) {
@@ -29,5 +30,4 @@ public class LuckyWinnerAspect {
     private boolean checkLucky() {
         return RandomUtils.nextInt(1, 51) == 25;
     }
-
 }

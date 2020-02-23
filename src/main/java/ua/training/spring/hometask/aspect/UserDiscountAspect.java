@@ -21,7 +21,8 @@ public class UserDiscountAspect {
 
 
     @AfterReturning(value =
-            "execution(* ua.training.spring.hometask.service.impl.DefaultDiscountService.getDiscount(..)) && args(user, ..)",
+            "execution(* ua.training.spring.hometask." +
+                    "service.impl.DefaultDiscountService.getDiscount(..)) && args(user, ..)",
             returning = ("discount"),
             argNames = "discount,user")
     public void incrementUserDiscountCount(final Double discount, final User user) {
@@ -33,7 +34,8 @@ public class UserDiscountAspect {
     }
 
     @AfterReturning(value =
-            "execution(* ua.training.spring.hometask.service.impl.DefaultDiscountService.getDiscount(..)) && args(user, ..)",
+            "execution(* ua.training.spring.hometask." +
+                    "service.impl.DefaultDiscountService.getDiscount(..)) && args(user, ..)",
             returning = ("discount"),
             argNames = "discount,user")
     public void incrementTotalDiscountCount(final Double discount, final User user) {
@@ -43,5 +45,4 @@ public class UserDiscountAspect {
             discountCountService.countTenthTicketDiscountIncrement("tenth ticket discount");
         }
     }
-
 }

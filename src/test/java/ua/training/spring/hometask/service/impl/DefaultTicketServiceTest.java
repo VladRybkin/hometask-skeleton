@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultTicketServiceTest {
+class DefaultTicketServiceTest {
 
     private static final Long ID = 666L;
 
@@ -31,13 +31,14 @@ public class DefaultTicketServiceTest {
 
     private Ticket testTicket;
 
+
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testTicket = new Ticket();
     }
 
     @Test
-    public void save() {
+    void save() {
         when(ticketDao.save(testTicket)).thenReturn(testTicket);
 
         Ticket persistedTicket = ticketService.save(testTicket);
@@ -47,13 +48,13 @@ public class DefaultTicketServiceTest {
     }
 
     @Test
-    public void remove() {
+    void remove() {
         ticketService.remove(testTicket);
         verify(ticketDao).remove(testTicket);
     }
 
     @Test
-    public void getById() {
+    void getById() {
         when(ticketDao.getById(ID)).thenReturn(testTicket);
 
         Ticket persistedTicket = ticketService.getById(ID);
@@ -63,7 +64,7 @@ public class DefaultTicketServiceTest {
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         List<Ticket> givenTickets = Lists.newArrayList(testTicket);
         when(ticketDao.getAll()).thenReturn(givenTickets);
 
@@ -72,5 +73,4 @@ public class DefaultTicketServiceTest {
         assertThat(persistedTickets, is(givenTickets));
         verify(ticketDao).getAll();
     }
-
 }

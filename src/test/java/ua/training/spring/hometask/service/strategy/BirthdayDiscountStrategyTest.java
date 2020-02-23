@@ -11,8 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
-public class BirthdayDiscountStrategyTest {
-
+class BirthdayDiscountStrategyTest {
 
     private BirthdayDiscountStrategy discountStrategy;
 
@@ -26,7 +25,7 @@ public class BirthdayDiscountStrategyTest {
 
 
     @BeforeEach()
-    public void setUp() {
+    void setUp() {
         discountStrategy = new BirthdayDiscountStrategy();
         discountStrategy.setBirthdayDiscount((int) BIRTHDAY_DISCOUNT);
         testUserWithBirthday = new User();
@@ -34,14 +33,13 @@ public class BirthdayDiscountStrategyTest {
         testUserWithBirthday.setDateOfBirth(LocalDateTime.now());
     }
 
-
     @Test
-    public void ShouldCalculateDiscountForUserWithBirthday() {
+    void ShouldCalculateDiscountForUserWithBirthday() {
         assertThat(discountStrategy.calculateDiscount(testUserWithBirthday, testUserWithBirthday.getTickets()), is(BIRTHDAY_DISCOUNT));
     }
 
     @Test
-    public void ShouldCalculateDiscountForUserWithoutBirthday() {
+    void ShouldCalculateDiscountForUserWithoutBirthday() {
         assertThat(discountStrategy.calculateDiscount(testUserWithoutBirthday, testUserWithoutBirthday.getTickets()), is(ZERO_DISCOUNT));
     }
 }

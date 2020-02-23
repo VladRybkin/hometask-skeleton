@@ -11,5 +11,4 @@ public interface EventCountService extends AbstractDomainObjectService<EventCoun
     void bookTicketsCountIncrement(String eventName);
 
     void getPriceCountIncrement(String eventName);
-
 }

@@ -9,11 +9,9 @@ import java.util.Set;
 
 public interface AuditoriumService {
 
-
     @Nonnull
     Set<Auditorium> getAll();
 
     @Nullable
     Auditorium getByName(@Nonnull String name);
-
 }

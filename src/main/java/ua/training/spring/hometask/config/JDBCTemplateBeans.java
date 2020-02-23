@@ -22,5 +22,4 @@ public class JDBCTemplateBeans {
 
         return jdbcTemplate;
     }
-
 }

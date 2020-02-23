@@ -66,12 +66,4 @@ public class TicketMapper implements RowMapper<Ticket> {
             }
         }
     }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public void setEventService(EventService eventService) {
-        this.eventService = eventService;
-    }
 }

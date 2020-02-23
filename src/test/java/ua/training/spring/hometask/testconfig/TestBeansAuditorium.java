@@ -25,7 +25,6 @@ public class TestBeansAuditorium {
     @Value("${vip.seats}")
     private Set<String> vipSeats;
 
-
     @Bean
     public Auditorium greenAuditorium() {
         Auditorium greenAuditorium = new Auditorium();
@@ -59,6 +58,4 @@ public class TestBeansAuditorium {
     public AuditoriumService auditoriumService() {
         return new DefaultAuditoriumService(auditoriums());
     }
-
-
 }

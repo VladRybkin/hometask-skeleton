@@ -24,6 +24,7 @@ public class TicketDaoImpl implements TicketDao {
     public Ticket save(Ticket object) {
         object.setId((long) (tickets.size() + 1));
         tickets.put(object.getId(), object);
+
         return object;
     }
 
@@ -62,5 +63,4 @@ public class TicketDaoImpl implements TicketDao {
     private Predicate<Ticket> eventFilter(Event event) {
         return t -> Objects.equals(t.getEvent(), event);
     }
-
 }

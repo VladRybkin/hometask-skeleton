@@ -18,19 +18,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestBeansAuditorium.class)
-public class DefaultAuditoriumServiceIntegrationTest {
+class DefaultAuditoriumServiceIntegrationTest {
 
     @Autowired
     private AuditoriumService auditoriumService;
 
     @Test
-    public void getAll() {
+    void getAll() {
         int expectedAuditoriumsSize = 2;
         assertThat(auditoriumService.getAll(), hasSize(expectedAuditoriumsSize));
     }
 
     @Test
-    public void getByName() {
+    void getByName() {
         String expectedFirstAuditoriumName = "green auditorium";
         String expectedSecondAuditoriumName = "red auditorium";
         assertThat(auditoriumService.getByName(expectedFirstAuditoriumName).getName(), is(expectedFirstAuditoriumName));
@@ -38,11 +38,10 @@ public class DefaultAuditoriumServiceIntegrationTest {
     }
 
     @Test
-    public void ShouldThrowExceptionForIncorrectAuditoriumName() {
+    void ShouldThrowExceptionForIncorrectAuditoriumName() {
         String expectedFirstAuditoriumIncorrectName = "incorrect name";
         assertThrows(AuditoriumNotFoundException.class, () -> {
             auditoriumService.getByName(expectedFirstAuditoriumIncorrectName);
         });
     }
-
 }

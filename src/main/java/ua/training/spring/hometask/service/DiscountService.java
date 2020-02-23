@@ -9,7 +9,5 @@ import java.util.Set;
 
 public interface DiscountService {
 
-
     double getDiscount(@Nullable User user, Set<Ticket> tickets);
-
 }

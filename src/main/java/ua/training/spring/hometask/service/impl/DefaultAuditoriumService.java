@@ -12,9 +12,6 @@ import java.util.Set;
 
 public class DefaultAuditoriumService implements AuditoriumService {
 
-    public DefaultAuditoriumService() {
-    }
-
     private Set<Auditorium> auditoriums;
 
     public DefaultAuditoriumService(Set<Auditorium> auditoriums) {
@@ -36,9 +33,5 @@ public class DefaultAuditoriumService implements AuditoriumService {
         } else {
             throw new AuditoriumNotFoundException("Auditorium with name:" + name + " not found");
         }
-    }
-
-    public void setAuditoriums(Set<Auditorium> auditoriums) {
-        this.auditoriums = auditoriums;
     }
 }

@@ -19,6 +19,7 @@ public class UserDaoImpl implements UserDao {
     public User save(@Nonnull User object) {
         object.setId((long) (users.size() + 1));
         users.put(object.getId(), object);
+
         return object;
     }
 

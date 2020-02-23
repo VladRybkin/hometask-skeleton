@@ -10,6 +10,7 @@ import java.util.Objects;
 
 @Component
 public class AirDateMapper implements RowMapper<LocalDateTime> {
+
     @Override
     public LocalDateTime mapRow(ResultSet resultSet, int i) throws SQLException {
         String airDateString = resultSet.getString("event_date");
@@ -18,13 +19,13 @@ public class AirDateMapper implements RowMapper<LocalDateTime> {
         return localDateTime;
     }
 
-
     private LocalDateTime convertDate(String date) {
         LocalDateTime localDateTime = null;
 
         if (!Objects.isNull(date)) {
             localDateTime = LocalDateTime.parse(date);
         }
+
         return localDateTime;
     }
 }
