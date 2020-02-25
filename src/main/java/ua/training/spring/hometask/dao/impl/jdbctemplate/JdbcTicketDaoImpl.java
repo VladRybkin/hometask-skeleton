@@ -40,7 +40,7 @@ public class JdbcTicketDaoImpl implements TicketDao {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         Long eventId = event == null ? null : event.getId();
-        Object parameters[] = new Object[]{eventId, String.valueOf(dateTime)};
+        Object[] parameters = new Object[]{eventId, String.valueOf(dateTime)};
 
         Collection<Ticket> tickets = jdbcTemplate
                 .query(GET_PURCHASED_TICKET_FOR_EVENT_QUERY, parameters, ticketMapper);

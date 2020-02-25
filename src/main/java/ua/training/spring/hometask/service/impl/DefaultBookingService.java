@@ -17,7 +17,6 @@ import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +34,7 @@ public class DefaultBookingService implements BookingService {
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
-        double totalPriсe = getTotalPriсe(tickets);
+        double totalPriсe = getTotalPrice(tickets);
         double discount = discountService.getDiscount(user, tickets);
 
         return applyDiscounts(totalPriсe, discount);
@@ -92,18 +91,18 @@ public class DefaultBookingService implements BookingService {
     }
 
     private double applyDiscounts(double totalPriсe, double discount) {
-        double finalPriсe;
+        double finalPrice;
         if (discount != 0) {
-            finalPriсe = totalPriсe - ((totalPriсe / 100) * discount);
+            finalPrice = totalPriсe - ((totalPriсe / 100) * discount);
         } else {
-            finalPriсe = totalPriсe;
+            finalPrice = totalPriсe;
         }
 
-        return finalPriсe;
+        return finalPrice;
     }
 
 
-    private double getTotalPriсe(Set<Ticket> tickets) {
+    private double getTotalPrice(Set<Ticket> tickets) {
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
     }
 }

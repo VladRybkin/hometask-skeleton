@@ -40,17 +40,20 @@ public class JdbcEventDaoImpl implements EventDao {
 
     private static final String EVENT_GET_BY_ID_QUERY = "SELECT * FROM `events` WHERE `id` = ?";
 
-    private static final String EVENT_GET_ALL_QUERY = "SELECT * FROM events ev " +
+    private static final String SELECT_FROM_EVENTS_QUERY = "SELECT * FROM events ev ";
+
+    private static final String EVENT_GET_ALL_QUERY = SELECT_FROM_EVENTS_QUERY +
             "LEFT JOIN event_dates ed ON ed.event_id=ev.id " +
             "LEFT JOIN air_dates ai ON ai.id=ed.air_date_id";
 
-    private static final String EVENT_GET_DATE_FOR_RANGE_QUERY = "SELECT * FROM events ev " +
+    private static final String EVENT_GET_DATE_FOR_RANGE_QUERY = SELECT_FROM_EVENTS_QUERY +
             "LEFT JOIN event_dates ed ON ev.id=ed.event_id " +
             "LEFT JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date BETWEEN ? AND ?";
 
-    private static final String GET_NEXT_EVENTS_QUERY = "SELECT * FROM events ev " +
+    private static final String GET_NEXT_EVENTS_QUERY = SELECT_FROM_EVENTS_QUERY +
             "LEFT JOIN event_dates ed ON ev.id=ed.event_id " +
             "LEFT JOIN air_dates ai ON ed.air_date_id=ai.id WHERE ai.event_date < ?";
+
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -117,7 +120,7 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        Object parameters[] = new Object[]{String.valueOf(from), String.valueOf(to)};
+        Object[] parameters = new Object[]{String.valueOf(from), String.valueOf(to)};
         Collection<Event> events =
                 jdbcTemplate.query(EVENT_GET_DATE_FOR_RANGE_QUERY, parameters, eventResultSetExtractor);
 
@@ -126,7 +129,7 @@ public class JdbcEventDaoImpl implements EventDao {
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        Object parameters[] = new Object[]{String.valueOf(to)};
+        Object[] parameters = new Object[]{String.valueOf(to)};
         Collection<Event> events = jdbcTemplate.query(GET_NEXT_EVENTS_QUERY, parameters, eventResultSetExtractor);
 
         return Sets.newHashSet(events);

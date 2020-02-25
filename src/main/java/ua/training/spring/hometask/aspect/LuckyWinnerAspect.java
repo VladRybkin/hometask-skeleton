@@ -20,7 +20,6 @@ public class LuckyWinnerAspect {
     public void incrementUserDiscountCount(Ticket ticket, User user) {
         if (checkLucky()) {
             ticket.setBasePrice(0);
-            System.out.println("lucky");
         }
     }
 

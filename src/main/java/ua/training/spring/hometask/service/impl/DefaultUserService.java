@@ -20,7 +20,7 @@ public class DefaultUserService implements UserService {
 
     @Nullable
     @Override
-    public User getUserByEmail(@Nonnull String email) throws Exception {
+    public User getUserByEmail(@Nonnull String email) {
         return userDao.getUserByEmail(email);
     }
 

@@ -9,5 +9,5 @@ import javax.annotation.Nullable;
 public interface UserService extends AbstractDomainObjectService<User> {
 
     @Nullable
-    User getUserByEmail(@Nonnull String email) throws Exception;
+    User getUserByEmail(@Nonnull String email);
 }

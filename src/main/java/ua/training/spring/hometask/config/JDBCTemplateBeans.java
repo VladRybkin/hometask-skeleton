@@ -13,10 +13,8 @@ import javax.sql.DataSource;
 public class JDBCTemplateBeans {
 
     @Autowired
-    private DataSource dataSource;
-
     @Bean
-    public JdbcTemplate jdbcTemplate() {
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource);
 

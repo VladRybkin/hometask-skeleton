@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.exctractor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.AirDateMapper;
@@ -26,7 +25,7 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
     private AirDateMapper airDateMapper;
 
     @Override
-    public Collection<Event> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+    public Collection<Event> extractData(ResultSet resultSet) throws SQLException {
         Map<Long, Event> events = new HashMap<>();
         int row = 0;
         Event event;
