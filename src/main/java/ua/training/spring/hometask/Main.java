@@ -2,17 +2,12 @@ package ua.training.spring.hometask;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.shell.Bootstrap;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.domain.*;
+import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.*;
-import ua.training.spring.hometask.service.impl.DefaultEventCountService;
 
-import java.text.DateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 public class Main {
@@ -45,7 +40,7 @@ public class Main {
         System.out.println(eventCountService);
 
         System.out.println(eventService.getAll());
-        Bootstrap.main(args);
+//        Bootstrap.main(args);
     }
 
 

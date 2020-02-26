@@ -16,6 +16,8 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -45,13 +47,22 @@ class DefaultUserServiceTest {
 
 
     @Test
-    void getUserByEmail() throws Exception {
+    void getUserByEmail() {
         when(userDao.getUserByEmail(USER_EMAIL)).thenReturn(testUser);
 
         User persistedUser = userService.getUserByEmail(USER_EMAIL);
 
         assertThat(persistedUser, is(testUser));
         verify(userDao).getUserByEmail(USER_EMAIL);
+    }
+
+    @Test
+    void shouldReturnNull() {
+        when(userDao.getUserByEmail(USER_EMAIL)).thenReturn(null);
+
+        User persistedUser = userService.getUserByEmail(USER_EMAIL);
+
+        assertThat(persistedUser, is(nullValue()));
     }
 
     @Test
@@ -89,5 +100,21 @@ class DefaultUserServiceTest {
 
         assertThat(persistedUsers, is(givenUsers));
         verify(userDao).getAll();
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDaoReturnedNull() {
+        when(userDao.getAll()).thenReturn(null);
+
+        assertThrows(IllegalStateException.class, () -> {
+            userService.getAll();
+        });
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserMailIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.getUserByEmail(null);
+        });
     }
 }

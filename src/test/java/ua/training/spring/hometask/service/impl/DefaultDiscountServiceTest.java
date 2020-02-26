@@ -18,6 +18,9 @@ import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyObject;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,7 +57,10 @@ class DefaultDiscountServiceTest {
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(BIRTHDAY_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(TENTH_TICKET_DISCOUNT);
 
-        assertThat(discountService.getDiscount(user, tickets), is(BIRTHDAY_DISCOUNT));
+        double expectedDiscount = discountService.getDiscount(user, tickets);
+
+        assertThat(expectedDiscount, is((BIRTHDAY_DISCOUNT)));
+
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);
     }
@@ -68,8 +74,23 @@ class DefaultDiscountServiceTest {
         when(birthdayStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
         when(tenthTicketStrategy.calculateDiscount(user, tickets)).thenReturn(ZERO_DISCOUNT);
 
-        assertThat(discountService.getDiscount(user, tickets), is(ZERO_DISCOUNT));
+        double expectedDiscount = discountService.getDiscount(user, tickets);
+
+        assertThat(expectedDiscount, is((ZERO_DISCOUNT)));
+
         verify(birthdayStrategy).calculateDiscount(user, tickets);
         verify(tenthTicketStrategy).calculateDiscount(user, tickets);
+    }
+
+    @Test
+    void shouldNotCallStrategiesIfUserIsNull() {
+        Set<Ticket> tickets = Sets.newTreeSet();
+
+        double expectedDiscount = discountService.getDiscount(null, tickets);
+
+        assertThat(expectedDiscount, is((ZERO_DISCOUNT)));
+
+        verify(birthdayStrategy, never()).calculateDiscount(any(), any());
+        verify(tenthTicketStrategy, never()).calculateDiscount(any(), any());
     }
 }

@@ -6,7 +6,6 @@ import ua.training.spring.hometask.exceptions.AuditoriumNotFoundException;
 import ua.training.spring.hometask.service.AuditoriumService;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,7 +23,6 @@ public class DefaultAuditoriumService implements AuditoriumService {
         return auditoriums;
     }
 
-    @Nullable
     @Override
     public Auditorium getByName(@Nonnull String name) {
         Optional<Auditorium> optionalAuditorium = auditoriums.stream().filter(au -> au.getName().equals(name)).findAny();

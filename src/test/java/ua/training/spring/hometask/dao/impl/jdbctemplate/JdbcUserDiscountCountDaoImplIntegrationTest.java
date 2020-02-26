@@ -109,7 +109,7 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         UserDiscountCount foundByName = jdbcUserDiscountCountDao.getByName(discountCount.getName());
 
-        assertThat(foundByName, nullValue());
+        assertThat(foundByName, is(nullValue()));
     }
 
     @Test
@@ -118,7 +118,7 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
 
         UserDiscountCount foundById = jdbcUserDiscountCountDao.getById(1L);
 
-        assertThat(foundById, nullValue());
+        assertThat(foundById, is(nullValue()));
     }
 
     private UserDiscountCount buildUserDiscountCount() {

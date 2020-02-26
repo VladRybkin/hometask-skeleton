@@ -92,7 +92,7 @@ class JdbcUserDaoImplIntegrationTest {
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
 
-        assertThat(foundByEmail, nullValue());
+        assertThat(foundByEmail, is(nullValue()));
     }
 
     @Test
@@ -101,7 +101,7 @@ class JdbcUserDaoImplIntegrationTest {
 
         User foundById = jdbcUserDao.getById(1L);
 
-        assertThat(foundById, nullValue());
+        assertThat(foundById, is(nullValue()));
     }
 
     private User buildTestUser() {

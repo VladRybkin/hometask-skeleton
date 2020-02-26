@@ -115,7 +115,7 @@ class JdbcTicketDaoImplIntegrationTest {
 
         Ticket foundById = jdbcTicketDao.getById(1L);
 
-        assertThat(foundById, nullValue());
+        assertThat(foundById, is(nullValue()));
     }
 
     private Ticket buildTestTicket() {

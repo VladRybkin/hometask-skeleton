@@ -36,6 +36,7 @@ public class DefaultUserService implements UserService {
         userDao.remove(object);
     }
 
+    @Nullable
     @Override
     public User getById(@Nonnull Long id) {
         return userDao.getById(id);
@@ -44,7 +45,7 @@ public class DefaultUserService implements UserService {
     @Nonnull
     @Override
     public Collection<User> getAll() {
-        return Lists.newArrayList(userDao.getAll());
+        return userDao.getAll();
     }
 
 }

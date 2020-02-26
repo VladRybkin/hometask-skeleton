@@ -21,7 +21,6 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
         return object;
     }
 
-
     @Override
     public void remove(UserDiscountCount object) {
         userDiscountCounts.remove(object.getId());

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 
-import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 
 import java.util.Collection;
@@ -37,7 +36,6 @@ public class EventDaoImpl implements EventDao {
         return events.get(id);
     }
 
-    @Nonnull
     @Override
     public Collection<Event> getAll() {
         return events.values();
