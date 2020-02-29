@@ -8,7 +8,6 @@ import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.service.TicketService;
 
-import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -21,30 +20,28 @@ public class DefaultTicketService implements TicketService {
 
     @Transactional
     @Override
-    public Ticket save(@Nonnull Ticket object) {
+    public Ticket save(Ticket object) {
         return ticketDao.save(object);
     }
 
     @Transactional
     @Override
-    public void remove(@Nonnull Ticket object) {
+    public void remove(Ticket object) {
         ticketDao.remove(object);
     }
 
     @Override
-    public Ticket getById(@Nonnull Long id) {
+    public Ticket getById(Long id) {
         return ticketDao.getById(id);
     }
 
-    @Nonnull
     @Override
     public Collection<Ticket> getAll() {
         return ticketDao.getAll();
     }
 
-    @Nonnull
     @Override
-    public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
+    public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         return ticketDao.getPurchasedTicketsForEvent(event, dateTime);
     }
 }

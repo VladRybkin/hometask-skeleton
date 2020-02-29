@@ -7,8 +7,6 @@ import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -19,42 +17,38 @@ public class DefaultEventService implements EventService {
     @Autowired
     private EventDao eventDao;
 
-    @Nullable
     @Override
-    public Event getByName(@Nonnull String name) {
+    public Event getByName(String name) {
         return eventDao.getByName(name);
     }
 
-    @Nonnull
     @Override
-    public Set<Event> getForDateRange(@Nonnull LocalDateTime from, @Nonnull LocalDateTime to) {
+    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
         return eventDao.getForDateRange(from, to);
     }
 
-    @Nonnull
     @Override
-    public Set<Event> getNextEvents(@Nonnull LocalDateTime to) {
+    public Set<Event> getNextEvents(LocalDateTime to) {
         return eventDao.getNextEvents(to);
     }
 
     @Transactional
     @Override
-    public Event save(@Nonnull Event object) {
+    public Event save(Event object) {
         return eventDao.save(object);
     }
 
     @Transactional
     @Override
-    public void remove(@Nonnull Event object) {
+    public void remove(Event object) {
         eventDao.remove(object);
     }
 
     @Override
-    public Event getById(@Nonnull Long id) {
+    public Event getById(Long id) {
         return eventDao.getById(id);
     }
 
-    @Nonnull
     @Override
     public Collection<Event> getAll() {
         return eventDao.getAll();

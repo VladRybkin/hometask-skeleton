@@ -17,14 +17,14 @@ public class DefaultAuditoriumService implements AuditoriumService {
         this.auditoriums = auditoriums;
     }
 
-    @Nonnull
+
     @Override
     public Set<Auditorium> getAll() {
         return auditoriums;
     }
 
     @Override
-    public Auditorium getByName(@Nonnull String name) {
+    public Auditorium getByName(String name) {
         Optional<Auditorium> optionalAuditorium = auditoriums.stream().filter(au -> au.getName().equals(name)).findAny();
         if (optionalAuditorium.isPresent()) {
             return optionalAuditorium.get();
