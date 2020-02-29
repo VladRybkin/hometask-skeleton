@@ -5,7 +5,6 @@ import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.exceptions.AuditoriumNotFoundException;
 import ua.training.spring.hometask.service.AuditoriumService;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.Set;
 
