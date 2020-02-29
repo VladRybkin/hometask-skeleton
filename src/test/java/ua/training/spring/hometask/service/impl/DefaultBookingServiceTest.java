@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +54,7 @@ class DefaultBookingServiceTest {
     }
 
     @Test
-    void shouldCalculateTotalPriсeWithoutDiscount() {
+    void ShouldCalculateTotalPriceWithoutDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
         double expectedPriceWithoutDiscount = 900;
         double expectedDiscountWithTenthTickets = 0;
@@ -66,7 +67,7 @@ class DefaultBookingServiceTest {
     }
 
     @Test
-    void shouldCalculateTotalPriсeWithTenTicketsDiscount() {
+    void shouldCalculateTotalPriceWithTenthTicketDiscount() {
         Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
         double expectedPriceWithTenthTicketsDiscount = 950;
         double expectedDiscountWithTenthTickets = 5;
@@ -76,6 +77,18 @@ class DefaultBookingServiceTest {
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
         verify(discountService).getDiscount(any(User.class), anySet());
+    }
+
+    @Test
+    void shouldCalculateZeroTotalPriceIfNullUser() {
+        Set<Long> seats = Sets.newHashSet(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L, 10L);
+        double expectedPriceWithTenthTicketsDiscount = 1000;
+        double expectedDiscountWithTenthTickets = 0;
+
+        when(discountService.getDiscount(isNull(), anySet())).thenReturn(expectedDiscountWithTenthTickets);
+        double price = bookingService.getTicketsPrice(testLowRatingEvent, null, seats);
+        assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
+        verify(discountService).getDiscount(isNull(), anySet());
     }
 
     @Test

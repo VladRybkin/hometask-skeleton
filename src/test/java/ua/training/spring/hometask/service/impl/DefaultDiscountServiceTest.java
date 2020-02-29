@@ -19,7 +19,6 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -83,7 +82,7 @@ class DefaultDiscountServiceTest {
     }
 
     @Test
-    void shouldNotCallStrategiesIfUserIsNull() {
+    void shouldNotCallStrategiesIfUserIsNullAndReturnZeroDiscount() {
         Set<Ticket> tickets = Sets.newTreeSet();
 
         double expectedDiscount = discountService.getDiscount(null, tickets);

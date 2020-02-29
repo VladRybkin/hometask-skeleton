@@ -103,15 +103,6 @@ class DefaultUserServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenDaoReturnedNull() {
-        when(userDao.getAll()).thenReturn(null);
-
-        assertThrows(IllegalStateException.class, () -> {
-            userService.getAll();
-        });
-    }
-
-    @Test
     void shouldThrowExceptionWhenUserMailIsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
             userService.getUserByEmail(null);
