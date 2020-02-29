@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.function.Predicate;
 
 
-@Repository
+@Repository("eventDaoImpl")
 public class EventDaoImpl implements EventDao {
 
     private static final Map<Long, Event> events = new HashMap<>();

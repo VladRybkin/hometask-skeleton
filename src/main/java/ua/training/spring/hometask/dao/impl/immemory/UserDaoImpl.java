@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Repository
+@Repository("userDaoImpl")
 public class UserDaoImpl implements UserDao {
 
     private static final Map<Long, User> users = new HashMap<>();
