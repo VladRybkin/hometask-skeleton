@@ -15,14 +15,8 @@ import javax.sql.DataSource;
 public class TestJdbcTemplateBeans {
 
     @Autowired
-    @Qualifier("h2DataSource")
-    private DataSource testDataSource;
-
     @Bean
-    public JdbcTemplate testJdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(testDataSource);
-
-        return jdbcTemplate;
+    public JdbcTemplate testJdbcTemplate(@Qualifier("h2DataSource") DataSource testDataSource) {
+        return new JdbcTemplate(testDataSource);
     }
 }

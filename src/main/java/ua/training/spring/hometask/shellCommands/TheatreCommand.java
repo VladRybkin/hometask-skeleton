@@ -55,25 +55,25 @@ public class TheatreCommand implements CommandMarker {
     }
 
     @CliCommand(value = "email user", help = "get user by email")
-    public User getById(@CliOption(key = "mail") String email) throws Exception {
+    public User getById(@CliOption(key = "mail") String email) {
 
         return userService.getUserByEmail(email);
     }
 
     @CliCommand(value = "all event", help = "get all events")
-    public Collection<Event> getAllEvent() throws Exception {
+    public Collection<Event> getAllEvent() {
 
         return eventService.getAll();
     }
 
     @CliCommand(value = "all ticket", help = "get all tickets")
-    public Collection<Ticket> getAllTickets() throws Exception {
+    public Collection<Ticket> getAllTickets() {
 
         return ticketService.getAll();
     }
 
     @CliCommand(value = "ticket price", help = "ticket price")
-    public double getTicketsPrice() throws Exception {
+    public double getTicketsPrice() {
         User user = userService.getById(1L);
         Event event = eventService.getById(1L);
         Set<Long> seats = Sets.newHashSet(1L, 2L);

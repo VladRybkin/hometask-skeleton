@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 
-@Repository
+@Repository("ticketDaoImpl")
 public class TicketDaoImpl implements TicketDao {
 
     private static final Map<Long, Ticket> tickets = new HashMap<>();

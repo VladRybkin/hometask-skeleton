@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+@Repository("userDiscountCountDaoImpl")
 public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     private Map<Long, UserDiscountCount> userDiscountCounts = new HashMap<>();
@@ -20,7 +20,6 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
 
         return object;
     }
-
 
     @Override
     public void remove(UserDiscountCount object) {

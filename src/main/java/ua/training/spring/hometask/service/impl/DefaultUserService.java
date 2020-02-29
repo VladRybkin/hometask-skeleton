@@ -1,6 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
-import com.google.common.collect.Lists;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,8 +8,6 @@ import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collection;
 
 @Service
@@ -18,33 +16,30 @@ public class DefaultUserService implements UserService {
     @Autowired
     private UserDao userDao;
 
-    @Nullable
     @Override
-    public User getUserByEmail(@Nonnull String email) throws Exception {
+    public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
 
     @Override
     @Transactional
-    public User save(@Nonnull User object) {
+    public User save(User object) {
         return userDao.save(object);
     }
 
     @Override
     @Transactional
-    public void remove(@Nonnull User object) {
+    public void remove(User object) {
         userDao.remove(object);
     }
 
     @Override
-    public User getById(@Nonnull Long id) {
+    public User getById(Long id) {
         return userDao.getById(id);
     }
 
-    @Nonnull
     @Override
     public Collection<User> getAll() {
-        return Lists.newArrayList(userDao.getAll());
+        return userDao.getAll();
     }
-
 }

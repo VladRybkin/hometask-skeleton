@@ -7,7 +7,6 @@ import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.service.EventCountService;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -19,23 +18,22 @@ public class DefaultEventCountService implements EventCountService {
 
     @Transactional
     @Override
-    public EventCount save(@Nonnull EventCount object) {
+    public EventCount save(EventCount object) {
         return eventCountDao.save(object);
     }
 
     @Transactional
     @Override
-    public void remove(@Nonnull EventCount object) {
+    public void remove(EventCount object) {
         eventCountDao.remove(object);
     }
 
 
     @Override
-    public EventCount getById(@Nonnull Long id) {
+    public EventCount getById(Long id) {
         return eventCountDao.getById(id);
     }
 
-    @Nonnull
     @Override
     public Collection<EventCount> getAll() {
         return eventCountDao.getAll();

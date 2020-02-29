@@ -16,10 +16,8 @@ import javax.sql.DataSource;
 public class BeansTransactionManager {
 
     @Autowired
-    private DataSource dataSource;
-
     @Bean
-    public PlatformTransactionManager txManager() {
+    public PlatformTransactionManager txManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 }

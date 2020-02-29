@@ -158,7 +158,7 @@ class JdbcEventDaoImplIntegrationTest {
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         Event foundByName = jdbcEventDao.getByName(event.getName());
 
-        assertThat(foundByName, nullValue());
+        assertThat(foundByName, is(nullValue()));
     }
 
     @Test
@@ -167,7 +167,7 @@ class JdbcEventDaoImplIntegrationTest {
 
         Event foundById = jdbcEventDao.getById(1L);
 
-        assertThat(foundById, nullValue());
+        assertThat(foundById, is(nullValue()));
     }
 
     private Event buildTestEvent() {

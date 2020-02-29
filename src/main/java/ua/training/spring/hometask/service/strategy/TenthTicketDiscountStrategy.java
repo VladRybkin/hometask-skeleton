@@ -41,9 +41,8 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     private double calculateFiftyPercentDiscount(Ticket ticket) {
         double ticketPrice = ticket.getBasePrice();
         double discount = ticketPrice != 0 ? (ticketPrice / 100) * tenthTicketDiscount : 0;
-        double finalPrice = ticketPrice - discount;
 
-        return finalPrice;
+        return ticketPrice - discount;
     }
 
     private double calculatePercentDifference(double totalPrice, double totalPriceWithDiscount) {

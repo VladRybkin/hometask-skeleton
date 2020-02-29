@@ -108,7 +108,7 @@ class JdbcEventCountDaoImplIntegrationTest {
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
 
-        assertThat(foundByName, nullValue());
+        assertThat(foundByName, is(nullValue()));
     }
 
     @Test
@@ -117,7 +117,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
         EventCount foundById = jdbcEventCountDao.getById(1L);
 
-        assertThat(foundById, nullValue());
+        assertThat(foundById, is(nullValue()));
     }
 
     private EventCount buildTestEventCount() {
