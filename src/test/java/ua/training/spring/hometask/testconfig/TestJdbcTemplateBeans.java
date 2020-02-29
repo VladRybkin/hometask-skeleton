@@ -13,13 +13,10 @@ import javax.sql.DataSource;
 @Configuration
 @Import(TestDataSourceBeans.class)
 public class TestJdbcTemplateBeans {
-    
+
     @Autowired
     @Bean
     public JdbcTemplate testJdbcTemplate(@Qualifier("h2DataSource") DataSource testDataSource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(testDataSource);
-
-        return jdbcTemplate;
+        return new JdbcTemplate(testDataSource);
     }
 }
