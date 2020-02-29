@@ -37,7 +37,7 @@ public class InitApplication {
     private TicketDao ticketDao;
 
     @PostConstruct
-    void init() {
+    void fulfilInitialImmemoryData() {
         User user = buildUser();
         userDao.save(user);
         Event event = buildEvent();
