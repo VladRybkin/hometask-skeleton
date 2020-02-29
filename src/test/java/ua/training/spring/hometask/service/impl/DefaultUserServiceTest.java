@@ -17,7 +17,6 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -100,12 +99,5 @@ class DefaultUserServiceTest {
 
         assertThat(persistedUsers, is(givenUsers));
         verify(userDao).getAll();
-    }
-
-    @Test
-    void shouldThrowExceptionWhenUserMailIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            userService.getUserByEmail(null);
-        });
     }
 }

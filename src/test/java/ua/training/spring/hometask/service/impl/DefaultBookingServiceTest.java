@@ -21,6 +21,7 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.isNull;
@@ -117,6 +118,13 @@ class DefaultBookingServiceTest {
         double price = bookingService.getTicketsPrice(testLowRatingEvent, user, seats);
         assertThat(price, is(expectedPriceWithTenthTicketsDiscount));
         verify(discountService).getDiscount(any(User.class), anySet());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenArgumentsIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            bookingService.getTicketsPrice(null, null, null);
+        });
     }
 
     @Test
