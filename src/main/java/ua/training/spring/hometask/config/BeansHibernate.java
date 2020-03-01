@@ -3,11 +3,13 @@ package ua.training.spring.hometask.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
 
 @Configuration
+@Import(DataSourceBeans.class)
 public class BeansHibernate {
 
     @Autowired
