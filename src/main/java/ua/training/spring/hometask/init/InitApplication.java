@@ -41,14 +41,13 @@ public class InitApplication {
     private TicketDao ticketDao;
 
     @PostConstruct
-    void fulfilImmemoryRepositoriWithInitialData() {
+    void fulfilImmemoryRepositoryWithInitialData() {
         User user = buildUser();
         userDao.save(user);
         Event event = buildEvent();
 
         eventDao.save(event);
         saveTickets(10, event);
-        System.out.println("init method executed");
     }
 
     private Event buildEvent() {
