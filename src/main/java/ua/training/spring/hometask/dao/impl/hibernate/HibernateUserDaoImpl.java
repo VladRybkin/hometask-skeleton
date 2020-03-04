@@ -1,11 +1,19 @@
 package ua.training.spring.hometask.dao.impl.hibernate;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 
 import java.util.Collection;
 
+@Repository
 public class HibernateUserDaoImpl implements UserDao {
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public User getUserByEmail(String email) {
@@ -14,7 +22,10 @@ public class HibernateUserDaoImpl implements UserDao {
 
     @Override
     public User save(User object) {
-        return null;
+        try (Session session = sessionFactory.openSession()) {
+            session.persist(object);
+        }
+        return object;
     }
 
     @Override

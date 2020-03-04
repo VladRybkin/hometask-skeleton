@@ -2,18 +2,27 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
+@Entity
+@Table(name = "users")
 public class User extends DomainObject {
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
 
     public User() {

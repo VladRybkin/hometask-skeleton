@@ -4,26 +4,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
+@EnableTransactionManagement
 @Import(DataSourceBeans.class)
 public class BeansHibernate {
 
-    @Autowired
-    private DataSource dataSource;
 
+    @Autowired
     @Bean
-    public LocalSessionFactoryBean localSessionFactoryBean() {
+    public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
         localSessionFactoryBean.setPackagesToScan("ua.training.spring.hometask.domain");
 
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.show_sql", "true");
+        localSessionFactoryBean.setHibernateProperties(properties);
+
         return localSessionFactoryBean;
     }
 
+    @Autowired
+    @Bean
+    public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
+        HibernateTransactionManager transactionManager
+                = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(localSessionFactoryBean(dataSource).getObject());
 
-
+        return transactionManager;
+    }
 }
