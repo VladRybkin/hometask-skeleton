@@ -15,7 +15,6 @@ import java.util.Collection;
 public class DefaultUserService implements UserService {
 
     @Autowired
-    @Qualifier("hibernateUserDaoImpl")
     private UserDao userDao;
 
     @Override

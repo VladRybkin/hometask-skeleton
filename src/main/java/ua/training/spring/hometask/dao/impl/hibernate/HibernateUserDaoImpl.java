@@ -33,12 +33,21 @@ public class HibernateUserDaoImpl implements UserDao {
 
     @Override
     public void remove(User object) {
-
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.remove(object);
+            session.getTransaction().commit();
+        }
     }
 
     @Override
     public User getById(Long id) {
-        return null;
+        User user;
+        try (Session session = sessionFactory.openSession()) {
+            user = session.get(User.class, id);
+        }
+
+        return user;
     }
 
     @Override

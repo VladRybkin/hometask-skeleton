@@ -23,6 +23,7 @@ public class Main {
         user.setFirstName("Hibernate");
 //        userService.save(user);
         System.out.println( hibernateUserDao.getAll());
+        System.out.println(hibernateUserDao.getById(8L));
 
 
         //        Bootstrap.main(args);
