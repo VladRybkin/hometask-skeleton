@@ -11,7 +11,6 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.OptionalDouble;
 import java.util.Set;
-import java.util.function.ToDoubleFunction;
 
 
 public class DefaultDiscountService implements DiscountService {
@@ -30,17 +29,13 @@ public class DefaultDiscountService implements DiscountService {
         double discount = 0;
         if (!Objects.isNull(user)) {
             OptionalDouble optionalDiscount = discountStrategies.stream()
-                    .mapToDouble(getDiscountStrategyToDoubleFunction(user, tickets)).max();
+                    .mapToDouble(strategy -> strategy.calculateDiscount(user, tickets)).max();
             if (optionalDiscount.isPresent()) {
                 discount = optionalDiscount.getAsDouble();
             }
         }
 
         return discount;
-    }
-
-    private ToDoubleFunction<DiscountStrategy> getDiscountStrategyToDoubleFunction(User user, Set<Ticket> tickets) {
-        return strategy -> strategy.calculateDiscount(user, tickets);
     }
 
     public void setDiscountStrategies(Set<DiscountStrategy> discountStrategies) {
