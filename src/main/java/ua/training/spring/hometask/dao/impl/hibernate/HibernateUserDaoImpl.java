@@ -23,8 +23,11 @@ public class HibernateUserDaoImpl implements UserDao {
     @Override
     public User save(User object) {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             session.persist(object);
+            session.getTransaction().commit();
         }
+
         return object;
     }
 
@@ -40,6 +43,11 @@ public class HibernateUserDaoImpl implements UserDao {
 
     @Override
     public Collection<User> getAll() {
-        return null;
+        Collection<User> users;
+        try (Session session = sessionFactory.openSession()) {
+            users = session.createQuery("FROM User", User.class).list();
+        }
+
+        return users;
     }
 }

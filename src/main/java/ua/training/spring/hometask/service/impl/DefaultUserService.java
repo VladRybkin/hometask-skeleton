@@ -2,6 +2,7 @@ package ua.training.spring.hometask.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.UserDao;
@@ -14,6 +15,7 @@ import java.util.Collection;
 public class DefaultUserService implements UserService {
 
     @Autowired
+    @Qualifier("hibernateUserDaoImpl")
     private UserDao userDao;
 
     @Override

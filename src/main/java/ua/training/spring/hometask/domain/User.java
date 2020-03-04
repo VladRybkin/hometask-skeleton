@@ -5,6 +5,7 @@ import com.google.common.base.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.NavigableSet;
 import java.util.TreeSet;
@@ -40,6 +41,7 @@ public class User extends DomainObject {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Transient
     private NavigableSet<Ticket> tickets = new TreeSet<>();
 
     public String getFirstName() {

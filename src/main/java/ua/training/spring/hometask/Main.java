@@ -2,9 +2,10 @@ package ua.training.spring.hometask;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.shell.Bootstrap;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.dao.impl.hibernate.HibernateUserDaoImpl;
+import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.service.UserService;
 
 
 public class Main {
@@ -15,9 +16,15 @@ public class Main {
 
         ctx.register(BeansConfiguration.class);
         ctx.refresh();
-        ctx.getBean(HibernateUserDaoImpl.class).getAll();
+        HibernateUserDaoImpl hibernateUserDao = ctx.getBean(HibernateUserDaoImpl.class);
+        UserService userService=ctx.getBean(UserService.class);
+        User user = new User();
+        user.setEmail("hibernateEmail1");
+        user.setFirstName("Hibernate");
+//        userService.save(user);
+        System.out.println( hibernateUserDao.getAll());
 
 
-//        Bootstrap.main(args);
+        //        Bootstrap.main(args);
     }
 }

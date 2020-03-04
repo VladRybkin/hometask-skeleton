@@ -17,13 +17,13 @@ import java.util.Properties;
 @Import(DataSourceBeans.class)
 public class BeansHibernate {
 
-
     @Autowired
     @Bean
-    public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) {
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource);
         localSessionFactoryBean.setPackagesToScan("ua.training.spring.hometask.domain");
+
 
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
@@ -33,13 +33,13 @@ public class BeansHibernate {
         return localSessionFactoryBean;
     }
 
-    @Autowired
-    @Bean
-    public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
-        HibernateTransactionManager transactionManager
-                = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(localSessionFactoryBean(dataSource).getObject());
-
-        return transactionManager;
-    }
+//    @Autowired
+//    @Bean
+//    public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
+//        HibernateTransactionManager transactionManager
+//                = new HibernateTransactionManager();
+//        transactionManager.setSessionFactory(sessionFactory(dataSource).getObject());
+//
+//        return transactionManager;
+//    }
 }
