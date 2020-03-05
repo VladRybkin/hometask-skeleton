@@ -58,7 +58,6 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         jdbcUserDiscountCountDao.save(discountCount);
         UserDiscountCount foundDiscount = jdbcUserDiscountCountDao.getById(1L);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundDiscount, is(discountCount));
     }
 
@@ -67,8 +66,9 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         UserDiscountCount discountCount = buildUserDiscountCount();
 
         jdbcUserDiscountCountDao.save(discountCount);
-        jdbcUserDiscountCountDao.remove(discountCount);
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
+        jdbcUserDiscountCountDao.remove(discountCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
 
     }
@@ -98,6 +98,7 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
 
         Collection<UserDiscountCount> persistedDiscounts = jdbcUserDiscountCountDao.getAll();
 
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(persistedDiscounts, hasItems(user));
         assertThat(persistedDiscounts, hasSize(1));
     }

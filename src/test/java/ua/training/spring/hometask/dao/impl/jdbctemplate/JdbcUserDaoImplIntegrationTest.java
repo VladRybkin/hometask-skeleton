@@ -58,7 +58,6 @@ class JdbcUserDaoImplIntegrationTest {
         jdbcUserDao.save(user);
         User foundUser = jdbcUserDao.getById(1L);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundUser, is(user));
 
     }
@@ -68,10 +67,10 @@ class JdbcUserDaoImplIntegrationTest {
         User user = buildTestUser();
 
         jdbcUserDao.save(user);
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+
         jdbcUserDao.remove(user);
-
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
-
     }
 
     @Test
@@ -81,6 +80,7 @@ class JdbcUserDaoImplIntegrationTest {
 
         Collection<User> persistedUsers = jdbcUserDao.getAll();
 
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(persistedUsers, hasItems(user));
         assertThat(persistedUsers, hasSize(1));
     }
