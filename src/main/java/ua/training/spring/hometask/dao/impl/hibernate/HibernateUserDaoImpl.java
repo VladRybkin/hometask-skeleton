@@ -2,6 +2,7 @@ package ua.training.spring.hometask.dao.impl.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
@@ -17,7 +18,14 @@ public class HibernateUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        return null;
+        User user;
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("FROM User where email=:email");
+            query.setParameter("email", email);
+            user = (User) query.getSingleResult();
+        }
+
+        return user;
     }
 
     @Override

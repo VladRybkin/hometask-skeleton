@@ -24,6 +24,7 @@ public class Main {
 //        userService.save(user);
         System.out.println( hibernateUserDao.getAll());
         System.out.println(hibernateUserDao.getById(8L));
+        System.out.println(hibernateUserDao.getUserByEmail("hibernateEmail"));
 
 
         //        Bootstrap.main(args);
