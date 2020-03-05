@@ -84,7 +84,6 @@ class JdbcTicketDaoImplIntegrationTest {
         jdbcTicketDao.save(ticket);
         Ticket foundTicket = jdbcTicketDao.getById(1L);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundTicket, is(ticket));
     }
 
@@ -93,8 +92,9 @@ class JdbcTicketDaoImplIntegrationTest {
         Ticket ticket = buildTestTicket();
 
         jdbcTicketDao.save(ticket);
-        jdbcTicketDao.remove(ticket);
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
+        jdbcTicketDao.remove(ticket);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
     }
 
@@ -105,6 +105,7 @@ class JdbcTicketDaoImplIntegrationTest {
 
         Collection<Ticket> persistedTickets = jdbcTicketDao.getAll();
 
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(persistedTickets, hasItems(user));
         assertThat(persistedTickets, hasSize(1));
     }

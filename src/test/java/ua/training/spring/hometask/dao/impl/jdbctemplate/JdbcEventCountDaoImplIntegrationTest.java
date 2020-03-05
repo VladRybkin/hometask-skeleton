@@ -58,7 +58,6 @@ class JdbcEventCountDaoImplIntegrationTest {
         jdbcEventCountDao.save(eventCount);
         EventCount foundEvent = jdbcEventCountDao.getById(1L);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundEvent, is(eventCount));
     }
 
@@ -67,8 +66,9 @@ class JdbcEventCountDaoImplIntegrationTest {
         EventCount eventCount = buildTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
-        jdbcEventCountDao.remove(eventCount);
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
+        jdbcEventCountDao.remove(eventCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
     }
 
@@ -97,6 +97,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
         Collection<EventCount> eventCounts = jdbcEventCountDao.getAll();
 
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(eventCounts, hasItems(testEventCount));
         assertThat(eventCounts, hasSize(1));
     }

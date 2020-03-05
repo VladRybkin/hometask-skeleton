@@ -63,7 +63,6 @@ class JdbcEventDaoImplIntegrationTest {
         jdbcEventDao.save(event);
         Event foundById = jdbcEventDao.getById(1L);
 
-        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(foundById, is(event));
     }
 
@@ -73,8 +72,9 @@ class JdbcEventDaoImplIntegrationTest {
         event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
         jdbcEventDao.save(event);
-        jdbcEventDao.remove(event);
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
+        jdbcEventDao.remove(event);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
     }
 
@@ -94,6 +94,7 @@ class JdbcEventDaoImplIntegrationTest {
 
         Collection<Event> persistedEvents = jdbcEventDao.getAll();
 
+        assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(2));
         assertThat(persistedEvents, hasItems(testEvent1, testEvent2));
         assertThat(persistedEvents, hasSize(2));
     }
