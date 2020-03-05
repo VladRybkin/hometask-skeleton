@@ -2,6 +2,7 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.NavigableMap;
@@ -9,17 +10,24 @@ import java.util.NavigableSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-
+@Entity
+@Table(name = "events")
 public class Event extends DomainObject {
 
+    @Column(name = "name")
     private String name;
 
+    @Transient
     private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
 
+    @Column(name = "base_price")
     private double basePrice;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rating")
     private EventRating rating;
 
+    @Transient
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
 
     public Event() {

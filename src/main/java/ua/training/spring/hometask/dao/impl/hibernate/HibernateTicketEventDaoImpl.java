@@ -1,35 +1,39 @@
 package ua.training.spring.hometask.dao.impl.hibernate;
 
+import com.google.common.collect.Sets;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.training.spring.hometask.dao.UserDao;
-import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.dao.TicketDao;
+import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.Ticket;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Set;
 
 @Repository
-public class HibernateUserDaoImpl implements UserDao {
+public class HibernateTicketEventDaoImpl implements TicketDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * @todo
+     **/
     @Override
-    public User getUserByEmail(String email) {
-        User user;
+    public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
+        Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM User where email=:email");
-            query.setParameter("email", email);
-            user = (User) query.getSingleResult();
+            tickets = session.createQuery("FROM Ticket", Ticket.class).list();
         }
 
-        return user;
+        return Sets.newHashSet(tickets);
     }
 
     @Override
-    public User save(User object) {
+    public Ticket save(Ticket object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(object);
@@ -40,7 +44,7 @@ public class HibernateUserDaoImpl implements UserDao {
     }
 
     @Override
-    public void remove(User object) {
+    public void remove(Ticket object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(object);
@@ -49,22 +53,22 @@ public class HibernateUserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getById(Long id) {
-        User user;
+    public Ticket getById(Long id) {
+        Ticket ticket;
         try (Session session = sessionFactory.openSession()) {
-            user = session.get(User.class, id);
+            ticket = session.get(Ticket.class, id);
         }
 
-        return user;
+        return ticket;
     }
 
     @Override
-    public Collection<User> getAll() {
-        Collection<User> users;
+    public Collection<Ticket> getAll() {
+        Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            users = session.createQuery("FROM User", User.class).list();
+            tickets = session.createQuery("FROM Ticket", Ticket.class).list();
         }
 
-        return users;
+        return tickets;
     }
 }
