@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Repository
-public class HibernateTicketEventDaoImpl implements TicketDao {
+public class HibernateTicketDaoImpl implements TicketDao {
 
     @Autowired
     private SessionFactory sessionFactory;

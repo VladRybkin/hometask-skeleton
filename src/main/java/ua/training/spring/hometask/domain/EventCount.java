@@ -3,14 +3,24 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "event_counts")
 public class EventCount extends DomainObject {
 
+    @Column(name = "name")
     private String eventName;
 
+    @Column(name = "count_get_by_name")
     private long countGetByName;
 
+    @Column(name = "count_book_tickets")
     private long countBookTickets;
 
+    @Column(name = "count_get_price")
     private long countGetPrice;
 
 

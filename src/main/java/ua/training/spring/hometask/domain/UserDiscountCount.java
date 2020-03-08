@@ -2,12 +2,21 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user_discount_counts")
 public class UserDiscountCount extends DomainObject {
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "count_tenth_ticket_discount")
     private long countTenthTicketDiscount;
 
+    @Column(name = "count_birthday_discount")
     private long countBirthdayDiscount;
 
     public UserDiscountCount() {

@@ -2,12 +2,9 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.NavigableSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 @Entity
@@ -41,8 +38,8 @@ public class User extends DomainObject {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @Transient
-    private NavigableSet<Ticket> tickets = new TreeSet<>();
+    @OneToMany(targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets = new TreeSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -68,11 +65,11 @@ public class User extends DomainObject {
         this.email = email;
     }
 
-    public NavigableSet<Ticket> getTickets() {
+    public Set<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(NavigableSet<Ticket> tickets) {
+    public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
     }
 

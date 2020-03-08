@@ -3,19 +3,28 @@ package ua.training.spring.hometask.domain;
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-
+@Entity
+@Table(name = "tickets")
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne()
+    @JoinColumn(name = "event_id")
     private Event event;
 
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+    @Column(name = "seat")
     private long seat;
 
+    @Column(name = "base_price")
     private double basePrice;
 
     public Ticket() {

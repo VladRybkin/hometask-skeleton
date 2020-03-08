@@ -5,34 +5,34 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.training.spring.hometask.dao.EventCountDao;
-import ua.training.spring.hometask.domain.EventCount;
+import ua.training.spring.hometask.dao.UserDiscountCountDao;
+import ua.training.spring.hometask.domain.UserDiscountCount;
 
 import java.util.Collection;
 
 @Repository
-public class HibernateEventCountDaoImpl implements EventCountDao {
+public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public EventCount getByName(String name) {
-        EventCount eventCount;
+    public UserDiscountCount getByName(String name) {
+        UserDiscountCount userDiscountCount;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM EventCount where name=:name");
+            Query query = session.createQuery("FROM UserDiscountCount where name=:name");
             query.setParameter("name", name);
-            eventCount = (EventCount) query.getSingleResult();
+            userDiscountCount = (UserDiscountCount) query.getSingleResult();
         }
 
-        return eventCount;
+        return userDiscountCount;
     }
 
     @Override
-    public boolean update(EventCount eventCount) {
+    public boolean update(UserDiscountCount userDiscountCount) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.update(eventCount);
+            session.update(userDiscountCount);
             session.getTransaction().commit();
         }
 
@@ -40,7 +40,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public EventCount save(EventCount object) {
+    public UserDiscountCount save(UserDiscountCount object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(object);
@@ -51,7 +51,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public void remove(EventCount object) {
+    public void remove(UserDiscountCount object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(object);
@@ -60,22 +60,22 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public EventCount getById(Long id) {
-        EventCount eventCount;
+    public UserDiscountCount getById(Long id) {
+        UserDiscountCount userDiscountCount;
         try (Session session = sessionFactory.openSession()) {
-            eventCount = session.get(EventCount.class, id);
+            userDiscountCount = session.get(UserDiscountCount.class, id);
         }
 
-        return eventCount;
+        return userDiscountCount;
     }
 
     @Override
-    public Collection<EventCount> getAll() {
-        Collection<EventCount> eventCounts;
+    public Collection<UserDiscountCount> getAll() {
+        Collection<UserDiscountCount> userDiscountCounts;
         try (Session session = sessionFactory.openSession()) {
-            eventCounts = session.createQuery("FROM EventCount", EventCount.class).list();
+            userDiscountCounts = session.createQuery("FROM UserDiscountCount", UserDiscountCount.class).list();
         }
 
-        return eventCounts;
+        return userDiscountCounts;
     }
 }
