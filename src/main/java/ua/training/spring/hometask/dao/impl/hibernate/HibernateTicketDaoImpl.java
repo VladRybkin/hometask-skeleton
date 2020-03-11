@@ -24,8 +24,9 @@ public class HibernateTicketDaoImpl implements TicketDao {
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM Ticket t where t.user is not null and t.event=:event", Ticket.class);
+            Query query = session.createQuery("FROM Ticket t where t.user is not null and t.event=:event and t.dateTime < :dateTime", Ticket.class);
             query.setParameter("event", event);
+            query.setParameter("dateTime", dateTime);
             tickets = query.getResultList();
         }
 
