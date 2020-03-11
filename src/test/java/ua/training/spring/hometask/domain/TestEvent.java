@@ -71,7 +71,7 @@ class TestEvent {
 
     @Test
     void testAddRemoveAuditoriums() {
-        LocalDateTime time = event.getAirDates().first();
+        LocalDateTime time = event.getAirDates().stream().findAny().orElse(null);
 
         assertThat(event.getAuditoriums(), is(anEmptyMap()));
 

@@ -5,10 +5,7 @@ import com.google.common.base.Objects;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.NavigableMap;
-import java.util.NavigableSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 @Entity
 @Table(name = "events")
@@ -18,7 +15,14 @@ public class Event extends DomainObject {
     private String name;
 
     @Transient
-    private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
+    private Set<LocalDateTime> airDates = new TreeSet<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "event_dates",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "air_date_id"))
+    private Set<AirDate> eventAirDates = new HashSet<>();
 
     @Column(name = "base_price")
     private double basePrice;
@@ -149,11 +153,11 @@ public class Event extends DomainObject {
         this.name = name;
     }
 
-    public NavigableSet<LocalDateTime> getAirDates() {
+    public Set<LocalDateTime> getAirDates() {
         return airDates;
     }
 
-    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
+    public void setAirDates(Set<LocalDateTime> airDates) {
         this.airDates = airDates;
     }
 
@@ -200,6 +204,14 @@ public class Event extends DomainObject {
                 Objects.equal(airDates, event.airDates) &&
                 rating == event.rating &&
                 Objects.equal(auditoriums, event.auditoriums);
+    }
+
+    public Set<AirDate> getEventAirDates() {
+        return eventAirDates;
+    }
+
+    public void setEventAirDates(Set<AirDate> eventAirDates) {
+        this.eventAirDates = eventAirDates;
     }
 
     @Override

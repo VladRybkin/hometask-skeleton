@@ -86,6 +86,6 @@ class TenthTicketDiscountStrategyTest {
     }
 
     private IntConsumer addTicket(User user, Set<Ticket> tickets) {
-        return i -> tickets.add(new Ticket(user, testEvent, testEvent.getAirDates().first(), i, TICKET_BASE_PRICE));
+        return i -> tickets.add(new Ticket(user, testEvent, testEvent.getAirDates().stream().findAny().orElse(null), i, TICKET_BASE_PRICE));
     }
 }

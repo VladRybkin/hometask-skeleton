@@ -3,6 +3,7 @@ package ua.training.spring.hometask.dao.impl.hibernate;
 import com.google.common.collect.Sets;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
@@ -19,14 +20,13 @@ public class HibernateTicketDaoImpl implements TicketDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    /**
-     * @todo
-     **/
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            tickets = session.createQuery("FROM Ticket", Ticket.class).list();
+            Query query = session.createQuery("FROM Ticket t where t.user is not null and t.event=:event", Ticket.class);
+            query.setParameter("event", event);
+            tickets = query.getResultList();
         }
 
         return Sets.newHashSet(tickets);

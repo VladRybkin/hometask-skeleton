@@ -38,7 +38,7 @@ public class User extends DomainObject {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @OneToMany(targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Ticket> tickets = new TreeSet<>();
 
     public String getFirstName() {

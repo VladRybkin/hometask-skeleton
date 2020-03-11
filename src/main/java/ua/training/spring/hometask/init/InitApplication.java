@@ -87,6 +87,6 @@ public class InitApplication {
     }
 
     private IntConsumer addTicket(Set<Ticket> tickets, Event event) {
-        return seat -> tickets.add(new Ticket(event, event.getAirDates().first(), seat, 100));
+        return seat -> tickets.add(new Ticket(event, event.getAirDates().stream().findAny().orElse(null), seat, 100));
     }
 }

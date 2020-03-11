@@ -81,6 +81,7 @@ public class HibernateEventDaoImpl implements EventDao {
         Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
             events = session.createQuery("FROM Event", Event.class).list();
+            events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getLocalDateTime())));
         }
 
         return events;
