@@ -67,4 +67,8 @@ public class HibernateUserDaoImpl implements UserDao {
 
         return users;
     }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

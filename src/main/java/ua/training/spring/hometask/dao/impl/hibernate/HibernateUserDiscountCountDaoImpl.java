@@ -78,4 +78,8 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
         return userDiscountCounts;
     }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

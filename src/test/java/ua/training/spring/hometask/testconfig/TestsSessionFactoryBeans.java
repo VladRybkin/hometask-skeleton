@@ -1,27 +1,27 @@
-package ua.training.spring.hometask.config;
+package ua.training.spring.hometask.testconfig;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement
-@Import(DataSourceBeans.class)
-public class BeansHibernate {
+@Import({TestDataSourceBeans.class, })
+public class TestsSessionFactoryBeans {
 
     @Autowired
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+    public LocalSessionFactoryBean testSessionFactory(@Qualifier("h2DataSource") DataSource testDataSourceDataSource) {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-        localSessionFactoryBean.setDataSource(dataSource);
+        localSessionFactoryBean.setDataSource(testDataSourceDataSource);
         localSessionFactoryBean.setPackagesToScan("ua.training.spring.hometask.domain");
 
         Properties properties = new Properties();
@@ -32,13 +32,15 @@ public class BeansHibernate {
         return localSessionFactoryBean;
     }
 
+
     @Autowired
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
+    public PlatformTransactionManager testHibernateTransactionManager(@Qualifier("h2DataSource") DataSource testDataSource) {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory(dataSource).getObject());
+        transactionManager.setSessionFactory(testSessionFactory(testDataSource).getObject());
 
         return transactionManager;
     }
+
 }

@@ -40,7 +40,7 @@ class JdbcTicketDaoImplIntegrationTest {
     private JdbcUserDaoImpl jdbcUserDao;
 
     @Autowired
-    JdbcEventDaoImpl jdbcEventDao;
+    private JdbcEventDaoImpl jdbcEventDao;
 
     @Autowired
     @Qualifier("testJdbcTemplate")

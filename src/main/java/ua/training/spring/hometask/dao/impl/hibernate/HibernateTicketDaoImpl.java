@@ -72,4 +72,8 @@ public class HibernateTicketDaoImpl implements TicketDao {
 
         return tickets;
     }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

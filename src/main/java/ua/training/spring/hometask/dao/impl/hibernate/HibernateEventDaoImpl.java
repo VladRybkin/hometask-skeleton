@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.hibernate;
 
+import com.google.common.collect.Sets;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,20 +31,38 @@ public class HibernateEventDaoImpl implements EventDao {
         return event;
     }
 
-    /**
-     * @todo
-     **/
+
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        return null;
+        Collection<Event> events;
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("from Event ev "
+                            + "left join ev.eventAirDates ed "
+                            + "where WHERE ed.eventDate "
+                            + "BETWEEN :from AND :to",
+                    Event.class);
+            query.setParameter("from", from);
+            query.setParameter("to", to);
+
+            events = query.list();
+            events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
+        }
+
+        return Sets.newHashSet(events);
     }
 
-    /**
-     * @todo
-     **/
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        return null;
+        Collection<Event> events;
+        try (Session session = sessionFactory.openSession()) {
+            Query query = session.createQuery("from Event ev left join ev.eventAirDates ed where WHERE ed.eventDate > :from ", Event.class);
+            query.setParameter("to", to);
+
+            events = query.list();
+            events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
+        }
+
+        return Sets.newHashSet(events);
     }
 
     @Override
@@ -81,9 +100,13 @@ public class HibernateEventDaoImpl implements EventDao {
         Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
             events = session.createQuery("FROM Event", Event.class).list();
-            events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getLocalDateTime())));
+            events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
         }
 
         return events;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

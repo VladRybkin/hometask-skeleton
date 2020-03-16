@@ -78,4 +78,8 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
 
         return eventCounts;
     }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

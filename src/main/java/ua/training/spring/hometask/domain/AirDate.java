@@ -13,18 +13,18 @@ import java.util.Set;
 public class AirDate extends DomainObject {
 
     @Column(name = "event_date")
-    private LocalDateTime localDateTime;
+    private LocalDateTime eventDate;
 
     @ManyToMany(targetEntity = Event.class, mappedBy = "eventAirDates")
     private Set<Event> events = new HashSet<>();
 
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
+    public LocalDateTime getEventDate() {
+        return eventDate;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    public void setEventDate(LocalDateTime eventDate) {
+        this.eventDate = eventDate;
     }
 
     public Set<Event> getEvents() {
