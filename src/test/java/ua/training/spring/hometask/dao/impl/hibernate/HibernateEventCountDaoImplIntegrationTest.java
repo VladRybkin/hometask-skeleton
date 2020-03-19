@@ -13,8 +13,13 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
+import java.util.Collection;
+
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.hasSize;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -31,15 +36,32 @@ class HibernateEventCountDaoImplIntegrationTest {
     @BeforeEach
     void setUp() {
         hibernateEventCountDao.setSessionFactory(sessionFactory);
-
     }
 
     @Test
     void getByName() {
+        EventCount eventCount = buildTestEventCount();
+        hibernateEventCountDao.save(eventCount);
+        EventCount foundByName = hibernateEventCountDao.getByName(eventCount.getEventName());
+
+        assertThat(foundByName, is(eventCount));
     }
 
     @Test
     void update() {
+        EventCount eventCount = buildTestEventCount();
+
+        hibernateEventCountDao.save(eventCount);
+
+        eventCount.setEventName("updated");
+        eventCount.setCountGetByName(600);
+        eventCount.setCountGetPrice(600);
+        eventCount.setCountBookTickets(600);
+
+        boolean updated = hibernateEventCountDao.update(eventCount);
+
+        assertThat(updated, is(true));
+        assertThat(hibernateEventCountDao.getById(1L), is(eventCount));
     }
 
     @Test
@@ -54,15 +76,24 @@ class HibernateEventCountDaoImplIntegrationTest {
 
     @Test
     void remove() {
-    }
+        EventCount eventCount = buildTestEventCount();
 
-    @Test
-    void getById() {
+        hibernateEventCountDao.save(eventCount);
+        assertThat(hibernateEventCountDao.getAll(), hasItems(eventCount));
+
+        hibernateEventCountDao.remove(eventCount);
+        assertThat(hibernateEventCountDao.getAll(), is(empty()));
     }
 
     @Test
     void getAll() {
-        System.out.println(hibernateEventCountDao.getAll());
+        EventCount testEventCount = buildTestEventCount();
+        hibernateEventCountDao.save(testEventCount);
+
+        Collection<EventCount> eventCounts = hibernateEventCountDao.getAll();
+
+        assertThat(eventCounts, hasItems(testEventCount));
+        assertThat(eventCounts, hasSize(1));
     }
 
     private EventCount buildTestEventCount() {
