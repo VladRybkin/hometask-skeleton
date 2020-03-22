@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
 
+import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
@@ -23,6 +24,8 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
             Query query = session.createQuery("FROM EventCount where name=:name");
             query.setParameter("name", name);
             eventCount = (EventCount) query.getSingleResult();
+        } catch (NoResultException e) {
+            eventCount = null;
         }
 
         return eventCount;

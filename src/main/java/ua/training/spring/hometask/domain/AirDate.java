@@ -19,6 +19,13 @@ public class AirDate extends DomainObject {
     private Set<Event> events = new HashSet<>();
 
 
+    public AirDate() {
+    }
+
+    public AirDate(LocalDateTime eventDate) {
+        this.eventDate = eventDate;
+    }
+
     public LocalDateTime getEventDate() {
         return eventDate;
     }

@@ -3,11 +3,13 @@ package ua.training.spring.hometask.dao.impl.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
 import ua.training.spring.hometask.domain.UserDiscountCount;
 
+import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
@@ -23,6 +25,8 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
             Query query = session.createQuery("FROM UserDiscountCount where name=:name");
             query.setParameter("name", name);
             userDiscountCount = (UserDiscountCount) query.getSingleResult();
+        } catch (NoResultException e) {
+            userDiscountCount = null;
         }
 
         return userDiscountCount;
@@ -30,7 +34,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public boolean update(UserDiscountCount userDiscountCount) {
-        try (Session session = sessionFactory.openSession()) {
+        try (Session session = sessionFactory.openSession();) {
             session.beginTransaction();
             session.update(userDiscountCount);
             session.getTransaction().commit();

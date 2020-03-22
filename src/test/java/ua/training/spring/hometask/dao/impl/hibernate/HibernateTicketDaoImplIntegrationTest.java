@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
@@ -55,8 +56,10 @@ class HibernateTicketDaoImplIntegrationTest {
         Ticket ticket = buildTestTicket();
 
         hibernateTicketDao.save(ticket);
+        System.out.println(ticket.getDateTime());
 
-        Collection<Ticket> persistedPurchasedTickets = hibernateTicketDao.getPurchasedTicketsForEvent(ticket.getEvent(), ticket.getDateTime());
+        Collection<Ticket> persistedPurchasedTickets = hibernateTicketDao.
+                getPurchasedTicketsForEvent(ticket.getEvent(), ticket.getDateTime().minusDays(1));
 
         assertThat(persistedPurchasedTickets, hasItems(ticket));
         assertThat(persistedPurchasedTickets, hasSize(1));
@@ -88,7 +91,6 @@ class HibernateTicketDaoImplIntegrationTest {
         Ticket ticket = buildTestTicket();
 
         hibernateTicketDao.save(ticket);
-
 
         hibernateTicketDao.remove(ticket);
 
@@ -126,6 +128,7 @@ class HibernateTicketDaoImplIntegrationTest {
 
         event.setBasePrice(100);
         event.setName("testEvent");
+        event.setRating(EventRating.LOW);
 
         LocalDateTime ticketDate = LocalDateTime.now();
         ticket.setDateTime(ticketDate);

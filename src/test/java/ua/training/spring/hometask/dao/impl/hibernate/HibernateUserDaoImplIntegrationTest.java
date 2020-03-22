@@ -63,7 +63,6 @@ class HibernateUserDaoImplIntegrationTest {
 
         hibernateUserDao.save(user);
 
-
         hibernateUserDao.remove(user);
 
     }
@@ -75,7 +74,6 @@ class HibernateUserDaoImplIntegrationTest {
 
         Collection<User> persistedUsers = hibernateUserDao.getAll();
 
-
         assertThat(persistedUsers, hasItems(user));
         assertThat(persistedUsers, hasSize(1));
     }
@@ -83,7 +81,6 @@ class HibernateUserDaoImplIntegrationTest {
     @Test
     void shouldReturnNullWhenGetByEmail() {
         User user = buildTestUser();
-
 
         User foundByEmail = hibernateUserDao.getUserByEmail(user.getEmail());
 

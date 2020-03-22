@@ -15,7 +15,9 @@ import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -80,6 +82,7 @@ class HibernateEventDaoImplIntegrationTest {
         Event testEvent2 = buildTestEvent();
         testEvent2.setName("testEvent2");
         testEvent2.getAirDates().add(LocalDateTime.now().minusDays(6));
+
         testEvent2.getAirDates().add(LocalDateTime.now().minusDays(300));
 
         hibernateEventDao.save(testEvent1);

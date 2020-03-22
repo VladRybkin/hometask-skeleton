@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 
+import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
@@ -23,6 +24,8 @@ public class HibernateUserDaoImpl implements UserDao {
             Query query = session.createQuery("FROM User where email=:email");
             query.setParameter("email", email);
             user = (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            user = null;
         }
 
         return user;
