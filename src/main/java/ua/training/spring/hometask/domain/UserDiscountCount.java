@@ -60,15 +60,16 @@ public class UserDiscountCount extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDiscountCount that = (UserDiscountCount) o;
-        return countTenthTicketDiscount == that.countTenthTicketDiscount &&
-                countBirthdayDiscount == that.countBirthdayDiscount &&
-                Objects.equal(name, that.name);
+        UserDiscountCount userDiscountCount = (UserDiscountCount) o;
+        return countTenthTicketDiscount == userDiscountCount.countTenthTicketDiscount &&
+                countBirthdayDiscount == userDiscountCount.countBirthdayDiscount &&
+                Objects.equal(name, userDiscountCount.name)&&
+                Objects.equal(getId(), userDiscountCount.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, countTenthTicketDiscount, countBirthdayDiscount);
+        return Objects.hashCode(name, countTenthTicketDiscount, countBirthdayDiscount, getId());
     }
 
     @Override

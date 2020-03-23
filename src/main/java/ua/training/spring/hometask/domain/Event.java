@@ -187,7 +187,7 @@ public class Event extends DomainObject {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(name, getId());
     }
 
     @Override
@@ -203,7 +203,8 @@ public class Event extends DomainObject {
                 Objects.equal(name, event.name) &&
                 Objects.equal(airDates, event.airDates) &&
                 rating == event.rating &&
-                Objects.equal(auditoriums, event.auditoriums);
+                Objects.equal(auditoriums, event.auditoriums) &&
+                Objects.equal(getId(), event.getId());
     }
 
     public Set<AirDate> getEventAirDates() {
@@ -217,7 +218,7 @@ public class Event extends DomainObject {
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("id", super.getId())
+                .add("id", getId())
                 .add("name", name)
                 .add("airDates", airDates)
                 .add("basePrice", basePrice)

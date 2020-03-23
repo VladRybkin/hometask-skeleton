@@ -80,7 +80,7 @@ class HibernateEventCountDaoImplIntegrationTest {
         EventCount eventCount = buildTestEventCount();
 
         hibernateEventCountDao.save(eventCount);
-        assertThat(hibernateEventCountDao.getAll(), hasItems(eventCount));
+        assertThat(hibernateEventCountDao.getAll(), hasSize(1));
 
         hibernateEventCountDao.remove(eventCount);
         assertThat(hibernateEventCountDao.getAll(), is(empty()));

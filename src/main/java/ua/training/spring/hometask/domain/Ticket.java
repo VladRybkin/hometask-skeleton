@@ -98,12 +98,13 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
                 Double.compare(ticket.basePrice, basePrice) == 0 &&
                 Objects.equal(user, ticket.user) &&
                 Objects.equal(event, ticket.event) &&
-                Objects.equal(dateTime, ticket.dateTime);
+                Objects.equal(dateTime, ticket.dateTime) &&
+                Objects.equal(getId(), ticket.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(user, event, dateTime, seat, basePrice);
+        return Objects.hashCode(user, event, dateTime, seat, basePrice, getId());
     }
 
     @Override
@@ -117,8 +118,6 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
                 .compare(seat, other.getSeat())
                 .compare(basePrice, other.getBasePrice())
                 .result();
-
-
     }
 
     @Override

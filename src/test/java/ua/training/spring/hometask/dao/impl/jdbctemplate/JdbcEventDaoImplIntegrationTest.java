@@ -12,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
 import java.time.LocalDateTime;
@@ -48,20 +47,23 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
 
         jdbcEventDao.save(event);
+        event.setId(1L);
+
         Event foundByName = jdbcEventDao.getByName(event.getName());
 
         assertThat(foundByName, is(event));
     }
 
-
     @Test
     void shouldGetByIdPersistedEvent() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
 
         jdbcEventDao.save(event);
+        event.setId(1L);
+
         Event foundById = jdbcEventDao.getById(1L);
 
         assertThat(foundById, is(event));
@@ -69,10 +71,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
         jdbcEventDao.save(event);
+        event.setId(1L);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
 
         jdbcEventDao.remove(event);
@@ -81,17 +84,19 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        Event testEvent1 = createTestEvent();
+        Event testEvent1 = buildTestEvent();
         testEvent1.getAirDates().add(LocalDateTime.now().minusDays(3));
         testEvent1.getAirDates().add(LocalDateTime.MAX);
 
-        Event testEvent2 = createTestEvent();
+        Event testEvent2 = buildTestEvent();
         testEvent2.setName("testEvent2");
         testEvent2.getAirDates().add(LocalDateTime.now().minusDays(6));
         testEvent2.getAirDates().add(LocalDateTime.MIN);
 
         jdbcEventDao.save(testEvent1);
         jdbcEventDao.save(testEvent2);
+        testEvent1.setId(1L);
+        testEvent2.setId(2L);
 
         Collection<Event> persistedEvents = jdbcEventDao.getAll();
 
@@ -102,10 +107,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEventsThatMatchDateRange() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
+        event.setId(1L);
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(6), LocalDateTime.now());
@@ -116,10 +122,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEmptyDateRangeEvents() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(6));
 
         jdbcEventDao.save(event);
+        event.setId(1L);
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(3), LocalDateTime.now());
@@ -129,10 +136,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getNextEvents() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
+        event.setId(1L);
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getNextEvents(LocalDateTime.now());
@@ -142,10 +150,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEmptyNextEvents() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
+        event.setId(1L);
 
         Collection<Event> persistedEvents = jdbcEventDao
                 .getNextEvents(LocalDateTime.now().minusDays(5));
@@ -155,7 +164,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByName() {
-        Event event = createTestEvent();
+        Event event = buildTestEvent();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         Event foundByName = jdbcEventDao.getByName(event.getName());
@@ -170,12 +179,5 @@ class JdbcEventDaoImplIntegrationTest {
         Event foundById = jdbcEventDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
-    }
-
-    private Event createTestEvent() {
-        Event event = buildTestEvent();
-        event.setId(1L);
-
-        return event;
     }
 }

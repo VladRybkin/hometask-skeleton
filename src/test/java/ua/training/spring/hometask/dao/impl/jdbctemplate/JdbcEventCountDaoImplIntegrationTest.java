@@ -45,8 +45,11 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        EventCount eventCount = createTestEventCount();
+        EventCount eventCount = buildTestEventCount();
+
         jdbcEventCountDao.save(eventCount);
+        eventCount.setId(1L);
+
         EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
 
         assertThat(foundByName, is(eventCount));
@@ -54,9 +57,11 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedEventCount() {
-        EventCount eventCount = createTestEventCount();
+        EventCount eventCount = buildTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
+        eventCount.setId(1L);
+
         EventCount foundEvent = jdbcEventCountDao.getById(1L);
 
         assertThat(foundEvent, is(eventCount));
@@ -64,10 +69,12 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        EventCount eventCount = createTestEventCount();
+        EventCount eventCount = buildTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+
+        eventCount.setId(1L);
 
         jdbcEventCountDao.remove(eventCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
@@ -75,7 +82,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void update() {
-        EventCount eventCount = createTestEventCount();
+        EventCount eventCount = buildTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
 
@@ -83,6 +90,7 @@ class JdbcEventCountDaoImplIntegrationTest {
         eventCount.setCountGetByName(600);
         eventCount.setCountGetPrice(600);
         eventCount.setCountBookTickets(600);
+        eventCount.setId(1L);
 
         boolean updated = jdbcEventCountDao.update(eventCount);
 
@@ -93,10 +101,11 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        EventCount testEventCount = createTestEventCount();
+        EventCount testEventCount = buildTestEventCount();
         jdbcEventCountDao.save(testEventCount);
 
         Collection<EventCount> eventCounts = jdbcEventCountDao.getAll();
+        testEventCount.setId(1L);
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
         assertThat(eventCounts, hasItems(testEventCount));
@@ -105,7 +114,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByName() {
-        EventCount eventCount = createTestEventCount();
+        EventCount eventCount = buildTestEventCount();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
@@ -120,12 +129,5 @@ class JdbcEventCountDaoImplIntegrationTest {
         EventCount foundById = jdbcEventCountDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
-    }
-
-    private EventCount createTestEventCount() {
-        EventCount eventCount = buildTestEventCount();
-        eventCount.setId(1L);
-
-        return eventCount;
     }
 }

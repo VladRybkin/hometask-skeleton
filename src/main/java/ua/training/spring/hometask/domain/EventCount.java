@@ -64,17 +64,17 @@ public class EventCount extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EventCount that = (EventCount) o;
-        return countGetByName == that.countGetByName &&
-                countBookTickets == that.countBookTickets &&
-                countGetPrice == that.countGetPrice &&
-                Objects.equal(eventName, that.eventName);
+        EventCount eventCount = (EventCount) o;
+        return countGetByName == eventCount.countGetByName &&
+                countBookTickets == eventCount.countBookTickets &&
+                countGetPrice == eventCount.countGetPrice &&
+                Objects.equal(eventName, eventCount.eventName) &&
+                Objects.equal(getId(), eventCount.getId());
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(eventName, countGetByName, countBookTickets, countGetPrice);
+        return Objects.hashCode(eventName, countGetByName, countBookTickets, countGetPrice, getId());
     }
 
     @Override

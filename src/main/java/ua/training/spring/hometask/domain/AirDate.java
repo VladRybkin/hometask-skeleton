@@ -1,5 +1,7 @@
 package ua.training.spring.hometask.domain;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -40,5 +42,24 @@ public class AirDate extends DomainObject {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AirDate airDate = (AirDate) o;
+        return Objects.equal(eventDate, airDate.eventDate) &&
+                Objects.equal(events, airDate.events) &&
+                Objects.equal(getId(), airDate.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(eventDate, events, getId());
     }
 }

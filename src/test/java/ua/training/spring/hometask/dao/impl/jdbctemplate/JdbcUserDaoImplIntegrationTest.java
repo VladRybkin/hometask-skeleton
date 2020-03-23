@@ -46,8 +46,10 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void getUserByEmail() {
-        User user = createTestUser();
+        User user = buildTestUser();
         jdbcUserDao.save(user);
+        user.setId(1L);
+
         User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
 
         assertThat(foundByEmail, is(user));
@@ -55,8 +57,10 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedUser() {
-        User user = createTestUser();
+        User user = buildTestUser();
         jdbcUserDao.save(user);
+        user.setId(1L);
+
         User foundUser = jdbcUserDao.getById(1L);
 
         assertThat(foundUser, is(user));
@@ -65,10 +69,12 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        User user = createTestUser();
+        User user = buildTestUser();
 
         jdbcUserDao.save(user);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+
+        user.setId(1L);
 
         jdbcUserDao.remove(user);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
@@ -76,8 +82,9 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        User user = createTestUser();
+        User user = buildTestUser();
         jdbcUserDao.save(user);
+        user.setId(1L);
 
         Collection<User> persistedUsers = jdbcUserDao.getAll();
 
@@ -88,7 +95,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByEmail() {
-        User user = createTestUser();
+        User user = buildTestUser();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
@@ -103,12 +110,5 @@ class JdbcUserDaoImplIntegrationTest {
         User foundById = jdbcUserDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
-    }
-
-    private User createTestUser() {
-        User user = buildTestUser();
-
-
-        return user;
     }
 }

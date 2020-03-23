@@ -21,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildUserDiscountCount;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
@@ -45,7 +46,10 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
     @Test
     void getByName() {
         UserDiscountCount discountCount = buildUserDiscountCount();
+
         jdbcUserDiscountCountDao.save(discountCount);
+        discountCount.setId(1L);
+
         UserDiscountCount foundByName = jdbcUserDiscountCountDao.getByName(discountCount.getName());
 
         assertThat(foundByName, is(discountCount));
@@ -56,6 +60,8 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         UserDiscountCount discountCount = buildUserDiscountCount();
 
         jdbcUserDiscountCountDao.save(discountCount);
+        discountCount.setId(1L);
+
         UserDiscountCount foundDiscount = jdbcUserDiscountCountDao.getById(1L);
 
         assertThat(foundDiscount, is(discountCount));
@@ -67,6 +73,8 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
 
         jdbcUserDiscountCountDao.save(discountCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
+
+        discountCount.setId(1L);
 
         jdbcUserDiscountCountDao.remove(discountCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
@@ -82,6 +90,7 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         discountCount.setName("updated");
         discountCount.setCountTenthTicketDiscount(600);
         discountCount.setCountBirthdayDiscount(600);
+        discountCount.setId(1L);
 
         boolean updated = jdbcUserDiscountCountDao.update(discountCount);
 
@@ -93,13 +102,14 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        UserDiscountCount user = buildUserDiscountCount();
-        jdbcUserDiscountCountDao.save(user);
+        UserDiscountCount discountCount = buildUserDiscountCount();
+        jdbcUserDiscountCountDao.save(discountCount);
+        discountCount.setId(1L);
 
         Collection<UserDiscountCount> persistedDiscounts = jdbcUserDiscountCountDao.getAll();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
-        assertThat(persistedDiscounts, hasItems(user));
+        assertThat(persistedDiscounts, hasItems(discountCount));
         assertThat(persistedDiscounts, hasSize(1));
     }
 
@@ -120,15 +130,5 @@ class JdbcUserDiscountCountDaoImplIntegrationTest {
         UserDiscountCount foundById = jdbcUserDiscountCountDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
-    }
-
-    private UserDiscountCount buildUserDiscountCount() {
-        UserDiscountCount userDiscountCount = new UserDiscountCount();
-        userDiscountCount.setId(1L);
-        userDiscountCount.setName("test discount name");
-        userDiscountCount.setCountBirthdayDiscount(0);
-        userDiscountCount.setCountTenthTicketDiscount(0);
-
-        return userDiscountCount;
     }
 }

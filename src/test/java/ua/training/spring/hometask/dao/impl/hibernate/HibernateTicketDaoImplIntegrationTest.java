@@ -88,9 +88,10 @@ class HibernateTicketDaoImplIntegrationTest {
         Ticket ticket = createTestTicket();
 
         hibernateTicketDao.save(ticket);
+        assertThat(hibernateTicketDao.getAll(), hasSize(1));
 
         hibernateTicketDao.remove(ticket);
-
+        assertThat(hibernateTicketDao.getAll(), is(empty()));
     }
 
     @Test
@@ -112,7 +113,6 @@ class HibernateTicketDaoImplIntegrationTest {
     }
 
     private Ticket createTestTicket() {
-        Ticket ticket = buildTestTicketWithPersistedUserAndEvent(hibernateUserDao, hibernateEventDao);
-        return ticket;
+        return buildTestTicketWithPersistedUserAndEvent(hibernateUserDao, hibernateEventDao);
     }
 }

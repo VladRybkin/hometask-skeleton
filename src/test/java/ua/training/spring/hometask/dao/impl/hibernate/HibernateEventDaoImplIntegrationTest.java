@@ -67,8 +67,10 @@ class HibernateEventDaoImplIntegrationTest {
         event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
         hibernateEventDao.save(event);
+        assertThat(hibernateEventDao.getAll(), hasSize(1));
 
         hibernateEventDao.remove(event);
+        assertThat(hibernateEventDao.getAll(), is(empty()));
     }
 
     @Test

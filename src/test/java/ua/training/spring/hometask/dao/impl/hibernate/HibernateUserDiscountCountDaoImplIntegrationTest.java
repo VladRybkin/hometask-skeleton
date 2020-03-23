@@ -17,6 +17,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildUserDiscountCount;
 
@@ -59,8 +60,12 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
     @Test
     void remove() {
         UserDiscountCount discountCount = buildUserDiscountCount();
+
         hibernateUserDiscountCountDao.save(discountCount);
+        assertThat(hibernateUserDiscountCountDao.getAll(), hasSize(1));
+
         hibernateUserDiscountCountDao.remove(discountCount);
+        assertThat(hibernateUserDiscountCountDao.getAll(), is(empty()));
     }
 
     @Test

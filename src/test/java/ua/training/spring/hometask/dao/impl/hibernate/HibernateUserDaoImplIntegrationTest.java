@@ -19,6 +19,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestUser;
 
@@ -55,7 +56,6 @@ class HibernateUserDaoImplIntegrationTest {
         User foundUser = hibernateUserDao.getById(1L);
 
         assertThat(foundUser, is(user));
-
     }
 
     @Test
@@ -63,9 +63,10 @@ class HibernateUserDaoImplIntegrationTest {
         User user = buildTestUser();
 
         hibernateUserDao.save(user);
+        assertThat(hibernateUserDao.getAll(), hasSize(1));
 
         hibernateUserDao.remove(user);
-
+        assertThat(hibernateUserDao.getAll(), is(empty()));
     }
 
     @Test
