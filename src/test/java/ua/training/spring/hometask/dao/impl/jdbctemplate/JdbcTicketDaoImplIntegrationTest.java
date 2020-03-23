@@ -11,9 +11,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -22,7 +25,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
-import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestTicketWithPersistedUserAndEvent;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
@@ -127,7 +129,27 @@ class JdbcTicketDaoImplIntegrationTest {
     }
 
     private Ticket createTestTicket() {
-        Ticket ticket = buildTestTicketWithPersistedUserAndEvent(jdbcUserDao, jdbcEventDao);
+        Ticket ticket = new Ticket();
+        ticket.setBasePrice(100);
+        ticket.setSeat(100);
+
+        User user = new User();
+        user.setEmail("usermail1");
+        user.setId(1L);
+
+        Event event = new Event();
+        event.setBasePrice(100);
+        event.setName("testEvent");
+        event.setId(1L);
+
+        LocalDateTime ticketDate = LocalDateTime.now();
+        ticket.setDateTime(ticketDate);
+        ticket.setUser(user);
+        ticket.setEvent(event);
+
+        jdbcUserDao.save(user);
+        jdbcEventDao.save(event);
+
         return ticket;
     }
 }

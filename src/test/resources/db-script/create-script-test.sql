@@ -1,7 +1,4 @@
 
--- USE testTheatreDB;
-
-
 CREATE TABLE IF NOT EXISTS users (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(45),

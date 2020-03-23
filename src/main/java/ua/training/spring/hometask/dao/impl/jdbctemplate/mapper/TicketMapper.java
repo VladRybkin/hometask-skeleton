@@ -1,13 +1,14 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ua.training.spring.hometask.dao.EventDao;
+import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.service.EventService;
-import ua.training.spring.hometask.service.UserService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,10 +19,12 @@ import java.util.Objects;
 public class TicketMapper implements RowMapper<Ticket> {
 
     @Autowired
-    private UserService userService;
+    @Qualifier("jdbcUserDaoImpl")
+    private UserDao userDao;
 
     @Autowired
-    private EventService eventService;
+    @Qualifier("jdbcEventDaoImpl")
+    private EventDao eventDao;
 
     @Override
     public Ticket mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -49,7 +52,7 @@ public class TicketMapper implements RowMapper<Ticket> {
 
     private void setUserToTicket(Ticket ticket, long userId) {
         if (userId != 0) {
-            User user = userService.getById(userId);
+            User user = userDao.getById(userId);
 
             if (!Objects.isNull(user)) {
                 ticket.setUser(user);
@@ -59,7 +62,7 @@ public class TicketMapper implements RowMapper<Ticket> {
 
     private void setEventToTicket(Ticket ticket, long eventId) {
         if (eventId != 0) {
-            Event event = eventService.getById(eventId);
+            Event event = eventDao.getById(eventId);
 
             if (!Objects.isNull(event)) {
                 ticket.setEvent(event);
