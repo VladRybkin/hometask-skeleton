@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -40,7 +41,7 @@ class HibernateEventCountDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount =buildTestEventCount();
         hibernateEventCountDao.save(eventCount);
         EventCount foundByName = hibernateEventCountDao.getByName(eventCount.getEventName());
 
@@ -94,15 +95,5 @@ class HibernateEventCountDaoImplIntegrationTest {
 
         assertThat(eventCounts, hasItems(testEventCount));
         assertThat(eventCounts, hasSize(1));
-    }
-
-    private EventCount buildTestEventCount() {
-        EventCount eventCount = new EventCount();
-        eventCount.setEventName("test event name");
-        eventCount.setCountBookTickets(0);
-        eventCount.setCountGetPrice(0);
-        eventCount.setCountGetByName(0);
-
-        return eventCount;
     }
 }

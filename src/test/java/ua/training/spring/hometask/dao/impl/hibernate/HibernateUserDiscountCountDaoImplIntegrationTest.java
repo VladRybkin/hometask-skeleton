@@ -9,18 +9,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.UserDiscountCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildUserDiscountCount;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -106,14 +104,5 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
         UserDiscountCount foundById = hibernateUserDiscountCountDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
-    }
-
-    private UserDiscountCount buildUserDiscountCount() {
-        UserDiscountCount userDiscountCount = new UserDiscountCount();
-        userDiscountCount.setName("test discount name");
-        userDiscountCount.setCountBirthdayDiscount(0);
-        userDiscountCount.setCountTenthTicketDiscount(0);
-
-        return userDiscountCount;
     }
 }

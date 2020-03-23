@@ -11,13 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,6 +22,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEvent;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -158,18 +156,9 @@ class HibernateEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetById() {
-
         Event foundById = hibernateEventDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
     }
 
-    private Event buildTestEvent() {
-        Event event = new Event();
-        event.setName("testEvent");
-        event.setRating(EventRating.HIGH);
-        event.setBasePrice(100);
-
-        return event;
-    }
 }

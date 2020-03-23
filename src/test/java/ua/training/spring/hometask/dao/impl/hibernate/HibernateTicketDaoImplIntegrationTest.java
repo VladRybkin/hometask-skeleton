@@ -10,13 +10,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -25,6 +21,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestTicketWithPersistedUserAndEvent;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -53,7 +50,7 @@ class HibernateTicketDaoImplIntegrationTest {
 
     @Test
     void getPurchasedTicketsForEvent() {
-        Ticket ticket = buildTestTicket();
+        Ticket ticket = createTestTicket();
 
         hibernateTicketDao.save(ticket);
         System.out.println(ticket.getDateTime());
@@ -78,7 +75,7 @@ class HibernateTicketDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedTicket() {
-        Ticket ticket = buildTestTicket();
+        Ticket ticket = createTestTicket();
 
         hibernateTicketDao.save(ticket);
         Ticket foundTicket = hibernateTicketDao.getById(1L);
@@ -88,7 +85,7 @@ class HibernateTicketDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        Ticket ticket = buildTestTicket();
+        Ticket ticket = createTestTicket();
 
         hibernateTicketDao.save(ticket);
 
@@ -98,7 +95,7 @@ class HibernateTicketDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        Ticket user = buildTestTicket();
+        Ticket user = createTestTicket();
         hibernateTicketDao.save(user);
 
         Collection<Ticket> persistedTickets = hibernateTicketDao.getAll();
@@ -114,30 +111,8 @@ class HibernateTicketDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
-    private Ticket buildTestTicket() {
-        Ticket ticket = new Ticket();
-
-        ticket.setBasePrice(100);
-        ticket.setSeat(100);
-
-        User user = new User();
-
-        user.setEmail("usermail1");
-
-        Event event = new Event();
-
-        event.setBasePrice(100);
-        event.setName("testEvent");
-        event.setRating(EventRating.LOW);
-
-        LocalDateTime ticketDate = LocalDateTime.now();
-        ticket.setDateTime(ticketDate);
-        ticket.setUser(user);
-        ticket.setEvent(event);
-
-        hibernateUserDao.save(user);
-        hibernateEventDao.save(event);
-
+    private Ticket createTestTicket() {
+        Ticket ticket = buildTestTicketWithPersistedUserAndEvent(hibernateUserDao, hibernateEventDao);
         return ticket;
     }
 }

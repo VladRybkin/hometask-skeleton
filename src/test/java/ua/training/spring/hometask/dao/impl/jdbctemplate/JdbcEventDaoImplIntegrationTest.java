@@ -24,6 +24,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEvent;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
@@ -47,7 +48,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
 
         jdbcEventDao.save(event);
         Event foundByName = jdbcEventDao.getByName(event.getName());
@@ -58,7 +59,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedEvent() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
 
         jdbcEventDao.save(event);
         Event foundById = jdbcEventDao.getById(1L);
@@ -68,7 +69,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
         event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
         jdbcEventDao.save(event);
@@ -80,11 +81,11 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        Event testEvent1 = buildTestEvent();
+        Event testEvent1 = createTestEvent();
         testEvent1.getAirDates().add(LocalDateTime.now().minusDays(3));
         testEvent1.getAirDates().add(LocalDateTime.MAX);
 
-        Event testEvent2 = buildTestEvent();
+        Event testEvent2 = createTestEvent();
         testEvent2.setName("testEvent2");
         testEvent2.getAirDates().add(LocalDateTime.now().minusDays(6));
         testEvent2.getAirDates().add(LocalDateTime.MIN);
@@ -101,7 +102,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEventsThatMatchDateRange() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
@@ -115,7 +116,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEmptyDateRangeEvents() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(6));
 
         jdbcEventDao.save(event);
@@ -128,7 +129,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void getNextEvents() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
@@ -141,7 +142,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnEmptyNextEvents() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
         jdbcEventDao.save(event);
@@ -154,7 +155,7 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByName() {
-        Event event = buildTestEvent();
+        Event event = createTestEvent();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         Event foundByName = jdbcEventDao.getByName(event.getName());
@@ -171,12 +172,9 @@ class JdbcEventDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
-    private Event buildTestEvent() {
-        Event event = new Event();
+    private Event createTestEvent() {
+        Event event = buildTestEvent();
         event.setId(1L);
-        event.setName("testEvent");
-        event.setRating(EventRating.HIGH);
-        event.setBasePrice(100);
 
         return event;
     }

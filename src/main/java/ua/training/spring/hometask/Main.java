@@ -27,7 +27,7 @@ public class Main {
         HibernateUserDiscountCountDaoImpl userDiscountCountDao = ctx.getBean(HibernateUserDiscountCountDaoImpl.class);
         UserService userService = ctx.getBean(UserService.class);
 
-        System.out.println(ticketDao.getPurchasedTicketsForEvent(hibernateEventDao.getById(12l), LocalDateTime.now()));
+        System.out.println(hibernateEventDao.getAll());
 
 //        System.out.println(ticketDao.getAll());
 

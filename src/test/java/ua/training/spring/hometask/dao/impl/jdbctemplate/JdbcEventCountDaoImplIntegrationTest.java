@@ -21,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
@@ -44,7 +45,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount = createTestEventCount();
         jdbcEventCountDao.save(eventCount);
         EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
 
@@ -53,7 +54,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedEventCount() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount = createTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
         EventCount foundEvent = jdbcEventCountDao.getById(1L);
@@ -63,7 +64,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount = createTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
@@ -74,7 +75,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void update() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount = createTestEventCount();
 
         jdbcEventCountDao.save(eventCount);
 
@@ -92,7 +93,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        EventCount testEventCount = buildTestEventCount();
+        EventCount testEventCount = createTestEventCount();
         jdbcEventCountDao.save(testEventCount);
 
         Collection<EventCount> eventCounts = jdbcEventCountDao.getAll();
@@ -104,7 +105,7 @@ class JdbcEventCountDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByName() {
-        EventCount eventCount = buildTestEventCount();
+        EventCount eventCount = createTestEventCount();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         EventCount foundByName = jdbcEventCountDao.getByName(eventCount.getEventName());
@@ -121,13 +122,9 @@ class JdbcEventCountDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
-    private EventCount buildTestEventCount() {
-        EventCount eventCount = new EventCount();
+    private EventCount createTestEventCount() {
+        EventCount eventCount = buildTestEventCount();
         eventCount.setId(1L);
-        eventCount.setEventName("test event name");
-        eventCount.setCountBookTickets(0);
-        eventCount.setCountGetPrice(0);
-        eventCount.setCountGetByName(0);
 
         return eventCount;
     }

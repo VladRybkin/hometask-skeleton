@@ -21,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestUser;
 
 
 @ExtendWith(SpringExtension.class)
@@ -45,7 +46,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void getUserByEmail() {
-        User user = buildTestUser();
+        User user = createTestUser();
         jdbcUserDao.save(user);
         User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
 
@@ -54,7 +55,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedUser() {
-        User user = buildTestUser();
+        User user = createTestUser();
         jdbcUserDao.save(user);
         User foundUser = jdbcUserDao.getById(1L);
 
@@ -64,7 +65,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        User user = buildTestUser();
+        User user = createTestUser();
 
         jdbcUserDao.save(user);
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(1));
@@ -75,7 +76,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        User user = buildTestUser();
+        User user = createTestUser();
         jdbcUserDao.save(user);
 
         Collection<User> persistedUsers = jdbcUserDao.getAll();
@@ -87,7 +88,7 @@ class JdbcUserDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByEmail() {
-        User user = buildTestUser();
+        User user = createTestUser();
 
         assertThat(JdbcTestUtils.countRowsInTable(testJdbcTemplate, TABLE_NAME), is(0));
         User foundByEmail = jdbcUserDao.getUserByEmail(user.getEmail());
@@ -104,12 +105,9 @@ class JdbcUserDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
-    private User buildTestUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("testEmail");
-        user.setFirstName("TestUser");
-        user.setLastName("testLastName");
+    private User createTestUser() {
+        User user = buildTestUser();
+
 
         return user;
     }

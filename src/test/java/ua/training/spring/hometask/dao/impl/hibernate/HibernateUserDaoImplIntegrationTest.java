@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestUser;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
@@ -94,12 +95,5 @@ class HibernateUserDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
-    private User buildTestUser() {
-        User user = new User();
-        user.setEmail("testEmail");
-        user.setFirstName("TestUser");
-        user.setLastName("testLastName");
 
-        return user;
-    }
 }
