@@ -6,12 +6,16 @@ import com.google.common.base.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "event_counts")
 public class EventCount extends DomainObject {
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String eventName;
 
     @Column(name = "count_get_by_name")

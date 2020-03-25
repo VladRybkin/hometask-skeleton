@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -25,6 +27,8 @@ import java.util.TreeSet;
 public class Event extends DomainObject {
 
     @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String name;
 
     @Transient

@@ -5,12 +5,16 @@ import com.google.common.base.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_discount_counts")
 public class UserDiscountCount extends DomainObject {
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String name;
 
     @Column(name = "count_tenth_ticket_discount")

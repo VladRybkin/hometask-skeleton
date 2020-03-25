@@ -175,5 +175,4 @@ class HibernateEventDaoImplIntegrationTest {
             hibernateEventDao.save(eventWithDuplicatedEventName);
         });
     }
-
 }

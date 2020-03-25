@@ -14,6 +14,7 @@ import ua.training.spring.hometask.domain.UserDiscountCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -119,7 +120,7 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
     void shouldThrowNotNullConstraintException() {
         UserDiscountCount userDiscountCountWithNullEventName = new UserDiscountCount();
 
-        assertThrows(PersistenceException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             hibernateUserDiscountCountDao.save(userDiscountCountWithNullEventName);
         });
     }
@@ -134,4 +135,5 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
             hibernateUserDiscountCountDao.save(userDiscountCountWithDuplicatedEventName);
         });
     }
+
 }

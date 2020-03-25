@@ -14,6 +14,7 @@ import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -100,10 +101,10 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldThrowNotNullConstraintException() {
-        User testUserWithNullEventName = new User();
+        User userWithNullEventName = new User();
 
-        assertThrows(PersistenceException.class, () -> {
-            hibernateUserDao.save(testUserWithNullEventName);
+        assertThrows(ConstraintViolationException.class, () -> {
+            hibernateUserDao.save(userWithNullEventName);
         });
     }
 

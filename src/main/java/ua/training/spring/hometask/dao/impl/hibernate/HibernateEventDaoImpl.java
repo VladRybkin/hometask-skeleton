@@ -60,9 +60,7 @@ public class HibernateEventDaoImpl implements EventDao {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("select ev from Event ev left join ev.eventAirDates ed where ed.eventDate < :to", Event.class);
             query.setParameter("to", to);
-
             events = query.list();
-
             events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
         }
 

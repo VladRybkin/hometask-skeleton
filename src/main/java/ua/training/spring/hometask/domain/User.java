@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,12 +20,16 @@ import java.util.TreeSet;
 public class User extends DomainObject {
 
     @Column(name = "first_name")
+    @Size(max = 45)
     private String firstName;
 
     @Column(name = "last_name")
+    @Size(max = 45)
     private String lastName;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @NotNull
+    @Email
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "date_of_birth")

@@ -14,6 +14,7 @@ import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -103,7 +104,7 @@ class HibernateEventCountDaoImplIntegrationTest {
     void shouldThrowNotNullConstraintException() {
         EventCount EventCountWithNullEventName = new EventCount();
 
-        assertThrows(PersistenceException.class, () -> {
+        assertThrows(ConstraintViolationException.class, () -> {
             hibernateEventCountDao.save(EventCountWithNullEventName);
         });
     }

@@ -38,7 +38,7 @@ public class BuildTestEntityUtill {
         ticket.setSeat(100);
 
         User user = new User();
-        user.setEmail("usermail1");
+        user.setEmail("usermail@ticket.com");
 
         Event event = new Event();
         event.setBasePrice(100);
@@ -57,7 +57,7 @@ public class BuildTestEntityUtill {
 
     public static User buildTestUser() {
         User user = new User();
-        user.setEmail("testEmail");
+        user.setEmail("testEmail@gmail.ua");
         user.setFirstName("TestUser");
         user.setLastName("testLastName");
 

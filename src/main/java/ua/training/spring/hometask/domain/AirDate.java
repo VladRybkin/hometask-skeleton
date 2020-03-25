@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,8 @@ import java.util.Set;
 @Table(name = "air_dates")
 public class AirDate extends DomainObject {
 
-    @Column(name = "event_date", unique = true, nullable = false)
+    @NotNull
+    @Column(name = "event_date", unique = true)
     private LocalDateTime eventDate;
 
     @ManyToMany(targetEntity = Event.class, mappedBy = "eventAirDates")
