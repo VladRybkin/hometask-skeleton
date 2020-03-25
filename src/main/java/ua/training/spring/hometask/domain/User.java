@@ -2,7 +2,12 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,11 +22,14 @@ public class User extends DomainObject {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "date_of_birth")
     private LocalDateTime dateOfBirth;
+
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets = new TreeSet<>();
 
     public User() {
     }
@@ -38,8 +46,6 @@ public class User extends DomainObject {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Ticket> tickets = new TreeSet<>();
 
     public String getFirstName() {
         return firstName;

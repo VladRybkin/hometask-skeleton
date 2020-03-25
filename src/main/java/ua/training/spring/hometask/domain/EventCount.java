@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "event_counts")
 public class EventCount extends DomainObject {
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String eventName;
 
     @Column(name = "count_get_by_name")

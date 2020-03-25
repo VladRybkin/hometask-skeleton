@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.dao.UserDao;
-import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.domain.Auditorium;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
 
 import javax.annotation.PostConstruct;

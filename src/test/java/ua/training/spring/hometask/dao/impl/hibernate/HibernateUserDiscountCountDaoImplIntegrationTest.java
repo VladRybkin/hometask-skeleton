@@ -13,12 +13,16 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.UserDiscountCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
+import javax.persistence.PersistenceException;
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildUserDiscountCount;
 
 @ExtendWith(SpringExtension.class)
@@ -86,12 +90,12 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        UserDiscountCount user = buildUserDiscountCount();
-        hibernateUserDiscountCountDao.save(user);
+        UserDiscountCount userDiscountCount = buildUserDiscountCount();
+        hibernateUserDiscountCountDao.save(userDiscountCount);
 
         Collection<UserDiscountCount> persistedDiscounts = hibernateUserDiscountCountDao.getAll();
 
-        assertThat(persistedDiscounts, hasItems(user));
+        assertThat(persistedDiscounts, hasItems(userDiscountCount));
         assertThat(persistedDiscounts, hasSize(1));
     }
 
@@ -109,5 +113,25 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
         UserDiscountCount foundById = hibernateUserDiscountCountDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
+    }
+
+    @Test
+    void shouldThrowNotNullConstraintException() {
+        UserDiscountCount userDiscountCountWithNullEventName = new UserDiscountCount();
+
+        assertThrows(PersistenceException.class, () -> {
+            hibernateUserDiscountCountDao.save(userDiscountCountWithNullEventName);
+        });
+    }
+
+    @Test
+    void shouldThrowUniqueConstraintException() {
+        UserDiscountCount userDiscountCount = buildUserDiscountCount();
+        UserDiscountCount userDiscountCountWithDuplicatedEventName = buildUserDiscountCount();
+        hibernateUserDiscountCountDao.save(userDiscountCount);
+
+        assertThrows(PersistenceException.class, () -> {
+            hibernateUserDiscountCountDao.save(userDiscountCountWithDuplicatedEventName);
+        });
     }
 }

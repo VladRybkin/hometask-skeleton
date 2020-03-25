@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.testconfig;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +13,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@Import({TestDataSourceBeans.class, })
+@Import({TestDataSourceBeans.class,})
 public class TestsSessionFactoryBeans {
 
     @Autowired

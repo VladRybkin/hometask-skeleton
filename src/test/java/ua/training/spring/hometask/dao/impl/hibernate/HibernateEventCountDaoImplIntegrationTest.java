@@ -13,6 +13,7 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
+import javax.persistence.PersistenceException;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -20,6 +21,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;
 
 @ExtendWith(SpringExtension.class)
@@ -41,7 +43,7 @@ class HibernateEventCountDaoImplIntegrationTest {
 
     @Test
     void getByName() {
-        EventCount eventCount =buildTestEventCount();
+        EventCount eventCount = buildTestEventCount();
         hibernateEventCountDao.save(eventCount);
         EventCount foundByName = hibernateEventCountDao.getByName(eventCount.getEventName());
 
@@ -95,5 +97,24 @@ class HibernateEventCountDaoImplIntegrationTest {
 
         assertThat(eventCounts, hasItems(testEventCount));
         assertThat(eventCounts, hasSize(1));
+    }
+
+    @Test
+    void shouldThrowNotNullConstraintException() {
+        EventCount EventCountWithNullEventName = new EventCount();
+
+        assertThrows(PersistenceException.class, () -> {
+            hibernateEventCountDao.save(EventCountWithNullEventName);
+        });
+    }
+
+    @Test
+    void shouldThrowUniqueConstraintException() {
+        EventCount eventCount = buildTestEventCount();
+        EventCount eventCountWithDuplicatedEventName = buildTestEventCount();
+        hibernateEventCountDao.save(eventCount);
+        assertThrows(PersistenceException.class, () -> {
+            hibernateEventCountDao.save(eventCountWithDuplicatedEventName);
+        });
     }
 }

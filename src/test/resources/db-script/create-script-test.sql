@@ -27,14 +27,14 @@ CREATE TABLE IF NOT EXISTS users (
 
   CREATE TABLE IF NOT EXISTS user_discount_counts (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(45),
+  name VARCHAR(45) NOT NULL UNIQUE,
   count_tenth_ticket_discount INT(11),
   count_birthday_discount INT(11)
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
       CREATE TABLE IF NOT EXISTS event_counts (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(45),
+  name VARCHAR(45) NOT NULL UNIQUE,
   count_get_by_name INT(11),
   count_book_tickets INT(11),
   count_get_price INT(11)
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS users (
 
       CREATE TABLE IF NOT EXISTS air_dates (
   id int(11) PRIMARY KEY AUTO_INCREMENT,
-  event_date VARCHAR(45) UNIQUE
+  event_date VARCHAR(45) NOT NULL UNIQUE
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE IF NOT EXISTS event_dates (

@@ -3,7 +3,11 @@ package ua.training.spring.hometask.domain;
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity

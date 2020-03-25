@@ -13,6 +13,7 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
+import javax.persistence.PersistenceException;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -21,6 +22,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestUser;
 
 @ExtendWith(SpringExtension.class)
@@ -96,5 +98,22 @@ class HibernateUserDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
+    @Test
+    void shouldThrowNotNullConstraintException() {
+        User testUserWithNullEventName = new User();
 
+        assertThrows(PersistenceException.class, () -> {
+            hibernateUserDao.save(testUserWithNullEventName);
+        });
+    }
+
+    @Test
+    void shouldThrowUniqueConstraintException() {
+        User user = buildTestUser();
+        User userWithDuplicatedEventName = buildTestUser();
+        hibernateUserDao.save(user);
+        assertThrows(PersistenceException.class, () -> {
+            hibernateUserDao.save(userWithDuplicatedEventName);
+        });
+    }
 }

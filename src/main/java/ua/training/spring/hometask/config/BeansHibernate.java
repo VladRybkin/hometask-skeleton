@@ -26,7 +26,7 @@ public class BeansHibernate {
 
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-//        properties.setProperty("hibernate.show_sql", "true");
+        //        properties.setProperty("hibernate.show_sql", "true");
         localSessionFactoryBean.setHibernateProperties(properties);
 
         return localSessionFactoryBean;

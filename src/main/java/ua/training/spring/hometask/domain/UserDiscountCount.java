@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "user_discount_counts")
 public class UserDiscountCount extends DomainObject {
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @Column(name = "count_tenth_ticket_discount")
@@ -63,7 +63,7 @@ public class UserDiscountCount extends DomainObject {
         UserDiscountCount userDiscountCount = (UserDiscountCount) o;
         return countTenthTicketDiscount == userDiscountCount.countTenthTicketDiscount &&
                 countBirthdayDiscount == userDiscountCount.countBirthdayDiscount &&
-                Objects.equal(name, userDiscountCount.name)&&
+                Objects.equal(name, userDiscountCount.name) &&
                 Objects.equal(getId(), userDiscountCount.getId());
     }
 

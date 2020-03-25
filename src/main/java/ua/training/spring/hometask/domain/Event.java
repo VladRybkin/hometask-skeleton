@@ -2,16 +2,29 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "events")
 public class Event extends DomainObject {
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Transient

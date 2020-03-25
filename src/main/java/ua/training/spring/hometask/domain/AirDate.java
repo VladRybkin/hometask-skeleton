@@ -14,12 +14,11 @@ import java.util.Set;
 @Table(name = "air_dates")
 public class AirDate extends DomainObject {
 
-    @Column(name = "event_date")
+    @Column(name = "event_date", unique = true, nullable = false)
     private LocalDateTime eventDate;
 
     @ManyToMany(targetEntity = Event.class, mappedBy = "eventAirDates")
     private Set<Event> events = new HashSet<>();
-
 
     public AirDate() {
     }

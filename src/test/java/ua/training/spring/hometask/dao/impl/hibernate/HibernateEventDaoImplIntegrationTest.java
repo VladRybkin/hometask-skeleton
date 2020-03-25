@@ -13,6 +13,7 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
+import javax.persistence.PersistenceException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -22,6 +23,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEvent;
 
 @ExtendWith(SpringExtension.class)
@@ -161,6 +163,17 @@ class HibernateEventDaoImplIntegrationTest {
         Event foundById = hibernateEventDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
+    }
+
+    @Test
+    void shouldThrowUniqueConstraintException() {
+        Event event = buildTestEvent();
+        Event eventWithDuplicatedEventName = buildTestEvent();
+        hibernateEventDao.save(event);
+
+        assertThrows(PersistenceException.class, () -> {
+            hibernateEventDao.save(eventWithDuplicatedEventName);
+        });
     }
 
 }
