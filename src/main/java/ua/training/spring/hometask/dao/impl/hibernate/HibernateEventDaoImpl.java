@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.AirDate;
@@ -16,6 +17,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Repository
+@Primary
 public class HibernateEventDaoImpl implements EventDao {
 
     @Autowired

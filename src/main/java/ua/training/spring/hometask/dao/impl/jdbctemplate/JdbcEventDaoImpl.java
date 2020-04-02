@@ -2,7 +2,6 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,6 @@ import java.util.Collection;
 import java.util.Set;
 
 @Repository
-@Primary
 public class JdbcEventDaoImpl implements EventDao {
 
     private static final String GET_BY_NAME_QUERY = "SELECT * FROM `events` WHERE `name` = ?";

@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,6 @@ import java.util.Collection;
 
 
 @Repository
-@Primary
 public class JdbcUserDaoImpl implements UserDao {
 
     private static final String USER_GET_BY_EMAIL_QUERY = "SELECT * FROM `users` WHERE `email` = ?";

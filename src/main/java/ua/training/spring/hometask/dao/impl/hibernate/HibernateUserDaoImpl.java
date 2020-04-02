@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
@@ -12,6 +13,7 @@ import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
+@Primary
 public class HibernateUserDaoImpl implements UserDao {
 
     @Autowired

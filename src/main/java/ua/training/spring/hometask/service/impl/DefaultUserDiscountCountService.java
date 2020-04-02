@@ -67,7 +67,6 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
 
     }
 
-    @Transactional
     @Override
     public UserDiscountCount getByName(String name) {
         return userDiscountCountDao.getByName(name);
