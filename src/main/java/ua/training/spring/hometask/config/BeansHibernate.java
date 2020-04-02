@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Primary;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -27,6 +26,9 @@ public class BeansHibernate {
 
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        properties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
+        properties.setProperty("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
+        properties.setProperty("hibernate.cache.use_second_level_cache", "true");
         localSessionFactoryBean.setHibernateProperties(properties);
 
         return localSessionFactoryBean;
@@ -34,7 +36,6 @@ public class BeansHibernate {
 
     @Autowired
     @Bean
-    @Primary
     public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();

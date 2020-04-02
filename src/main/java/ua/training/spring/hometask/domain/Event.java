@@ -2,6 +2,7 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 @Entity
+@Cacheable
 @Table(name = "events")
 public class Event extends DomainObject {
 

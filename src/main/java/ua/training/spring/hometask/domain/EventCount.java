@@ -3,6 +3,7 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@Cacheable
 @Table(name = "event_counts")
 public class EventCount extends DomainObject {
 

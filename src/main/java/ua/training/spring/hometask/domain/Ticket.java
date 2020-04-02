@@ -3,6 +3,7 @@ package ua.training.spring.hometask.domain;
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
+@Cacheable
 @Table(name = "tickets")
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
