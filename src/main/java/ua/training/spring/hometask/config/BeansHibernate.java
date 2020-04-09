@@ -28,7 +28,8 @@ public class BeansHibernate {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         properties.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
         properties.setProperty("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
-        properties.setProperty("hibernate.cache.use_second_level_cache", "true");
+        properties.setProperty("hibernate.cache.use_query_cache", Boolean.TRUE.toString());
+        properties.setProperty("hibernate.cache.use_second_level_cache",Boolean.TRUE.toString());
         localSessionFactoryBean.setHibernateProperties(properties);
 
         return localSessionFactoryBean;

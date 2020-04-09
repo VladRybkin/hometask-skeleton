@@ -29,6 +29,7 @@ public class HibernateEventDaoImpl implements EventDao {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("FROM Event where name=:name");
             query.setParameter("name", name);
+            query.setCacheable(true);
             event = (Event) query.getSingleResult();
         } catch (NoResultException e) {
             event = null;
@@ -48,6 +49,7 @@ public class HibernateEventDaoImpl implements EventDao {
             );
             query.setParameter("from", from);
             query.setParameter("to", to);
+            query.setCacheable(true);
 
             events = query.list();
             events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
@@ -60,8 +62,11 @@ public class HibernateEventDaoImpl implements EventDao {
     public Set<Event> getNextEvents(LocalDateTime to) {
         Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("select ev from Event ev left join ev.eventAirDates ed where ed.eventDate < :to", Event.class);
+            Query query = session.createQuery("select ev from Event ev "
+                    + "left join ev.eventAirDates ed "
+                    + "where ed.eventDate < :to", Event.class);
             query.setParameter("to", to);
+            query.setCacheable(true);
             events = query.list();
             events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
         }
@@ -105,7 +110,7 @@ public class HibernateEventDaoImpl implements EventDao {
     public Collection<Event> getAll() {
         Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
-            events = session.createQuery("from Event", Event.class).list();
+            events = session.createQuery("from Event", Event.class).setCacheable(true).list();
             events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));
         }
 

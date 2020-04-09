@@ -25,6 +25,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("FROM UserDiscountCount where name=:name");
             query.setParameter("name", name);
+            query.setCacheable(true);
             userDiscountCount = (UserDiscountCount) query.getSingleResult();
         } catch (NoResultException e) {
             userDiscountCount = null;
@@ -78,7 +79,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
     public Collection<UserDiscountCount> getAll() {
         Collection<UserDiscountCount> userDiscountCounts;
         try (Session session = sessionFactory.openSession()) {
-            userDiscountCounts = session.createQuery("FROM UserDiscountCount", UserDiscountCount.class).list();
+            userDiscountCounts = session.createQuery("FROM UserDiscountCount", UserDiscountCount.class).setCacheable(true).list();
         }
 
         return userDiscountCounts;

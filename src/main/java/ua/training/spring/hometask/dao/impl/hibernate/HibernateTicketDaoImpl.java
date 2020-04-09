@@ -26,10 +26,13 @@ public class HibernateTicketDaoImpl implements TicketDao {
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM Ticket t where t.user is not null and t.event=:event and t.dateTime > :dateTime", Ticket.class);
-
+            Query query = session.createQuery("FROM Ticket t "
+                    + "where t.user is not null "
+                    + "and t.event=:event "
+                    + "and t.dateTime > :dateTime", Ticket.class);
             query.setParameter("event", event);
             query.setParameter("dateTime", dateTime);
+            query.setCacheable(true);
             tickets = query.getResultList();
         }
 
@@ -70,7 +73,7 @@ public class HibernateTicketDaoImpl implements TicketDao {
     public Collection<Ticket> getAll() {
         Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            tickets = session.createQuery("FROM Ticket", Ticket.class).list();
+            tickets = session.createQuery("FROM Ticket", Ticket.class).setCacheable(true).list();
         }
 
         return tickets;

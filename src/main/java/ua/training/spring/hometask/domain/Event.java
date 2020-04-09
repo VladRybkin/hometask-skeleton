@@ -1,6 +1,8 @@
 package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
@@ -25,6 +27,7 @@ import java.util.TreeSet;
 
 @Entity
 @Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "events")
 public class Event extends DomainObject {
 

@@ -2,6 +2,8 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "tickets")
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 

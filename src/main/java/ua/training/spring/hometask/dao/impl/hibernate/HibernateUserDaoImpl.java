@@ -25,6 +25,7 @@ public class HibernateUserDaoImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("FROM User where email=:email");
             query.setParameter("email", email);
+            query.setCacheable(true);
             user = (User) query.getSingleResult();
         } catch (NoResultException e) {
             user = null;
@@ -67,7 +68,7 @@ public class HibernateUserDaoImpl implements UserDao {
     public Collection<User> getAll() {
         Collection<User> users;
         try (Session session = sessionFactory.openSession()) {
-            users = session.createQuery("FROM User", User.class).list();
+            users = session.createQuery("FROM User", User.class).setCacheable(true).list();
         }
 
         return users;

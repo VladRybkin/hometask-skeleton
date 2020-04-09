@@ -25,6 +25,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("FROM EventCount where name=:name");
             query.setParameter("name", name);
+            query.setCacheable(true);
             eventCount = (EventCount) query.getSingleResult();
         } catch (NoResultException e) {
             eventCount = null;
@@ -78,7 +79,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     public Collection<EventCount> getAll() {
         Collection<EventCount> eventCounts;
         try (Session session = sessionFactory.openSession()) {
-            eventCounts = session.createQuery("FROM EventCount", EventCount.class).list();
+            eventCounts = session.createQuery("FROM EventCount", EventCount.class).setCacheable(true).list();
         }
 
         return eventCounts;
