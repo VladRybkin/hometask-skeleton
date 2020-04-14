@@ -31,7 +31,6 @@ public class TestsSessionFactoryBeans {
         properties.setProperty("hibernate.cache.use_query_cache", Boolean.TRUE.toString());
         properties.setProperty("hibernate.cache.use_second_level_cache",Boolean.TRUE.toString());
         properties.setProperty("hibernate.generate_statistics", Boolean.TRUE.toString());
-
         localSessionFactoryBean.setHibernateProperties(properties);
 
         return localSessionFactoryBean;
@@ -47,5 +46,4 @@ public class TestsSessionFactoryBeans {
 
         return transactionManager;
     }
-
 }
