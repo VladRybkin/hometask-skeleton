@@ -118,4 +118,50 @@ class HibernateEventCountDaoImplIntegrationTest {
             hibernateEventCountDao.save(eventCountWithDuplicatedEventName);
         });
     }
+
+    @Test
+    void shouldCashingGetByName() {
+        EventCount eventCount = buildTestEventCount();
+        hibernateEventCountDao.save(eventCount);
+
+        hibernateEventCountDao.getByName(eventCount.getEventName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventCountDao.getByName(eventCount.getEventName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetById() {
+        EventCount eventCount = buildTestEventCount();
+        hibernateEventCountDao.save(eventCount);
+
+        hibernateEventCountDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventCountDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetAll() {
+        EventCount testEventCount1 = buildTestEventCount();
+        EventCount testEventCount2 = buildTestEventCount();
+        testEventCount2.setEventName("testEventName2");
+
+        hibernateEventCountDao.save(testEventCount1);
+        hibernateEventCountDao.save(testEventCount2);
+
+        hibernateEventCountDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventCountDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
+    }
 }

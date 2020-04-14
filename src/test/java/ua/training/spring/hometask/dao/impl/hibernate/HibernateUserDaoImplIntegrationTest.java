@@ -117,4 +117,50 @@ class HibernateUserDaoImplIntegrationTest {
             hibernateUserDao.save(userWithDuplicatedEventName);
         });
     }
+
+    @Test
+    void shouldCashingGetByEmail() {
+        User user = buildTestUser();
+        hibernateUserDao.save(user);
+
+        hibernateUserDao.getUserByEmail(user.getEmail());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDao.getUserByEmail(user.getEmail());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetById() {
+        User user = buildTestUser();
+        hibernateUserDao.save(user);
+
+        hibernateUserDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetAll() {
+        User user1 = buildTestUser();
+        User user2 = buildTestUser();
+        user2.setEmail("test@mail2.com");
+
+        hibernateUserDao.save(user1);
+        hibernateUserDao.save(user2);
+
+        hibernateUserDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
+    }
 }

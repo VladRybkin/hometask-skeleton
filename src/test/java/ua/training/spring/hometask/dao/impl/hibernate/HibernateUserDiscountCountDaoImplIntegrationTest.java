@@ -136,4 +136,49 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
         });
     }
 
+    @Test
+    void shouldCashingGetByName() {
+        UserDiscountCount discountCount = buildUserDiscountCount();
+        hibernateUserDiscountCountDao.save(discountCount);
+
+        hibernateUserDiscountCountDao.getByName(discountCount.getName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDiscountCountDao.getByName(discountCount.getName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetById() {
+        UserDiscountCount discountCount = buildUserDiscountCount();
+        hibernateUserDiscountCountDao.save(discountCount);
+
+        hibernateUserDiscountCountDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDiscountCountDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetAll() {
+        UserDiscountCount discountCount1 = buildUserDiscountCount();
+        UserDiscountCount discountCount2 = buildUserDiscountCount();
+        discountCount2.setName("testEventName2");
+
+        hibernateUserDiscountCountDao.save(discountCount1);
+        hibernateUserDiscountCountDao.save(discountCount2);
+
+        hibernateUserDiscountCountDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateUserDiscountCountDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
+    }
 }

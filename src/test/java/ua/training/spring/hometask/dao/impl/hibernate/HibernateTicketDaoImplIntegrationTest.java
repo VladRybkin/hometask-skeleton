@@ -112,6 +112,37 @@ class HibernateTicketDaoImplIntegrationTest {
         assertThat(foundById, is(nullValue()));
     }
 
+    @Test
+    void shouldCashingGetById() {
+        Ticket ticket = createTestTicket();
+        hibernateTicketDao.save(ticket);
+
+        hibernateTicketDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(3L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateTicketDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(3L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(3L));
+    }
+
+    @Test
+    void shouldCashingGetAll() {
+        Ticket ticketWithEventAndUser = createTestTicket();
+        Ticket ticketWithoutEventAndUser = new Ticket();
+
+        hibernateTicketDao.save(ticketWithEventAndUser);
+        hibernateTicketDao.save(ticketWithoutEventAndUser);
+
+        hibernateTicketDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(4L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateTicketDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(4L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(4L));
+    }
+
     private Ticket createTestTicket() {
         return buildTestTicketWithPersistedUserAndEvent(hibernateUserDao, hibernateEventDao);
     }

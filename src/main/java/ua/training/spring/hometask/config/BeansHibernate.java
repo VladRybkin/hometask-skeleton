@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -37,6 +38,7 @@ public class BeansHibernate {
 
     @Autowired
     @Bean
+    @Primary
     public PlatformTransactionManager hibernateTransactionManager(DataSource dataSource) {
         HibernateTransactionManager transactionManager
                 = new HibernateTransactionManager();

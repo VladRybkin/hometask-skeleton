@@ -175,4 +175,50 @@ class HibernateEventDaoImplIntegrationTest {
             hibernateEventDao.save(eventWithDuplicatedEventName);
         });
     }
+
+    @Test
+    void shouldCashingGetByName() {
+        Event event = buildTestEvent();
+        hibernateEventDao.save(event);
+
+        hibernateEventDao.getByName(event.getName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventDao.getByName(event.getName());
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetById() {
+        Event event = buildTestEvent();
+        hibernateEventDao.save(event);
+
+        hibernateEventDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventDao.getById(1L);
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(1L));
+    }
+
+    @Test
+    void shouldCashingGetAll() {
+        Event event1 = buildTestEvent();
+        Event event2 = buildTestEvent();
+        event2.setName("testEventName2");
+
+        hibernateEventDao.save(event1);
+        hibernateEventDao.save(event2);
+
+        hibernateEventDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(0L));
+
+        hibernateEventDao.getAll();
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
+        assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
+    }
 }
