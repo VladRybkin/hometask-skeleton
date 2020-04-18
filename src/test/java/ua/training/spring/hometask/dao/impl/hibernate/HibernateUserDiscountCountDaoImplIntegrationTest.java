@@ -181,4 +181,15 @@ class HibernateUserDiscountCountDaoImplIntegrationTest {
         assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
         assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
     }
+
+    @Test
+    void shouldRemoveFromCache() {
+        UserDiscountCount userDiscountCount = buildUserDiscountCount();
+        hibernateUserDiscountCountDao.save(userDiscountCount);
+        hibernateUserDiscountCountDao.getById(userDiscountCount.getId());
+
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        hibernateUserDiscountCountDao.remove(userDiscountCount);
+        assertThat(hibernateUserDiscountCountDao.getById(userDiscountCount.getId()), is(nullValue()));
+    }
 }

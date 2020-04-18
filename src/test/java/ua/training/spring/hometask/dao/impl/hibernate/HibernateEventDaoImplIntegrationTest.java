@@ -221,4 +221,15 @@ class HibernateEventDaoImplIntegrationTest {
         assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
         assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
     }
+
+    @Test
+    void shouldRemoveFromCache() {
+        Event event = buildTestEvent();
+        hibernateEventDao.save(event);
+        hibernateEventDao.getByName(event.getName());
+
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        hibernateEventDao.remove(event);
+        assertThat(hibernateEventDao.getByName(event.getName()), is(nullValue()));
+    }
 }

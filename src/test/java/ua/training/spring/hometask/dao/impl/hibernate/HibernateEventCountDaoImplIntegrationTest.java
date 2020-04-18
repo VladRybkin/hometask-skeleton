@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
@@ -163,5 +164,16 @@ class HibernateEventCountDaoImplIntegrationTest {
         hibernateEventCountDao.getAll();
         assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
         assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
+    }
+
+    @Test
+    void shouldRemoveFromCache() {
+        EventCount eventCount = buildTestEventCount();
+        hibernateEventCountDao.save(eventCount);
+        hibernateEventCountDao.getByName(eventCount.getEventName());
+
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        hibernateEventCountDao.remove(eventCount);
+        assertThat(hibernateEventCountDao.getByName(eventCount.getEventName()), is(nullValue()));
     }
 }

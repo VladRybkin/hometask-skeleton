@@ -143,6 +143,17 @@ class HibernateTicketDaoImplIntegrationTest {
         assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(4L));
     }
 
+    @Test
+    void shouldRemoveFromCache() {
+        Ticket ticket = createTestTicket();
+        hibernateTicketDao.save(ticket);
+        hibernateTicketDao.getById(ticket.getId());
+
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(3L));
+        hibernateTicketDao.remove(ticket);
+        assertThat(hibernateTicketDao.getById(ticket.getId()), is(nullValue()));
+    }
+
     private Ticket createTestTicket() {
         return buildTestTicketWithPersistedUserAndEvent(hibernateUserDao, hibernateEventDao);
     }

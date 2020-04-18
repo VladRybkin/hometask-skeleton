@@ -163,4 +163,15 @@ class HibernateUserDaoImplIntegrationTest {
         assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(2L));
         assertThat(sessionFactory.getStatistics().getSecondLevelCacheHitCount(), is(2L));
     }
+
+    @Test
+    void shouldRemoveFromCache() {
+        User user = buildTestUser();
+        hibernateUserDao.save(user);
+        hibernateUserDao.getById(user.getId());
+
+        assertThat(sessionFactory.getStatistics().getSecondLevelCachePutCount(), is(1L));
+        hibernateUserDao.remove(user);
+        assertThat(hibernateUserDao.getById(user.getId()), is(nullValue()));
+    }
 }
