@@ -96,5 +96,4 @@ class MyBatisEventCountDaoImplIntegrationTest {
         assertThat(eventCounts, hasItems(testEventCount));
         assertThat(eventCounts, hasSize(1));
     }
-
 }
