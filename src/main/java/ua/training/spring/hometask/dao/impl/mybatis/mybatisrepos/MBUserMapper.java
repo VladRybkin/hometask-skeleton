@@ -1,7 +1,8 @@
-package ua.training.spring.hometask.dao.mybatisrepos;
+package ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -14,12 +15,13 @@ public interface MBUserMapper {
 
     @Insert("INSERT INTO users (first_name, last_name, email, date_of_birth) "
             + "VALUES (#{firstName},#{lastName},#{email},#{dateOfBirth})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     long save(User object);
 
     @Delete("DELETE FROM users WHERE id = #{id}")
     void remove(User id);
 
-    @Select("SELECT * FROM event_counts WHERE id = #{id}")
+    @Select("SELECT * FROM users WHERE id = #{id}")
     @Results(value = {
             @Result(property = "id", column = "id"),
             @Result(property = "firstName", column = "first_name"),

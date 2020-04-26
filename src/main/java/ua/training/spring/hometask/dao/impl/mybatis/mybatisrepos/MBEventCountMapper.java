@@ -1,7 +1,8 @@
-package ua.training.spring.hometask.dao.mybatisrepos;
+package ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -10,10 +11,11 @@ import ua.training.spring.hometask.domain.EventCount;
 
 import java.util.Collection;
 
-public interface BMEventCountMapper {
+public interface MBEventCountMapper {
 
     @Insert("INSERT INTO event_counts (name, count_get_by_name, count_book_tickets, count_get_price) "
             + "VALUES (#{eventName},#{countGetByName},#{countBookTickets},#{countGetPrice})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     long save(EventCount object);
 
     @Delete("DELETE FROM event_counts WHERE id = #{id}")

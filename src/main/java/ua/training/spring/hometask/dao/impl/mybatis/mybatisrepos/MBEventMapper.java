@@ -1,7 +1,8 @@
-package ua.training.spring.hometask.dao.mybatisrepos;
+package ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -14,6 +15,7 @@ public interface MBEventMapper {
 
     @Insert("INSERT INTO events (name, base_price, rating) "
             + "VALUES (#{name},#{basePrice},#{rating})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     long save(Event object);
 
     @Delete("DELETE events WHERE id = #{id}")
