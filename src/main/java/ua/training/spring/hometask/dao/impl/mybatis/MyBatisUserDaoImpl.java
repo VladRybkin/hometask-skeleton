@@ -17,7 +17,12 @@ public class MyBatisUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String email) {
-        return null;
+        User user;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            user = session.selectOne("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBUserMapper.getByName", email);
+        }
+
+        return user;
     }
 
     @Override

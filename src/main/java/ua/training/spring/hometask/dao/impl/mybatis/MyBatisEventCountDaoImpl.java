@@ -17,7 +17,12 @@ public class MyBatisEventCountDaoImpl implements EventCountDao {
 
     @Override
     public EventCount getByName(String name) {
-        return null;
+        EventCount eventCount;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            eventCount = session.selectOne("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventCountMapper.getByName", name);
+        }
+
+        return eventCount;
     }
 
     @Override

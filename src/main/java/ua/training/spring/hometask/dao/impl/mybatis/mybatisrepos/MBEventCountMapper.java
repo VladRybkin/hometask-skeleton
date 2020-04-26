@@ -13,6 +13,15 @@ import java.util.Collection;
 
 public interface MBEventCountMapper {
 
+    @Select("SELECT * FROM event_counts WHERE name = #{name}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "eventName", column = "name"),
+            @Result(property = "countGetByName", column = "count_get_by_name"),
+            @Result(property = "countBookTickets", column = "count_book_tickets"),
+            @Result(property = "countGetPrice", column = "count_get_price")})
+    EventCount getByName(@Param("name") String name);
+
     @Insert("INSERT INTO event_counts (name, count_get_by_name, count_book_tickets, count_get_price) "
             + "VALUES (#{eventName},#{countGetByName},#{countBookTickets},#{countGetPrice})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

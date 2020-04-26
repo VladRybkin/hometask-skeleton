@@ -13,6 +13,14 @@ import java.util.Collection;
 
 public interface MBUserDiscountCountMapper {
 
+    @Select("SELECT * FROM user_discount_counts WHERE name = #{name}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "countTenthTicketDiscount", column = "count_tenth_ticket_discount"),
+            @Result(property = "countBirthdayDiscount", column = "count_birthday_discount")})
+    UserDiscountCount getByName(@Param("name") String name);
+
     @Insert("INSERT INTO user_discount_counts (name, count_tenth_ticket_discount, count_birthday_discount) "
             + "VALUES (#{name},#{countTenthTicketDiscount},#{countBirthdayDiscount})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

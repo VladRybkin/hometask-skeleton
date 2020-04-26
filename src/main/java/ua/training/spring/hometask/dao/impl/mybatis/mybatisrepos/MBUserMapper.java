@@ -13,6 +13,15 @@ import java.util.Collection;
 
 public interface MBUserMapper {
 
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "firstName", column = "first_name"),
+            @Result(property = "lastName", column = "last_name"),
+            @Result(property = "email", column = "email"),
+            @Result(property = "dateOfBirth", column = "date_of_birth")})
+    User getByName(@Param("email") String email);
+
     @Insert("INSERT INTO users (first_name, last_name, email, date_of_birth) "
             + "VALUES (#{firstName},#{lastName},#{email},#{dateOfBirth})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
