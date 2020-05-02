@@ -28,7 +28,6 @@ public class DefaultEventCountService implements EventCountService {
         eventCountDao.remove(object);
     }
 
-
     @Override
     public EventCount getById(Long id) {
         return eventCountDao.getById(id);

@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
@@ -14,6 +15,7 @@ import java.util.function.Predicate;
 
 
 @Repository("eventDaoImpl")
+@Profile("IN_MEMORY")
 public class EventDaoImpl implements EventDao {
 
     private static final Map<Long, Event> events = new HashMap<>();

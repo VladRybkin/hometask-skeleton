@@ -3,6 +3,7 @@ package ua.training.spring.hometask.dao.impl.mybatis;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
@@ -10,6 +11,7 @@ import ua.training.spring.hometask.domain.EventCount;
 import java.util.Collection;
 
 @Repository
+@Profile("MYBATIS")
 public class MyBatisEventCountDaoImpl implements EventCountDao {
 
     @Autowired

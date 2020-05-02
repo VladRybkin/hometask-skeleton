@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 
 @Repository("ticketDaoImpl")
+@Profile("IN_MEMORY")
 public class TicketDaoImpl implements TicketDao {
 
     private static final Map<Long, Ticket> tickets = new HashMap<>();

@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import ua.training.spring.hometask.domain.UserDiscountCount;
 import java.util.Collection;
 
 @Repository
+@Profile("JDBC_TEMPLATE")
 public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     private static final String USER_DISCOUNT_COUNT_GET_BY_NAME_QUERY =

@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
@@ -16,6 +17,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Repository
+@Profile("HIBERNATE")
 @Primary
 public class HibernateTicketDaoImpl implements TicketDao {
 

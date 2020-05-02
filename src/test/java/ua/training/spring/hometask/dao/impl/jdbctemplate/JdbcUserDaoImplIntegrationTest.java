@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -27,6 +28,7 @@ import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestU
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("JDBC_TEMPLATE")
 class JdbcUserDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "users";

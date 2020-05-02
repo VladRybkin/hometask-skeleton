@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDiscountCountDao;
 import ua.training.spring.hometask.domain.UserDiscountCount;
@@ -13,6 +14,7 @@ import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
+@Profile("HIBERNATE")
 @Primary
 public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
 

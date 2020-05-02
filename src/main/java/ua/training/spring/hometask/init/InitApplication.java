@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.dao.TicketDao;
@@ -23,6 +24,7 @@ import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 @Component
+@Profile("IN_MEMORY")
 public class InitApplication {
 
     @Autowired

@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 
 @Repository("userDaoImpl")
+@Profile("IN_MEMORY")
 public class UserDaoImpl implements UserDao {
 
     private static final Map<Long, User> users = new HashMap<>();

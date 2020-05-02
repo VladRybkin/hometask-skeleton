@@ -16,7 +16,6 @@ import java.util.Set;
 public class DefaultEventService implements EventService {
 
     @Autowired
-    @Qualifier("hibernateEventDaoImpl")
     private EventDao eventDao;
 
     @Override

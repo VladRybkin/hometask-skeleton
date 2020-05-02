@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventCountDao;
 import ua.training.spring.hometask.domain.EventCount;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository("eventCountDaoImpl")
+@Profile("IN_MEMORY")
 public class EventCountDaoImpl implements EventCountDao {
 
     private Map<Long, EventCount> eventCounts = new HashMap<>();

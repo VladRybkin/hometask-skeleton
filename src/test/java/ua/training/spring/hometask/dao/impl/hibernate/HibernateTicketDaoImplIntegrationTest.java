@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
@@ -26,6 +27,7 @@ import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestT
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("HIBERNATE")
 class HibernateTicketDaoImplIntegrationTest {
 
     @Autowired

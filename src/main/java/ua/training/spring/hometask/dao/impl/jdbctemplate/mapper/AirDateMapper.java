@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Component
+@Profile("JDBC_TEMPLATE")
 public class AirDateMapper implements RowMapper<LocalDateTime> {
 
     @Override
