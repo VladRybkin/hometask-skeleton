@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@Import({TestDataSourceBeans.class,})
+@Import({TestDataSourceBeans.class})
 public class TestsSessionFactoryBeans {
 
     @Autowired
