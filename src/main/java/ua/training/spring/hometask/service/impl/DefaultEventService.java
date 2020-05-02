@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.dao.EventDao;
@@ -16,7 +15,6 @@ import java.util.Set;
 public class DefaultEventService implements EventService {
 
     @Autowired
-    @Qualifier("hibernateEventDaoImpl")
     private EventDao eventDao;
 
     @Override
