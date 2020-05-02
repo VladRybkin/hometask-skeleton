@@ -1,18 +1,14 @@
 package ua.training.spring.hometask.dao.impl.mybatis;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -26,22 +22,13 @@ import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEvent;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BeansConfiguration.class, TestsSessionFactoryBeans.class})
+@ContextConfiguration(classes = {BeansConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ActiveProfiles("MYBATIS")
+@ActiveProfiles({"MYBATIS", "TEST"})
 class MyBatisEventDaoImplIntegrationTest {
 
     @Autowired
     private MyBatisEventDaoImpl mybatisEventDao;
-
-    @Autowired
-    @Qualifier("testSqlSessionFactory")
-    private SqlSessionFactory sessionFactory;
-
-    @BeforeEach
-    void setUp() {
-        mybatisEventDao.setSqlSessionFactory(sessionFactory);
-    }
 
     @Test
     void getByName() {

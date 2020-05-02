@@ -1,10 +1,8 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -15,7 +13,6 @@ import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -28,9 +25,9 @@ import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
+@ContextConfiguration(classes = {BeansConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ActiveProfiles("JDBC_TEMPLATE")
+@ActiveProfiles({"JDBC_TEMPLATE", "TEST"})
 class JdbcTicketDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "tickets";
@@ -45,16 +42,7 @@ class JdbcTicketDaoImplIntegrationTest {
     private JdbcEventDaoImpl jdbcEventDao;
 
     @Autowired
-    @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
-
-
-    @BeforeEach
-    void setUp() {
-        jdbcTicketDao.setJdbcTemplate(testJdbcTemplate);
-        jdbcUserDao.setJdbcTemplate(testJdbcTemplate);
-        jdbcEventDao.setJdbcTemplate(testJdbcTemplate);
-    }
 
     @Test
     void getPurchasedTicketsForEvent() {

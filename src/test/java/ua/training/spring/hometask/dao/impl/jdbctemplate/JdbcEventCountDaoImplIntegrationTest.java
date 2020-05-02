@@ -1,10 +1,8 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.EventCount;
-import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
 import java.util.Collection;
 
@@ -25,9 +22,9 @@ import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
+@ContextConfiguration(classes = BeansConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ActiveProfiles("JDBC_TEMPLATE")
+@ActiveProfiles({"JDBC_TEMPLATE", "TEST"})
 class JdbcEventCountDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "event_counts";
@@ -36,14 +33,7 @@ class JdbcEventCountDaoImplIntegrationTest {
     private JdbcEventCountDaoImpl jdbcEventCountDao;
 
     @Autowired
-    @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
-
-
-    @BeforeEach
-    void setUp() {
-        jdbcEventCountDao.setJdbcTemplate(testJdbcTemplate);
-    }
 
     @Test
     void getByName() {

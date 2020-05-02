@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.testconfig.TestJdbcTemplateBeans;
 
 import java.util.Collection;
 
@@ -26,9 +24,9 @@ import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestU
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BeansConfiguration.class, TestJdbcTemplateBeans.class})
+@ContextConfiguration(classes = {BeansConfiguration.class})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@ActiveProfiles("JDBC_TEMPLATE")
+@ActiveProfiles({"JDBC_TEMPLATE", "TEST"})
 class JdbcUserDaoImplIntegrationTest {
 
     private static final String TABLE_NAME = "users";
@@ -37,9 +35,7 @@ class JdbcUserDaoImplIntegrationTest {
     private JdbcUserDaoImpl jdbcUserDao;
 
     @Autowired
-    @Qualifier("testJdbcTemplate")
     private JdbcTemplate testJdbcTemplate;
-
 
     @BeforeEach
     void setUp() {
