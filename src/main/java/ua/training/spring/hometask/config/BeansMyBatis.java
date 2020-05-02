@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
 @Configuration
+@Profile("MYBATIS")
 @MapperScan("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos")
 @Import(DataSourceBeans.class)
 public class BeansMyBatis {
