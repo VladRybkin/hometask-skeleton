@@ -1,6 +1,6 @@
 package ua.training.spring.hometask.dao.impl.mybatis;
 
-import org.hibernate.SessionFactory;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.dao.impl.hibernate.HibernateEventDaoImpl;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.testconfig.TestsSessionFactoryBeans;
 
@@ -33,23 +32,23 @@ import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestE
 class MyBatisEventDaoImplIntegrationTest {
 
     @Autowired
-    private HibernateEventDaoImpl hibernateEventDao;
+    private MyBatisEventDaoImpl mybatisEventDao;
 
     @Autowired
-    @Qualifier("testSessionFactory")
-    private SessionFactory sessionFactory;
+    @Qualifier("testSqlSessionFactory")
+    private SqlSessionFactory sessionFactory;
 
     @BeforeEach
     void setUp() {
-        hibernateEventDao.setSessionFactory(sessionFactory);
+        mybatisEventDao.setSqlSessionFactory(sessionFactory);
     }
 
     @Test
     void getByName() {
         Event event = buildTestEvent();
 
-        hibernateEventDao.save(event);
-        Event foundByName = hibernateEventDao.getByName(event.getName());
+        mybatisEventDao.save(event);
+        Event foundByName = mybatisEventDao.getByName(event.getName());
 
         assertThat(foundByName, is(event));
     }
@@ -58,8 +57,8 @@ class MyBatisEventDaoImplIntegrationTest {
     void shouldGetByIdPersistedEvent() {
         Event event = buildTestEvent();
 
-        hibernateEventDao.save(event);
-        Event foundById = hibernateEventDao.getById(1L);
+        mybatisEventDao.save(event);
+        Event foundById = mybatisEventDao.getById(1L);
 
         assertThat(foundById, is(event));
     }
@@ -69,11 +68,11 @@ class MyBatisEventDaoImplIntegrationTest {
         Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().plusDays(5));
 
-        hibernateEventDao.save(event);
-        assertThat(hibernateEventDao.getAll(), hasSize(1));
+        mybatisEventDao.save(event);
+        assertThat(mybatisEventDao.getAll(), hasSize(1));
 
-        hibernateEventDao.remove(event);
-        assertThat(hibernateEventDao.getAll(), is(empty()));
+        mybatisEventDao.remove(event);
+        assertThat(mybatisEventDao.getAll(), is(empty()));
     }
 
     @Test
@@ -88,10 +87,10 @@ class MyBatisEventDaoImplIntegrationTest {
 
         testEvent2.getAirDates().add(LocalDateTime.now().minusDays(300));
 
-        hibernateEventDao.save(testEvent1);
-        hibernateEventDao.save(testEvent2);
+        mybatisEventDao.save(testEvent1);
+        mybatisEventDao.save(testEvent2);
 
-        Collection<Event> persistedEvents = hibernateEventDao.getAll();
+        Collection<Event> persistedEvents = mybatisEventDao.getAll();
 
         assertThat(persistedEvents, hasItems(testEvent1, testEvent2));
         assertThat(persistedEvents, hasSize(2));
@@ -102,9 +101,9 @@ class MyBatisEventDaoImplIntegrationTest {
         Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
-        hibernateEventDao.save(event);
+        mybatisEventDao.save(event);
 
-        Collection<Event> persistedEvents = hibernateEventDao
+        Collection<Event> persistedEvents = mybatisEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(6), LocalDateTime.now());
 
         assertThat(persistedEvents, hasSize(1));
@@ -116,9 +115,9 @@ class MyBatisEventDaoImplIntegrationTest {
         Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(6));
 
-        hibernateEventDao.save(event);
+        mybatisEventDao.save(event);
 
-        Collection<Event> persistedEvents = hibernateEventDao
+        Collection<Event> persistedEvents = mybatisEventDao
                 .getForDateRange(LocalDateTime.now().minusDays(3), LocalDateTime.now());
 
         assertThat(persistedEvents, empty());
@@ -129,9 +128,9 @@ class MyBatisEventDaoImplIntegrationTest {
         Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
-        hibernateEventDao.save(event);
+        mybatisEventDao.save(event);
 
-        Collection<Event> persistedEvents = hibernateEventDao
+        Collection<Event> persistedEvents = mybatisEventDao
                 .getNextEvents(LocalDateTime.now());
 
         assertThat(persistedEvents, hasSize(1));
@@ -142,9 +141,9 @@ class MyBatisEventDaoImplIntegrationTest {
         Event event = buildTestEvent();
         event.addAirDateTime(LocalDateTime.now().minusDays(3));
 
-        hibernateEventDao.save(event);
+        mybatisEventDao.save(event);
 
-        Collection<Event> persistedEvents = hibernateEventDao
+        Collection<Event> persistedEvents = mybatisEventDao
                 .getNextEvents(LocalDateTime.now().minusDays(5));
 
         assertThat(persistedEvents, empty());
@@ -154,14 +153,14 @@ class MyBatisEventDaoImplIntegrationTest {
     void shouldReturnNullWhenGetByName() {
         Event event = buildTestEvent();
 
-        Event foundByName = hibernateEventDao.getByName(event.getName());
+        Event foundByName = mybatisEventDao.getByName(event.getName());
 
         assertThat(foundByName, is(nullValue()));
     }
 
     @Test
     void shouldReturnNullWhenGetById() {
-        Event foundById = hibernateEventDao.getById(1L);
+        Event foundById = mybatisEventDao.getById(1L);
 
         assertThat(foundById, is(nullValue()));
     }

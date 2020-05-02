@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.dao.impl.mybatis;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
