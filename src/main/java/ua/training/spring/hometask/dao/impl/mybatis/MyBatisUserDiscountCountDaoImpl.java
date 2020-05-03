@@ -21,7 +21,8 @@ public class MyBatisUserDiscountCountDaoImpl implements UserDiscountCountDao {
     public UserDiscountCount getByName(String name) {
         UserDiscountCount userDiscountCount;
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            userDiscountCount = session.selectOne("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBUserDiscountCountMapper.getByName", name);
+            userDiscountCount =
+                    session.selectOne("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBUserDiscountCountMapper.getByName", name);
         }
 
         return userDiscountCount;

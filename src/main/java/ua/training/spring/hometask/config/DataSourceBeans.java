@@ -15,24 +15,24 @@ import javax.sql.DataSource;
 public class DataSourceBeans {
 
     @Value("${jdbc.driver}")
-    private String JDBC_DRIVER;
+    private String jdbcDriver;
 
     @Value("${jdbc.url}")
-    private String JDBC_URL;
+    private String jdbcUrl;
 
     @Value("${jdbc.user}")
-    private String JDBC_USER;
+    private String jdbcUser;
 
     @Value("${jdbc.password}")
-    private String JDBC_PASSWORD;
+    private String jdbcPassword;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(JDBC_DRIVER);
-        dataSource.setUrl(JDBC_URL);
-        dataSource.setUsername(JDBC_USER);
-        dataSource.setPassword(JDBC_PASSWORD);
+        dataSource.setDriverClassName(jdbcDriver);
+        dataSource.setUrl(jdbcUrl);
+        dataSource.setUsername(jdbcUser);
+        dataSource.setPassword(jdbcPassword);
 
         return dataSource;
     }
