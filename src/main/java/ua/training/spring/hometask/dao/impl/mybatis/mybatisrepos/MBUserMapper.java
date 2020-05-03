@@ -11,7 +11,6 @@ import ua.training.spring.hometask.domain.User;
 
 import java.util.Collection;
 
-
 public interface MBUserMapper {
 
     @Select("SELECT * FROM users WHERE email = #{email}")

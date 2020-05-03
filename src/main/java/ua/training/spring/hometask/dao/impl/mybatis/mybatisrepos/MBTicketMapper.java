@@ -14,7 +14,6 @@ import ua.training.spring.hometask.domain.User;
 
 import java.util.Collection;
 
-
 public interface MBTicketMapper {
 
     @Insert("INSERT INTO tickets (user_id, event_id, date_time, seat, base_price) "

@@ -11,7 +11,6 @@ import ua.training.spring.hometask.domain.Event;
 
 import java.util.Collection;
 
-
 public interface MBEventMapper {
 
     @Insert("INSERT INTO events (name, base_price, rating) "

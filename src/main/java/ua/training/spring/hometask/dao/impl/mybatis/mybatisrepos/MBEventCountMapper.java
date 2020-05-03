@@ -11,7 +11,6 @@ import ua.training.spring.hometask.domain.EventCount;
 
 import java.util.Collection;
 
-
 public interface MBEventCountMapper {
 
     @Select("SELECT * FROM event_counts WHERE name = #{name}")
