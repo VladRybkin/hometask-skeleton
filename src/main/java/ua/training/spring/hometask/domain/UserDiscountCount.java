@@ -1,13 +1,31 @@
 package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "user_discount_counts")
 public class UserDiscountCount extends DomainObject {
 
+    @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String name;
 
+    @Column(name = "count_tenth_ticket_discount")
     private long countTenthTicketDiscount;
 
+    @Column(name = "count_birthday_discount")
     private long countBirthdayDiscount;
 
     public UserDiscountCount() {
@@ -51,15 +69,16 @@ public class UserDiscountCount extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserDiscountCount that = (UserDiscountCount) o;
-        return countTenthTicketDiscount == that.countTenthTicketDiscount &&
-                countBirthdayDiscount == that.countBirthdayDiscount &&
-                Objects.equal(name, that.name);
+        UserDiscountCount userDiscountCount = (UserDiscountCount) o;
+        return countTenthTicketDiscount == userDiscountCount.countTenthTicketDiscount &&
+                countBirthdayDiscount == userDiscountCount.countBirthdayDiscount &&
+                Objects.equal(name, userDiscountCount.name) &&
+                Objects.equal(getId(), userDiscountCount.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, countTenthTicketDiscount, countBirthdayDiscount);
+        return Objects.hashCode(name, countTenthTicketDiscount, countBirthdayDiscount, getId());
     }
 
     @Override

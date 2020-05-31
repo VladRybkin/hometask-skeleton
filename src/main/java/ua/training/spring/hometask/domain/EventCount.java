@@ -2,15 +2,34 @@ package ua.training.spring.hometask.domain;
 
 
 import com.google.common.base.Objects;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "event_counts")
 public class EventCount extends DomainObject {
 
+    @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String eventName;
 
+    @Column(name = "count_get_by_name")
     private long countGetByName;
 
+    @Column(name = "count_book_tickets")
     private long countBookTickets;
 
+    @Column(name = "count_get_price")
     private long countGetPrice;
 
 
@@ -54,17 +73,17 @@ public class EventCount extends DomainObject {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EventCount that = (EventCount) o;
-        return countGetByName == that.countGetByName &&
-                countBookTickets == that.countBookTickets &&
-                countGetPrice == that.countGetPrice &&
-                Objects.equal(eventName, that.eventName);
+        EventCount eventCount = (EventCount) o;
+        return countGetByName == eventCount.countGetByName &&
+                countBookTickets == eventCount.countBookTickets &&
+                countGetPrice == eventCount.countGetPrice &&
+                Objects.equal(eventName, eventCount.eventName) &&
+                Objects.equal(getId(), eventCount.getId());
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(eventName, countGetByName, countBookTickets, countGetPrice);
+        return Objects.hashCode(eventName, countGetByName, countBookTickets, countGetPrice, getId());
     }
 
     @Override

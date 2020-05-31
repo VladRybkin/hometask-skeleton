@@ -14,6 +14,7 @@ import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -32,31 +33,28 @@ public class DefaultBookingService implements BookingService {
     private TicketService ticketService;
 
     @Override
-    public double getTicketsPrice(@Nonnull Event event, @Nonnull User user, @Nonnull Set<Long> seats) {
+    public double getTicketsPrice(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
-        double totalPriсe = getTotalPrice(tickets);
+        double totalPrice = getTotalPrice(tickets);
         double discount = discountService.getDiscount(user, tickets);
 
-        return applyDiscounts(totalPriсe, discount);
+        return applyDiscounts(totalPrice, discount);
     }
 
     @Transactional
     @Override
-    public void bookTickets(@Nonnull Set<Ticket> tickets, User user) {
+    public void bookTickets(@Nonnull Set<Ticket> tickets, @Nonnull User user) {
         tickets.forEach(ticket -> bookTicket(ticket, user));
     }
 
-
-    @Nonnull
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);
     }
 
-    @Nonnull
     @Transactional
     @Override
-    public Ticket bookTicket(Ticket ticket, User user) {
+    public Ticket bookTicket(@Nonnull Ticket ticket, @Nonnull User user) {
         user.getTickets().add(ticket);
         ticket.setUser(user);
         userService.save(user);
@@ -73,7 +71,6 @@ public class DefaultBookingService implements BookingService {
         ticket.setSeat(seat);
 
         return ticket;
-
     }
 
     private double getBonusForEventRating(EventRating eventRating) {
@@ -90,17 +87,16 @@ public class DefaultBookingService implements BookingService {
         }
     }
 
-    private double applyDiscounts(double totalPriсe, double discount) {
+    private double applyDiscounts(double totalPrice, double discount) {
         double finalPrice;
         if (discount != 0) {
-            finalPrice = totalPriсe - ((totalPriсe / 100) * discount);
+            finalPrice = totalPrice - ((totalPrice / 100) * discount);
         } else {
-            finalPrice = totalPriсe;
+            finalPrice = totalPrice;
         }
 
         return finalPrice;
     }
-
 
     private double getTotalPrice(Set<Ticket> tickets) {
         return tickets.stream().mapToDouble(Ticket::getBasePrice).sum();

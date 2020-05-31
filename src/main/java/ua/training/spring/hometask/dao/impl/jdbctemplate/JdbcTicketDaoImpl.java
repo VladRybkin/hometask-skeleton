@@ -2,7 +2,7 @@ package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Repository
-@Primary
+@Profile("JDBC_TEMPLATE")
 public class JdbcTicketDaoImpl implements TicketDao {
 
     private static final String GET_PURCHASED_TICKET_FOR_EVENT_QUERY = "select * from tickets t where t.event_id=?" +

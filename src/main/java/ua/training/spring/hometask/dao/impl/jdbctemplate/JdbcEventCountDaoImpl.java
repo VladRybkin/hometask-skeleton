@@ -1,7 +1,7 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import ua.training.spring.hometask.domain.EventCount;
 import java.util.Collection;
 
 @Repository
-@Primary
+@Profile("JDBC_TEMPLATE")
 public class JdbcEventCountDaoImpl implements EventCountDao {
 
     private static final String EVENT_COUNT_SAVE_QUERY =

@@ -1,22 +1,23 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 
-@Repository
+@Repository("userDaoImpl")
+@Profile("IN_MEMORY")
 public class UserDaoImpl implements UserDao {
 
     private static final Map<Long, User> users = new HashMap<>();
 
     @Override
-    public User save(@Nonnull User object) {
+    public User save(User object) {
         object.setId((long) (users.size() + 1));
         users.put(object.getId(), object);
 
@@ -24,16 +25,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void remove(@Nonnull User object) {
+    public void remove(User object) {
         users.remove(object.getId());
     }
 
     @Override
-    public User getById(@Nonnull Long id) {
+    public User getById(Long id) {
         return users.get(id);
     }
 
-    @Nonnull
     @Override
     public Collection<User> getAll() {
         return users.values();

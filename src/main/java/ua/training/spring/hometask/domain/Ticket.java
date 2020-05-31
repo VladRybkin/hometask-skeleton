@@ -2,20 +2,38 @@ package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ComparisonChain;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-
+@Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "tickets")
 public class Ticket extends DomainObject implements Comparable<Ticket> {
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne()
+    @JoinColumn(name = "event_id")
     private Event event;
 
+    @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+    @Column(name = "seat")
     private long seat;
 
+    @Column(name = "base_price")
     private double basePrice;
 
     public Ticket() {
@@ -89,12 +107,13 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
                 Double.compare(ticket.basePrice, basePrice) == 0 &&
                 Objects.equal(user, ticket.user) &&
                 Objects.equal(event, ticket.event) &&
-                Objects.equal(dateTime, ticket.dateTime);
+                Objects.equal(dateTime, ticket.dateTime) &&
+                Objects.equal(getId(), ticket.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(user, event, dateTime, seat, basePrice);
+        return Objects.hashCode(user, event, dateTime, seat, basePrice, getId());
     }
 
     @Override
@@ -108,8 +127,6 @@ public class Ticket extends DomainObject implements Comparable<Ticket> {
                 .compare(seat, other.getSeat())
                 .compare(basePrice, other.getBasePrice())
                 .result();
-
-
     }
 
     @Override

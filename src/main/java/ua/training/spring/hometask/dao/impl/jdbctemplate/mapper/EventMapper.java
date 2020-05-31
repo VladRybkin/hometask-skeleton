@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Event;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 @Component
+@Profile("JDBC_TEMPLATE")
 public class EventMapper implements RowMapper<Event> {
 
     @Override

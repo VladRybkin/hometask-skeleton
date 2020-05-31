@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.anEmptyMap;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.anEmptyMap;
+import static org.hamcrest.Matchers.not;
 
 
 class TestEvent {
@@ -71,7 +71,7 @@ class TestEvent {
 
     @Test
     void testAddRemoveAuditoriums() {
-        LocalDateTime time = event.getAirDates().first();
+        LocalDateTime time = event.getAirDates().stream().findAny().orElse(null);
 
         assertThat(event.getAuditoriums(), is(anEmptyMap()));
 

@@ -2,18 +2,16 @@ package ua.training.spring.hometask.service;
 
 import ua.training.spring.hometask.domain.DomainObject;
 
-import javax.annotation.Nonnull;
 import java.util.Collection;
 
 
 public interface AbstractDomainObjectService<T extends DomainObject> {
 
-    T save(@Nonnull T object);
+    T save(T object);
 
-    void remove(@Nonnull T object);
+    void remove(T object);
 
-    T getById(@Nonnull Long id);
+    T getById(Long id);
 
-    @Nonnull
     Collection<T> getAll();
 }

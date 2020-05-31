@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.exctractor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.impl.jdbctemplate.mapper.AirDateMapper;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
+@Profile("JDBC_TEMPLATE")
 public class EventResultSetExtractor implements ResultSetExtractor<Collection<Event>> {
 
     @Autowired

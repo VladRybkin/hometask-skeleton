@@ -1,21 +1,21 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.Event;
 
-import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
-
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.function.Predicate;
 
 
-@Repository
+@Repository("eventDaoImpl")
+@Profile("IN_MEMORY")
 public class EventDaoImpl implements EventDao {
 
     private static final Map<Long, Event> events = new HashMap<>();
@@ -37,7 +37,6 @@ public class EventDaoImpl implements EventDao {
         return events.get(id);
     }
 
-    @Nonnull
     @Override
     public Collection<Event> getAll() {
         return events.values();

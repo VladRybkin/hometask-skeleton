@@ -1,25 +1,59 @@
 package ua.training.spring.hometask.domain;
 
 import com.google.common.base.Objects;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.NavigableMap;
-import java.util.NavigableSet;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-
+@Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = "events")
 public class Event extends DomainObject {
 
+    @Column(name = "name", unique = true)
+    @NotNull
+    @Size(max = 45)
     private String name;
 
-    private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
+    @Transient
+    private Set<LocalDateTime> airDates = new TreeSet<>();
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "event_dates",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "air_date_id"))
+    private Set<AirDate> eventAirDates = new HashSet<>();
+
+    @Column(name = "base_price")
     private double basePrice;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rating")
     private EventRating rating;
 
+    @Transient
     private NavigableMap<LocalDateTime, Auditorium> auditoriums = new TreeMap<>();
 
     public Event() {
@@ -141,11 +175,11 @@ public class Event extends DomainObject {
         this.name = name;
     }
 
-    public NavigableSet<LocalDateTime> getAirDates() {
+    public Set<LocalDateTime> getAirDates() {
         return airDates;
     }
 
-    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
+    public void setAirDates(Set<LocalDateTime> airDates) {
         this.airDates = airDates;
     }
 
@@ -175,7 +209,7 @@ public class Event extends DomainObject {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(name, getId());
     }
 
     @Override
@@ -191,13 +225,22 @@ public class Event extends DomainObject {
                 Objects.equal(name, event.name) &&
                 Objects.equal(airDates, event.airDates) &&
                 rating == event.rating &&
-                Objects.equal(auditoriums, event.auditoriums);
+                Objects.equal(auditoriums, event.auditoriums) &&
+                Objects.equal(getId(), event.getId());
+    }
+
+    public Set<AirDate> getEventAirDates() {
+        return eventAirDates;
+    }
+
+    public void setEventAirDates(Set<AirDate> eventAirDates) {
+        this.eventAirDates = eventAirDates;
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("id", super.getId())
+                .add("id", getId())
                 .add("name", name)
                 .add("airDates", airDates)
                 .add("basePrice", basePrice)

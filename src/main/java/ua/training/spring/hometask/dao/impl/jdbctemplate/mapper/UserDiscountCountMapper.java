@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate.mapper;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.UserDiscountCount;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
+@Profile("JDBC_TEMPLATE")
 public class UserDiscountCountMapper implements RowMapper<UserDiscountCount> {
 
     @Override

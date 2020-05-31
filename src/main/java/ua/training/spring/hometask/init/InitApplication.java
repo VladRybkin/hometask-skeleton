@@ -3,17 +3,18 @@ package ua.training.spring.hometask.init;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.dao.EventDao;
+import ua.training.spring.hometask.dao.TicketDao;
+import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.Auditorium;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
-import ua.training.spring.hometask.service.EventService;
-import ua.training.spring.hometask.service.TicketService;
-import ua.training.spring.hometask.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
@@ -23,31 +24,33 @@ import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 @Component
+@Profile("IN_MEMORY")
 public class InitApplication {
 
+    @Autowired
+    @Qualifier("userDaoImpl")
+    private UserDao userDao;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private EventService eventService;
+    @Qualifier("eventDaoImpl")
+    private EventDao eventDao;
 
     @Autowired
     private AuditoriumService auditoriumService;
 
     @Autowired
-    private TicketService ticketService;
+    @Qualifier("ticketDaoImpl")
+    private TicketDao ticketDao;
 
-    //    @PostConstruct
-    //    void init() {
-    //        User user = buildUser();
-    //        userService.save(user);
-    //        Event event = buildEvent();
-    //
-    //        eventService.save(event);
-    //        saveTickets(10, event);
-    //        System.out.println("init method executed");
-    //    }
+    @PostConstruct
+    void fulfilImmemoryRepositoryWithInitialData() {
+        User user = buildUser();
+        userDao.save(user);
+        Event event = buildEvent();
+
+        eventDao.save(event);
+        saveTickets(10, event);
+    }
 
     private Event buildEvent() {
         Event event = new Event();
@@ -79,32 +82,13 @@ public class InitApplication {
         return user;
     }
 
-
     private void saveTickets(int amount, Event event) {
         Set<Ticket> tickets = Sets.newTreeSet();
         IntStream.rangeClosed(1, amount).forEach(addTicket(tickets, event));
-        tickets.forEach(ticketService::save);
-
+        tickets.forEach(ticketDao::save);
     }
 
     private IntConsumer addTicket(Set<Ticket> tickets, Event event) {
-        return seat -> tickets.add(new Ticket(event, event.getAirDates().first(), seat, 100));
-    }
-
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public void setEventService(EventService eventService) {
-        this.eventService = eventService;
-    }
-
-    public void setAuditoriumService(AuditoriumService auditoriumService) {
-        this.auditoriumService = auditoriumService;
-    }
-
-    public void setTicketService(TicketService ticketService) {
-        this.ticketService = ticketService;
+        return seat -> tickets.add(new Ticket(event, event.getAirDates().stream().findAny().orElse(null), seat, 100));
     }
 }

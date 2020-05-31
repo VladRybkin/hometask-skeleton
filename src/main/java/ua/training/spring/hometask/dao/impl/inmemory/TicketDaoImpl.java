@@ -1,5 +1,6 @@
-package ua.training.spring.hometask.dao.impl.immemory;
+package ua.training.spring.hometask.dao.impl.inmemory;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.TicketDao;
 import ua.training.spring.hometask.domain.Event;
@@ -9,13 +10,14 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.Objects;
 
 
-@Repository
+@Repository("ticketDaoImpl")
+@Profile("IN_MEMORY")
 public class TicketDaoImpl implements TicketDao {
 
     private static final Map<Long, Ticket> tickets = new HashMap<>();
