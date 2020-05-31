@@ -120,12 +120,12 @@ class DefaultBookingServiceTest {
         verify(discountService).getDiscount(any(User.class), anySet());
     }
 
-    @Test
-    void shouldThrowExceptionWhenArgumentsIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            bookingService.getTicketsPrice(null, null, null);
-        });
-    }
+//    @Test
+//    void shouldThrowExceptionWhenArgumentsIsNull() {
+//        assertThrows(IllegalArgumentException.class, () -> {
+//            bookingService.getTicketsPrice(null, null, null);
+//        });
+//    }
 
     @Test
     void bookTicket() {
