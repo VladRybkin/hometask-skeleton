@@ -29,7 +29,11 @@ public class MyBatisEventCountDaoImpl implements EventCountDao {
 
     @Override
     public boolean update(EventCount eventCount) {
-        return false;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            session.update("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventCountMapper.update", eventCount);
+        }
+
+        return true;
     }
 
     @Override
@@ -66,9 +70,5 @@ public class MyBatisEventCountDaoImpl implements EventCountDao {
         }
 
         return eventCounts;
-    }
-
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
     }
 }

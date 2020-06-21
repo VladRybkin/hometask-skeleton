@@ -26,6 +26,10 @@ public interface MBUserDiscountCountMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     long save(UserDiscountCount object);
 
+    @Insert("UPDATE user_discount_counts SET name=#{name}, count_tenth_ticket_discount=#{countTenthTicketDiscount}, " +
+            "count_birthday_discount=#{countTenthTicketDiscount} WHERE id=#{id}")
+    long update(UserDiscountCount object);
+
     @Delete("DELETE FROM user_discount_counts WHERE id = #{id}")
     void remove(UserDiscountCount id);
 

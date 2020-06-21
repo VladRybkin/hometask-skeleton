@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.mybatis;
 
+import com.google.common.collect.Sets;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,31 @@ public class MyBatisEventDaoImpl implements EventDao {
 
     @Override
     public Event getByName(String name) {
-        return null;
+        Event event;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            event = session.selectOne("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getByName", name);
+        }
+
+        return event;
     }
 
     @Override
     public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        return null;
+        Collection<Event> events;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            events = session.selectList("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getForDateRange");
+        }
+
+        return Sets.newHashSet(events);
     }
 
     @Override
     public Set<Event> getNextEvents(LocalDateTime to) {
-        return null;
+        Collection<Event> events;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            events = session.selectList("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getNextEvents");
+        }
+        return Sets.newHashSet();
     }
 
     @Override
@@ -70,7 +85,4 @@ public class MyBatisEventDaoImpl implements EventDao {
         return events;
     }
 
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
 }
