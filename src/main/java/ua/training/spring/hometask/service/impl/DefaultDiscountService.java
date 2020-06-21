@@ -6,8 +6,6 @@ import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.strategy.DiscountStrategy;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.OptionalDouble;
 import java.util.Set;
@@ -25,7 +23,7 @@ public class DefaultDiscountService implements DiscountService {
     }
 
     @Override
-    public double getDiscount(@Nullable User user, @Nonnull Set<Ticket> tickets) {
+    public double getDiscount(User user, Set<Ticket> tickets) {
         double discount = 0;
         if (!Objects.isNull(user)) {
             OptionalDouble optionalDiscount = discountStrategies.stream()
