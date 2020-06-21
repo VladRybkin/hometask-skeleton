@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dao.impl.mybatis;
 
+import com.google.common.collect.Sets;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import ua.training.spring.hometask.domain.Ticket;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -22,7 +25,16 @@ public class MyBatisTicketDaoImpl implements TicketDao {
 
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
-        return null;
+        Collection<Ticket> tickets;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", event.getId());
+            params.put("dateTime", dateTime);
+            tickets = session.selectList("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBTicketMapper.getPurchasedTicketsForEvent",
+                    params);
+        }
+
+        return Sets.newHashSet(tickets);
     }
 
     @Override
@@ -59,9 +71,5 @@ public class MyBatisTicketDaoImpl implements TicketDao {
         }
 
         return tickets;
-    }
-
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
     }
 }

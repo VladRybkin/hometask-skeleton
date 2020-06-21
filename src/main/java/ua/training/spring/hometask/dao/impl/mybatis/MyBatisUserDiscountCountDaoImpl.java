@@ -30,7 +30,11 @@ public class MyBatisUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public boolean update(UserDiscountCount userDiscountCount) {
-        return false;
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            session.update("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBUserDiscountCountMapper.update", userDiscountCount);
+        }
+
+        return true;
     }
 
     @Override
@@ -67,9 +71,5 @@ public class MyBatisUserDiscountCountDaoImpl implements UserDiscountCountDao {
         }
 
         return userDiscountCounts;
-    }
-
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
     }
 }

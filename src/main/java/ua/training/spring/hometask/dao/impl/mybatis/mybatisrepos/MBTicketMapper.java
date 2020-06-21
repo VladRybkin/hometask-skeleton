@@ -12,6 +12,7 @@ import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 public interface MBTicketMapper {
@@ -49,4 +50,18 @@ public interface MBTicketMapper {
             @Result(property = "event", column = "event_id", javaType = Event.class,
                     one = @One(select = "ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getById"))})
     Collection<Ticket> getAll();
+
+    @Select("SELECT * FROM tickets t "
+            + "LEFT JOIN users u ON t.user_id=u.id "
+            + "LEFT JOIN events e ON t.event_id=e.id where t.user_id is not null and t.event_id = #{id} and t.date_time = #{dateTime}")
+    @Results(value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "dateTime", column = "date_time"),
+            @Result(property = "seat", column = "seat"),
+            @Result(property = "basePrice", column = "base_price"),
+            @Result(property = "user", column = "user_id", javaType = User.class,
+                    one = @One(select = "ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBUserMapper.getById")),
+            @Result(property = "event", column = "event_id", javaType = Event.class,
+                    one = @One(select = "ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getById"))})
+    Collection<Ticket> getPurchasedTicketsForEvent(@Param("id") Long id, @Param("dateTime") LocalDateTime dateTime);
 }

@@ -13,8 +13,6 @@ import ua.training.spring.hometask.service.DiscountService;
 import ua.training.spring.hometask.service.TicketService;
 import ua.training.spring.hometask.service.UserService;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -33,7 +31,7 @@ public class DefaultBookingService implements BookingService {
     private TicketService ticketService;
 
     @Override
-    public double getTicketsPrice(@Nonnull Event event, @Nullable User user, @Nonnull Set<Long> seats) {
+    public double getTicketsPrice(Event event, User user, Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
         double totalPrice = getTotalPrice(tickets);
         double discount = discountService.getDiscount(user, tickets);
@@ -43,18 +41,18 @@ public class DefaultBookingService implements BookingService {
 
     @Transactional
     @Override
-    public void bookTickets(@Nonnull Set<Ticket> tickets, @Nonnull User user) {
+    public void bookTickets(Set<Ticket> tickets, User user) {
         tickets.forEach(ticket -> bookTicket(ticket, user));
     }
 
     @Override
-    public Set<Ticket> getPurchasedTicketsForEvent(@Nonnull Event event, @Nonnull LocalDateTime dateTime) {
+    public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         return ticketService.getPurchasedTicketsForEvent(event, dateTime);
     }
 
     @Transactional
     @Override
-    public Ticket bookTicket(@Nonnull Ticket ticket, @Nonnull User user) {
+    public Ticket bookTicket(Ticket ticket, User user) {
         user.getTickets().add(ticket);
         ticket.setUser(user);
         userService.save(user);

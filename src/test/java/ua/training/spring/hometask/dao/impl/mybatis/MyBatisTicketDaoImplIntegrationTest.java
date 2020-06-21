@@ -40,26 +40,14 @@ class MyBatisTicketDaoImplIntegrationTest {
         Ticket ticket = createTestTicket();
 
         myBatisTicketDao.save(ticket);
-        System.out.println(ticket.getDateTime());
 
         Collection<Ticket> persistedPurchasedTickets = myBatisTicketDao.
-                getPurchasedTicketsForEvent(ticket.getEvent(), ticket.getDateTime().minusDays(1));
+                getPurchasedTicketsForEvent(ticket.getEvent(), ticket.getDateTime());
 
         assertThat(persistedPurchasedTickets, hasItems(ticket));
         assertThat(persistedPurchasedTickets, hasSize(1));
     }
-
-    @Test
-    void shouldReturnEmptyPurchasedTicketsList() {
-        Ticket ticket = new Ticket();
-
-        myBatisTicketDao.save(ticket);
-
-        Collection<Ticket> persistedPurchasedTickets = myBatisTicketDao.getPurchasedTicketsForEvent(ticket.getEvent(), ticket.getDateTime());
-
-        assertThat(persistedPurchasedTickets, empty());
-    }
-
+    
     @Test
     void shouldGetByIdPersistedTicket() {
         Ticket ticket = createTestTicket();

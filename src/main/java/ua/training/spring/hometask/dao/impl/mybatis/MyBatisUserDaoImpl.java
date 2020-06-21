@@ -62,8 +62,4 @@ public class MyBatisUserDaoImpl implements UserDao {
 
         return users;
     }
-
-    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
 }

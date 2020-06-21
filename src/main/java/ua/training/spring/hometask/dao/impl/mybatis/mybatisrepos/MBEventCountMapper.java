@@ -27,6 +27,10 @@ public interface MBEventCountMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
     long save(EventCount object);
 
+    @Insert("UPDATE event_counts SET name=#{eventName}, count_get_by_name=#{countGetByName}, " +
+            "count_book_tickets=#{countBookTickets}, count_get_price=#{countGetPrice} WHERE id=#{id}")
+    long update(EventCount object);
+
     @Delete("DELETE FROM event_counts WHERE id = #{id}")
     void remove(EventCount id);
 
