@@ -27,6 +27,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-        servletContext.setInitParameter("spring.profiles.active", "HIBERNATE");
+        servletContext.setInitParameter("spring.profiles.active", "IN_MEMORY");
     }
 }
