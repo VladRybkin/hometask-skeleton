@@ -16,7 +16,7 @@ public class BookingController {
 
     @GetMapping
     public String welcome(Model model) {
-        model.addAttribute("events", eventService.getAll());
+        model.addAttribute("events", eventService.getAll().toString());
         return "booking";
     }
 }

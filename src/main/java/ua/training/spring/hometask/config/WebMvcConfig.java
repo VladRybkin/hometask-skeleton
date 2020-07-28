@@ -31,7 +31,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
         resolver.setCache(true);
         resolver.setPrefix("");
-        resolver.setSuffix(".html");
+        resolver.setSuffix(".ftl");
         resolver.setOrder(0);
         return resolver;
     }
