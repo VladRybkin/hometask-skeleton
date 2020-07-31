@@ -1,8 +1,7 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Simple JSP Application</title>
+    <title>events</title>
 </head>
 <body>
 <h1>events page</h1>
