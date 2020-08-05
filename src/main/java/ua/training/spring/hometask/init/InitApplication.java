@@ -47,8 +47,12 @@ public class InitApplication {
         User user = buildUser();
         userDao.save(user);
         Event event = buildEvent();
+        Event event1=new Event();
+        event1.setName("Second Name");
+        event1.setBasePrice(300);
 
         eventDao.save(event);
+        eventDao.save(event1);
         saveTickets(10, event);
     }
 

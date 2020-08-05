@@ -13,5 +13,10 @@
 		   <button onclick="window.location.href='events';">
                 Click Here
               </button>
+              <br>
+
+                            <form action="events">
+                                <input type="submit" value="Go to events" />
+                            </form>
 	</body>
 </html>

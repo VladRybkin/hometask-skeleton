@@ -23,11 +23,16 @@ public class TicketDaoImpl implements TicketDao {
     private static final Map<Long, Ticket> tickets = new HashMap<>();
 
     @Override
-    public Ticket save(Ticket object) {
-        object.setId((long) (tickets.size() + 1));
-        tickets.put(object.getId(), object);
+    public Ticket save(Ticket ticket) {
+        Long ticketId = ticket.getId();
+        if (Objects.isNull(ticketId)) {
+            ticket.setId((long) (tickets.size() + 1));
+            tickets.put(ticket.getId(), ticket);
+        } else {
+            tickets.put(ticketId, ticket);
+        }
 
-        return object;
+        return ticket;
     }
 
     @Override
