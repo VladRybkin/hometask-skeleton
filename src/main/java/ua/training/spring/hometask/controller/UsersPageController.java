@@ -11,60 +11,62 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.service.EventService;
+import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.service.UserService;
 
 import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping(value = "/events")
-public class EventsPageController {
+@RequestMapping(value = "/users")
+public class UsersPageController {
 
     @Autowired
-    private EventService eventService;
+    private UserService userService;
 
     @GetMapping
     public String welcome(Model model) {
-        model.addAttribute("events", eventService.getAll());
+        model.addAttribute("users", userService.getAll());
 
-        return "events";
+        return "users";
     }
 
     @PostMapping(value = "/add")
-    public String addEvent(@ModelAttribute Event event) {
-        eventService.save(event);
+    public String addEvent(@ModelAttribute User user) {
+        userService.save(user);
 
-        return "redirect:/events";
+        return "redirect:/users";
     }
 
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
-        eventService.remove(eventService.getById(id));
+        userService.remove(userService.getById(id));
+        model.addAttribute("users", userService.getAll());
 
         return "redirect:/events";
     }
 
     @GetMapping(value = "/getbyid/{id}")
     public String getById(Model model, @PathVariable Long id) {
-        List<Event> events = Lists.newArrayList();
-        Event event = eventService.getById(id);
-        if (Objects.nonNull(event)) {
-            events.add(event);
+        List<User> users = Lists.newArrayList();
+        User user = userService.getById(id);
+        if (Objects.nonNull(user)) {
+            users.add(user);
         }
-        model.addAttribute("events", events);
+        model.addAttribute("users", users);
 
-        return "events";
+        return "users";
     }
 
-    @GetMapping(value = "/getbyname")
-    public String getByName(Model model, @RequestParam String name) {
-        List<Event> events = Lists.newArrayList();
-        Event event = eventService.getByName(name);
-        if (Objects.nonNull(event)) {
-            events.add(event);
+    @GetMapping(value = "/getbyemail")
+    public String getByEmail(Model model, @RequestParam String email) {
+        List<User> users = Lists.newArrayList();
+        User user = userService.getUserByEmail(email);
+        if (Objects.nonNull(user)) {
+            users.add(user);
         }
-        model.addAttribute("events", events);
+        model.addAttribute("users", users);
 
-        return "events";
+        return "users";
     }
 }
