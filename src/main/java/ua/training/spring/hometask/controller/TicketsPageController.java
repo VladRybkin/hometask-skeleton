@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.controller;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +55,6 @@ public class TicketsPageController {
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         ticketService.remove(ticketService.getById(id));
-        model.addAttribute("tickets", ticketService.getAll());
 
         return "redirect:/tickets";
     }

@@ -39,11 +39,14 @@
           </fieldset>
       </form>
 <br/>
-        <h3>get event by name</h3>
+
      <form method="get" action="/events/getbyname" >
+      <fieldset>
+                     <legend>get by name</legend>
           <label><input type="text" name="name"></label>
           <br>
           <input type="submit" value="get by event name"><br>
+       </fieldset>
       </form>
 
 </body>

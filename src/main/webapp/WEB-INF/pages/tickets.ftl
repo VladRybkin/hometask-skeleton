@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 <head>
-    <title>events</title>
+    <title>tickets</title>
 </head>
 <body>
-<h1>events page</h1>
+<h1>tickets page</h1>
 <h2></h2>
 <br/>
 <br/>
@@ -21,8 +21,8 @@
     <#list tickets as t>
       <tr>
         <td>${t.id}</td>
-        <td>${t.seat}</td>
-        <td>${t.basePrice}</td>
+        <td>${t.seat!}</td>
+        <td>${t.basePrice!}</td>
          <td><#if t.event??>${t.event.name}</#if></td>
         <td><#if t.user??>${t.user.email}</#if></td>
         <td><a href="/tickets/getbyid/${t.id}">get details</a></td>
@@ -53,7 +53,6 @@
        </form>
 <br/>
     <tr>
-
 
 
 </body>

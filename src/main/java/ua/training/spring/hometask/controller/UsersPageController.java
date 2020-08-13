@@ -1,7 +1,10 @@
 package ua.training.spring.hometask.controller;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +13,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.training.spring.hometask.domain.Event;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -32,7 +46,8 @@ public class UsersPageController {
     }
 
     @PostMapping(value = "/add")
-    public String addEvent(@ModelAttribute User user) {
+    public String addEvent(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
+        user.setDateOfBirth(birthday.atTime(LocalTime.MIDNIGHT));
         userService.save(user);
 
         return "redirect:/users";
@@ -43,7 +58,7 @@ public class UsersPageController {
         userService.remove(userService.getById(id));
         model.addAttribute("users", userService.getAll());
 
-        return "redirect:/events";
+        return "redirect:/users";
     }
 
     @GetMapping(value = "/getbyid/{id}")
