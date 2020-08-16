@@ -8,6 +8,14 @@
 <h2></h2>
 <br/>
 <br/>
+
+<datalist id="options">
+                     <#list options as t>
+                      <option value="${t}"/>
+                       </#list>
+ </datalist>
+
+
 <table>
     <tr>
       <th>id</th>
@@ -37,22 +45,26 @@
         <form method="post" action="/tickets/add"  modelAttribute="ticket">
             <fieldset>
                    <legend>add ticket</legend>
-               <input list="options" name="eventName" id="eventName">
-                    <datalist id="options">
-                     <#list options as t>
-                      <option value="${t}"/>
-                       </#list>
-                    </datalist>
+               <label><input list="options" name="eventName">choose event</label>
             <br>
-           <label><input type="number" name="seat"></label>
+           <label><input type="number" name="seat">seat</label>
            <br>
-           <label><input type="number" name="basePrice"></label>
+           <label><input type="number" name="basePrice">base price</label>
             <br>
            <input type="submit" value="add ticket"><br>
            </fieldset>
        </form>
 <br/>
-    <tr>
+   <tr>
+     <form method="get" action="/tickets/pdf"  >
+               <fieldset>
+            <label><input type="datetime-local" name="ticketDate">date time</label>
+            <br/>
+             <label><input list="options" name="eventName" >choose event</label>
+                        <br/>
+            <input type="submit" value="print booked tickets "><br>
+               </fieldset>
+     </form>
 
 
 </body>

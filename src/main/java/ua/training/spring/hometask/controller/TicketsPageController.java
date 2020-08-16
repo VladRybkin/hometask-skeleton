@@ -2,6 +2,8 @@ package ua.training.spring.hometask.controller;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +12,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.facade.TicketFacade;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -69,5 +76,14 @@ public class TicketsPageController {
         model.addAttribute("tickets", tickets);
 
         return "tickets";
+    }
+
+    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) throws IOException {
+        Collection<Ticket> tickets = ticketService.getAll();
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime parsedTicketDate = LocalDateTime.parse(ticketDate, formatter1);
+        System.out.println(eventName + " " + parsedTicketDate.toString());
+        return new ModelAndView("ticketPdfView", "ticketData", tickets);
     }
 }
