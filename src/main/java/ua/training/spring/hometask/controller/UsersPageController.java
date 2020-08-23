@@ -1,10 +1,8 @@
 package ua.training.spring.hometask.controller;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,21 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -37,7 +29,7 @@ public class UsersPageController {
     private UserService userService;
 
     @GetMapping
-    public String welcome(Model model) {
+    public String users(Model model) {
         model.addAttribute("users", userService.getAll());
 
         return "users";
@@ -45,7 +37,7 @@ public class UsersPageController {
 
     @PostMapping(value = "/add")
     public String addEvent(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
-        user.setDateOfBirth(birthday.atTime(LocalTime.MIDNIGHT));
+        user.setDateOfBirth(birthday.atTime(LocalTime.MIDNIGHT).truncatedTo(DAYS));
         userService.save(user);
 
         return "redirect:/users";

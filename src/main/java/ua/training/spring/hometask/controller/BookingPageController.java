@@ -21,7 +21,7 @@ public class BookingPageController {
     private TicketService ticketService;
 
     @GetMapping
-    public String welcome(Model model) {
+    public String booking(Model model) {
         model.addAttribute("tickets", ticketService.getAll());
 
         return "booking";

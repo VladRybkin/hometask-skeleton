@@ -8,6 +8,10 @@ import ua.training.spring.hometask.facade.TicketFacade;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+
 @Component
 public class DefaultTicketFacade implements TicketFacade {
 
@@ -22,5 +26,14 @@ public class DefaultTicketFacade implements TicketFacade {
         Event event = eventService.getByName(eventName);
         ticket.setEvent(event);
         ticketService.save(ticket);
+    }
+
+    @Override
+    public Collection<Ticket> getPurchasedTicketsForEvent(String eventName, String eventDate) {
+        Event event = eventService.getByName(eventName);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime parsedTicketDate = LocalDateTime.parse(eventDate, formatter);
+
+        return ticketService.getPurchasedTicketsForEvent(event, parsedTicketDate);
     }
 }
