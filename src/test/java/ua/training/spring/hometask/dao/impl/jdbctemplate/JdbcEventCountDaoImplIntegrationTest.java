@@ -8,16 +8,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.jdbc.JdbcTestUtils;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.EventCount;
 
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;
@@ -25,7 +22,6 @@ import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestE
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeansConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@WebAppConfiguration
 @ActiveProfiles({"JDBC_TEMPLATE", "TEST"})
 class JdbcEventCountDaoImplIntegrationTest {
 

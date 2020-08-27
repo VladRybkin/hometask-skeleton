@@ -3,6 +3,7 @@ package ua.training.spring.hometask.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @Configuration
+@Profile("WEB_MVC")
 @EnableWebMvc
 @ComponentScan(basePackages = {"ua.training.spring.hometask"})
 public class WebMvcConfig implements WebMvcConfigurer {
