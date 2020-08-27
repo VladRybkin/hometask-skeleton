@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.view;
+package ua.training.spring.hometask.config.view;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Table;

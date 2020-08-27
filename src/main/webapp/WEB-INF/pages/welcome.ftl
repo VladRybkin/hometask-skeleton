@@ -34,8 +34,7 @@
       </form>
        <br/>
             <form action="/auditoriums">
-               <input type="submit" value="upload" />
+               <input type="submit" value="auditoriums" />
             </form>
-
 	</body>
 </html>

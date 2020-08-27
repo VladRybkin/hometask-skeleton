@@ -12,7 +12,7 @@ import java.io.File;
 @Configuration
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private int maxUploadSizeInMb = 1000;
+    private final int maxUploadSizeInMb = 1000;
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -44,6 +44,5 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
                         maxUploadSizeInMb, maxUploadSizeInMb * 2, maxUploadSizeInMb / 2);
 
         registration.setMultipartConfig(multipartConfigElement);
-
     }
 }
