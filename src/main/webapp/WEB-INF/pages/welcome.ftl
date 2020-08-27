@@ -29,5 +29,13 @@
         <input type="submit" value="tickets" />
     </form>
      <br/>
+      <form action="/upload">
+         <input type="submit" value="upload" />
+      </form>
+       <br/>
+            <form action="/auditoriums">
+               <input type="submit" value="upload" />
+            </form>
+
 	</body>
 </html>

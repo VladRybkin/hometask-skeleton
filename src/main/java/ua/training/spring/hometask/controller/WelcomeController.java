@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/welcome")
-public class WelcomePageController {
+public class WelcomeController {
 
     @GetMapping
-    public String welcome() {
+    public String getWelcome() {
         return "welcome";
     }
 }

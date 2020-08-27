@@ -14,4 +14,6 @@ public interface AbstractDomainObjectService<T extends DomainObject> {
     T getById(Long id);
 
     Collection<T> getAll();
+
+    void saveAll(Collection<T>collection);
 }

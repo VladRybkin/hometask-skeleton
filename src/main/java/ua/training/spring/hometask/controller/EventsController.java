@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.EventService;
 
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
 @Controller
 @RequestMapping(value = "/events")
-public class EventsPageController {
+public class EventsController {
 
     @Autowired
     private EventService eventService;
 
     @GetMapping
-    public String events(Model model) {
+    public String getEvents(Model model) {
         model.addAttribute("events", eventService.getAll());
 
         return "events";
@@ -67,12 +66,5 @@ public class EventsPageController {
         model.addAttribute("events", events);
 
         return "events";
-    }
-
-    @PostMapping(value = "/upload")
-    public String uploadEvents(@RequestParam File eventsFile) {
-        System.out.println("sucess uploaded");
-
-        return "redirect:/events";
     }
 }

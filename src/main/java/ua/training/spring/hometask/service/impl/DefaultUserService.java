@@ -42,4 +42,10 @@ public class DefaultUserService implements UserService {
     public Collection<User> getAll() {
         return userDao.getAll();
     }
+
+    @Transactional
+    @Override
+    public void saveAll(Collection<User> users) {
+        users.forEach(u -> userDao.save(u));
+    }
 }

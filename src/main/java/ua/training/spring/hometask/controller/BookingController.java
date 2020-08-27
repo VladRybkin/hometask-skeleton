@@ -12,7 +12,7 @@ import ua.training.spring.hometask.service.TicketService;
 
 @Controller
 @RequestMapping(value = "/booking")
-public class BookingPageController {
+public class BookingController {
 
     @Autowired
     private BookingFacade bookingFacade;
@@ -21,7 +21,7 @@ public class BookingPageController {
     private TicketService ticketService;
 
     @GetMapping
-    public String booking(Model model) {
+    public String getBooking(Model model) {
         model.addAttribute("tickets", ticketService.getAll());
 
         return "booking";

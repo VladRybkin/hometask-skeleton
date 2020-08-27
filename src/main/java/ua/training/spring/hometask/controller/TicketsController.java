@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/tickets")
-public class TicketsPageController {
+public class TicketsController {
 
     @Autowired
     private TicketService ticketService;
@@ -39,7 +39,7 @@ public class TicketsPageController {
     private EventService eventService;
 
     @GetMapping
-    public String tickets(Model model) {
+    public String getTickets(Model model) {
         List<Ticket> tickets = Lists.newArrayList(ticketService.getAll());
         Set<String> eventNames = eventService.getAll().stream().map(Event::getName).collect(Collectors.toSet());
 

@@ -2,6 +2,7 @@ package ua.training.spring.hometask.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.facade.BookingFacade;
@@ -21,6 +22,7 @@ public class DefaultBookingFacade implements BookingFacade {
     @Autowired
     private UserService userService;
 
+    @Transactional
     @Override
     public void bookTicket(Long ticketId, Long userId) {
         Ticket ticket = ticketService.getById(ticketId);

@@ -20,14 +20,14 @@ public class DefaultTicketService implements TicketService {
 
     @Transactional
     @Override
-    public Ticket save(Ticket object) {
-        return ticketDao.save(object);
+    public Ticket save(Ticket ticket) {
+        return ticketDao.save(ticket);
     }
 
     @Transactional
     @Override
-    public void remove(Ticket object) {
-        ticketDao.remove(object);
+    public void remove(Ticket ticket) {
+        ticketDao.remove(ticket);
     }
 
     @Override
@@ -43,5 +43,11 @@ public class DefaultTicketService implements TicketService {
     @Override
     public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
         return ticketDao.getPurchasedTicketsForEvent(event, dateTime);
+    }
+
+    @Transactional
+    @Override
+    public void saveAll(Collection<Ticket> tickets) {
+        tickets.forEach(t->ticketDao.save(t));
     }
 }

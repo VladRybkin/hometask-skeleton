@@ -23,13 +23,13 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping(value = "/users")
-public class UsersPageController {
+public class UsersController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping
-    public String users(Model model) {
+    public String getUsers(Model model) {
         model.addAttribute("users", userService.getAll());
 
         return "users";
