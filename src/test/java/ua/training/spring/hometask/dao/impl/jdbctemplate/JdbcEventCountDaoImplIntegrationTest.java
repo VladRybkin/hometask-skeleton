@@ -14,7 +14,9 @@ import ua.training.spring.hometask.domain.EventCount;
 
 import java.util.Collection;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestEventCount;

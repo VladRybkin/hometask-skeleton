@@ -9,6 +9,8 @@ import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.service.EventCountService;
 
+import java.util.Objects;
+
 @Aspect
 @Component
 public class CounterAspect {
@@ -16,21 +18,24 @@ public class CounterAspect {
     @Autowired
     private EventCountService eventCountService;
 
-
     @AfterReturning(value =
             "execution(* ua.training.spring.hometask.service.impl.DefaultEventService.getByName(String))",
             returning = ("event"),
             argNames = "event")
     public void eventGetByNameCount(Event event) {
-        String eventName = event.getName();
-        eventCountService.getByNameCountIncrement(eventName);
+        if (Objects.nonNull(event)) {
+            String eventName = event.getName();
+            eventCountService.getByNameCountIncrement(eventName);
+        }
     }
 
     @AfterReturning(value = "execution(* ua.training.spring.hometask." +
             "service.impl.DefaultBookingService.getTicketsPrice(..))  && args (event, ..)")
     public void countGetTicketsPrice(Event event) {
-        String eventName = event.getName();
-        eventCountService.getPriceCountIncrement(eventName);
+        if (Objects.nonNull(event)) {
+            String eventName = event.getName();
+            eventCountService.getPriceCountIncrement(eventName);
+        }
     }
 
 
@@ -38,7 +43,9 @@ public class CounterAspect {
             "service.impl.DefaultBookingService.bookTicket(..)) && args(ticket, ..)",
             argNames = "ticket")
     public void bookTicketsCount(Ticket ticket) {
-        Event event = ticket.getEvent();
-        eventCountService.bookTicketsCountIncrement(event.getName());
+        if (Objects.nonNull(ticket)) {
+            Event event = ticket.getEvent();
+            eventCountService.bookTicketsCountIncrement(event.getName());
+        }
     }
 }

@@ -14,7 +14,6 @@ public class ExceptionHandler extends AbstractHandlerExceptionResolver {
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
-
         return new ModelAndView("exception");
     }
 }
