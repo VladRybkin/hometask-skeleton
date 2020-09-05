@@ -52,8 +52,8 @@
 
         <form method="post" action="/tickets/add"  modelAttribute="ticket">
             <datalist id="options">
-                <#list options as o>
-                    <option value="${o}"/>
+                <#list eventNames as en>
+                    <option value="${en}"/>
                 </#list>
             </datalist>
             <fieldset>
@@ -71,8 +71,8 @@
    <tr>
      <form method="GET" action="/tickets/pdf">
             <datalist id="options">
-                <#list options as o>
-                    <option value="${o}"/>
+                <#list eventNames as en>
+                    <option value="${en}"/>
                 </#list>
              </datalist>
                <fieldset>

@@ -25,7 +25,7 @@
         <td>${u.id}</td>
         <td>${u.firstName!}</td>
         <td>${u.lastName!}</td>
-        <td><a href="/users/getbyid/${u.id}">${u.email}</a></td>
+        <td><a href="/users/getbyid/${u.id}">${u.email!}</a></td>
         <td>${u.dateOfBirth!}</td>
         <td><form action="/users/remove/${u.id}">
              <input type="submit" value="remove" />

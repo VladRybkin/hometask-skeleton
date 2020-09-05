@@ -17,13 +17,18 @@
       <th>id</th>
       <th>name</th>
       <th>basePrice</th>
+      <th>event dates</th>
       <th>remove</th>
     </tr>
     <#list events as ev>
       <tr>
         <td>${ev.id}</td>
-        <td><a href="/events/getbyid/${ev.id}">${ev.name}</a></td>
-        <td>${ev.basePrice}</td>
+        <td><a href="/events/getbyid/${ev.id}">${ev.name!}</a></td>
+        <td>${ev.basePrice!}</td>
+        <td>><#list ev.airDates as date>
+              ${date!}"
+             </#list>
+        </td>
         <td><form action="/events/remove/${ev.id}">
              <input type="submit" value="remove" />
              </form></td>
@@ -33,12 +38,21 @@
  <br/>
 
        <form method="post" action="/events/add"  modelAttribute="event">
+              <datalist id="options">
+                       <#list auditoriumNames as an>
+                           <option value="${an}"/>
+                       </#list>
+                    </datalist>
             <fieldset>
                 <legend>add event</legend>
           <label><input type="text" name="name">event name</label>
           <br>
+          <label><input list="options" name="auditoriumName" >choose auditorium</label>
+          <br/>
           <label><input type="number" name="basePrice">base price</label>
            <br>
+           <label><input type="datetime-local" name="eventDate">event date</label>
+           <br/>
           <input type="submit" value="add event"><br>
           </fieldset>
       </form>

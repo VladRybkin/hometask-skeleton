@@ -26,6 +26,7 @@ public class DefaultTicketFacade implements TicketFacade {
     @Override
     public void saveTicketWithEvent(String eventName, Ticket ticket) {
         Event event = eventService.getByName(eventName);
+        ticket.setDateTime(event.getAirDates().stream().findFirst().get());
         ticket.setEvent(event);
         ticketService.save(ticket);
     }

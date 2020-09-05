@@ -40,17 +40,16 @@ public class TicketsController {
 
     @GetMapping
     public String getTickets(Model model) {
-        List<Ticket> tickets = Lists.newArrayList(ticketService.getAll());
-        Set<String> eventNames = eventService.getAll().stream().map(Event::getName).collect(Collectors.toSet());
+        Collection<Ticket> tickets = ticketService.getAll();
 
         model.addAttribute("tickets", tickets);
-        model.addAttribute("options", eventNames);
+        addEventNamesAttribute(model);
 
         return "tickets";
     }
 
     @PostMapping(value = "/add")
-    public String addEvent(@RequestParam String eventName, @ModelAttribute Ticket ticket) {
+    public String addTicket(@RequestParam String eventName, @ModelAttribute Ticket ticket) {
         ticketFacade.saveTicketWithEvent(eventName, ticket);
 
         return "redirect:/tickets";
@@ -67,10 +66,12 @@ public class TicketsController {
     public String getById(Model model, @PathVariable Long id) {
         List<Ticket> tickets = Lists.newArrayList();
         Ticket ticket = ticketService.getById(id);
+
         if (Objects.nonNull(ticket)) {
             tickets.add(ticket);
         }
         model.addAttribute("tickets", tickets);
+        addEventNamesAttribute(model);
 
         return "tickets";
     }
@@ -80,5 +81,12 @@ public class TicketsController {
         Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);
 
         return new ModelAndView("ticketPdfView", "ticketData", tickets);
+    }
+
+
+    private void addEventNamesAttribute(Model model) {
+        Set<String> eventNames = eventService.getAll().stream().map(Event::getName)
+                .collect(Collectors.toSet());
+        model.addAttribute("eventNames", eventNames);
     }
 }

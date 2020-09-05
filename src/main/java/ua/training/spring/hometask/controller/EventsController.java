@@ -10,29 +10,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.facade.EventFacade;
+import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.EventService;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/events")
 public class EventsController {
 
     @Autowired
+    private EventFacade eventFacade;
+
+    @Autowired
     private EventService eventService;
+
+    @Autowired
+    private AuditoriumService auditoriumService;
 
     @GetMapping
     public String getEvents(Model model) {
+        Collection<Auditorium> auditoriums = auditoriumService.getAll();
+
         model.addAttribute("events", eventService.getAll());
+        addAuditoriumNamesAttribute(model);
 
         return "events";
     }
 
     @PostMapping(value = "/add")
-    public String addEvent(@ModelAttribute Event event) {
-        eventService.save(event);
+    public String addEvent(@ModelAttribute Event event, @RequestParam String eventDate,
+                           @RequestParam String auditoriumName) {
+        eventFacade.saveEvent(event, eventDate, auditoriumName);
 
         return "redirect:/events";
     }
@@ -51,7 +67,9 @@ public class EventsController {
         if (Objects.nonNull(event)) {
             events.add(event);
         }
+
         model.addAttribute("events", events);
+        addAuditoriumNamesAttribute(model);
 
         return "events";
     }
@@ -64,7 +82,14 @@ public class EventsController {
             events.add(event);
         }
         model.addAttribute("events", events);
+        addAuditoriumNamesAttribute(model);
 
         return "events";
+    }
+
+    private void addAuditoriumNamesAttribute(Model model) {
+        Collection<Auditorium> auditoriums = auditoriumService.getAll();
+        Set<String> auditoriumNames = auditoriums.stream().map(Auditorium::getName).collect(Collectors.toSet());
+        model.addAttribute("auditoriumNames", auditoriumNames);
     }
 }

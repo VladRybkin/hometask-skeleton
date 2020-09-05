@@ -36,7 +36,7 @@ public class UsersController {
     }
 
     @PostMapping(value = "/add")
-    public String addEvent(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
+    public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
         user.setDateOfBirth(birthday.atTime(LocalTime.MIDNIGHT).truncatedTo(DAYS));
         userService.save(user);
 

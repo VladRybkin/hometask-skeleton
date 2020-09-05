@@ -24,7 +24,7 @@
         <td>${au.numberOfSeats!}</td>
 
         <td><#list au.vipSeats as vip>
-                   ${vip}"
+                   ${vip!}"
                    </#list></td>
 
       </tr>
