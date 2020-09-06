@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.controller;
 
-import com.google.common.collect.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +12,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
-import ua.training.spring.hometask.domain.Auditorium;
-import ua.training.spring.hometask.service.AuditoriumService;
+import ua.training.spring.hometask.domain.User;
 
-import static org.mockito.Mockito.when;
+import java.time.LocalDate;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = BeansConfiguration.class)
 @ActiveProfiles({"WEB_MVC", "TEST", "MOCK_BEANS", "IN_MEMORY"})
 @WebAppConfiguration
-class AuditoriumControllerTest {
+class UsersControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -39,18 +40,41 @@ class AuditoriumControllerTest {
     }
 
     @Test
-    void getAuditoriums() throws Exception {
-        mockMvc.perform(get("/auditoriums"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("auditoriums"))
-                .andExpect(model().attributeExists("auditoriums"));
+    void getUsers() throws Exception {
+        mockMvc.perform(get("/users"))
+                .andExpect(model().attributeExists("users"))
+                .andExpect(view().name("users"))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void getByName() throws Exception {
-        mockMvc.perform(get("/auditoriums/getbyname/")
-                .param("name", "test green auditorium"))
-                .andExpect(view().name("auditoriums"))
+    void addUser() throws Exception {
+        mockMvc.perform(post("/users/add")
+                .param("birthday", String.valueOf(LocalDate.now()))
+                .flashAttr("user", new User()))
+                .andExpect(redirectedUrl("/users"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void remove() throws Exception {
+        mockMvc.perform(get("/users/remove/{id}", 1L))
+                .andExpect(redirectedUrl("/users"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void getById() throws Exception {
+        mockMvc.perform(get("/users/getbyid/{id}", 1000L))
+                .andExpect(view().name("users"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void getByEmail() throws Exception {
+        mockMvc.perform(get("/users/getbyemail/")
+                .param("email", "testUserEmail"))
+                .andExpect(view().name("users"))
                 .andExpect(status().isOk());
     }
 }

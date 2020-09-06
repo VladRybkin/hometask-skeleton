@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.service.EventService;
 
 import java.time.LocalDateTime;
 
@@ -33,9 +32,6 @@ class EventsControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    private EventService eventService;
 
     private MockMvc mockMvc;
 

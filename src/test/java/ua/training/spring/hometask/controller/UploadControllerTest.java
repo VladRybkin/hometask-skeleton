@@ -21,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeansConfiguration.class)
 @ActiveProfiles({"WEB_MVC", "TEST", "IN_MEMORY"})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @WebAppConfiguration
 class UploadControllerTest {
 
