@@ -67,7 +67,7 @@ public class Event extends DomainObject {
      * Checks if event is aired on particular <code>dateTime</code> and assigns
      * auditorium to it.
      *
-     * @param dateTime   Date and time of aired event for which to assign
+     * @param dateTime Date and time of aired event for which to assign
      * @param auditorium Auditorium that should be assigned
      * @return <code>true</code> if successful, <code>false</code> if event is
      * not aired on that date
@@ -106,7 +106,7 @@ public class Event extends DomainObject {
     /**
      * Adding date and time of event air and assigning auditorium to that
      *
-     * @param dateTime   Date and time to add
+     * @param dateTime Date and time to add
      * @param auditorium Auditorium to add if success in date time add
      * @return <code>true</code> if successful, <code>false</code> if already
      * there
@@ -159,7 +159,7 @@ public class Event extends DomainObject {
      * <code>to</code> inclusive
      *
      * @param from Start date to check
-     * @param to   End date to check
+     * @param to End date to check
      * @return <code>true</code> event airs on dates
      */
     public boolean airsOnDates(LocalDate from, LocalDate to) {

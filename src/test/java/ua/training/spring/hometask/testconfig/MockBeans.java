@@ -59,5 +59,4 @@ public class MockBeans {
     public TicketFacade mockTicketFacade() {
         return Mockito.mock(TicketFacade.class);
     }
-
 }

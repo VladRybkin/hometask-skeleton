@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "tickets")
-public class
-Ticket extends DomainObject implements Comparable<Ticket> {
+public class Ticket extends DomainObject implements Comparable<Ticket> {
 
     @ManyToOne()
     @JoinColumn(name = "user_id")

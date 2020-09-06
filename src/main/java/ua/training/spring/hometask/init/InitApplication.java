@@ -26,7 +26,7 @@ import java.util.stream.IntStream;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Component
-@Profile({"IN_MEMORY"})
+@Profile("IN_MEMORY")
 public class InitApplication {
 
     @Autowired
@@ -70,7 +70,7 @@ public class InitApplication {
         airDates.add(secondDate);
 
         event.setId(1L);
-        event.setName("firstEvent");
+        event.setName("first event");
         event.setRating(EventRating.HIGH);
         event.setBasePrice(100);
         event.getAirDates().addAll(airDates);
