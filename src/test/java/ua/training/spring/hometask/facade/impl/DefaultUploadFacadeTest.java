@@ -1,31 +1,24 @@
 package ua.training.spring.hometask.facade.impl;
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
-import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.domain.User;
-import ua.training.spring.hometask.facade.UploadFacade;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.UserService;
 
 import java.io.IOException;
+import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.Mockito.verify;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = BeansConfiguration.class)
-@ActiveProfiles({"WEB_MVC", "TEST", "IN_MEMORY"})
-@WebAppConfiguration
+@ExtendWith(MockitoExtension.class)
 class DefaultUploadFacadeTest {
 
     private final String JSON_FILE_CONTENT = "{\n" +
@@ -53,47 +46,67 @@ class DefaultUploadFacadeTest {
             "\t\t\t]\t\t\n" +
             "}   \n";
 
-    @Autowired
-    private UploadFacade uploadFacade;
+    @InjectMocks
+    private DefaultUploadFacade uploadFacade;
 
-    @Autowired
+    @Mock
     private EventService eventService;
 
-    @Autowired
+    @Mock
     private UserService userService;
 
     @Test
     void saveDataFromJsonFile() throws IOException {
         MockMultipartFile jsonFile = new MockMultipartFile("test.json", "", "application/json", JSON_FILE_CONTENT.getBytes());
 
-        assertThat(userService.getUserByEmail("json@email1"), nullValue());
-        assertThat(userService.getUserByEmail("json@email2"), nullValue());
+        User user1 = buildFirstUser();
+        User user2 = buildSecondUser();
 
-        assertThat(eventService.getByName("event1"), nullValue());
-        assertThat(eventService.getByName("event2"), nullValue());
+        Event event1 = buildFirstEvent();
+        Event event2 = buildSecondEvent();
+
+        List<User> users = Lists.newArrayList(user1, user2);
+        List<Event> events = Lists.newArrayList(event1, event2);
 
         uploadFacade.saveDataFromJsonFile(jsonFile);
 
-        User importedUser1 = userService.getUserByEmail("json@email1");
-        User importedUser2 = userService.getUserByEmail("json@email2");
+        verify(userService).saveAll(users);
+        verify(eventService).saveAll(events);
+    }
 
-        Event importedEvent1 = eventService.getByName("event1");
-        Event importedEvent2 = eventService.getByName("event2");
+    private User buildFirstUser() {
+        User user = new User();
+        user.setFirstName("firstName1");
+        user.setLastName("lastName1");
+        user.setEmail("json@email1");
 
-        assertThat(importedUser1.getEmail(), is("json@email1"));
-        assertThat(importedUser1.getFirstName(), is("firstName1"));
-        assertThat(importedUser1.getLastName(), is("lastName1"));
+        return user;
+    }
 
-        assertThat(importedUser2.getFirstName(), is("firstName2"));
-        assertThat(importedUser2.getEmail(), is("json@email2"));
-        assertThat(importedUser2.getLastName(), is("lastName2"));
+    private User buildSecondUser() {
+        User user = new User();
+        user.setFirstName("firstName2");
+        user.setLastName("lastName2");
+        user.setEmail("json@email2");
 
-        assertThat(importedEvent1.getName(), is("event1"));
-        assertThat(importedEvent1.getBasePrice(), is(150D));
-        assertThat(importedEvent1.getRating(), is(EventRating.HIGH));
+        return user;
+    }
 
-        assertThat(importedEvent2.getName(), is("event2"));
-        assertThat(importedEvent2.getBasePrice(), is(200D));
-        assertThat(importedEvent2.getRating(), is(EventRating.LOW));
+    private Event buildFirstEvent() {
+        Event event = new Event();
+        event.setName("event1");
+        event.setBasePrice(150);
+        event.setRating(EventRating.HIGH);
+
+        return event;
+    }
+
+    private Event buildSecondEvent() {
+        Event event = new Event();
+        event.setName("event2");
+        event.setBasePrice(200);
+        event.setRating(EventRating.LOW);
+
+        return event;
     }
 }

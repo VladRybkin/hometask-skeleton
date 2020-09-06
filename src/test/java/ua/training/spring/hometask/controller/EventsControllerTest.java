@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -14,7 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.service.EventService;
 
 import java.time.LocalDateTime;
 
@@ -28,13 +27,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeansConfiguration.class)
-@ActiveProfiles({"WEB_MVC", "TEST", "IN_MEMORY"})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles({"WEB_MVC", "TEST", "MOCK_BEANS", "IN_MEMORY"})
 @WebAppConfiguration
 class EventsControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private EventService eventService;
 
     private MockMvc mockMvc;
 
@@ -54,13 +55,9 @@ class EventsControllerTest {
     @Test
     void addEvent() throws Exception {
         Event event = new Event();
-        event.setName("testname");
-        event.setBasePrice(100);
-        event.setRating(EventRating.HIGH);
-
         mockMvc.perform(post("/events/add")
                 .param("eventDate", LocalDateTime.now().truncatedTo(MINUTES).toString())
-                .param("auditoriumName", "green auditorium")
+                .param("auditoriumName", "test auditorium")
                 .flashAttr("event", event))
                 .andExpect(redirectedUrl("/events"))
                 .andExpect(status().is3xxRedirection());
@@ -75,7 +72,7 @@ class EventsControllerTest {
 
     @Test
     void getById() throws Exception {
-        mockMvc.perform(get("/events/getbyid/{id}", 1L))
+        mockMvc.perform(get("/events/getbyid/{id}", 1000L))
                 .andExpect(view().name("events"))
                 .andExpect(status().isOk());
     }

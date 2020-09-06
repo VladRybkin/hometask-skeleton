@@ -97,7 +97,9 @@ public class DefaultEventCountService implements EventCountService {
 
     @Transactional
     @Override
-    public void saveAll(Collection<EventCount> eventCounts) {
+    public Collection<EventCount> saveAll(Collection<EventCount> eventCounts) {
         eventCounts.forEach(ec -> eventCountDao.save(ec));
+
+        return eventCounts;
     }
 }

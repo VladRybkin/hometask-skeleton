@@ -18,7 +18,6 @@ import ua.training.spring.hometask.facade.TicketFacade;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -77,7 +76,7 @@ public class TicketsController {
     }
 
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) throws IOException {
+    public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) {
         Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);
 
         return new ModelAndView("ticketPdfView", "ticketData", tickets);

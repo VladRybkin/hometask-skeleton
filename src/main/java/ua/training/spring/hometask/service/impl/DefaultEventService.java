@@ -56,7 +56,9 @@ public class DefaultEventService implements EventService {
 
     @Transactional
     @Override
-    public void saveAll(Collection<Event> events) {
+    public Collection<Event> saveAll(Collection<Event> events) {
         events.forEach(ev -> eventDao.save(ev));
+
+        return events;
     }
 }

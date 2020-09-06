@@ -49,7 +49,7 @@ public class DefaultUploadFacade implements UploadFacade {
         return Lists.newArrayList(events);
     }
 
-    private ObjectMapper buildMapperWithTimeModule() throws IOException {
+    private ObjectMapper buildMapperWithTimeModule() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 

@@ -47,7 +47,7 @@ class MyBatisTicketDaoImplIntegrationTest {
         assertThat(persistedPurchasedTickets, hasItems(ticket));
         assertThat(persistedPurchasedTickets, hasSize(1));
     }
-    
+
     @Test
     void shouldGetByIdPersistedTicket() {
         Ticket ticket = createTestTicket();

@@ -14,7 +14,7 @@ import java.io.File;
 @Profile("WEB_MVC")
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private final int maxUploadSizeInMb = 1000;
+    private static final int maxUploadSizeInMb = 1000;
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

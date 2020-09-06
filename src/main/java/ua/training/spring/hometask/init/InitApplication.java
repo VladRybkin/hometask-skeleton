@@ -23,11 +23,10 @@ import java.util.Set;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
-import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Component
-@Profile("IN_MEMORY")
+@Profile({"IN_MEMORY"})
 public class InitApplication {
 
     @Autowired
@@ -39,6 +38,7 @@ public class InitApplication {
     private EventDao eventDao;
 
     @Autowired
+    @Qualifier("auditoriumService")
     private AuditoriumService auditoriumService;
 
     @Autowired

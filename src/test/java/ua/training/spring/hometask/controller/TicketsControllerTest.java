@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -13,12 +12,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
+import ua.training.spring.hometask.domain.Ticket;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,8 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = BeansConfiguration.class)
-@ActiveProfiles({"WEB_MVC", "TEST", "IN_MEMORY"})
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles({"WEB_MVC", "TEST", "MOCK_BEANS", "IN_MEMORY"})
 @WebAppConfiguration
 class TicketsControllerTest {
 
@@ -41,7 +40,6 @@ class TicketsControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-
     @Test
     void getTickets() throws Exception {
         mockMvc.perform(get("/tickets"))
@@ -51,7 +49,13 @@ class TicketsControllerTest {
     }
 
     @Test
-    void addTicket() {
+    void addTicket() throws Exception {
+        Ticket ticket = new Ticket();
+        mockMvc.perform(post("/tickets/add")
+                .param("eventName", "test event")
+                .flashAttr("ticket", ticket))
+                .andExpect(redirectedUrl("/tickets"))
+                .andExpect(status().is3xxRedirection());
     }
 
     @Test

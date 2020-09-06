@@ -61,6 +61,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return freeMarkerConfigurer;
     }
 
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }

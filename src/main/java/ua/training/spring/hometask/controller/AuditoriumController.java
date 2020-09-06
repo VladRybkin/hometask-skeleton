@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.spring.hometask.domain.Auditorium;
-import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.service.AuditoriumService;
 
 import java.util.List;

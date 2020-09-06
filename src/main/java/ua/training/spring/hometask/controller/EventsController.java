@@ -37,8 +37,6 @@ public class EventsController {
 
     @GetMapping
     public String getEvents(Model model) {
-        Collection<Auditorium> auditoriums = auditoriumService.getAll();
-
         model.addAttribute("events", eventService.getAll());
         addAuditoriumNamesAttribute(model);
 
