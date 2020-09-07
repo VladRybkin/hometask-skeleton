@@ -14,7 +14,7 @@ import java.io.File;
 @Profile("WEB_MVC")
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-    private static final int maxUploadSizeInMb = 1000;
+    private static final int MAX_UPLOAD_SIZE_IN_MB = 1000;
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -43,7 +43,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
         MultipartConfigElement multipartConfigElement =
                 new MultipartConfigElement(uploadDirectory.getAbsolutePath(),
-                        maxUploadSizeInMb, maxUploadSizeInMb * 2, maxUploadSizeInMb / 2);
+                        MAX_UPLOAD_SIZE_IN_MB, MAX_UPLOAD_SIZE_IN_MB * 2, MAX_UPLOAD_SIZE_IN_MB / 2);
 
         registration.setMultipartConfig(multipartConfigElement);
     }
