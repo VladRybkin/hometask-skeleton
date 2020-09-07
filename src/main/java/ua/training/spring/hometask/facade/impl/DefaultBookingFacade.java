@@ -24,9 +24,9 @@ public class DefaultBookingFacade implements BookingFacade {
 
     @Transactional
     @Override
-    public void bookTicket(Long ticketId, Long userId) {
+    public Ticket bookTicket(Long ticketId, Long userId) {
         Ticket ticket = ticketService.getById(ticketId);
         User user = userService.getById(userId);
-        bookingService.bookTicket(ticket, user);
+        return bookingService.bookTicket(ticket, user);
     }
 }

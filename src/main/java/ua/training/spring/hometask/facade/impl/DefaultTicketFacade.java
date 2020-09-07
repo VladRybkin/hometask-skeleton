@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.Ticket;
+import ua.training.spring.hometask.exceptions.NoDataPresentException;
 import ua.training.spring.hometask.facade.TicketFacade;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+
+import static ua.training.spring.hometask.utils.ConvertUtil.convertDateTime;
 
 @Component
 public class DefaultTicketFacade implements TicketFacade {
@@ -26,7 +28,11 @@ public class DefaultTicketFacade implements TicketFacade {
     @Override
     public void saveTicketWithEvent(String eventName, Ticket ticket) {
         Event event = eventService.getByName(eventName);
-        ticket.setDateTime(event.getAirDates().stream().findFirst().orElseGet(null));
+        ticket.setDateTime(event.getAirDates()
+                .stream()
+                .findAny()
+                .orElseThrow(() -> new NoDataPresentException("event does not contain date")));
+
         ticket.setEvent(event);
         ticketService.save(ticket);
     }
@@ -34,8 +40,7 @@ public class DefaultTicketFacade implements TicketFacade {
     @Override
     public Collection<Ticket> getPurchasedTicketsForEvent(String eventName, String eventDate) {
         Event event = eventService.getByName(eventName);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime parsedTicketDate = LocalDateTime.parse(eventDate, formatter);
+        LocalDateTime parsedTicketDate = convertDateTime(eventDate);
 
         return ticketService.getPurchasedTicketsForEvent(event, parsedTicketDate);
     }

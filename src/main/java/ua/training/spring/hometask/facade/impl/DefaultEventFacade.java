@@ -9,7 +9,8 @@ import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.EventService;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static ua.training.spring.hometask.utils.ConvertUtil.convertDateTime;
 
 @Component
 public class DefaultEventFacade implements EventFacade {
@@ -23,8 +24,7 @@ public class DefaultEventFacade implements EventFacade {
     @Override
     public void saveEvent(Event event, String eventDate, String auditoriumName) {
         Auditorium auditorium = auditoriumService.getByName(auditoriumName);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime parsedTicketEventDate = LocalDateTime.parse(eventDate, formatter);
+        LocalDateTime parsedTicketEventDate = convertDateTime(eventDate);
         event.getAuditoriums().put(parsedTicketEventDate, auditorium);
         event.getAirDates().add(parsedTicketEventDate);
         eventService.save(event);

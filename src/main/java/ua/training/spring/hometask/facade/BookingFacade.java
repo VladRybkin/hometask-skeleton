@@ -1,6 +1,8 @@
 package ua.training.spring.hometask.facade;
 
+import ua.training.spring.hometask.domain.Ticket;
+
 public interface BookingFacade {
 
-    void bookTicket(Long ticketId, Long userId);
+    Ticket bookTicket(Long ticketId, Long userId);
 }
