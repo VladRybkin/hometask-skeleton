@@ -43,6 +43,8 @@
            <br>
            <label><input type="text" name="firstName">first name</label>
             <br>
+             <label><input type="text" name="lastName">last name</label>
+                        <br>
              <label><input type="date" name="birthday">date of birth</label>
                         <br>
            <input type="submit" value="add user"><br>

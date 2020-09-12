@@ -18,6 +18,7 @@
       <th>name</th>
       <th>basePrice</th>
       <th>event dates</th>
+      <th>event auditoriums</th>
       <th>remove</th>
     </tr>
     <#list events as ev>
@@ -29,6 +30,10 @@
               ${date!}"
              </#list>
         </td>
+          <td><#list ev.auditoriums?values as v>
+                ${v.name}
+              </#list>
+                </td>
         <td><form action="/events/remove/${ev.id}">
              <input type="submit" value="remove" />
              </form></td>
@@ -51,7 +56,7 @@
           <br/>
           <label><input type="number" name="basePrice">base price</label>
            <br>
-           <label><input type="datetime-local" name="eventDate">event date</label>
+           <label><input type="datetime-local" name="eventDate" value="">event date</label>
            <br/>
           <input type="submit" value="add event"><br>
           </fieldset>
