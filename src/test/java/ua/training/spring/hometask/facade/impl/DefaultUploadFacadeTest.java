@@ -14,6 +14,7 @@ import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.UserService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
@@ -25,12 +26,15 @@ class DefaultUploadFacadeTest {
             "\t\t\"users\" :\t[{\n" +
             "\t\t\t  \"firstName\" : \"firstName1\",\n" +
             "              \"lastName\" : \"lastName1\",\n" +
-            "\t\t\t  \"email\": \"json@email1\"\n" +
+            "\t\t\t  \"email\": \"json@email1\",\n" +
+            "\t\t\t  \"dateOfBirth\": \"2017-01-01T11:00\"\n" +
+            "\t\t\t  \n" +
             "            },\n" +
             "\t\t\t{\n" +
             "\t\t\t  \"firstName\" : \"firstName2\",\n" +
             "              \"lastName\" : \"lastName2\",\n" +
-            "\t\t\t  \"email\" : \"json@email2\"\n" +
+            "\t\t\t  \"email\" : \"json@email2\",\n" +
+            "\t\t\t  \"dateOfBirth\": \"2017-01-01T11:00\"\n" +
             "            }\n" +
             "\t\t\t],\n" +
             "\t\t\t\"events\" :\t[{\n" +
@@ -44,7 +48,8 @@ class DefaultUploadFacadeTest {
             "\t\t\t  \"rating\" : \"LOW\"\n" +
             "            }\n" +
             "\t\t\t]\t\t\n" +
-            "}   \n";
+            "}   \n" +
+            "\n";
 
     @InjectMocks
     private DefaultUploadFacade uploadFacade;
@@ -79,7 +84,7 @@ class DefaultUploadFacadeTest {
         user.setFirstName("firstName1");
         user.setLastName("lastName1");
         user.setEmail("json@email1");
-
+        setDateOfBirthToUser(user);
         return user;
     }
 
@@ -88,7 +93,7 @@ class DefaultUploadFacadeTest {
         user.setFirstName("firstName2");
         user.setLastName("lastName2");
         user.setEmail("json@email2");
-
+        setDateOfBirthToUser(user);
         return user;
     }
 
@@ -108,5 +113,10 @@ class DefaultUploadFacadeTest {
         event.setRating(EventRating.LOW);
 
         return event;
+    }
+
+    private void setDateOfBirthToUser(User user) {
+        LocalDateTime birthday = LocalDateTime.of(2017, 01, 01, 11, 00);
+        user.setDateOfBirth(birthday);
     }
 }

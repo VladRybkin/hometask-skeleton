@@ -1,6 +1,6 @@
 package ua.training.spring.hometask.facade.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.common.collect.Lists;
@@ -30,20 +30,20 @@ public class DefaultUploadFacade implements UploadFacade {
     @Override
     public void saveDataFromJsonFile(MultipartFile jsonFile) throws IOException {
         ObjectMapper mapper = buildMapperWithTimeModule();
-        JsonNode node = getJsonNodeFromFile(jsonFile, mapper);
-        eventService.saveAll(getEventsFromNode(mapper, node));
-        userService.saveAll(getUsersFromJsonNode(mapper, node));
+        TreeNode node = getTreeNodeFromFile(jsonFile, mapper);
+        eventService.saveAll(getEventsFromTreeNode(mapper, node));
+        userService.saveAll(getUsersFromTreeNode(mapper, node));
     }
 
-    private List<User> getUsersFromJsonNode(ObjectMapper mapper, JsonNode node) throws IOException {
-        JsonNode usersNode = node.get("users");
+    private List<User> getUsersFromTreeNode(ObjectMapper mapper, TreeNode node) throws IOException {
+        TreeNode usersNode = node.get("users");
         User[] users = mapper.treeToValue(usersNode, User[].class);
 
         return Lists.newArrayList(users);
     }
 
-    private List<Event> getEventsFromNode(ObjectMapper mapper, JsonNode node) throws IOException {
-        JsonNode eventsNode = node.get("events");
+    private List<Event> getEventsFromTreeNode(ObjectMapper mapper, TreeNode node) throws IOException {
+        TreeNode eventsNode = node.get("events");
         Event[] events = mapper.treeToValue(eventsNode, Event[].class);
 
         return Lists.newArrayList(events);
@@ -56,7 +56,7 @@ public class DefaultUploadFacade implements UploadFacade {
         return mapper;
     }
 
-    private JsonNode getJsonNodeFromFile(MultipartFile jsonFile, ObjectMapper mapper) throws IOException {
+    private TreeNode getTreeNodeFromFile(MultipartFile jsonFile, ObjectMapper mapper) throws IOException {
         return mapper.readTree(jsonFile.getInputStream());
     }
 }

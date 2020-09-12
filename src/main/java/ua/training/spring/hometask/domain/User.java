@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,6 +37,7 @@ public class User extends DomainObject {
     private String email;
 
     @Column(name = "date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateOfBirth;
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = Ticket.class, mappedBy = "user", cascade = CascadeType.ALL)
