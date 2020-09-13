@@ -48,7 +48,7 @@ public class DefaultTicketService implements TicketService {
     @Transactional
     @Override
     public Collection<Ticket> saveAll(Collection<Ticket> tickets) {
-        tickets.forEach(t -> ticketDao.save(t));
+        tickets.forEach(ticketDao::save);
 
         return tickets;
     }

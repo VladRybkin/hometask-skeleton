@@ -45,7 +45,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public Collection<User> saveAll(Collection<User> users) {
-        users.forEach(u -> userDao.save(u));
+        users.forEach(userDao::save);
 
         return users;
     }
