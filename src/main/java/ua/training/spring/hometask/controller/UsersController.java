@@ -12,18 +12,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.facade.UserFacade;
 import ua.training.spring.hometask.service.UserService;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping(value = "/users")
 public class UsersController {
+
+    @Autowired
+    private UserFacade userFacade;
 
     @Autowired
     private UserService userService;
@@ -37,8 +38,7 @@ public class UsersController {
 
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
-        user.setDateOfBirth(birthday.atTime(LocalTime.MIDNIGHT).truncatedTo(DAYS));
-        userService.save(user);
+        userFacade.saveUser(user, birthday);
 
         return "redirect:/users";
     }

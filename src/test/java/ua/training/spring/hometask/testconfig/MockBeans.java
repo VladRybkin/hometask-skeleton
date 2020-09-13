@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import ua.training.spring.hometask.facade.BookingFacade;
 import ua.training.spring.hometask.facade.TicketFacade;
 import ua.training.spring.hometask.facade.UploadFacade;
+import ua.training.spring.hometask.facade.UserFacade;
 import ua.training.spring.hometask.service.AuditoriumService;
 import ua.training.spring.hometask.service.EventService;
 import ua.training.spring.hometask.service.TicketService;
@@ -58,5 +59,11 @@ public class MockBeans {
     @Primary
     public TicketFacade mockTicketFacade() {
         return Mockito.mock(TicketFacade.class);
+    }
+
+    @Bean
+    @Primary
+    public UserFacade mockUserFacade() {
+        return Mockito.mock(UserFacade.class);
     }
 }

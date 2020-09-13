@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.facade.impl;
 
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Auditorium;
@@ -23,6 +24,7 @@ public class DefaultEventFacade implements EventFacade {
 
     @Override
     public void saveEvent(Event event, String eventDate, String auditoriumName) {
+        Validate.notEmpty(eventDate, "eventDate is not present");
         Auditorium auditorium = auditoriumService.getByName(auditoriumName);
         LocalDateTime parsedTicketEventDate = convertDateTime(eventDate);
         event.getAuditoriums().put(parsedTicketEventDate, auditorium);
