@@ -28,7 +28,7 @@ class DefaultTicketFacadeTest {
     @Mock
     private TicketService ticketService;
 
-    private static final String EVENT_NAME = "event name";
+    private final String EVENT_NAME = "event name";
 
     @Test
     void saveTicketWithEvent() {
