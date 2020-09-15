@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.MultipartConfigElement;
@@ -11,7 +10,6 @@ import javax.servlet.ServletRegistration;
 import java.io.File;
 
 @Configuration
-@Profile("WEB_MVC")
 public class DispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     private static final int MAX_UPLOAD_SIZE_IN_MB = 1000;
@@ -23,7 +21,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return null;
+        return new Class<?>[]{WebMvcConfig.class};
     }
 
     @Override
@@ -34,7 +32,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-        servletContext.setInitParameter("spring.profiles.active", "IN_MEMORY, WEB_MVC");
+        servletContext.setInitParameter("spring.profiles.active", "IN_MEMORY");
     }
 
     @Override

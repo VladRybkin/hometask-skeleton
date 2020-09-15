@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ua.training.spring.hometask.config.BeansConfiguration;
+import ua.training.spring.hometask.config.WebMvcConfig;
 import ua.training.spring.hometask.domain.Ticket;
 
 import java.time.LocalDateTime;
@@ -25,8 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = BeansConfiguration.class)
-@ActiveProfiles({"WEB_MVC", "TEST", "MOCK_BEANS", "IN_MEMORY"})
+@ContextConfiguration(classes = {BeansConfiguration.class, WebMvcConfig.class})
+@ActiveProfiles({"TEST", "MOCK_BEANS", "IN_MEMORY"})
 @WebAppConfiguration
 class TicketsControllerTest {
 

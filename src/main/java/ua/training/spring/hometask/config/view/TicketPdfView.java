@@ -4,7 +4,6 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Table;
 import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 import ua.training.spring.hometask.domain.Ticket;
@@ -16,7 +15,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component("ticketPdfView")
-@Profile("WEB_MVC")
 public class TicketPdfView extends AbstractPdfView {
 
     @Override
