@@ -11,7 +11,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import ua.training.spring.hometask.config.BeansConfiguration;
 import ua.training.spring.hometask.config.WebMvcConfig;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {BeansConfiguration.class, WebMvcConfig.class})
+@ContextConfiguration(classes = WebMvcConfig.class)
 @ActiveProfiles({"TEST", "IN_MEMORY"})
 @WebAppConfiguration
 class ExceptionControllerTest {
