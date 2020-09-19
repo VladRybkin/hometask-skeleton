@@ -16,12 +16,12 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{BeansConfiguration.class};
+        return new Class<?>[]{WebMvcConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{WebMvcConfig.class};
+        return null;
     }
 
     @Override
