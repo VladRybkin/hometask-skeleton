@@ -1,6 +1,7 @@
 package ua.training.spring.hometask.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/upload")
+@PreAuthorize("BOOKING_MANAGER")
 public class UploadController {
 
     @Autowired

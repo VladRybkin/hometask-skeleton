@@ -3,6 +3,7 @@ package ua.training.spring.hometask.controller;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class UsersController {
         return "users";
     }
 
+    @PreAuthorize("BOOKING_MANAGER")
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
         userFacade.saveUser(user, birthday);
@@ -43,6 +45,7 @@ public class UsersController {
         return "redirect:/users";
     }
 
+    @PreAuthorize("BOOKING_MANAGER")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         userService.remove(userService.getById(id));

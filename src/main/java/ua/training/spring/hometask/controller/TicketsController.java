@@ -3,6 +3,7 @@ package ua.training.spring.hometask.controller;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class TicketsController {
         return "tickets";
     }
 
+    @PreAuthorize("BOOKING_MANAGER")
     @PostMapping(value = "/add")
     public String addTicket(@RequestParam String eventName, @ModelAttribute Ticket ticket) {
         ticketFacade.saveTicketWithEvent(eventName, ticket);
@@ -54,6 +56,7 @@ public class TicketsController {
         return "redirect:/tickets";
     }
 
+    @PreAuthorize("BOOKING_MANAGER")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         ticketService.remove(ticketService.getById(id));
@@ -75,6 +78,7 @@ public class TicketsController {
         return "tickets";
     }
 
+    @PreAuthorize("BOOKING_MANAGER")
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) {
         Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);
