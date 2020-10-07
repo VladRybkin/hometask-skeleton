@@ -9,6 +9,8 @@ import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,6 +37,14 @@ public class User extends DomainObject {
     @NotNull
     @Column(name = "email", unique = true)
     private String email;
+
+    @NotNull
+    @Column(name = "email")
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
     @Column(name = "date_of_birth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
@@ -91,6 +101,22 @@ public class User extends DomainObject {
         this.tickets = tickets;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,6 +128,8 @@ public class User extends DomainObject {
         User user = (User) o;
         return Objects.equal(firstName, user.firstName) &&
                 Objects.equal(lastName, user.lastName) &&
+                Objects.equal(password, user.password) &&
+                Objects.equal(role, user.role) &&
                 Objects.equal(email, user.email) &&
                 Objects.equal(dateOfBirth, user.dateOfBirth) &&
                 Objects.equal(getId(), user.getId());
@@ -109,7 +137,7 @@ public class User extends DomainObject {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(firstName, lastName, email, dateOfBirth, getId());
+        return Objects.hashCode(firstName, lastName, email, dateOfBirth, password, role, getId());
     }
 
     @Override
@@ -118,6 +146,8 @@ public class User extends DomainObject {
                 .add("firstName", firstName)
                 .add("lastName", lastName)
                 .add("email", email)
+                .add("password", password)
+                .add("role", role)
                 .add("dateOfBirth", dateOfBirth)
                 .toString();
     }

@@ -36,5 +36,14 @@
             <form action="/auditoriums">
                <input type="submit" value="auditoriums" />
             </form>
+    <br/>
+
+    <form action="/login">
+        <input type="submit" value="login" />
+    </form>
+    <br/>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
 	</body>
 </html>
