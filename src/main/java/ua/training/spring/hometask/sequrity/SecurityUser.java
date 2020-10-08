@@ -58,12 +58,22 @@ public class SecurityUser implements UserDetails {
     }
 
     public static UserDetails fromUser(User user) {
-        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().name());
-        Set<SimpleGrantedAuthority> grantedAuthorities = Sets.newHashSet(grantedAuthority);
+        Set<SimpleGrantedAuthority> grantedAuthorities = getGrantedAuthiritiesFromUserRoles(user);
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(),
                 grantedAuthorities
         );
+    }
+
+    private static Set<SimpleGrantedAuthority> getGrantedAuthiritiesFromUserRoles(User user) {
+        Set<SimpleGrantedAuthority> grantedAuthorities = Sets.newHashSet();
+
+        user.getRoles().forEach(role -> {
+            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
+            grantedAuthorities.add(grantedAuthority);
+        });
+
+        return grantedAuthorities;
     }
 }

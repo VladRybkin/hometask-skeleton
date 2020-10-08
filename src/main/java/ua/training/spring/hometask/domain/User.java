@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -44,7 +45,7 @@ public class User extends DomainObject {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private Role role;
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "date_of_birth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
@@ -109,12 +110,12 @@ public class User extends DomainObject {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -129,7 +130,7 @@ public class User extends DomainObject {
         return Objects.equal(firstName, user.firstName) &&
                 Objects.equal(lastName, user.lastName) &&
                 Objects.equal(password, user.password) &&
-                Objects.equal(role, user.role) &&
+                Objects.equal(roles, user.roles) &&
                 Objects.equal(email, user.email) &&
                 Objects.equal(dateOfBirth, user.dateOfBirth) &&
                 Objects.equal(getId(), user.getId());
@@ -137,7 +138,7 @@ public class User extends DomainObject {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(firstName, lastName, email, dateOfBirth, password, role, getId());
+        return Objects.hashCode(firstName, lastName, email, dateOfBirth, password, roles, getId());
     }
 
     @Override
@@ -147,7 +148,7 @@ public class User extends DomainObject {
                 .add("lastName", lastName)
                 .add("email", email)
                 .add("password", password)
-                .add("role", role)
+                .add("roles", roles)
                 .add("dateOfBirth", dateOfBirth)
                 .toString();
     }

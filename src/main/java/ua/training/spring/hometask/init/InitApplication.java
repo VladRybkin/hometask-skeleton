@@ -91,7 +91,7 @@ public class InitApplication {
         user.setId(1L);
         user.setPassword(encoder.encode("password"));
         user.setEmail("VladTV@mail");
-        user.setRole(Role.USER);
+        user.getRoles().add(Role.USER);
         user.setDateOfBirth(LocalDateTime.now());
 
         return user;
