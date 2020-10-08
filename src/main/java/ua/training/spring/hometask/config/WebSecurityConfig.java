@@ -42,7 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
                 .permitAll()
-                .logoutSuccessUrl("/welcome/");
+                .logoutSuccessUrl("/welcome/")
+                .and()
+                .rememberMe().key("uniqueAndSecret").userDetailsService(userDetailsService);
     }
 
     @Override

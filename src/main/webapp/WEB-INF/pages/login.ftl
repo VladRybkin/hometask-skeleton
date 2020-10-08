@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>login</title>
 </head>
@@ -22,6 +22,9 @@
         <p>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        </p>
+        <p>
+            <input type="checkbox" name="remember-me"> remember me</input>
         </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
