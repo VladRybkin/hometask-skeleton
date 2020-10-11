@@ -48,7 +48,7 @@ public class TicketsController {
         return "tickets";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
     public String addTicket(@RequestParam String eventName, @ModelAttribute Ticket ticket) {
         ticketFacade.saveTicketWithEvent(eventName, ticket);
@@ -56,7 +56,7 @@ public class TicketsController {
         return "redirect:/tickets";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         ticketService.remove(ticketService.getById(id));
@@ -78,7 +78,7 @@ public class TicketsController {
         return "tickets";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) {
         Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);

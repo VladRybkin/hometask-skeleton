@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/upload")
-@PreAuthorize("BOOKING_MANAGER")
+@PreAuthorize("hasAuthority('BOOKING_MANAGER')")
 public class UploadController {
 
     @Autowired

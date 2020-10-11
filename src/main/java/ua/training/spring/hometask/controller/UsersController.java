@@ -37,7 +37,6 @@ public class UsersController {
         return "users";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
         userFacade.saveUser(user, birthday);
@@ -45,7 +44,7 @@ public class UsersController {
         return "redirect:/users";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         userService.remove(userService.getById(id));

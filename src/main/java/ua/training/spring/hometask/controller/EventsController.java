@@ -44,7 +44,7 @@ public class EventsController {
         return "events";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
     public String addEvent(@ModelAttribute Event event, @RequestParam String eventDate,
             @RequestParam String auditoriumName) {
@@ -53,7 +53,7 @@ public class EventsController {
         return "redirect:/events";
     }
 
-    @PreAuthorize("BOOKING_MANAGER")
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         eventService.remove(eventService.getById(id));

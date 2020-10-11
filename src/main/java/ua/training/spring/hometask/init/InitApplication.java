@@ -92,6 +92,7 @@ public class InitApplication {
         user.setPassword(encoder.encode("password"));
         user.setEmail("VladTV@mail");
         user.getRoles().add(Role.USER);
+        user.getRoles().add(Role.BOOKING_MANAGER);
         user.setDateOfBirth(LocalDateTime.now());
 
         return user;
