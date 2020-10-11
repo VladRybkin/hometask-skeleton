@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.sequrity;
+package ua.training.spring.hometask.security.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,13 +16,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DefaultSecurityService securityService;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.getUserByEmail(email);
         if (Objects.isNull(user)) {
-            throw new UsernameNotFoundException("user with email: " + email+" not found");
+            throw new UsernameNotFoundException("user with email: " + email + " not found");
         }
 
-        return SecurityUser.fromUser(user);
+        return securityService.fromUser(user);
     }
 }
