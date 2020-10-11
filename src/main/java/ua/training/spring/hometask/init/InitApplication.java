@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 @Component
 @Profile("IN_MEMORY")
 public class InitApplication {
@@ -36,6 +38,7 @@ public class InitApplication {
     private EventDao eventDao;
 
     @Autowired
+    @Qualifier("auditoriumService")
     private AuditoriumService auditoriumService;
 
     @Autowired
@@ -47,8 +50,12 @@ public class InitApplication {
         User user = buildUser();
         userDao.save(user);
         Event event = buildEvent();
+        Event event1 = new Event();
+        event1.setName("secondEvent");
+        event1.setBasePrice(300);
 
         eventDao.save(event);
+        eventDao.save(event1);
         saveTickets(10, event);
     }
 
@@ -57,8 +64,8 @@ public class InitApplication {
         Set<LocalDateTime> airDates = Sets.newTreeSet();
         List<Auditorium> auditoriums = Lists.newArrayList(auditoriumService.getAll());
 
-        LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4);
-        LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5);
+        LocalDateTime firstDate = LocalDateTime.now().plusMonths(1).plusDays(4).truncatedTo(MINUTES);
+        LocalDateTime secondDate = LocalDateTime.now().plusMonths(2).plusDays(5).truncatedTo(MINUTES);
         airDates.add(firstDate);
         airDates.add(secondDate);
 
@@ -78,6 +85,7 @@ public class InitApplication {
         user.setFirstName("Vlad");
         user.setId(1L);
         user.setEmail("VladTV@mail");
+        user.setDateOfBirth(LocalDateTime.now());
 
         return user;
     }

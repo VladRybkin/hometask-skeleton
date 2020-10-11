@@ -94,4 +94,12 @@ public class DefaultEventCountService implements EventCountService {
                 .withCountBookTicket(0)
                 .build();
     }
+
+    @Transactional
+    @Override
+    public Collection<EventCount> saveAll(Collection<EventCount> eventCounts) {
+        eventCounts.forEach(eventCountDao::save);
+
+        return eventCounts;
+    }
 }

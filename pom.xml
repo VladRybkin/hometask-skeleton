@@ -18,7 +18,7 @@
         <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version>
         <hamcrest.version>2.1</hamcrest.version>
         <hibernate.version>5.2.11.Final</hibernate.version>
-        <hibernate.validator.properties>5.4.1.Final</hibernate.validator.properties>
+        <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
     </properties>
 
     <build>
@@ -96,6 +96,17 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8888</port>
+                    <path>/</path>
+                    <ignorePackaging>true</ignorePackaging>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -103,6 +114,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -176,6 +193,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
@@ -203,7 +232,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.1.0.Final</version>
+            <version>${hibernate.validator.version}</version>
         </dependency>
 
         <dependency>
@@ -222,6 +251,7 @@
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.el</artifactId>
             <version>3.0.3</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -242,6 +272,30 @@
             <artifactId>mybatis-spring</artifactId>
             <version>2.0.4</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.6.5</version>
+        </dependency>
+    </dependencies>
 </project>
