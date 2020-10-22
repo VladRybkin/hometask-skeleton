@@ -6,4 +6,8 @@ import ua.training.spring.hometask.domain.User;
 public interface SecurityService {
 
     UserDetails fromUser(User user);
+
+    void autoLogin(String username, String password);
+
+    String getLoggedUserByEmail();
 }

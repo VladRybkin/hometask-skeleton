@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.training.spring.hometask.dto.RegistrationUserForm;
 import ua.training.spring.hometask.facade.UserFacade;
+import ua.training.spring.hometask.security.SecurityService;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,9 @@ public class RegistrationController {
 
     @Autowired
     private UserFacade userFacade;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -33,6 +37,7 @@ public class RegistrationController {
     public String registerUser(@ModelAttribute RegistrationUserForm userForm,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateOfTheBirth) {
         userFacade.registerUser(userForm, dateOfTheBirth);
+        securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
 
         return "redirect:/welcome";
     }
