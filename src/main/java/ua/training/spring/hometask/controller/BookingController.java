@@ -30,8 +30,8 @@ public class BookingController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping
-    public String bookTicket(@RequestParam final Long ticketId, @RequestParam final Long userId) {
-        bookingFacade.bookTicket(ticketId, userId);
+    public String bookTicket(@RequestParam final Long ticketId) {
+        bookingFacade.bookTicket(ticketId);
 
         return "redirect:/booking";
     }

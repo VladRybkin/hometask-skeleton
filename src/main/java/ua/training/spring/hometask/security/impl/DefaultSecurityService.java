@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.security.SecurityService;
+import ua.training.spring.hometask.service.UserService;
 
 import java.util.Set;
 
@@ -18,6 +19,9 @@ public class DefaultSecurityService implements SecurityService {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private UserService userService;
 
     public UserDetails fromUser(User user) {
         Set<SimpleGrantedAuthority> grantedAuthorities = getGrantedAuthoritiesFromUserRoles(user);
@@ -34,22 +38,16 @@ public class DefaultSecurityService implements SecurityService {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
-        //        authenticationManager.authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-        if (authenticationToken.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-        }
     }
 
     @Override
-    public String getLoggedUserByEmail() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
-        }
+    public User getLoggedUser() {
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return null;
+        return userService.getUserByEmail(userEmail);
     }
 
     private Set<SimpleGrantedAuthority> getGrantedAuthoritiesFromUserRoles(User user) {

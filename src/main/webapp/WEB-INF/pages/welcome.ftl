@@ -37,7 +37,10 @@
                <input type="submit" value="auditoriums" />
             </form>
     <br/>
-
+    <form action="/registration">
+        <input type="submit" value="registration" />
+    </form>
+    <br/>
     <form action="/login">
         <input type="submit" value="login" />
     </form>
