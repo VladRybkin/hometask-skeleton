@@ -9,7 +9,6 @@ import ua.training.spring.hometask.facade.BookingFacade;
 import ua.training.spring.hometask.security.SecurityService;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.TicketService;
-import ua.training.spring.hometask.service.UserService;
 
 @Component
 public class DefaultBookingFacade implements BookingFacade {
@@ -19,9 +18,6 @@ public class DefaultBookingFacade implements BookingFacade {
 
     @Autowired
     private TicketService ticketService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private SecurityService securityService;

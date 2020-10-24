@@ -37,6 +37,7 @@ public class UsersController {
         return "users";
     }
 
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
         userFacade.saveUser(user, birthday);

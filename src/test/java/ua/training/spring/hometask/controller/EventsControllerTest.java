@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -49,6 +50,7 @@ class EventsControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void addEvent() throws Exception {
         Event event = new Event();
         mockMvc.perform(post("/events/add")
@@ -60,6 +62,7 @@ class EventsControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void remove() throws Exception {
         mockMvc.perform(get("/events/remove/{id}", 1L))
                 .andExpect(redirectedUrl("/events"))

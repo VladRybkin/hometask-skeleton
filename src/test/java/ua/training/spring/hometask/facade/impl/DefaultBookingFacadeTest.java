@@ -7,9 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.security.SecurityService;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.TicketService;
-import ua.training.spring.hometask.service.UserService;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,7 +24,7 @@ class DefaultBookingFacadeTest {
     private TicketService ticketService;
 
     @Mock
-    private UserService userService;
+    private SecurityService securityService;
 
     @Mock
     private BookingService bookingService;
@@ -35,12 +35,12 @@ class DefaultBookingFacadeTest {
         User user = new User();
 
         when(ticketService.getById(1L)).thenReturn(ticket);
-        when(userService.getById(1L)).thenReturn(user);
+        when(securityService.getLoggedUser()).thenReturn(user);
 
-        bookingFacade.bookTicket(1L, 1L);
+        bookingFacade.bookTicket(1L);
 
         verify(ticketService).getById(1L);
-        verify(userService).getById(1L);
+        verify(securityService).getLoggedUser();
         verify(bookingService).bookTicket(ticket, user);
     }
 }

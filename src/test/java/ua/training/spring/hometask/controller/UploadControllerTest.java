@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -38,6 +39,7 @@ class UploadControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void getUpload() throws Exception {
         mockMvc.perform(get("/upload"))
                 .andExpect(view().name("upload"))
@@ -45,6 +47,7 @@ class UploadControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void upload() throws Exception {
         MockMultipartFile multipartFile = mock(MockMultipartFile.class);
 

@@ -89,7 +89,7 @@ public class InitApplication {
         User user = new User();
         user.setFirstName("Vlad");
         user.setId(1L);
-        user.setPassword(encoder.encode("password"));
+        user.setPassword(encoder.encode("testpass"));
         user.setEmail("VladTV@mail");
         user.getRoles().add(Role.USER);
         user.getRoles().add(Role.BOOKING_MANAGER);

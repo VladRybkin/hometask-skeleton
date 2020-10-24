@@ -14,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -40,11 +41,10 @@ public class User extends DomainObject {
     private String email;
 
     @NotNull
-    @Column(name = "email")
+    @Column(name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Transient
     private Set<Role> roles = new HashSet<>();
 
     @Column(name = "date_of_birth")
