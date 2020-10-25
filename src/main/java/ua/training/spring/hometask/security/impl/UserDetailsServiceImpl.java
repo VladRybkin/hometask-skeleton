@@ -26,10 +26,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("user with email: " + email + " not found");
         }
 
-        return fromUser(user);
+        return getUserDetailsFromUser(user);
     }
 
-    public UserDetails fromUser(User user) {
+    private UserDetails getUserDetailsFromUser(User user) {
         Set<SimpleGrantedAuthority> grantedAuthorities = getGrantedAuthoritiesFromUserRoles(user);
 
         return new org.springframework.security.core.userdetails.User(
