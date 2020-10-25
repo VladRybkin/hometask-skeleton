@@ -17,16 +17,20 @@ public class UserDaoImpl implements UserDao {
     private static final Map<Long, User> users = new HashMap<>();
 
     @Override
-    public User save(User object) {
-        object.setId((long) (users.size() + 1));
-        users.put(object.getId(), object);
+    public User save(User user) {
+        if (users.containsKey(user.getId())) {
+            users.put(user.getId(), user);
+        } else {
+            user.setId((long) (users.size() + 1));
+            users.put(user.getId(), user);
+        }
 
-        return object;
+        return user;
     }
 
     @Override
-    public void remove(User object) {
-        users.remove(object.getId());
+    public void remove(User user) {
+        users.remove(user.getId());
     }
 
     @Override
