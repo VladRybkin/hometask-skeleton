@@ -37,7 +37,7 @@ public class RegistrationController {
     public String registerUser(@ModelAttribute RegistrationUserForm userForm,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateOfTheBirth) {
         userFacade.registerUser(userForm, dateOfTheBirth);
-        securityService.autoLogin(userForm.getEmail(), userForm.getPassword());
+        securityService.autoLogin(userForm.getEmail());
 
         return "redirect:/welcome";
     }

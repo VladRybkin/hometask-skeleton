@@ -20,10 +20,10 @@ public class DefaultSecurityService implements SecurityService {
     private UserService userService;
 
     @Override
-    public void autoLogin(String username, String password) {
+    public void autoLogin(String username) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
