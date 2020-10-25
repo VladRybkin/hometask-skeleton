@@ -35,10 +35,12 @@ class LoginControllerTest {
 
     private static final String existedUserName = "VladTV@mail";
 
+    private static final String existedUserPassword = "testpass";
+
     private static final String mockUserName = "test@mail";
 
     @BeforeEach
-    public void setup() throws Exception {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
                 .build();
@@ -52,7 +54,7 @@ class LoginControllerTest {
     @Test
     void loginTest() throws Exception {
         mockMvc.perform(formLogin("/login")
-                .user(existedUserName).password("testpass"))
+                .user(existedUserName).password(existedUserPassword))
                 .andExpect(authenticated().withUsername(existedUserName));
     }
 
