@@ -38,7 +38,7 @@ class DefaultSecurityServiceTest {
     void getLoggedUser() {
         securityService.autoLogin("VladTV@mail");
 
-        User user=userService.getUserByEmail("VladTV@mail");
+        User user = userService.getUserByEmail("VladTV@mail");
 
         assertThat(securityService.getLoggedUser(), is(user));
     }
