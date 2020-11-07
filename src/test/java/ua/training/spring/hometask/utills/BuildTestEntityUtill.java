@@ -39,6 +39,7 @@ public class BuildTestEntityUtill {
 
         User user = new User();
         user.setEmail("usermail@ticket.com");
+        user.setPassword("testPassword");
 
         Event event = new Event();
         event.setBasePrice(100);
@@ -60,6 +61,7 @@ public class BuildTestEntityUtill {
         user.setEmail("testEmail@gmail.ua");
         user.setFirstName("TestUser");
         user.setLastName("testLastName");
+        user.setPassword("testPassword");
 
         return user;
     }

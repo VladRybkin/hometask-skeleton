@@ -4,5 +4,5 @@ import ua.training.spring.hometask.domain.Ticket;
 
 public interface BookingFacade {
 
-    Ticket bookTicket(Long ticketId, Long userId);
+    Ticket bookTicket(Long ticketId);
 }

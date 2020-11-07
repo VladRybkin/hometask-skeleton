@@ -6,9 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.facade.BookingFacade;
+import ua.training.spring.hometask.security.SecurityService;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.TicketService;
-import ua.training.spring.hometask.service.UserService;
 
 @Component
 public class DefaultBookingFacade implements BookingFacade {
@@ -20,13 +20,14 @@ public class DefaultBookingFacade implements BookingFacade {
     private TicketService ticketService;
 
     @Autowired
-    private UserService userService;
+    private SecurityService securityService;
 
     @Transactional
     @Override
-    public Ticket bookTicket(Long ticketId, Long userId) {
+    public Ticket bookTicket(Long ticketId) {
         Ticket ticket = ticketService.getById(ticketId);
-        User user = userService.getById(userId);
+        User user = securityService.getLoggedUser();
+
         return bookingService.bookTicket(ticket, user);
     }
 }

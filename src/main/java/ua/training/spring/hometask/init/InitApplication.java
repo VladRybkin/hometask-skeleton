@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.dao.TicketDao;
@@ -12,6 +13,7 @@ import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.domain.Role;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.AuditoriumService;
@@ -44,6 +46,9 @@ public class InitApplication {
     @Autowired
     @Qualifier("ticketDaoImpl")
     private TicketDao ticketDao;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @PostConstruct
     void fulfilImmemoryRepositoryWithInitialData() {
@@ -84,7 +89,10 @@ public class InitApplication {
         User user = new User();
         user.setFirstName("Vlad");
         user.setId(1L);
+        user.setPassword(encoder.encode("testpass"));
         user.setEmail("VladTV@mail");
+        user.getRoles().add(Role.USER);
+        user.getRoles().add(Role.BOOKING_MANAGER);
         user.setDateOfBirth(LocalDateTime.now());
 
         return user;

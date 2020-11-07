@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -45,6 +46,7 @@ class BookingControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "USER" })
     void bookTicket() throws Exception {
         mockMvc.perform(post("/booking")
                 .param("ticketId", String.valueOf(1))

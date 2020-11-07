@@ -28,7 +28,6 @@
                 <td><#if t.user??>${t.user.email}</#if></td>
                 <td><form name="bookingForm" method="post" action="">
                                 <input type="hidden" name="ticketId" value="${t.id}">
-                                <input type="hidden" name="userId" value="1">
                                 <input type="submit" value="book ticket"><br>
                             </form></td>
               </tr>

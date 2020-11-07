@@ -2,6 +2,7 @@ package ua.training.spring.hometask.controller;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +44,16 @@ public class EventsController {
         return "events";
     }
 
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
     public String addEvent(@ModelAttribute Event event, @RequestParam String eventDate,
-                           @RequestParam String auditoriumName) {
+            @RequestParam String auditoriumName) {
         eventFacade.saveEvent(event, eventDate, auditoriumName);
 
         return "redirect:/events";
     }
 
+    @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
     public String remove(Model model, @PathVariable Long id) {
         eventService.remove(eventService.getById(id));

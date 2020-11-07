@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
   first_name VARCHAR(45),
   last_name VARCHAR(45) ,
   email VARCHAR(45) NOT NULL UNIQUE,
+  password VARCHAR(45),
   date_of_birth VARCHAR(45)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -49,6 +50,7 @@ class TicketsControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void addTicket() throws Exception {
         Ticket ticket = new Ticket();
         mockMvc.perform(post("/tickets/add")
@@ -59,6 +61,7 @@ class TicketsControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void remove() throws Exception {
         mockMvc.perform(get("/tickets/remove/{id}", 1L))
                 .andExpect(redirectedUrl("/tickets"))
@@ -73,6 +76,7 @@ class TicketsControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
     void getPdf() throws Exception {
         mockMvc.perform(get("/tickets/pdf")
                 .param("ticketDate", String.valueOf(LocalDateTime.now().truncatedTo(MINUTES)))
