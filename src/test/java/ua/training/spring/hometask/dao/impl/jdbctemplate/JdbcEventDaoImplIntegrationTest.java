@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.dao.impl.jdbctemplate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +36,6 @@ class JdbcEventDaoImplIntegrationTest {
 
     @Autowired
     private JdbcTemplate testJdbcTemplate;
-
-
-    @BeforeEach
-    void setUp() {
-        jdbcEventDao.setJdbcTemplate(testJdbcTemplate);
-    }
 
     @Test
     void getByName() {

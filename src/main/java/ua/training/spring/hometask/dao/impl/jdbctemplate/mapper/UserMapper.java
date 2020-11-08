@@ -20,8 +20,8 @@ public class UserMapper implements RowMapper<User> {
         user.setId(resultSet.getLong("id"));
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
+        user.setPassword(resultSet.getString("password"));
         user.setEmail(resultSet.getString("email"));
-
         String dateOfBirth = resultSet.getString("date_of_birth");
         setDateOfBirthToUser(user, dateOfBirth);
 

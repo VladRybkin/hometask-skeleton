@@ -80,23 +80,23 @@ public class JdbcEventDaoImpl implements EventDao {
     }
 
     @Override
-    public Event save(Event object) {
+    public Event save(Event event) {
         jdbcTemplate.update(INSERT_INTO_EVENTS,
-                object.getName(),
-                object.getBasePrice(),
-                String.valueOf(object.getRating()));
+                event.getName(),
+                event.getBasePrice(),
+                String.valueOf(event.getRating()));
 
-        object.getAirDates().forEach(airDate -> {
+        event.getAirDates().forEach(airDate -> {
             insertAirDateIfNotExist(airDate);
-            jdbcTemplate.update(INSERT_RELATIONS, object.getName(), String.valueOf(airDate));
+            jdbcTemplate.update(INSERT_RELATIONS, event.getName(), String.valueOf(airDate));
         });
 
-        return object;
+        return event;
     }
 
     @Override
-    public void remove(Event object) {
-        jdbcTemplate.update(EVENT_REMOVE_QUERY, object.getId());
+    public void remove(Event event) {
+        jdbcTemplate.update(EVENT_REMOVE_QUERY, event.getId());
     }
 
     @Override
