@@ -37,7 +37,7 @@ class EventsControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -50,7 +50,7 @@ class EventsControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void addEvent() throws Exception {
         Event event = new Event();
         mockMvc.perform(post("/events/add")
@@ -62,7 +62,7 @@ class EventsControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void remove() throws Exception {
         mockMvc.perform(get("/events/remove/{id}", 1L))
                 .andExpect(redirectedUrl("/events"))

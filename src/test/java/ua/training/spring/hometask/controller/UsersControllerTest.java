@@ -36,7 +36,7 @@ class UsersControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -49,7 +49,7 @@ class UsersControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void addUser() throws Exception {
         mockMvc.perform(post("/users/add")
                 .param("birthday", String.valueOf(LocalDate.now()))
@@ -59,7 +59,7 @@ class UsersControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void remove() throws Exception {
         mockMvc.perform(get("/users/remove/{id}", 1L))
                 .andExpect(redirectedUrl("/users"))

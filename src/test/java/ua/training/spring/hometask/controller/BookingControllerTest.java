@@ -33,7 +33,7 @@ class BookingControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -46,7 +46,7 @@ class BookingControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "USER" })
+    @WithMockUser(username = "test", authorities = {"USER"})
     void bookTicket() throws Exception {
         mockMvc.perform(post("/booking")
                 .param("ticketId", String.valueOf(1))

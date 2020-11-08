@@ -34,12 +34,12 @@ class UploadControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void getUpload() throws Exception {
         mockMvc.perform(get("/upload"))
                 .andExpect(view().name("upload"))
@@ -47,7 +47,7 @@ class UploadControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "test", authorities = { "BOOKING_MANAGER" })
+    @WithMockUser(username = "test", authorities = {"BOOKING_MANAGER"})
     void upload() throws Exception {
         MockMultipartFile multipartFile = mock(MockMultipartFile.class);
 
