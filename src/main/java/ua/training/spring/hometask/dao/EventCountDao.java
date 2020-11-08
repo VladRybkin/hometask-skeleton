@@ -6,5 +6,5 @@ public interface EventCountDao extends AbstractDomainObjectDao<EventCount> {
 
     EventCount getByName(String name);
 
-    boolean update(EventCount eventCount);
+
 }

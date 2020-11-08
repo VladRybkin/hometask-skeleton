@@ -78,4 +78,16 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
                 .withCountTenthTicketDiscount(0)
                 .withUserName(name).build();
     }
+
+    @Override
+    public boolean update(UserDiscountCount userDiscountCount) {
+        return userDiscountCountDao.update(userDiscountCount);
+    }
+
+    @Override
+    public Collection<UserDiscountCount> saveAll(Collection<UserDiscountCount> userDiscountCounts) {
+        userDiscountCounts.forEach(userDiscountCountDao::save);
+
+        return userDiscountCounts;
+    }
 }

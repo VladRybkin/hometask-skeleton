@@ -54,6 +54,11 @@ public class DefaultEventService implements EventService {
         return eventDao.getAll();
     }
 
+    @Override
+    public boolean update(Event event) {
+        return eventDao.update(event);
+    }
+
     @Transactional
     @Override
     public Collection<Event> saveAll(Collection<Event> events) {

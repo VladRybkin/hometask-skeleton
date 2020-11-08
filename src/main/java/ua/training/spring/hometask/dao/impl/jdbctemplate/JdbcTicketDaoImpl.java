@@ -83,4 +83,9 @@ public class JdbcTicketDaoImpl implements TicketDao {
     public Collection<Ticket> getAll() {
         return jdbcTemplate.query(TICKETS_GET_ALL_QUERY, ticketMapper);
     }
+
+    @Override
+    public boolean update(Ticket ticket) {
+        return false;
+    }
 }

@@ -13,5 +13,7 @@ public interface AbstractDomainObjectDao<T extends DomainObject> {
 
     T getById(Long id);
 
+    boolean update(T object);
+
     Collection<T> getAll();
 }

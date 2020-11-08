@@ -68,6 +68,17 @@ public class EventDaoImpl implements EventDao {
         return filteredEvents;
     }
 
+    @Override
+    public boolean update(Event event) {
+        boolean update = false;
+        if (events.containsKey(event.getId())) {
+            events.put(event.getId(), event);
+            update = true;
+        }
+
+        return update;
+    }
+
     private Predicate<LocalDateTime> filterBeforeDate(LocalDateTime to) {
         return localDate -> localDate.isBefore(to);
     }

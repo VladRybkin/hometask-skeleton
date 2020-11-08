@@ -76,6 +76,17 @@ public class HibernateUserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
+    public boolean update(User user) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+        }
+
+        return true;
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

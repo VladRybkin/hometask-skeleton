@@ -46,7 +46,7 @@ public class MyBatisEventDaoImpl implements EventDao {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             events = session.selectList("ua.training.spring.hometask.dao.impl.mybatis.mybatisrepos.MBEventMapper.getNextEvents");
         }
-        return Sets.newHashSet();
+        return Sets.newHashSet(events);
     }
 
     @Override
@@ -85,4 +85,8 @@ public class MyBatisEventDaoImpl implements EventDao {
         return events;
     }
 
+    @Override
+    public boolean update(Event event) {
+        return false;
+    }
 }

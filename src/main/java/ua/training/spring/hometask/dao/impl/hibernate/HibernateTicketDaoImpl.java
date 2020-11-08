@@ -81,6 +81,17 @@ public class HibernateTicketDaoImpl implements TicketDao {
         return tickets;
     }
 
+    @Override
+    public boolean update(Ticket ticket) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(ticket);
+            session.getTransaction().commit();
+        }
+
+        return true;
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

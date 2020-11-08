@@ -78,7 +78,8 @@ public class JdbcUserDaoImpl implements UserDao {
         return jdbcTemplate.query(USERS_GET_ALL_QUERY, userMapper);
     }
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    @Override
+    public boolean update(User user) {
+        return false;
     }
 }

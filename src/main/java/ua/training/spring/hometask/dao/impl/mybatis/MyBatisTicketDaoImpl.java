@@ -72,4 +72,9 @@ public class MyBatisTicketDaoImpl implements TicketDao {
 
         return tickets;
     }
+
+    @Override
+    public boolean update(Ticket ticket) {
+        return false;
+    }
 }

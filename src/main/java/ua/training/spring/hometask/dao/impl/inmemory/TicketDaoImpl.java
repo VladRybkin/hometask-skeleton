@@ -59,6 +59,17 @@ public class TicketDaoImpl implements TicketDao {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public boolean update(Ticket ticket) {
+        boolean update = false;
+        if (tickets.containsKey(ticket.getId())) {
+            tickets.put(ticket.getId(), ticket);
+            update = true;
+        }
+
+        return update;
+    }
+
     private Predicate<Ticket> purchasedFilter() {
         return t -> !Objects.isNull(t.getUser());
     }

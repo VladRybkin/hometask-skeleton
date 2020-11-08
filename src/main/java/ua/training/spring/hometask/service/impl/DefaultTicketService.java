@@ -45,6 +45,11 @@ public class DefaultTicketService implements TicketService {
         return ticketDao.getPurchasedTicketsForEvent(event, dateTime);
     }
 
+    @Override
+    public boolean update(Ticket ticket) {
+        return ticketDao.update(ticket);
+    }
+
     @Transactional
     @Override
     public Collection<Ticket> saveAll(Collection<Ticket> tickets) {
