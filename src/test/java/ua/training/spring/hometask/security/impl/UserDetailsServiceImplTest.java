@@ -52,7 +52,7 @@ class UserDetailsServiceImplTest {
         Set<SimpleGrantedAuthority> grantedAuthorities = Sets.newHashSet();
 
         user.getRoles().forEach(role -> {
-            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.name());
+            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
             grantedAuthorities.add(grantedAuthority);
         });
 

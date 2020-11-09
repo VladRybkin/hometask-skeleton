@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ua.training.spring.hometask.domain.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/welcome").permitAll()
-                .antMatchers("/**").hasAuthority(Role.USER.name())
+                .antMatchers("/**").hasAuthority("USER")
                 .and()
                 .formLogin()
                 .loginPage("/login")

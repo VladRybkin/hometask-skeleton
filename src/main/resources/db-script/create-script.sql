@@ -10,6 +10,23 @@ CREATE TABLE IF NOT EXISTS users (
   date_of_birth VARCHAR(45)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+  CREATE TABLE IF NOT EXISTS roles (
+  id   INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(45) NOT NULL
+) ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS user_roles (
+  user_id INT NOT NULL,
+  role_id INT NOT NULL,
+
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (role_id) REFERENCES roles (id),
+
+  UNIQUE (user_id, role_id)
+) ENGINE = InnoDB;
+
+
   CREATE TABLE IF NOT EXISTS events (
   id INT(11) PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(45) NOT NULL UNIQUE,

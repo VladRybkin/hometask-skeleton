@@ -37,21 +37,21 @@ public class HibernateUserDaoImpl implements UserDao {
     }
 
     @Override
-    public User save(User object) {
+    public User save(User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(object);
+            session.persist(user);
             session.getTransaction().commit();
         }
 
-        return object;
+        return user;
     }
 
     @Override
-    public void remove(User object) {
+    public void remove(User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.remove(object);
+            session.remove(user);
             session.getTransaction().commit();
         }
     }

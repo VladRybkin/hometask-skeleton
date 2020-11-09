@@ -141,10 +141,6 @@ public class JdbcEventDaoImpl implements EventDao {
         }
     }
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
     @Override
     public boolean update(Event event) {
         return false;
