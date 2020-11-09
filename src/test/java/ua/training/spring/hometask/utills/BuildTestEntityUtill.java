@@ -57,13 +57,23 @@ public class BuildTestEntityUtill {
         return ticket;
     }
 
-    public static User buildTestUser() {
+    public static User buildHibernateTestUser() {
         User user = new User();
         user.setEmail("testEmail@gmail.ua");
         user.setFirstName("TestUser");
         user.setLastName("testLastName");
         user.setPassword("testPassword");
         user.getRoles().add(new Role("USER"));
+
+        return user;
+    }
+
+    public static User buildTestUser() {
+        User user = new User();
+        user.setEmail("testEmail@gmail.ua");
+        user.setFirstName("TestUser");
+        user.setLastName("testLastName");
+        user.setPassword("testPassword");
 
         return user;
     }

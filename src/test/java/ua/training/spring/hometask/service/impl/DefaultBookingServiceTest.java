@@ -119,12 +119,12 @@ class DefaultBookingServiceTest {
         verify(discountService).getDiscount(any(User.class), anySet());
     }
 
-//    @Test
-//    void shouldThrowExceptionWhenArgumentsIsNull() {
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            bookingService.getTicketsPrice(null, null, null);
-//        });
-//    }
+    //    @Test
+    //    void shouldThrowExceptionWhenArgumentsIsNull() {
+    //        assertThrows(IllegalArgumentException.class, () -> {
+    //            bookingService.getTicketsPrice(null, null, null);
+    //        });
+    //    }
 
     @Test
     void bookTicket() {
@@ -134,8 +134,8 @@ class DefaultBookingServiceTest {
 
         assertThat(ticket.getUser(), is(user));
         assertThat(user.getTickets(), containsInAnyOrder(ticket));
-        verify(ticketService).save(ticket);
-        verify(userService).save(user);
+        verify(ticketService).update(ticket);
+        verify(userService).update(user);
     }
 
     private Event buildTestEvent(EventRating eventRating) {
