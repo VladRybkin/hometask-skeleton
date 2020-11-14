@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildTestUser;
+import static ua.training.spring.hometask.utills.BuildTestEntityUtill.buildHibernateTestUser;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BeansConfiguration.class})
@@ -38,7 +38,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void getUserByEmail() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
         User foundByEmail = hibernateUserDao.getUserByEmail(user.getEmail());
 
@@ -47,7 +47,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldGetByIdPersistedUser() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
         User foundUser = hibernateUserDao.getById(1L);
 
@@ -56,7 +56,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void remove() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
 
         hibernateUserDao.save(user);
         assertThat(hibernateUserDao.getAll(), hasSize(1));
@@ -67,7 +67,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void getAll() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
 
         Collection<User> persistedUsers = hibernateUserDao.getAll();
@@ -78,7 +78,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldReturnNullWhenGetByEmail() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
 
         User foundByEmail = hibernateUserDao.getUserByEmail(user.getEmail());
 
@@ -103,8 +103,8 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldThrowUniqueConstraintException() {
-        User user = buildTestUser();
-        User userWithDuplicatedEventName = buildTestUser();
+        User user = buildHibernateTestUser();
+        User userWithDuplicatedEventName = buildHibernateTestUser();
         hibernateUserDao.save(user);
         assertThrows(PersistenceException.class, () -> {
             hibernateUserDao.save(userWithDuplicatedEventName);
@@ -113,7 +113,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldCashingGetByEmail() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
 
         hibernateUserDao.getUserByEmail(user.getEmail());
@@ -127,7 +127,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldCashingGetById() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
 
         hibernateUserDao.getById(1L);
@@ -141,8 +141,8 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldCashingGetAll() {
-        User user1 = buildTestUser();
-        User user2 = buildTestUser();
+        User user1 = buildHibernateTestUser();
+        User user2 = buildHibernateTestUser();
         user2.setEmail("test@mail2.com");
 
         hibernateUserDao.save(user1);
@@ -159,7 +159,7 @@ class HibernateUserDaoImplIntegrationTest {
 
     @Test
     void shouldRemoveFromCache() {
-        User user = buildTestUser();
+        User user = buildHibernateTestUser();
         hibernateUserDao.save(user);
         hibernateUserDao.getById(user.getId());
 

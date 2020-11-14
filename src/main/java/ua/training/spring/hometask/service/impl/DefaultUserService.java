@@ -43,6 +43,11 @@ public class DefaultUserService implements UserService {
         return userDao.getAll();
     }
 
+    @Override
+    public boolean update(User user) {
+        return userDao.update(user);
+    }
+
     @Transactional
     @Override
     public Collection<User> saveAll(Collection<User> users) {

@@ -49,22 +49,22 @@ public class JdbcTicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public Ticket save(Ticket object) {
-        Long eventId = object.getEvent() == null ? null : object.getEvent().getId();
-        Long userId = object.getUser() == null ? null : object.getUser().getId();
+    public Ticket save(Ticket ticket) {
+        Long eventId = ticket.getEvent() == null ? null : ticket.getEvent().getId();
+        Long userId = ticket.getUser() == null ? null : ticket.getUser().getId();
 
         jdbcTemplate.update(TICKETS_INSERT_QUERY,
-                String.valueOf(object.getDateTime()),
-                object.getSeat(),
-                object.getBasePrice(),
+                String.valueOf(ticket.getDateTime()),
+                ticket.getSeat(),
+                ticket.getBasePrice(),
                 userId, eventId);
 
-        return object;
+        return ticket;
     }
 
     @Override
-    public void remove(Ticket object) {
-        jdbcTemplate.update(TICKETS_REMOVE_QUERY, object.getId());
+    public void remove(Ticket ticket) {
+        jdbcTemplate.update(TICKETS_REMOVE_QUERY, ticket.getId());
     }
 
     @Override
@@ -84,7 +84,8 @@ public class JdbcTicketDaoImpl implements TicketDao {
         return jdbcTemplate.query(TICKETS_GET_ALL_QUERY, ticketMapper);
     }
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    @Override
+    public boolean update(Ticket ticket) {
+        return false;
     }
 }

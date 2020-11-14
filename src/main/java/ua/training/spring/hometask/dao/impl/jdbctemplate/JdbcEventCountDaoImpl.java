@@ -97,8 +97,4 @@ public class JdbcEventCountDaoImpl implements EventCountDao {
 
         return updated;
     }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 }

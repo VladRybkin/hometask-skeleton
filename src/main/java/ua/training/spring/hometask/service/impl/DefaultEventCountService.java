@@ -86,6 +86,19 @@ public class DefaultEventCountService implements EventCountService {
         return eventCountDao.getByName(name);
     }
 
+    @Transactional
+    @Override
+    public Collection<EventCount> saveAll(Collection<EventCount> eventCounts) {
+        eventCounts.forEach(eventCountDao::save);
+
+        return eventCounts;
+    }
+
+    @Override
+    public boolean update(EventCount eventCount) {
+        return eventCountDao.update(eventCount);
+    }
+
     private EventCount createEventCounter(String eventName) {
         return new EventCount.Builder()
                 .withEventName(eventName)
@@ -93,13 +106,5 @@ public class DefaultEventCountService implements EventCountService {
                 .withCountGetByName(0)
                 .withCountBookTicket(0)
                 .build();
-    }
-
-    @Transactional
-    @Override
-    public Collection<EventCount> saveAll(Collection<EventCount> eventCounts) {
-        eventCounts.forEach(eventCountDao::save);
-
-        return eventCounts;
     }
 }

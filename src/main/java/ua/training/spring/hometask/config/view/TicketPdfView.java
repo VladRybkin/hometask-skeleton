@@ -18,7 +18,8 @@ import java.util.Objects;
 public class TicketPdfView extends AbstractPdfView {
 
     @Override
-    protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter pdfWriter, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter pdfWriter, HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse) throws Exception {
         Collection<Ticket> ticketData = (Collection<Ticket>) model.get("ticketData");
         Table table = new Table(4);
         table.addCell("Event name");

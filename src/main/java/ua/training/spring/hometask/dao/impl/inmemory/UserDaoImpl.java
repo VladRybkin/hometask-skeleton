@@ -29,6 +29,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean update(User user) {
+        boolean update = false;
+        if (users.containsKey(user.getId())) {
+            users.put(user.getId(), user);
+            update = true;
+        }
+
+        return update;
+    }
+
+    @Override
     public void remove(User user) {
         users.remove(user.getId());
     }

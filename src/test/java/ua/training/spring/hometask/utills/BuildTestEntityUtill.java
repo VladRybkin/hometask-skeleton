@@ -5,6 +5,7 @@ import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.EventCount;
 import ua.training.spring.hometask.domain.EventRating;
+import ua.training.spring.hometask.domain.Role;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.domain.UserDiscountCount;
@@ -54,6 +55,17 @@ public class BuildTestEntityUtill {
         eventDao.save(event);
 
         return ticket;
+    }
+
+    public static User buildHibernateTestUser() {
+        User user = new User();
+        user.setEmail("testEmail@gmail.ua");
+        user.setFirstName("TestUser");
+        user.setLastName("testLastName");
+        user.setPassword("testPassword");
+        user.getRoles().add(new Role("USER"));
+
+        return user;
     }
 
     public static User buildTestUser() {

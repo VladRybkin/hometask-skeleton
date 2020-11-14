@@ -62,4 +62,9 @@ public class MyBatisUserDaoImpl implements UserDao {
 
         return users;
     }
+
+    @Override
+    public boolean update(User user) {
+        return false;
+    }
 }

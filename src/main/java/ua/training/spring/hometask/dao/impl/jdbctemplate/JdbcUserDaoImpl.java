@@ -18,7 +18,7 @@ public class JdbcUserDaoImpl implements UserDao {
     private static final String USER_GET_BY_EMAIL_QUERY = "SELECT * FROM `users` WHERE `email` = ?";
 
     private static final String USERS_INSERT_QUERY =
-            "INSERT INTO `users`(`first_name`, `last_name`, `email`, `date_of_birth`) VALUES (?,?,?,?)";
+            "INSERT INTO `users`(`first_name`, `last_name`, `password`, `email`, `date_of_birth`) VALUES (?,?,?,?,?)";
 
     private static final String USERS_DELETE_QUERY = "delete from users where id = ?";
 
@@ -45,19 +45,20 @@ public class JdbcUserDaoImpl implements UserDao {
     }
 
     @Override
-    public User save(User object) {
+    public User save(User user) {
         jdbcTemplate.update(USERS_INSERT_QUERY,
-                object.getFirstName(),
-                object.getLastName(),
-                object.getEmail(),
-                object.getDateOfBirth());
+                user.getFirstName(),
+                user.getLastName(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getDateOfBirth());
 
-        return object;
+        return user;
     }
 
     @Override
-    public void remove(User object) {
-        jdbcTemplate.update(USERS_DELETE_QUERY, object.getId());
+    public void remove(User user) {
+        jdbcTemplate.update(USERS_DELETE_QUERY, user.getId());
     }
 
     @Override
@@ -77,7 +78,8 @@ public class JdbcUserDaoImpl implements UserDao {
         return jdbcTemplate.query(USERS_GET_ALL_QUERY, userMapper);
     }
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    @Override
+    public boolean update(User user) {
+        return false;
     }
 }

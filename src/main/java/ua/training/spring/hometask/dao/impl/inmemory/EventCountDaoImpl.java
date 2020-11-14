@@ -49,6 +49,7 @@ public class EventCountDaoImpl implements EventCountDao {
             eventCounts.put(eventCount.getId(), eventCount);
             update = true;
         }
+
         return update;
     }
 }

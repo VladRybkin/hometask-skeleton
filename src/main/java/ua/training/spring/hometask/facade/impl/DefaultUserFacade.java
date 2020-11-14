@@ -48,7 +48,7 @@ public class DefaultUserFacade implements UserFacade {
         user.setPassword(encoder.encode(userForm.getPassword()));
         user.setFirstName(userForm.getFirstName());
         user.setDateOfBirth(LocalDateTime.of(dateOfTheBirth, LocalTime.MIDNIGHT));
-        user.getRoles().add(Role.USER);
+        user.getRoles().add(new Role("USER"));
 
         return user;
     }

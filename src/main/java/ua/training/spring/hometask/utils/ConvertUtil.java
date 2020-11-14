@@ -8,7 +8,7 @@ public class ConvertUtil {
     private ConvertUtil() {
     }
 
-    public static LocalDateTime convertDateTime(String dateTime){
+    public static LocalDateTime convertDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 
         return LocalDateTime.parse(dateTime, formatter);

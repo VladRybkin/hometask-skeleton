@@ -119,6 +119,17 @@ public class HibernateEventDaoImpl implements EventDao {
         return events;
     }
 
+    @Override
+    public boolean update(Event event) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.update(event);
+            session.getTransaction().commit();
+        }
+
+        return true;
+    }
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

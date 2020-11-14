@@ -33,7 +33,6 @@ class EventCountServiceTest {
 
     private EventCount testEventCount;
 
-
     @BeforeEach
     void setUp() {
         testEventCount = new EventCount.Builder()
@@ -43,7 +42,6 @@ class EventCountServiceTest {
                 .withCountGetPrice(1)
                 .build();
     }
-
 
     @Test
     void getByNameCountIncrement() {

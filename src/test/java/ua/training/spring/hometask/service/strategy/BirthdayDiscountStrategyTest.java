@@ -23,7 +23,6 @@ class BirthdayDiscountStrategyTest {
 
     private static final double ZERO_DISCOUNT = 0;
 
-
     @BeforeEach()
     void setUp() {
         discountStrategy = new BirthdayDiscountStrategy();

@@ -55,8 +55,8 @@ public class DefaultBookingService implements BookingService {
     public Ticket bookTicket(Ticket ticket, User user) {
         user.getTickets().add(ticket);
         ticket.setUser(user);
-        userService.save(user);
-        ticketService.save(ticket);
+        userService.update(user);
+        ticketService.update(ticket);
 
         return ticket;
     }

@@ -54,18 +54,18 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
     }
 
     @Override
-    public UserDiscountCount save(UserDiscountCount object) {
+    public UserDiscountCount save(UserDiscountCount userDiscountCount) {
         jdbcTemplate.update(USER_DISCOUNT_COUNT_INSERT_QUERY,
-                object.getName(),
-                object.getCountBirthdayDiscount(),
-                object.getCountTenthTicketDiscount());
+                userDiscountCount.getName(),
+                userDiscountCount.getCountBirthdayDiscount(),
+                userDiscountCount.getCountTenthTicketDiscount());
 
-        return object;
+        return userDiscountCount;
     }
 
     @Override
-    public void remove(UserDiscountCount object) {
-        jdbcTemplate.update(USER_DISCOUNT_COUNT_REMOVE_QUERY, object.getId());
+    public void remove(UserDiscountCount userDiscountCount) {
+        jdbcTemplate.update(USER_DISCOUNT_COUNT_REMOVE_QUERY, userDiscountCount.getId());
     }
 
     @Override
@@ -99,9 +99,5 @@ public class JdbcUserDiscountCountDaoImpl implements UserDiscountCountDao {
         }
 
         return updated;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
     }
 }
