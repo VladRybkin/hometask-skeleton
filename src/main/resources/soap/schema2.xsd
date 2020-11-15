@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://localhost:8888/schemas/users" version="1.0">
+
+  <xs:import namespace="http://localhost:8888/schemas/users" schemaLocation="schema1.xsd"/>
+
+  <xs:element name="userRequest" type="ns1:userRequest"/>
+
+  <xs:element name="userResponse" type="ns1:userResponse"/>
+
+
+</xs:schema>
