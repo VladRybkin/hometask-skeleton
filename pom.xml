@@ -107,6 +107,28 @@
                     <ignorePackaging>true</ignorePackaging>
                 </configuration>
             </plugin>
+
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>jaxb2-maven-plugin</artifactId>-->
+                <!--<version>2.3</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>schemagen</id>-->
+                        <!--<goals>-->
+                            <!--<goal>schemagen</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<sources>-->
+                        <!--<source>src/main/java/ua/training/spring/hometask/dto/soap</source>-->
+                    <!--</sources>-->
+                    <!--<outputDirectory>src/main/resources/soap</outputDirectory>-->
+                    <!--<clearOutputDir>false</clearOutputDir>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+
         </plugins>
     </build>
 
@@ -222,6 +244,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>3.0.10.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws</artifactId>
+            <version>3.0.10.RELEASE</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.23</version>
@@ -320,5 +355,12 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.6.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
     </dependencies>
 </project>
