@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "userRequest", namespace = "http://localhost:8888/schemas/users")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="")
+@XmlType(name = "")
 public class UserRequest {
 
     @XmlElement

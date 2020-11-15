@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "userResponse")
+@XmlRootElement(name = "userResponse", namespace = "http://localhost:8888/schemas/users")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = {"id", "firstName", "lastName", "email"}, namespace = "http://localhost:8888/schemas/users")
+@XmlType(name = "")
 public class UserResponse {
 
     @XmlElement

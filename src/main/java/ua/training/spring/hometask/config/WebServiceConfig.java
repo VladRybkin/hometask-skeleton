@@ -27,20 +27,4 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema usersSchema() {
         return new SimpleXsdSchema(new ClassPathResource("soap/schema1.xsd"));
     }
-
-    //    @Bean
-    //    public Jaxb2Marshaller marshaller() {
-    //        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-    //        marshaller.setContextPath("ua.training.spring.hometask.dto.soap");
-    //        return marshaller;
-    //    }
-    //    @Bean
-    //    public UserClient countryClient(Jaxb2Marshaller marshaller) {
-    //        UserClient client = new UserClient();
-    //        client.setDefaultUri("http://localhost:8080/ws");
-    //        client.setMarshaller(marshaller);
-    //        client.setUnmarshaller(marshaller);
-    //        return client;
-    //    }
-
 }
