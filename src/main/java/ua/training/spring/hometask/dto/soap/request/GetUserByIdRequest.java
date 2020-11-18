@@ -1,5 +1,4 @@
-
-package ua.training.spring.hometask.dto.soap;
+package ua.training.spring.hometask.dto.soap.request;
 
 import com.google.common.base.Objects;
 
@@ -9,26 +8,26 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "userRequest", namespace = "http://localhost:8888/schemas/users")
+@XmlRootElement(name = "getUserByIdRequest", namespace = "http://localhost:8888/schemas/users")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class UserRequest {
+public class GetUserByIdRequest {
 
     @XmlElement
-    private String firstName;
+    private int id;
 
-    public String getFirstName() {
-        return firstName;
+    public int getId() {
+        return id;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-                .add("firstName", firstName)
+                .add("id", id)
                 .toString();
     }
 }

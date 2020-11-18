@@ -122,7 +122,7 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>src/main/java/ua/training/spring/hometask/dto/soap</source>
+                        <source>src/main/java/ua/training/spring/hometask/dto/soap/</source>
                     </sources>
                     <outputDirectory>src/main/resources/soap</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>

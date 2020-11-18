@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://localhost:8888/schemas/users" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 
-  <xs:import namespace="http://localhost:8888/schemas/users" schemaLocation="schema1.xsd"/>
+  <xs:complexType name="eventCount">
+    <xs:complexContent>
+      <xs:extension base="domainObject">
+        <xs:sequence>
+          <xs:element name="countBookTickets" type="xs:long"/>
+          <xs:element name="countGetByName" type="xs:long"/>
+          <xs:element name="countGetPrice" type="xs:long"/>
+          <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
 
-  <xs:element name="userRequest" type="ns1:userRequest"/>
-
-  <xs:element name="userResponse" type="ns1:userResponse"/>
-
-
+  <xs:complexType name="domainObject">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
