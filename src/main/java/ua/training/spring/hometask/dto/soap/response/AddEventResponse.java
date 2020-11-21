@@ -6,19 +6,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getUserByIdResponse", namespace = "http://training/schemas/hometask")
+@XmlRootElement(name = "addEventResponse", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class GetUserByIdResponse {
+public class AddEventResponse {
 
     @XmlElement
-    private UserResponse userResponse;
+    private EventResponse eventResponse;
 
-    public UserResponse getUserResponse() {
-        return userResponse;
+    public EventResponse getEventResponse() {
+        return eventResponse;
     }
 
-    public void setUserResponse(UserResponse userResponse) {
-        this.userResponse = userResponse;
+    public void setEventResponse(EventResponse eventResponse) {
+        this.eventResponse = eventResponse;
     }
 }

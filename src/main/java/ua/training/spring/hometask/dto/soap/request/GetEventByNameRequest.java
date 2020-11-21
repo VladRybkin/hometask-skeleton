@@ -6,19 +6,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getUserByIdRequest", namespace = "http://training/schemas/hometask")
+@XmlRootElement(name = "getEventByNameRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class GetUserByIdRequest {
+public class GetEventByNameRequest {
 
     @XmlElement
-    private Long id;
+    private String eventName;
 
-    public Long getId() {
-        return id;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 }

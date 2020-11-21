@@ -5,10 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getAllUsersRequest", namespace = "http://training/schemas/hometask")
+@XmlRootElement(name = "getAllEventsRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class GetAllUsersRequest {
-
+public class GetAllEventsRequest {
 
 }

@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dto.soap.request;
+package ua.training.spring.hometask.dto.soap.response;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -6,10 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
-@XmlRootElement(name = "userResponse", namespace = "http://localhost:8888/schemas/users")
+@XmlRootElement(name = "userResponse", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 public class UserResponse {
+
+    private Long id;
 
     private String firstName;
 
@@ -20,6 +22,14 @@ public class UserResponse {
     private String password;
 
     private Date dateOfBirth;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -6,19 +6,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getUserByIdResponse", namespace = "http://training/schemas/hometask")
+@XmlRootElement(name = "removeEventResponse", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class GetUserByIdResponse {
+public class RemoveEventResponse {
 
     @XmlElement
-    private UserResponse userResponse;
+    private boolean removed;
 
-    public UserResponse getUserResponse() {
-        return userResponse;
+    public boolean isRemoved() {
+        return removed;
     }
 
-    public void setUserResponse(UserResponse userResponse) {
-        this.userResponse = userResponse;
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
     }
 }

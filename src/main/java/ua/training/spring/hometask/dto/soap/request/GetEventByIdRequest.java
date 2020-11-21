@@ -6,10 +6,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getUserByIdRequest", namespace = "http://training/schemas/hometask")
+@XmlRootElement(name = "getEventByIdRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public class GetUserByIdRequest {
+public class GetEventByIdRequest {
 
     @XmlElement
     private Long id;

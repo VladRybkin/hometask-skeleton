@@ -1,7 +1,6 @@
 package ua.training.spring.hometask.dto.soap.response;
 
 import com.google.common.base.Objects;
-import ua.training.spring.hometask.dto.soap.request.UserResponse;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "getAllUsersResponse", namespace = "http://localhost:8888/schemas/users")
+@XmlRootElement(name = "getAllUsersResponse", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 public class GetAllUsersResponse {

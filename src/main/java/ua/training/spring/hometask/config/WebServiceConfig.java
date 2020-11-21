@@ -18,7 +18,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("userPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://localhost:8888/schemas/users");
+        wsdl11Definition.setTargetNamespace("http://training/schemas/hometask");
         wsdl11Definition.setSchema(usersSchema);
         return wsdl11Definition;
     }

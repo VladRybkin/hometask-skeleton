@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getUserByEmailRequest", namespace = "http://localhost:8888/schemas/users")
+@XmlRootElement(name = "getUserByEmailRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 public class GetUserByEmailRequest {

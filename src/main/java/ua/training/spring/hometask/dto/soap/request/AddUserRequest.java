@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
-@XmlRootElement(name = "addUserRequest", namespace = "http://localhost:8888/schemas/users")
+@XmlRootElement(name = "addUserRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 public class AddUserRequest {
