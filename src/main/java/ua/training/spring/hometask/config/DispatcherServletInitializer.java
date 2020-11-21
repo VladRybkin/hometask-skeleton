@@ -40,10 +40,11 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
         ctx.register(WebMvcConfig.class);
         ctx.setServletContext(servletContext);
+
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(ctx);
         servlet.setTransformWsdlLocations(true);
-        Dynamic dynamic = servletContext.addServlet("soapServlet",servlet);
+        Dynamic dynamic = servletContext.addServlet("soapServlet", servlet);
         dynamic.addMapping("/ws/*");
         dynamic.setLoadOnStartup(1);
 

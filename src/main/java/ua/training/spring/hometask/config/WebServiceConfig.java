@@ -20,6 +20,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://training/schemas/hometask");
         wsdl11Definition.setSchema(usersSchema);
+
         return wsdl11Definition;
     }
 
