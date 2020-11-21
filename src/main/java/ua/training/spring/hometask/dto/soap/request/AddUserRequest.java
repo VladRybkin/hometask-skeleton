@@ -71,14 +71,4 @@ public class AddUserRequest {
         this.birthDay = birthDay;
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("email", email)
-                .add("password", password)
-                .add("birthday", birthDay)
-                .toString();
-    }
 }

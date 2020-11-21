@@ -1,7 +1,5 @@
 package ua.training.spring.hometask.dto.soap.response;
 
-import com.google.common.base.Objects;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -24,12 +22,5 @@ public class GetAllUsersResponse {
 
     public void setUsers(List<UserResponse> users) {
         this.users = users;
-    }
-
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("users", users)
-                .toString();
     }
 }
