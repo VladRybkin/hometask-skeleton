@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.dto.soap.xmladapter;
+package ua.training.spring.hometask.xmladapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDateTime;
