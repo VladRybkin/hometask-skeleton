@@ -57,41 +57,16 @@ public class DefaultUserFacade implements UserFacade {
         return user;
     }
 
-    private User getUserFromUserFormRequest(RegistrationUserForm userForm, LocalDate dateOfTheBirth) {
-        User user = new User();
-        user.setEmail(userForm.getEmail());
-        user.setPassword(encoder.encode(userForm.getPassword()));
-        user.setFirstName(userForm.getFirstName());
-        user.setDateOfBirth(LocalDateTime.of(dateOfTheBirth, LocalTime.MIDNIGHT));
-        user.getRoles().add(new Role("USER"));
-
-        return user;
-    }
-
     @Override
     public AddUserResponse saveUser(AddUserRequest addUserRequest) {
         String email = addUserRequest.getEmail();
         Validate.notBlank(email, "email should not be null");
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(addUserRequest.getFirstName());
-        user.setLastName(addUserRequest.getLastName());
-        user.setDateOfBirth(LocalDateTime.ofInstant(addUserRequest.getBirthDay().toInstant(),
-                ZoneId.systemDefault()));
-        user.setPassword(addUserRequest.getPassword());
-
+        User user = populateUserFromRequest(addUserRequest, email);
         userService.save(user);
 
         AddUserResponse response = new AddUserResponse();
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setId(user.getId());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setDateOfBirth(addUserRequest.getBirthDay());
-
+        UserResponse userResponse = populateUserResponseFromUser(user);
         response.setUserResponse(userResponse);
 
         return response;
@@ -117,13 +92,7 @@ public class DefaultUserFacade implements UserFacade {
         User user = userService.getById(id);
 
         GetUserByIdResponse getUserByIdResponse = new GetUserByIdResponse();
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setId(user.getId());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setDateOfBirth(new Date());
+        UserResponse userResponse = populateUserResponseFromUser(user);
         getUserByIdResponse.setUserResponse(userResponse);
 
         return getUserByIdResponse;
@@ -136,13 +105,7 @@ public class DefaultUserFacade implements UserFacade {
         User user = userService.getUserByEmail(email);
 
         GetUserByEmailResponse getUserByEmailResponse = new GetUserByEmailResponse();
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setId(user.getId());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setDateOfBirth(new Date());
+        UserResponse userResponse = populateUserResponseFromUser(user);
         getUserByEmailResponse.setUserResponse(userResponse);
 
         return getUserByEmailResponse;
@@ -155,17 +118,46 @@ public class DefaultUserFacade implements UserFacade {
         List<UserResponse> userResponses = Lists.newArrayList();
 
         users.forEach(user -> {
-            UserResponse userResponse = new UserResponse();
-
-            userResponse.setFirstName(user.getFirstName());
-            userResponse.setEmail(user.getEmail());
-            userResponse.setId(user.getId());
-            userResponse.setLastName(user.getLastName());
-            userResponse.setDateOfBirth(new Date());
+            UserResponse userResponse = populateUserResponseFromUser(user);
             userResponses.add(userResponse);
         });
         getAllUsersResponse.setUsers(userResponses);
 
         return getAllUsersResponse;
+    }
+
+    private User getUserFromUserFormRequest(RegistrationUserForm userForm, LocalDate dateOfTheBirth) {
+        User user = new User();
+        user.setEmail(userForm.getEmail());
+        user.setPassword(encoder.encode(userForm.getPassword()));
+        user.setFirstName(userForm.getFirstName());
+        user.setDateOfBirth(LocalDateTime.of(dateOfTheBirth, LocalTime.MIDNIGHT));
+        user.getRoles().add(new Role("USER"));
+
+        return user;
+    }
+
+    private UserResponse populateUserResponseFromUser(User user) {
+        UserResponse userResponse = new UserResponse();
+
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setId(user.getId());
+        userResponse.setLastName(user.getLastName());
+        userResponse.setDateOfBirth(new Date());
+
+        return userResponse;
+    }
+
+    private User populateUserFromRequest(AddUserRequest addUserRequest, String email) {
+        User user = new User();
+        user.setEmail(email);
+        user.setFirstName(addUserRequest.getFirstName());
+        user.setLastName(addUserRequest.getLastName());
+        user.setDateOfBirth(LocalDateTime.ofInstant(addUserRequest.getBirthDay().toInstant(),
+                ZoneId.systemDefault()));
+        user.setPassword(addUserRequest.getPassword());
+
+        return user;
     }
 }

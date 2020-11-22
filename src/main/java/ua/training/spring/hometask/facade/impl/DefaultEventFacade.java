@@ -51,21 +51,11 @@ public class DefaultEventFacade implements EventFacade {
         String name = addEventRequest.getEventName();
         Validate.notBlank(name, "email should not be null");
 
-        Event event = new Event();
-        event.setName(name);
-        event.setBasePrice(addEventRequest.getBasePrice());
-        event.setRating(EventRating.valueOf(addEventRequest.getRating()));
-
+        Event event = populateEventFromRequest(addEventRequest, name);
         eventService.save(event);
 
         AddEventResponse response = new AddEventResponse();
-        EventResponse eventResponse = new EventResponse();
-
-        eventResponse.setId(event.getId());
-        eventResponse.setName(event.getName());
-        eventResponse.setBasePrice(event.getBasePrice());
-        eventResponse.setRating(event.getRating());
-
+        EventResponse eventResponse = populateEventResponseFromEvent(event);
         response.setEventResponse(eventResponse);
 
         return response;
@@ -91,12 +81,7 @@ public class DefaultEventFacade implements EventFacade {
         Event event = eventService.getById(id);
 
         GetEventByIdResponse getEventByIdResponse = new GetEventByIdResponse();
-        EventResponse eventResponse = new EventResponse();
-
-        eventResponse.setId(event.getId());
-        eventResponse.setName(event.getName());
-        eventResponse.setBasePrice(event.getBasePrice());
-        eventResponse.setRating(event.getRating());
+        EventResponse eventResponse = populateEventResponseFromEvent(event);
         getEventByIdResponse.setEventResponse(eventResponse);
 
         return getEventByIdResponse;
@@ -109,12 +94,7 @@ public class DefaultEventFacade implements EventFacade {
         Event event = eventService.getByName(name);
 
         GetEventByNameResponse getEventByNameResponse = new GetEventByNameResponse();
-        EventResponse eventResponse = new EventResponse();
-
-        eventResponse.setId(event.getId());
-        eventResponse.setName(event.getName());
-        eventResponse.setBasePrice(event.getBasePrice());
-        eventResponse.setRating(event.getRating());
+        EventResponse eventResponse = populateEventResponseFromEvent(event);
         getEventByNameResponse.setEventResponse(eventResponse);
 
         return getEventByNameResponse;
@@ -127,16 +107,30 @@ public class DefaultEventFacade implements EventFacade {
         List<EventResponse> eventResponses = Lists.newArrayList();
 
         events.forEach(event -> {
-            EventResponse eventResponse = new EventResponse();
-
-            eventResponse.setId(event.getId());
-            eventResponse.setName(event.getName());
-            eventResponse.setBasePrice(event.getBasePrice());
-            eventResponse.setRating(event.getRating());
+            EventResponse eventResponse = populateEventResponseFromEvent(event);
             eventResponses.add(eventResponse);
         });
         getAllUsersResponse.setEventResponses(eventResponses);
 
         return getAllUsersResponse;
+    }
+
+    private Event populateEventFromRequest(AddEventRequest addEventRequest, String name) {
+        Event event = new Event();
+        event.setName(name);
+        event.setBasePrice(addEventRequest.getBasePrice());
+        event.setRating(EventRating.valueOf(addEventRequest.getRating()));
+
+        return event;
+    }
+
+    private EventResponse populateEventResponseFromEvent(Event event) {
+        EventResponse eventResponse = new EventResponse();
+        eventResponse.setId(event.getId());
+        eventResponse.setName(event.getName());
+        eventResponse.setBasePrice(event.getBasePrice());
+        eventResponse.setRating(event.getRating());
+
+        return eventResponse;
     }
 }

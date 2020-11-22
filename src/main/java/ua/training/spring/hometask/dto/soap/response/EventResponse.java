@@ -4,7 +4,6 @@ import ua.training.spring.hometask.domain.EventRating;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -13,16 +12,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 public class EventResponse {
 
-    @XmlElement
     private Long id;
 
-    @XmlElement
     private String name;
 
-    @XmlElement
     private Double basePrice;
 
-    @XmlElement
     private EventRating rating;
 
     public Long getId() {

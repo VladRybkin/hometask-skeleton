@@ -1,11 +1,8 @@
 
 package ua.training.spring.hometask.dto.soap.request;
 
-import com.google.common.base.Objects;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
@@ -15,19 +12,14 @@ import java.util.Date;
 @XmlType(name = "")
 public class AddUserRequest {
 
-    @XmlElement(required = true)
     private String firstName;
 
-    @XmlElement
     private String lastName;
 
-    @XmlElement
     private String email;
 
-    @XmlElement
     private String password;
 
-    @XmlElement
     private Date birthDay;
 
 

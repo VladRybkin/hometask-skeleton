@@ -2,7 +2,6 @@ package ua.training.spring.hometask.dto.soap.request;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -11,13 +10,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 public class AddEventRequest {
 
-    @XmlElement
     private String eventName;
 
-    @XmlElement
     private double basePrice;
 
-    @XmlElement
     private String rating;
 
     public String getEventName() {
