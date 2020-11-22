@@ -1,11 +1,14 @@
 
 package ua.training.spring.hometask.dto.soap.request;
 
+import ua.training.spring.hometask.dto.soap.xmladapter.LocalDateTimeAdapter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import java.util.Date;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.LocalDateTime;
 
 @XmlRootElement(name = "addUserRequest", namespace = "http://training/schemas/hometask")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -20,8 +23,8 @@ public class AddUserRequest {
 
     private String password;
 
-    private Date birthDay;
-
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime birthDay;
 
     public String getFirstName() {
         return firstName;
@@ -55,12 +58,11 @@ public class AddUserRequest {
         this.password = password;
     }
 
-    public Date getBirthDay() {
+    public LocalDateTime getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDateTime birthDay) {
         this.birthDay = birthDay;
     }
-
 }

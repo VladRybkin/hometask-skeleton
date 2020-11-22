@@ -25,8 +25,6 @@ import ua.training.spring.hometask.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -144,7 +142,7 @@ public class DefaultUserFacade implements UserFacade {
         userResponse.setEmail(user.getEmail());
         userResponse.setId(user.getId());
         userResponse.setLastName(user.getLastName());
-        userResponse.setDateOfBirth(new Date());
+        userResponse.setDateOfBirth(user.getDateOfBirth());
 
         return userResponse;
     }
@@ -154,8 +152,7 @@ public class DefaultUserFacade implements UserFacade {
         user.setEmail(email);
         user.setFirstName(addUserRequest.getFirstName());
         user.setLastName(addUserRequest.getLastName());
-        user.setDateOfBirth(LocalDateTime.ofInstant(addUserRequest.getBirthDay().toInstant(),
-                ZoneId.systemDefault()));
+        user.setDateOfBirth(addUserRequest.getBirthDay());
         user.setPassword(addUserRequest.getPassword());
 
         return user;
