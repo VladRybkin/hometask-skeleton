@@ -1,8 +1,9 @@
 package ua.training.spring.hometask.soapclient;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.dto.soap.request.AddUserRequest;
+import ua.training.spring.hometask.dto.soap.request.AddEventRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllEventsRequest;
 import ua.training.spring.hometask.dto.soap.request.GetEventByIdRequest;
 import ua.training.spring.hometask.dto.soap.request.GetEventByNameRequest;
@@ -15,23 +16,21 @@ import ua.training.spring.hometask.dto.soap.response.RemoveEventResponse;
 
 public class EventClient extends WebServiceGatewaySupport {
 
+    private ModelMapper mapper;
+
     public AddEventResponse addEventResponse(Event event) {
-        AddUserRequest request = new AddUserRequest();
+        AddEventRequest request = mapper.map(event, AddEventRequest.class);
 
-        AddEventResponse response = (AddEventResponse) getWebServiceTemplate()
+        return (AddEventResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public RemoveEventResponse removeEventResponse(long id) {
         RemoveEventRequest request = new RemoveEventRequest();
         request.setId(id);
 
-        RemoveEventResponse response = (RemoveEventResponse) getWebServiceTemplate()
+        return (RemoveEventResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
 
@@ -39,28 +38,26 @@ public class EventClient extends WebServiceGatewaySupport {
         GetEventByIdRequest request = new GetEventByIdRequest();
         request.setId(id);
 
-        GetEventByIdResponse response = (GetEventByIdResponse) getWebServiceTemplate()
+        return (GetEventByIdResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public GetEventByNameResponse getEventByNameResponse(String eventName) {
         GetEventByNameRequest request = new GetEventByNameRequest();
         request.setEventName(eventName);
 
-        GetEventByNameResponse response = (GetEventByNameResponse) getWebServiceTemplate()
+        return (GetEventByNameResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public GetAllEventsResponse getAllEventsResponse() {
         GetAllEventsRequest request = new GetAllEventsRequest();
 
-        GetAllEventsResponse response = (GetAllEventsResponse) getWebServiceTemplate()
+        return (GetAllEventsResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
+    }
 
-        return response;
+    public void setMapper(ModelMapper mapper) {
+        this.mapper = mapper;
     }
 }

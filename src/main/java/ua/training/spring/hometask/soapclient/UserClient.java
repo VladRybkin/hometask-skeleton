@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.soapclient;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.dto.soap.request.AddUserRequest;
@@ -15,28 +16,21 @@ import ua.training.spring.hometask.dto.soap.response.RemoveUserResponse;
 
 public class UserClient extends WebServiceGatewaySupport {
 
+    private ModelMapper mapper;
+
     public AddUserResponse addUserResponse(User user) {
-        AddUserRequest request = new AddUserRequest();
-        request.setDateOfBirth(user.getDateOfBirth());
-        request.setEmail(user.getEmail());
-        request.setFirstName(user.getFirstName());
-        request.setLastName(user.getLastName());
-        request.setPassword(user.getPassword());
+        AddUserRequest request = mapper.map(user, AddUserRequest.class);
 
-        AddUserResponse response = (AddUserResponse) getWebServiceTemplate()
+        return (AddUserResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public RemoveUserResponse removeUserResponse(final long id) {
         RemoveUserRequest request = new RemoveUserRequest();
         request.setId(id);
 
-        RemoveUserResponse response = (RemoveUserResponse) getWebServiceTemplate()
+        return (RemoveUserResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
 
@@ -44,28 +38,26 @@ public class UserClient extends WebServiceGatewaySupport {
         GetUserByIdRequest request = new GetUserByIdRequest();
         request.setId(id);
 
-        GetUserByIdResponse response = (GetUserByIdResponse) getWebServiceTemplate()
+        return (GetUserByIdResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public GetUserByEmailResponse getUserByEmailResponse(final String email) {
         GetUserByEmailRequest request = new GetUserByEmailRequest();
         request.setEmail(email);
 
-        GetUserByEmailResponse response = (GetUserByEmailResponse) getWebServiceTemplate()
+        return (GetUserByEmailResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
-
-        return response;
     }
 
     public GetAllUsersResponse getAllUsersResponse() {
         GetAllUsersRequest request = new GetAllUsersRequest();
 
-        GetAllUsersResponse response = (GetAllUsersResponse) getWebServiceTemplate()
+        return (GetAllUsersResponse) getWebServiceTemplate()
                 .marshalSendAndReceive(request);
+    }
 
-        return response;
+    public void setMapper(ModelMapper mapper) {
+        this.mapper = mapper;
     }
 }
