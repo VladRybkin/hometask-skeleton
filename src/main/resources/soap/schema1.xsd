@@ -37,7 +37,7 @@
         <xs:element minOccurs="0" name="lastName" type="xs:string"/>
         <xs:element minOccurs="0" name="email" type="xs:string"/>
         <xs:element minOccurs="0" name="password" type="xs:string"/>
-        <xs:element minOccurs="0" name="birthDay" type="xs:dateTime"/>
+        <xs:element minOccurs="0" name="dateOfBirth" type="xs:dateTime"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

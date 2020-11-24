@@ -2,6 +2,7 @@ package ua.training.spring.hometask.facade.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -38,6 +39,9 @@ public class DefaultUserFacade implements UserFacade {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
     public User saveUser(User user, LocalDate birthday) {
         Validate.notNull(birthday, "user birthday should be present");
@@ -60,7 +64,7 @@ public class DefaultUserFacade implements UserFacade {
         String email = addUserRequest.getEmail();
         Validate.notBlank(email, "email should not be null");
 
-        User user = populateUserFromRequest(addUserRequest, email);
+        User user = mapper.map(addUserRequest, User.class);
         userService.save(user);
 
         AddUserResponse response = new AddUserResponse();
@@ -136,25 +140,6 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     private UserResponse populateUserResponseFromUser(User user) {
-        UserResponse userResponse = new UserResponse();
-
-        userResponse.setFirstName(user.getFirstName());
-        userResponse.setEmail(user.getEmail());
-        userResponse.setId(user.getId());
-        userResponse.setLastName(user.getLastName());
-        userResponse.setDateOfBirth(user.getDateOfBirth());
-
-        return userResponse;
-    }
-
-    private User populateUserFromRequest(AddUserRequest addUserRequest, String email) {
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(addUserRequest.getFirstName());
-        user.setLastName(addUserRequest.getLastName());
-        user.setDateOfBirth(addUserRequest.getBirthDay());
-        user.setPassword(addUserRequest.getPassword());
-
-        return user;
+        return mapper.map(user, UserResponse.class);
     }
 }

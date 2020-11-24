@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.endpoint;
+package ua.training.spring.hometask.soapendpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;

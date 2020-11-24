@@ -2,11 +2,11 @@ package ua.training.spring.hometask.facade.impl;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.Validate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.domain.Event;
-import ua.training.spring.hometask.domain.EventRating;
 import ua.training.spring.hometask.dto.soap.request.AddEventRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllEventsRequest;
 import ua.training.spring.hometask.dto.soap.request.GetEventByIdRequest;
@@ -36,6 +36,9 @@ public class DefaultEventFacade implements EventFacade {
     @Autowired
     private AuditoriumService auditoriumService;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
     public void saveEvent(Event event, String eventDate, String auditoriumName) {
         Validate.notEmpty(eventDate, "eventDate is not present");
@@ -51,7 +54,7 @@ public class DefaultEventFacade implements EventFacade {
         String name = addEventRequest.getEventName();
         Validate.notBlank(name, "email should not be null");
 
-        Event event = populateEventFromRequest(addEventRequest, name);
+        Event event = mapper.map(addEventRequest, Event.class);
         eventService.save(event);
 
         AddEventResponse response = new AddEventResponse();
@@ -115,22 +118,7 @@ public class DefaultEventFacade implements EventFacade {
         return getAllUsersResponse;
     }
 
-    private Event populateEventFromRequest(AddEventRequest addEventRequest, String name) {
-        Event event = new Event();
-        event.setName(name);
-        event.setBasePrice(addEventRequest.getBasePrice());
-        event.setRating(EventRating.valueOf(addEventRequest.getRating()));
-
-        return event;
-    }
-
     private EventResponse populateEventResponseFromEvent(Event event) {
-        EventResponse eventResponse = new EventResponse();
-        eventResponse.setId(event.getId());
-        eventResponse.setName(event.getName());
-        eventResponse.setBasePrice(event.getBasePrice());
-        eventResponse.setRating(event.getRating());
-
-        return eventResponse;
+        return mapper.map(event, EventResponse.class);
     }
 }

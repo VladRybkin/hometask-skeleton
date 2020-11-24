@@ -24,7 +24,7 @@ public class AddUserRequest {
     private String password;
 
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
-    private LocalDateTime birthDay;
+    private LocalDateTime dateOfBirth;
 
     public String getFirstName() {
         return firstName;
@@ -58,11 +58,11 @@ public class AddUserRequest {
         this.password = password;
     }
 
-    public LocalDateTime getBirthDay() {
-        return birthDay;
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthDay(LocalDateTime birthDay) {
-        this.birthDay = birthDay;
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
