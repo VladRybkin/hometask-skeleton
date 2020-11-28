@@ -45,10 +45,7 @@ class UserClientIntegrationTest {
         assertThat(userResponse.getFirstName(), is(userRequest.getFirstName()));
         assertThat(userResponse.getLastName(), is(userRequest.getLastName()));
         assertThat(userResponse.getEmail(), is(userRequest.getEmail()));
-        assertThat(userResponse.getPassword(), is(userRequest.getPassword()));
         assertThat(userResponse.getDateOfBirth(), is(userRequest.getDateOfBirth()));
-
-        SendRemoveUserRequestToClearUser(addUserResponse);
     }
 
     @Test
@@ -127,12 +124,5 @@ class UserClientIntegrationTest {
         AddUserRequest userRequest = prepareAddUserRequest();
 
         return client.addUserResponse(userRequest);
-    }
-
-
-    private void SendRemoveUserRequestToClearUser(AddUserResponse addUserResponse) {
-        RemoveUserRequest removeUserRequest = new RemoveUserRequest();
-        removeUserRequest.setId(addUserResponse.getUserResponse().getId());
-        client.removeUserResponse(removeUserRequest);
     }
 }

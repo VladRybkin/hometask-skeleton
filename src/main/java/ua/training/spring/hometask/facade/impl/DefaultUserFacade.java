@@ -65,6 +65,7 @@ public class DefaultUserFacade implements UserFacade {
         Validate.notBlank(email, "email should not be null");
 
         User user = mapper.map(addUserRequest, User.class);
+        user.setPassword(encoder.encode(addUserRequest.getPassword()));
         userService.save(user);
 
         AddUserResponse response = new AddUserResponse();

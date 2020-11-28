@@ -45,8 +45,6 @@ public class EventClientIntegrationTest {
         assertThat(eventResponse.getBasePrice(), is(addEventRequest.getBasePrice()));
         assertThat(eventResponse.getName(), is(addEventRequest.getName()));
         assertThat(eventResponse.getRating().name(), is(addEventRequest.getRating()));
-
-        SendRemoveEventRequestToClearEvent(addEventResponse);
     }
 
     @Test
@@ -118,11 +116,5 @@ public class EventClientIntegrationTest {
         eventRequest.setRating(EventRating.LOW.name());
 
         return eventRequest;
-    }
-
-    private void SendRemoveEventRequestToClearEvent(AddEventResponse addEventResponse) {
-        RemoveEventRequest removeEventRequest = new RemoveEventRequest();
-        removeEventRequest.setId(addEventResponse.getEventResponse().getId());
-        client.removeEventResponse(removeEventRequest);
     }
 }
