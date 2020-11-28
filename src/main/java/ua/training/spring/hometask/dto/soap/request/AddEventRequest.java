@@ -10,18 +10,18 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 public class AddEventRequest {
 
-    private String eventName;
+    private String name;
 
     private double basePrice;
 
     private String rating;
 
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getBasePrice() {

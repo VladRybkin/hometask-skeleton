@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.config;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -41,23 +40,21 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     }
 
     @Bean
-    public UserClient userClient(Jaxb2Marshaller marshaller, ModelMapper modelMapper) {
+    public UserClient userClient(Jaxb2Marshaller marshaller) {
         UserClient client = new UserClient();
         client.setDefaultUri("http://localhost:8888/ws/");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
-        client.setMapper(modelMapper);
 
         return client;
     }
 
     @Bean
-    public EventClient eventClient(Jaxb2Marshaller marshaller, ModelMapper modelMapper) {
+    public EventClient eventClient(Jaxb2Marshaller marshaller) {
         EventClient client = new EventClient();
         client.setDefaultUri("http://localhost:8888/ws/");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);
-        client.setMapper(modelMapper);
 
         return client;
     }

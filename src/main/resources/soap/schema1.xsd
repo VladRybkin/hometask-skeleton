@@ -6,7 +6,7 @@
   <xs:element name="addEventRequest">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="eventName" type="xs:string"/>
+        <xs:element minOccurs="0" name="name" type="xs:string"/>
         <xs:element name="basePrice" type="xs:double"/>
         <xs:element minOccurs="0" name="rating" type="xs:string"/>
       </xs:sequence>
