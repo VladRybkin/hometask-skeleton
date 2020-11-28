@@ -19,16 +19,12 @@ import ua.training.spring.hometask.dto.soap.response.GetUserByEmailResponse;
 import ua.training.spring.hometask.dto.soap.response.GetUserByIdResponse;
 import ua.training.spring.hometask.dto.soap.response.RemoveUserResponse;
 import ua.training.spring.hometask.dto.soap.response.UserResponse;
-import ua.training.spring.hometask.init.InitApplication;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.not;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = WebMvcConfig.class)
@@ -96,12 +92,22 @@ class UserClientIntegrationTest {
 
     @Test
     void getAllUsers() {
+        UserResponse addUserResponse = prepareAndSendAddUserRequest().getUserResponse();
+
         GetAllUsersRequest getAllUsersRequest = new GetAllUsersRequest();
         GetAllUsersResponse getAllUsersResponse = client.getAllUsersResponse(getAllUsersRequest);
 
         List<UserResponse> userResponses = getAllUsersResponse.getUsers();
+        UserResponse userResponse = userResponses.stream()
+                .filter(ur -> ur.getId().equals(addUserResponse.getId()))
+                .findAny()
+                .get();
 
-        assertThat(userResponses, not(empty()));
+        assertThat(userResponse.getFirstName(), is(addUserResponse.getFirstName()));
+        assertThat(userResponse.getLastName(), is(addUserResponse.getLastName()));
+        assertThat(userResponse.getEmail(), is(addUserResponse.getEmail()));
+        assertThat(userResponse.getPassword(), is(addUserResponse.getPassword()));
+        assertThat(userResponse.getDateOfBirth(), is(addUserResponse.getDateOfBirth()));
     }
 
 

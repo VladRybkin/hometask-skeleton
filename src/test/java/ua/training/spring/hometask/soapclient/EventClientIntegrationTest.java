@@ -24,9 +24,7 @@ import ua.training.spring.hometask.dto.soap.response.RemoveEventResponse;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = WebMvcConfig.class)
@@ -90,13 +88,21 @@ public class EventClientIntegrationTest {
     }
 
     @Test
-    void getAllUsers() {
+    void getAllEvents() {
+        EventResponse addEventResponse = prepareAndSendAddEventRequest().getEventResponse();
+
         GetAllEventsRequest getAllEventsRequest = new GetAllEventsRequest();
         GetAllEventsResponse getAllEventsResponse = client.getAllEventsResponse(getAllEventsRequest);
 
-        List<EventResponse> userResponses = getAllEventsResponse.getEventResponses();
+        List<EventResponse> eventResponses = getAllEventsResponse.getEventResponses();
+        EventResponse eventResponse = eventResponses.stream()
+                .filter(er -> er.getId().equals(addEventResponse.getId()))
+                .findAny()
+                .get();
 
-        assertThat(userResponses, not(empty()));
+        assertThat(eventResponse.getBasePrice(), is(addEventResponse.getBasePrice()));
+        assertThat(eventResponse.getName(), is(addEventResponse.getName()));
+        assertThat(eventResponse.getRating(), is(addEventResponse.getRating()));
     }
 
     private AddEventResponse prepareAndSendAddEventRequest() {
