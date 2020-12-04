@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Auditorium;
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.dto.rest.request.AddEventParameter;
+import ua.training.spring.hometask.dto.rest.response.AddEventResult;
 import ua.training.spring.hometask.dto.soap.request.AddEventRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllEventsRequest;
 import ua.training.spring.hometask.dto.soap.request.GetEventByIdRequest;
@@ -46,7 +48,16 @@ public class DefaultEventFacade implements EventFacade {
         LocalDateTime parsedTicketEventDate = convertDateTime(eventDate);
         event.getAuditoriums().put(parsedTicketEventDate, auditorium);
         event.getAirDates().add(parsedTicketEventDate);
+
         eventService.save(event);
+    }
+
+    @Override
+    public AddEventResult saveEvent(AddEventParameter addEventParameter) {
+        Event event = mapper.map(addEventParameter, Event.class);
+        event = eventService.save(event);
+
+        return mapper.map(event, AddEventResult.class);
     }
 
     @Override

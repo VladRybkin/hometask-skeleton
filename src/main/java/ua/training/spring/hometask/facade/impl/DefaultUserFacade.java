@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.Role;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.dto.RegistrationUserForm;
+import ua.training.spring.hometask.dto.rest.request.AddUserParameter;
+import ua.training.spring.hometask.dto.rest.response.AddUserResult;
 import ua.training.spring.hometask.dto.soap.request.AddUserRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllUsersRequest;
 import ua.training.spring.hometask.dto.soap.request.GetUserByEmailRequest;
@@ -66,6 +68,8 @@ public class DefaultUserFacade implements UserFacade {
 
         User user = mapper.map(addUserRequest, User.class);
         user.setPassword(encoder.encode(addUserRequest.getPassword()));
+        user.getRoles().add(new Role("USER"));
+
         userService.save(user);
 
         AddUserResponse response = new AddUserResponse();
@@ -73,6 +77,18 @@ public class DefaultUserFacade implements UserFacade {
         response.setUserResponse(userResponse);
 
         return response;
+    }
+
+    @Override
+    public AddUserResult saveUser(AddUserParameter addUserParameter) {
+        User user = mapper.map(addUserParameter, User.class);
+
+        user.getRoles().add(new Role("USER"));
+        user.setPassword(encoder.encode(addUserParameter.getPassword()));
+
+        userService.save(user);
+
+        return mapper.map(user, AddUserResult.class);
     }
 
     @Override

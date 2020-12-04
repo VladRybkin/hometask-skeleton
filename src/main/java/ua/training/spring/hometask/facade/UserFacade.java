@@ -2,6 +2,8 @@ package ua.training.spring.hometask.facade;
 
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.dto.RegistrationUserForm;
+import ua.training.spring.hometask.dto.rest.request.AddUserParameter;
+import ua.training.spring.hometask.dto.rest.response.AddUserResult;
 import ua.training.spring.hometask.dto.soap.request.AddUserRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllUsersRequest;
 import ua.training.spring.hometask.dto.soap.request.GetUserByEmailRequest;
@@ -20,6 +22,8 @@ public interface UserFacade {
     User saveUser(User user, LocalDate birthday);
 
     AddUserResponse saveUser(AddUserRequest addUserRequest);
+
+    AddUserResult saveUser(AddUserParameter addUserParameter);
 
     RemoveUserResponse removeUser(RemoveUserRequest removeUserRequest);
 

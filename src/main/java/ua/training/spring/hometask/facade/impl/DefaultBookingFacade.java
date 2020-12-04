@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ua.training.spring.hometask.domain.Ticket;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.dto.rest.request.BookTicketParameter;
+import ua.training.spring.hometask.dto.rest.response.BookTicketResult;
 import ua.training.spring.hometask.facade.BookingFacade;
 import ua.training.spring.hometask.security.SecurityService;
 import ua.training.spring.hometask.service.BookingService;
@@ -29,5 +31,10 @@ public class DefaultBookingFacade implements BookingFacade {
         User user = securityService.getLoggedUser();
 
         return bookingService.bookTicket(ticket, user);
+    }
+
+    @Override
+    public BookTicketResult bookTicket(BookTicketParameter bookTicketParameter) {
+        return new BookTicketResult();
     }
 }

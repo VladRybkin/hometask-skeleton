@@ -1,6 +1,8 @@
 package ua.training.spring.hometask.facade;
 
 import ua.training.spring.hometask.domain.Event;
+import ua.training.spring.hometask.dto.rest.request.AddEventParameter;
+import ua.training.spring.hometask.dto.rest.response.AddEventResult;
 import ua.training.spring.hometask.dto.soap.request.AddEventRequest;
 import ua.training.spring.hometask.dto.soap.request.GetAllEventsRequest;
 import ua.training.spring.hometask.dto.soap.request.GetEventByIdRequest;
@@ -15,6 +17,8 @@ import ua.training.spring.hometask.dto.soap.response.RemoveEventResponse;
 public interface EventFacade {
 
     void saveEvent(Event event, String eventDate, String auditoriumName);
+
+    AddEventResult saveEvent(AddEventParameter addEventParameter);
 
     AddEventResponse saveEvent(AddEventRequest addEventRequest);
 
