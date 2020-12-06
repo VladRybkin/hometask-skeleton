@@ -4,9 +4,11 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +31,12 @@ public class UserOperationsController {
     private UserService userService;
 
 
-    @PostMapping
-    public AddUserResult addUser(AddUserParameter addUserParameter) {
+    @PostMapping(value = "/add")
+    public AddUserResult addUser(@RequestBody AddUserParameter addUserParameter) {
         return userFacade.saveUser(addUserParameter);
     }
 
-    @PostMapping(value = "/remove/{id}")
+    @DeleteMapping(value = "/remove/{id}")
     public ResponseEntity remove(@PathVariable Long id) {
         userService.remove(userService.getById(id));
 
