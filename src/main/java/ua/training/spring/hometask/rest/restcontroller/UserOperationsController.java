@@ -30,7 +30,6 @@ public class UserOperationsController {
     @Autowired
     private UserService userService;
 
-
     @PostMapping(value = "/add")
     public AddUserResult addUser(@RequestBody AddUserParameter addUserParameter) {
         return userFacade.saveUser(addUserParameter);

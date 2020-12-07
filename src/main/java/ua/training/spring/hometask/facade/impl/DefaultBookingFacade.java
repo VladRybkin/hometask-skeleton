@@ -11,6 +11,7 @@ import ua.training.spring.hometask.facade.BookingFacade;
 import ua.training.spring.hometask.security.SecurityService;
 import ua.training.spring.hometask.service.BookingService;
 import ua.training.spring.hometask.service.TicketService;
+import ua.training.spring.hometask.service.UserService;
 
 @Component
 public class DefaultBookingFacade implements BookingFacade {
@@ -20,6 +21,9 @@ public class DefaultBookingFacade implements BookingFacade {
 
     @Autowired
     private TicketService ticketService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private SecurityService securityService;
@@ -33,10 +37,22 @@ public class DefaultBookingFacade implements BookingFacade {
         return bookingService.bookTicket(ticket, user);
     }
 
+    @Transactional
     @Override
     public BookTicketResult bookTicket(BookTicketParameter bookTicketParameter) {
-        BookTicketResult bookTicketResult=new BookTicketResult();
-        bookTicketResult.setBasePrice(1);
+        Ticket ticket = ticketService.getById(bookTicketParameter.getTicketId());
+        User user = userService.getUserByEmail(bookTicketParameter.getUserEmail());
+
+        Ticket bookedTicket = bookingService.bookTicket(ticket, user);
+
+        return prepareBookTicketResultFromBookedTicket(bookedTicket);
+    }
+
+    private BookTicketResult prepareBookTicketResultFromBookedTicket(Ticket ticket) {
+        BookTicketResult bookTicketResult = new BookTicketResult();
+        bookTicketResult.setBasePrice(ticket.getBasePrice());
+        bookTicketResult.setEventName(ticket.getEvent().getName());
+        bookTicketResult.setSeat(ticket.getSeat());
 
         return bookTicketResult;
     }

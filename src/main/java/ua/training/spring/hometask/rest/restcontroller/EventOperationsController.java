@@ -30,7 +30,6 @@ public class EventOperationsController {
     @Autowired
     private EventService eventService;
 
-
     @PostMapping(value = "/add")
     public AddEventResult addEvent(@RequestBody AddEventParameter addEventParameter) {
         return eventFacade.saveEvent(addEventParameter);

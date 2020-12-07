@@ -1,9 +1,12 @@
 package ua.training.spring.hometask.rest.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import ua.training.spring.hometask.dto.rest.request.AddUserParameter;
+import ua.training.spring.hometask.dto.rest.response.AddEventResult;
 import ua.training.spring.hometask.dto.rest.response.EventResponse;
 
 @Component
@@ -14,6 +17,12 @@ public class EventOperationsClient {
 
     @Autowired
     private HttpHeaders jsonRequestHeaders;
+
+    public AddEventResult addEventRequest(AddUserParameter addUserParameter) {
+        HttpEntity<AddUserParameter> request = new HttpEntity<>(addUserParameter, jsonRequestHeaders);
+
+        return restTemplate.postForObject("http://localhost:8888/operations/events/add", request, AddEventResult.class);
+    }
 
     public EventResponse getEventByIdRequest(long id) {
         return restTemplate.getForObject("http://localhost:8888/operations/events/getbyid/" + id, EventResponse.class, jsonRequestHeaders);
