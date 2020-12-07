@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.soapclient;
+package ua.training.spring.hometask.soap.client;
 
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import ua.training.spring.hometask.dto.soap.request.AddUserRequest;

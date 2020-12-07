@@ -35,6 +35,9 @@ public class DefaultBookingFacade implements BookingFacade {
 
     @Override
     public BookTicketResult bookTicket(BookTicketParameter bookTicketParameter) {
-        return new BookTicketResult();
+        BookTicketResult bookTicketResult=new BookTicketResult();
+        bookTicketResult.setBasePrice(1);
+
+        return bookTicketResult;
     }
 }

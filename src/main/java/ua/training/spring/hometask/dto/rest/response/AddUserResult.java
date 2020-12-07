@@ -1,5 +1,6 @@
 package ua.training.spring.hometask.dto.rest.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.training.spring.hometask.domain.Role;
 
 import java.time.LocalDateTime;
@@ -8,13 +9,18 @@ import java.util.Set;
 
 public class AddUserResult {
 
+    @JsonProperty
     private String firstName;
 
+    @JsonProperty
     private String lastName;
 
+    @JsonProperty
     private String email;
 
+    @JsonProperty
     private String password;
+
 
     private LocalDateTime dateOfBirth;
 

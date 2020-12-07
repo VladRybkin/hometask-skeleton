@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.controller.restcontroller;
+package ua.training.spring.hometask.rest.restcontroller;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class UserOperationsController {
     public ResponseEntity remove(@PathVariable Long id) {
         userService.remove(userService.getById(id));
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(value = "/getbyid/{id}")

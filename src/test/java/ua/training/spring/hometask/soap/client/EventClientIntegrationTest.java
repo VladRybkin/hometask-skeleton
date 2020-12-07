@@ -1,4 +1,4 @@
-package ua.training.spring.hometask.soapclient;
+package ua.training.spring.hometask.soap.client;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
