@@ -29,7 +29,7 @@ public class UserOperationsClient {
     }
 
     public void removeUserByIdRequest(long id) {
-        restTemplate.delete("http://localhost:8888/operations/users/getbyid/" + id);
+        restTemplate.delete("http://localhost:8888/operations/users/remove/" + id);
     }
 
     public UserResponse getUserByEmailRequest(String email) {

@@ -5,17 +5,24 @@ import ua.training.spring.hometask.domain.EventRating;
 
 public class EventResponse {
 
-    @JsonProperty
+    private long id;
+
     private String name;
 
-    @JsonProperty
     private double basePrice;
 
-    @JsonProperty
     private EventRating rating;
 
     public String getName() {
         return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) {

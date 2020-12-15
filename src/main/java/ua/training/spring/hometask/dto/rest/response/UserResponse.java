@@ -1,20 +1,18 @@
 package ua.training.spring.hometask.dto.rest.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
 
 public class UserResponse {
 
-    @JsonProperty
     private Long id;
 
-    @JsonProperty
     private String email;
 
-    @JsonProperty
     private String firstName;
 
-    @JsonProperty
     private String lastName;
+
+    private LocalDateTime dateOfBirth;
 
     public Long getId() {
         return id;
@@ -46,5 +44,13 @@ public class UserResponse {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public LocalDateTime getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

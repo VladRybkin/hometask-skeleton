@@ -1,6 +1,9 @@
 package ua.training.spring.hometask.dto.rest.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import ua.training.spring.hometask.domain.Role;
 
 import java.time.LocalDateTime;
@@ -9,22 +12,27 @@ import java.util.Set;
 
 public class AddUserResult {
 
-    @JsonProperty
+    private Long id;
+
     private String firstName;
 
-    @JsonProperty
     private String lastName;
 
-    @JsonProperty
     private String email;
 
-    @JsonProperty
     private String password;
-
 
     private LocalDateTime dateOfBirth;
 
     private Set<Role> roles = new HashSet<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

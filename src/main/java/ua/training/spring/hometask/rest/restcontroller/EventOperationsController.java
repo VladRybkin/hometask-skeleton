@@ -47,7 +47,7 @@ public class EventOperationsController {
         return eventService.getById(id);
     }
 
-    @GetMapping(value = "/getbyemail")
+    @GetMapping(value = "/getbyname")
     public Event getByName(@RequestParam String name) {
         return eventService.getByName(name);
     }

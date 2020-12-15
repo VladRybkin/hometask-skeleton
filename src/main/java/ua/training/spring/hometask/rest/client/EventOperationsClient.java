@@ -5,7 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import ua.training.spring.hometask.dto.rest.request.AddUserParameter;
+import ua.training.spring.hometask.dto.rest.request.AddEventParameter;
 import ua.training.spring.hometask.dto.rest.response.AddEventResult;
 import ua.training.spring.hometask.dto.rest.response.EventResponse;
 
@@ -18,8 +18,8 @@ public class EventOperationsClient {
     @Autowired
     private HttpHeaders jsonRequestHeaders;
 
-    public AddEventResult addEventRequest(AddUserParameter addUserParameter) {
-        HttpEntity<AddUserParameter> request = new HttpEntity<>(addUserParameter, jsonRequestHeaders);
+    public AddEventResult addEventRequest(AddEventParameter addEventParameter) {
+        HttpEntity<AddEventParameter> request = new HttpEntity<>(addEventParameter, jsonRequestHeaders);
 
         return restTemplate.postForObject("http://localhost:8888/operations/events/add", request, AddEventResult.class);
     }
@@ -29,7 +29,7 @@ public class EventOperationsClient {
     }
 
     public void removeEventByIdRequest(long id) {
-        restTemplate.delete("http://localhost:8888/operations/events/getbyid/" + id);
+        restTemplate.delete("http://localhost:8888/operations/events/remove/" + id);
     }
 
     public EventResponse getEventByNameRequest(String name) {
