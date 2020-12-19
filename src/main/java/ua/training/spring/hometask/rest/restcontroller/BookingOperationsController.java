@@ -26,7 +26,7 @@ public class BookingOperationsController {
         bookingFacade.bookTicket(bookTicketParameter);
     }
 
-    @GetMapping(value = "/tickets", produces = {MediaType.APPLICATION_PDF_VALUE})
+    @GetMapping(value = "/pdf/tickets", produces = {MediaType.APPLICATION_PDF_VALUE})
     public byte[] getPdfTickets() {
         return ticketService.getAll().toString().getBytes();
     }
