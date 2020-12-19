@@ -38,7 +38,7 @@ class UserOperationsClientIntegrationTest {
         addUserParameter.setFirstName("testEvent");
         addUserParameter.setEmail("testEmail");
         addUserParameter.setLastName("LastName");
-        addUserParameter.setPassword("testPsass");
+        addUserParameter.setPassword("testPass");
         addUserParameter.setDateOfBirth(LocalDateTime.now().truncatedTo(MINUTES));
 
         AddUserResult addUserResult = userOperationsClient.addUserRequest(addUserParameter);
@@ -56,10 +56,9 @@ class UserOperationsClientIntegrationTest {
         AddUserParameter addUserParameter = new AddUserParameter();
         addUserParameter.setFirstName("testEvent");
         addUserParameter.setEmail("testEmail");
-        addUserParameter.setPassword("testPsass");
+        addUserParameter.setPassword("testPass");
         addUserParameter.setLastName("LastName");
         addUserParameter.setDateOfBirth(LocalDateTime.now().truncatedTo(MINUTES));
-
 
         AddUserResult addUserResult = userOperationsClient.addUserRequest(addUserParameter);
         UserResponse userResponse = userOperationsClient.getUserByIdRequest(addUserResult.getId());
@@ -76,7 +75,7 @@ class UserOperationsClientIntegrationTest {
         AddUserParameter addUserParameter = new AddUserParameter();
         addUserParameter.setFirstName("testEvent");
         addUserParameter.setEmail("testEmail");
-        addUserParameter.setPassword("testPsass");
+        addUserParameter.setPassword("testPass");
         addUserParameter.setLastName("LastName");
         addUserParameter.setDateOfBirth(LocalDateTime.now());
 
@@ -91,7 +90,7 @@ class UserOperationsClientIntegrationTest {
         AddUserParameter addUserParameter = new AddUserParameter();
         addUserParameter.setFirstName("testEvent");
         addUserParameter.setEmail("testEmail");
-        addUserParameter.setPassword("testPsass");
+        addUserParameter.setPassword("testPass");
         addUserParameter.setLastName("LastName");
         addUserParameter.setDateOfBirth(LocalDateTime.now().truncatedTo(MINUTES));
 
@@ -110,7 +109,7 @@ class UserOperationsClientIntegrationTest {
         AddUserParameter addUserParameter = new AddUserParameter();
         addUserParameter.setFirstName("testEvent");
         addUserParameter.setEmail("testEmail");
-        addUserParameter.setPassword("testPsass");
+        addUserParameter.setPassword("testPass");
         addUserParameter.setLastName("LastName");
         addUserParameter.setDateOfBirth(LocalDateTime.now().truncatedTo(MINUTES));
 

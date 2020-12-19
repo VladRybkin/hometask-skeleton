@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.training.spring.hometask.dto.rest.request.BookTicketParameter;
-import ua.training.spring.hometask.dto.rest.response.BookTicketResult;
 import ua.training.spring.hometask.facade.BookingFacade;
 import ua.training.spring.hometask.service.TicketService;
 
@@ -23,8 +22,8 @@ public class BookingOperationsController {
     private TicketService ticketService;
 
     @PutMapping(value = "/book")
-    public BookTicketResult bookTicket(@RequestBody BookTicketParameter bookTicketParameter) {
-        return bookingFacade.bookTicket(bookTicketParameter);
+    public void bookTicket(@RequestBody BookTicketParameter bookTicketParameter) {
+        bookingFacade.bookTicket(bookTicketParameter);
     }
 
     @GetMapping(value = "/tickets", produces = {MediaType.APPLICATION_PDF_VALUE})

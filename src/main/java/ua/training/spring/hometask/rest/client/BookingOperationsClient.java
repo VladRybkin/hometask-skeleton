@@ -17,10 +17,9 @@ public class BookingOperationsClient {
     @Autowired
     private HttpHeaders jsonRequestHeaders;
 
-    public BookTicketResult bookTicketRequest(BookTicketParameter bookTicketParameter) {
+    public void bookTicketRequest(BookTicketParameter bookTicketParameter) {
         HttpEntity<BookTicketParameter> request = new HttpEntity<>(bookTicketParameter, jsonRequestHeaders);
-
-        return restTemplate.postForObject("http://localhost:8888/operations/booking/book", request, BookTicketResult.class);
+        restTemplate.put("http://localhost:8888/operations/booking/book", request, BookTicketResult.class);
     }
 
 }

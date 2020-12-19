@@ -16,7 +16,6 @@ import ua.training.spring.hometask.dto.rest.response.EventResponse;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
