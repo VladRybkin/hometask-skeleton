@@ -39,5 +39,4 @@ public class EventOperationsClient {
     public EventResponse[] getAllEventsRequest() {
         return restTemplate.getForObject("http://localhost:8888/operations/events/getAll", EventResponse[].class, jsonRequestHeaders);
     }
-
 }

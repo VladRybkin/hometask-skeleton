@@ -21,5 +21,4 @@ public class BookingOperationsClient {
         HttpEntity<BookTicketParameter> request = new HttpEntity<>(bookTicketParameter, jsonRequestHeaders);
         restTemplate.put("http://localhost:8888/operations/booking/book", request, BookTicketResult.class);
     }
-
 }
