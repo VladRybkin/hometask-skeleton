@@ -56,5 +56,4 @@ public class EventOperationsController {
     public List<Event> getAllEvents() {
         return Lists.newArrayList(eventService.getAll());
     }
-
 }

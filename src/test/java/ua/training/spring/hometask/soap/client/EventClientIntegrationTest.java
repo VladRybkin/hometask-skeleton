@@ -30,7 +30,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ContextConfiguration(classes = WebMvcConfig.class)
 @ActiveProfiles({"IN_MEMORY", "TEST"})
 @WebAppConfiguration
-public class EventClientIntegrationTest {
+class EventClientIntegrationTest {
 
     @Autowired
     private EventClient client;
