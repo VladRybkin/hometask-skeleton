@@ -54,6 +54,8 @@ public class DefaultEventFacade implements EventFacade {
 
     @Override
     public AddEventResult saveEvent(AddEventParameter addEventParameter) {
+        String name = addEventParameter.getName();
+        Validate.notBlank(name, "event name should not be null");
         Event event = mapper.map(addEventParameter, Event.class);
         event = eventService.save(event);
 
@@ -63,7 +65,7 @@ public class DefaultEventFacade implements EventFacade {
     @Override
     public AddEventResponse saveEvent(AddEventRequest addEventRequest) {
         String name = addEventRequest.getName();
-        Validate.notBlank(name, "email should not be null");
+        Validate.notBlank(name, "event name should not be null");
 
         Event event = mapper.map(addEventRequest, Event.class);
         eventService.save(event);

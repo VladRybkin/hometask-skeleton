@@ -22,7 +22,7 @@ class BookingOperationsClientTest {
     @Test
     void bookTicketRequest() {
         BookTicketParameter bookTicketParameter = new BookTicketParameter();
-        bookTicketParameter.setUserEmail("VladTv@mail");
+        bookTicketParameter.setUserEmail("VladTV@mail");
         bookTicketParameter.setTicketId(1L);
 
         bookingOperationsClient.bookTicketRequest(bookTicketParameter);
