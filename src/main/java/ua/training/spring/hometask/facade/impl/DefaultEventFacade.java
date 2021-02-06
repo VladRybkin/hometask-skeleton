@@ -105,7 +105,7 @@ public class DefaultEventFacade implements EventFacade {
 
     @Override
     public GetEventByNameResponse getEventByName(GetEventByNameRequest getEventByNameRequest) {
-        final String name = getEventByNameRequest.getEventName();
+        String name = getEventByNameRequest.getEventName();
         Validate.notBlank(name, "eventName should not be null");
         Event event = eventService.getByName(name);
 
