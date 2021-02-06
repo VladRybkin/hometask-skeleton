@@ -3,9 +3,9 @@
 
   <xs:simpleType name="eventRating">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="HIGH"/>
       <xs:enumeration value="MID"/>
       <xs:enumeration value="LOW"/>
+      <xs:enumeration value="HIGH"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
