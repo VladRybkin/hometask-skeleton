@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.User;
 
 @Component
-public class MyJmsSender {
+public class UserJmsSender {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
