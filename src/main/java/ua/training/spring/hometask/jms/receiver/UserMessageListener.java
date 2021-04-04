@@ -12,7 +12,7 @@ public class UserMessageListener implements MessageListener {
     private Jackson2JsonMessageConverter jackson2JsonMessageConverter;
 
     public void onMessage(Message message) {
-        System.out.println("<received message " + message);
+        System.out.println("User message listener <received message " + message);
         User user = (User) jackson2JsonMessageConverter.fromMessage(message);
         System.out.println("parsed user " + user);
     }

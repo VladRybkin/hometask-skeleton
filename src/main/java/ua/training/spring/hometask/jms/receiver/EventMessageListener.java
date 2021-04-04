@@ -14,7 +14,7 @@ public class EventMessageListener implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        System.out.println("<received message " + message);
+        System.out.println("Event message listener <received message " + message);
         Event event = (Event) jackson2JsonMessageConverter.fromMessage(message);
         System.out.println("parsed event " + event);
     }

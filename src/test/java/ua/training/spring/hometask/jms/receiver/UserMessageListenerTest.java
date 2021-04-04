@@ -8,7 +8,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ua.training.spring.hometask.config.WebMvcConfig;
+import ua.training.spring.hometask.domain.Event;
 import ua.training.spring.hometask.domain.User;
+import ua.training.spring.hometask.jms.sender.EventJmsSender;
 import ua.training.spring.hometask.jms.sender.UserJmsSender;
 
 @ExtendWith(SpringExtension.class)
@@ -20,9 +22,18 @@ class UserMessageListenerTest {
     @Autowired
     private UserJmsSender userJmsSender;
 
+    @Autowired
+    private EventJmsSender eventJmsSender;
+
     @Test
-    void onMessage() {
-        User user =new User("testEmail");
+    void onMessageUser() {
+        User user = new User("testEmail");
         userJmsSender.sendMessage(user);
+    }
+
+    @Test
+    void onMessageEvent() {
+        Event event = new Event("testEventName");
+        eventJmsSender.sendMessage(event);
     }
 }
