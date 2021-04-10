@@ -8,7 +8,6 @@ import ua.training.spring.hometask.domain.Event;
 
 public class EventMessageListener implements MessageListener {
 
-
     @Autowired
     private Jackson2JsonMessageConverter jackson2JsonMessageConverter;
 
