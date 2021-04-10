@@ -13,13 +13,13 @@ public class UserJmsSender {
     private String routingKey;
 
     @Value("${user.exchange.name}")
-    private String eventExchangeName;
+    private String userExchangeName;
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
     public void sendMessage(User user) {
         System.out.println("Jms Message Sender : " + user);
-        rabbitTemplate.convertAndSend("user-exchange", "foo.bar.baz", user);
+        rabbitTemplate.convertAndSend(userExchangeName, routingKey, user);
     }
 }
