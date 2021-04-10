@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
@@ -27,49 +28,60 @@ import java.net.URISyntaxException;
 @EnableJms
 public class JmsConfiguration {
 
-    private static final String USER_QUEUE_NAME = "user-queue";
-    private static final String USER_TOPIC_EXCHANGE_NAME = "user-exchange";
-    private static final String EVENT_QUE_NAME = "event-queue";
-    private static final String EVENT_TOPICEXCHANGE_NAME = "event-exchange";
-    private static final String ROUTING_KEY = "foo.bar.#";
+    @Value("${connection.factory.uri}")
+    private String connectionFactoryURI;
+
+    @Value("${user.queue.name}")
+    private String userQueueName;
+
+    @Value("${event.queue.name}")
+    private String eventQueueName;
+
+    @Value("${user.exchange.name}")
+    private String userExchangeName;
+
+    @Value("${event.exchange.name}")
+    private String eventExchangeName;
+
+    @Value("${routing.key}")
+    private String routingKey;
 
     @Bean
     Queue userQueue() {
-        return new Queue(USER_QUEUE_NAME, false);
+        return new Queue(userQueueName, false);
     }
 
     @Bean
     TopicExchange exchange() {
-        return new TopicExchange(USER_TOPIC_EXCHANGE_NAME);
+        return new TopicExchange(userExchangeName);
     }
 
     @Bean
     Binding userBinding() {
-        return BindingBuilder.bind(userQueue()).to(exchange()).with(ROUTING_KEY);
+        return BindingBuilder.bind(userQueue()).to(exchange()).with(routingKey);
     }
 
 
     @Bean
     Queue eventQueue() {
-        return new Queue(EVENT_QUE_NAME, false);
+        return new Queue(eventQueueName, false);
     }
 
     @Bean
     TopicExchange eventExchange() {
-        return new TopicExchange(EVENT_TOPICEXCHANGE_NAME);
+        return new TopicExchange(eventExchangeName);
     }
 
 
     @Bean
     Binding eventBinding() {
-        return BindingBuilder.bind(eventQueue()).to(eventExchange()).with(ROUTING_KEY);
+        return BindingBuilder.bind(eventQueue()).to(eventExchange()).with(routingKey);
     }
 
 
     @Bean
     public ConnectionFactory connectionFactory() throws URISyntaxException {
-        String uri = "amqp://guest:guest@localhost";
-        URI url = new URI(uri);
+        URI url = new URI(connectionFactoryURI);
 
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setHost(url.getHost());
@@ -88,7 +100,7 @@ public class JmsConfiguration {
     SimpleMessageListenerContainer userContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(USER_QUEUE_NAME);
+        container.setQueueNames(userQueueName);
         container.setMessageListener(userListenerAdapter());
 
         return container;
@@ -98,7 +110,7 @@ public class JmsConfiguration {
     SimpleMessageListenerContainer eventContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(EVENT_QUE_NAME);
+        container.setQueueNames(eventQueueName);
         container.setMessageListener(eventListenerAdapter());
 
         return container;
@@ -142,7 +154,7 @@ public class JmsConfiguration {
     public Jackson2JsonMessageConverter jackson2JsonMessageConverter() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        Jackson2JsonMessageConverter jackson2JsonMessageConverter = new Jackson2JsonMessageConverter(mapper);
-        return jackson2JsonMessageConverter;
+
+        return new Jackson2JsonMessageConverter(mapper);
     }
 }
