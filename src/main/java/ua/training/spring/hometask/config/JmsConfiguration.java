@@ -72,7 +72,6 @@ public class JmsConfiguration {
         return new TopicExchange(eventExchangeName);
     }
 
-
     @Bean
     Binding eventBinding() {
         return BindingBuilder.bind(eventQueue()).to(eventExchange()).with(routingKey);
