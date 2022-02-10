@@ -17,7 +17,7 @@
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <mockito.junit.jupiter.version>3.1.0</mockito.junit.jupiter.version>
         <hamcrest.version>2.1</hamcrest.version>
-        <hibernate.version>5.2.11.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
     </properties>
 
