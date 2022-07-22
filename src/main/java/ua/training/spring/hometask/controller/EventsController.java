@@ -37,7 +37,7 @@ public class EventsController {
     private AuditoriumService auditoriumService;
 
     @GetMapping
-    public String getEvents(Model model) {
+    public String getEvents(final Model model) {
         model.addAttribute("events", eventService.getAll());
         addAuditoriumNamesAttribute(model);
 
@@ -46,8 +46,8 @@ public class EventsController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
-    public String addEvent(@ModelAttribute Event event, @RequestParam String eventDate,
-            @RequestParam String auditoriumName) {
+    public String addEvent(@ModelAttribute final Event event, @RequestParam final String eventDate,
+            @RequestParam final String auditoriumName) {
         eventFacade.saveEvent(event, eventDate, auditoriumName);
 
         return "redirect:/events";
@@ -63,8 +63,8 @@ public class EventsController {
 
     @GetMapping(value = "/getbyid/{id}")
     public String getById(Model model, @PathVariable Long id) {
-        List<Event> events = Lists.newArrayList();
-        Event event = eventService.getById(id);
+        final List<Event> events = Lists.newArrayList();
+        final Event event = eventService.getById(id);
         if (Objects.nonNull(event)) {
             events.add(event);
         }
@@ -77,8 +77,8 @@ public class EventsController {
 
     @GetMapping(value = "/getbyname")
     public String getByName(Model model, @RequestParam String name) {
-        List<Event> events = Lists.newArrayList();
-        Event event = eventService.getByName(name);
+        final List<Event> events = Lists.newArrayList();
+        final Event event = eventService.getByName(name);
         if (Objects.nonNull(event)) {
             events.add(event);
         }
@@ -89,8 +89,8 @@ public class EventsController {
     }
 
     private void addAuditoriumNamesAttribute(Model model) {
-        Collection<Auditorium> auditoriums = auditoriumService.getAll();
-        Set<String> auditoriumNames = auditoriums.stream().map(Auditorium::getName).collect(Collectors.toSet());
+        final Collection<Auditorium> auditoriums = auditoriumService.getAll();
+        final Set<String> auditoriumNames = auditoriums.stream().map(Auditorium::getName).collect(Collectors.toSet());
         model.addAttribute("auditoriumNames", auditoriumNames);
     }
 }

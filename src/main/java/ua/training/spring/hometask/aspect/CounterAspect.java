@@ -22,29 +22,28 @@ public class CounterAspect {
             "execution(* ua.training.spring.hometask.service.impl.DefaultEventService.getByName(String))",
             returning = ("event"),
             argNames = "event")
-    public void eventGetByNameCount(Event event) {
+    public void eventGetByNameCount(final Event event) {
         if (Objects.nonNull(event)) {
-            String eventName = event.getName();
+            final String eventName = event.getName();
             eventCountService.getByNameCountIncrement(eventName);
         }
     }
 
     @AfterReturning(value = "execution(* ua.training.spring.hometask." +
             "service.impl.DefaultBookingService.getTicketsPrice(..))  && args (event, ..)")
-    public void countGetTicketsPrice(Event event) {
+    public void countGetTicketsPrice(final Event event) {
         if (Objects.nonNull(event)) {
-            String eventName = event.getName();
+            final String eventName = event.getName();
             eventCountService.getPriceCountIncrement(eventName);
         }
     }
 
-
     @After(value = "execution(* ua.training.spring.hometask." +
             "service.impl.DefaultBookingService.bookTicket(..)) && args(ticket, ..)",
             argNames = "ticket")
-    public void bookTicketsCount(Ticket ticket) {
+    public void bookTicketsCount(final Ticket ticket) {
         if (Objects.nonNull(ticket)) {
-            Event event = ticket.getEvent();
+            final Event event = ticket.getEvent();
             eventCountService.bookTicketsCountIncrement(event.getName());
         }
     }

@@ -16,7 +16,7 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
     private int tenthTicketDiscount;
 
     @Override
-    public double calculateDiscount(User user, Set<Ticket> tickets) {
+    public double calculateDiscount(final User user, final Set<Ticket> tickets) {
 
         double totalPrice = tickets.stream().mapToDouble(Ticket::getBasePrice).sum();
         applyDiscounts(tickets);
@@ -25,7 +25,7 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
         return calculatePercentDifference(totalPrice, totalPriceWithDiscount);
     }
 
-    private void applyDiscounts(Set<Ticket> userTickets) {
+    private void applyDiscounts(final Set<Ticket> userTickets) {
         List<Ticket> ticketsList = Lists.newArrayList(userTickets);
         int ticketCount = userTickets.size();
 
@@ -38,14 +38,14 @@ public class TenthTicketDiscountStrategy implements DiscountStrategy {
         }
     }
 
-    private double calculateFiftyPercentDiscount(Ticket ticket) {
+    private double calculateFiftyPercentDiscount(final Ticket ticket) {
         double ticketPrice = ticket.getBasePrice();
         double discount = ticketPrice != 0 ? (ticketPrice / 100) * tenthTicketDiscount : 0;
 
         return ticketPrice - discount;
     }
 
-    private double calculatePercentDifference(double totalPrice, double totalPriceWithDiscount) {
+    private double calculatePercentDifference(final double totalPrice, final double totalPriceWithDiscount) {
         double percentDifference = 0;
         if (totalPrice > totalPriceWithDiscount) {
             percentDifference = ((totalPrice - totalPriceWithDiscount) / totalPrice) * 100;

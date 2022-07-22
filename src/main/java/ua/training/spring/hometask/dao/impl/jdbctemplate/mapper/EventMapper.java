@@ -15,8 +15,8 @@ import java.util.Objects;
 public class EventMapper implements RowMapper<Event> {
 
     @Override
-    public Event mapRow(ResultSet resultSet, int i) throws SQLException {
-        Event event = new Event();
+    public Event mapRow(final ResultSet resultSet, final int i) throws SQLException {
+        final Event event = new Event();
         event.setId(resultSet.getLong("id"));
         event.setName(resultSet.getString("name"));
         event.setBasePrice(resultSet.getDouble("base_price"));
@@ -26,7 +26,7 @@ public class EventMapper implements RowMapper<Event> {
         return event;
     }
 
-    private void setRatingToEvent(Event event, String rating) {
+    private void setRatingToEvent(final Event event, final String rating) {
         if (!Objects.equals(rating, "null")) {
             event.setRating(EventRating.valueOf(rating));
         }

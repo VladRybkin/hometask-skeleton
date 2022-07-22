@@ -31,7 +31,7 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping
-    public String getUsers(Model model) {
+    public String getUsers(final Model model) {
         model.addAttribute("users", userService.getAll());
 
         return "users";
@@ -39,7 +39,7 @@ public class UsersController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
-    public String addUser(@ModelAttribute User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday) {
+    public String addUser(@ModelAttribute final User user, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") final LocalDate birthday) {
         userFacade.saveUser(user, birthday);
 
         return "redirect:/users";
@@ -47,7 +47,7 @@ public class UsersController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
-    public String remove(Model model, @PathVariable Long id) {
+    public String remove(final Model model, @PathVariable final Long id) {
         userService.remove(userService.getById(id));
         model.addAttribute("users", userService.getAll());
 
@@ -55,9 +55,9 @@ public class UsersController {
     }
 
     @GetMapping(value = "/getbyid/{id}")
-    public String getById(Model model, @PathVariable Long id) {
-        List<User> users = Lists.newArrayList();
-        User user = userService.getById(id);
+    public String getById(Model model, @PathVariable final  Long id) {
+        final  List<User> users = Lists.newArrayList();
+        final User user = userService.getById(id);
         if (Objects.nonNull(user)) {
             users.add(user);
         }
@@ -68,8 +68,8 @@ public class UsersController {
 
     @GetMapping(value = "/getbyemail")
     public String getByEmail(Model model, @RequestParam String email) {
-        List<User> users = Lists.newArrayList();
-        User user = userService.getUserByEmail(email);
+        final List<User> users = Lists.newArrayList();
+        final User user = userService.getUserByEmail(email);
         if (Objects.nonNull(user)) {
             users.add(user);
         }

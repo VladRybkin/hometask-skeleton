@@ -14,8 +14,8 @@ import java.util.Objects;
 public class AirDateMapper implements RowMapper<LocalDateTime> {
 
     @Override
-    public LocalDateTime mapRow(ResultSet resultSet, int i) throws SQLException {
-        String airDateString = resultSet.getString("event_date");
+    public LocalDateTime mapRow(final ResultSet resultSet, final int i) throws SQLException {
+        final String airDateString = resultSet.getString("event_date");
 
         return convertDate(airDateString);
     }

@@ -22,7 +22,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public UserDiscountCount getByName(String name) {
+    public UserDiscountCount getByName(final String name) {
         UserDiscountCount userDiscountCount;
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("FROM UserDiscountCount where name=:name");
@@ -37,7 +37,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
     }
 
     @Override
-    public boolean update(UserDiscountCount userDiscountCount) {
+    public boolean update(final UserDiscountCount userDiscountCount) {
         try (Session session = sessionFactory.openSession();) {
             session.beginTransaction();
             session.update(userDiscountCount);
@@ -48,28 +48,28 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
     }
 
     @Override
-    public UserDiscountCount save(UserDiscountCount object) {
+    public UserDiscountCount save(final UserDiscountCount userDiscountCount) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(object);
+            session.persist(userDiscountCount);
             session.getTransaction().commit();
         }
 
-        return object;
+        return userDiscountCount;
     }
 
     @Override
-    public void remove(UserDiscountCount object) {
+    public void remove(final UserDiscountCount userDiscountCount) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.remove(object);
+            session.remove(userDiscountCount);
             session.getTransaction().commit();
         }
     }
 
     @Override
-    public UserDiscountCount getById(Long id) {
-        UserDiscountCount userDiscountCount;
+    public UserDiscountCount getById(final Long id) {
+        final UserDiscountCount userDiscountCount;
         try (Session session = sessionFactory.openSession()) {
             userDiscountCount = session.get(UserDiscountCount.class, id);
         }
@@ -79,7 +79,7 @@ public class HibernateUserDiscountCountDaoImpl implements UserDiscountCountDao {
 
     @Override
     public Collection<UserDiscountCount> getAll() {
-        Collection<UserDiscountCount> userDiscountCounts;
+        final Collection<UserDiscountCount> userDiscountCounts;
         try (Session session = sessionFactory.openSession()) {
             userDiscountCounts = session.createQuery("FROM UserDiscountCount", UserDiscountCount.class).setCacheable(true).list();
         }

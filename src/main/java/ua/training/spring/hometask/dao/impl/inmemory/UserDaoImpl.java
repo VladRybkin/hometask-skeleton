@@ -17,7 +17,7 @@ public class UserDaoImpl implements UserDao {
     private static final Map<Long, User> users = new HashMap<>();
 
     @Override
-    public User save(User user) {
+    public User save(final User user) {
         if (users.containsKey(user.getId())) {
             users.put(user.getId(), user);
         } else {
@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean update(User user) {
+    public boolean update(final User user) {
         boolean update = false;
         if (users.containsKey(user.getId())) {
             users.put(user.getId(), user);
@@ -40,12 +40,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void remove(User user) {
+    public void remove(final User user) {
         users.remove(user.getId());
     }
 
     @Override
-    public User getById(Long id) {
+    public User getById(final Long id) {
         return users.get(id);
     }
 
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByEmail(String email) {
+    public User getUserByEmail(final String email) {
         return users.values().stream().filter(user -> user.getEmail().equals(email)).findAny().orElse(null);
     }
 }

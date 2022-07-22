@@ -29,8 +29,8 @@ public class TicketMapper implements RowMapper<Ticket> {
     private EventDao eventDao;
 
     @Override
-    public Ticket mapRow(ResultSet resultSet, int i) throws SQLException {
-        Ticket ticket = new Ticket();
+    public Ticket mapRow(final ResultSet resultSet, final  int i) throws SQLException {
+        final Ticket ticket = new Ticket();
         long userId = resultSet.getLong("user_id");
         long eventId = resultSet.getLong("event_id");
 
@@ -46,15 +46,15 @@ public class TicketMapper implements RowMapper<Ticket> {
         return ticket;
     }
 
-    private void setDateTimeToTicket(Ticket ticket, String dateTime) {
+    private void setDateTimeToTicket(final Ticket ticket, final String dateTime) {
         if (!Objects.equals(dateTime, "null")) {
             ticket.setDateTime(LocalDateTime.parse(dateTime));
         }
     }
 
-    private void setUserToTicket(Ticket ticket, long userId) {
+    private void setUserToTicket(final Ticket ticket, final long userId) {
         if (userId != 0) {
-            User user = userDao.getById(userId);
+            final User user = userDao.getById(userId);
 
             if (!Objects.isNull(user)) {
                 ticket.setUser(user);
@@ -62,7 +62,7 @@ public class TicketMapper implements RowMapper<Ticket> {
         }
     }
 
-    private void setEventToTicket(Ticket ticket, long eventId) {
+    private void setEventToTicket(final Ticket ticket, final  Long eventId) {
         if (eventId != 0) {
             Event event = eventDao.getById(eventId);
 

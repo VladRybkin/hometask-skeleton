@@ -25,10 +25,10 @@ public class HibernateTicketDaoImpl implements TicketDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
-        Collection<Ticket> tickets;
+    public Set<Ticket> getPurchasedTicketsForEvent(final Event event, final LocalDateTime dateTime) {
+        final Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM Ticket t "
+            final Query query = session.createQuery("FROM Ticket t "
                     + "where t.user is not null "
                     + "and t.event=:event "
                     + "and t.dateTime > :dateTime", Ticket.class);
@@ -42,28 +42,28 @@ public class HibernateTicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public Ticket save(Ticket object) {
+    public Ticket save(final Ticket ticket) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(object);
+            session.persist(ticket);
             session.getTransaction().commit();
         }
 
-        return object;
+        return ticket;
     }
 
     @Override
-    public void remove(Ticket object) {
+    public void remove(final Ticket ticket) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.remove(object);
+            session.remove(ticket);
             session.getTransaction().commit();
         }
     }
 
     @Override
-    public Ticket getById(Long id) {
-        Ticket ticket;
+    public Ticket getById(final Long id) {
+        final Ticket ticket;
         try (Session session = sessionFactory.openSession()) {
             ticket = session.get(Ticket.class, id);
         }
@@ -73,7 +73,7 @@ public class HibernateTicketDaoImpl implements TicketDao {
 
     @Override
     public Collection<Ticket> getAll() {
-        Collection<Ticket> tickets;
+        final Collection<Ticket> tickets;
         try (Session session = sessionFactory.openSession()) {
             tickets = session.createQuery("FROM Ticket", Ticket.class).setCacheable(true).list();
         }
@@ -82,7 +82,7 @@ public class HibernateTicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public boolean update(Ticket ticket) {
+    public boolean update(final Ticket ticket) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(ticket);

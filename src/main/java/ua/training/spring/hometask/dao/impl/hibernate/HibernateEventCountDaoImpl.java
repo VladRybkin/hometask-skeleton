@@ -22,22 +22,20 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public EventCount getByName(String name) {
-        EventCount eventCount;
+    public EventCount getByName(final String name) {
+        final EventCount eventCount;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM EventCount where name=:name");
+            final Query query = session.createQuery("FROM EventCount where name=:name");
             query.setParameter("name", name);
             query.setCacheable(true);
             eventCount = (EventCount) query.getSingleResult();
-        } catch (NoResultException e) {
-            eventCount = null;
         }
 
         return eventCount;
     }
 
     @Override
-    public boolean update(EventCount eventCount) {
+    public boolean update(final EventCount eventCount) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(eventCount);
@@ -48,7 +46,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public EventCount save(EventCount object) {
+    public EventCount save(final EventCount object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(object);
@@ -59,7 +57,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public void remove(EventCount object) {
+    public void remove(final EventCount object) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(object);
@@ -68,8 +66,8 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public EventCount getById(Long id) {
-        EventCount eventCount;
+    public EventCount getById(final Long id) {
+        final EventCount eventCount;
         try (Session session = sessionFactory.openSession()) {
             eventCount = session.get(EventCount.class, id);
         }
@@ -79,7 +77,7 @@ public class HibernateEventCountDaoImpl implements EventCountDao {
 
     @Override
     public Collection<EventCount> getAll() {
-        Collection<EventCount> eventCounts;
+        final Collection<EventCount> eventCounts;
         try (Session session = sessionFactory.openSession()) {
             eventCounts = session.createQuery("FROM EventCount", EventCount.class).setCacheable(true).list();
         }

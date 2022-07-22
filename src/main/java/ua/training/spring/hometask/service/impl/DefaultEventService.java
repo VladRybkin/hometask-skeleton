@@ -23,29 +23,29 @@ public class DefaultEventService implements EventService {
     }
 
     @Override
-    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
+    public Set<Event> getForDateRange(final LocalDateTime from, final LocalDateTime to) {
         return eventDao.getForDateRange(from, to);
     }
 
     @Override
-    public Set<Event> getNextEvents(LocalDateTime to) {
+    public Set<Event> getNextEvents(final LocalDateTime to) {
         return eventDao.getNextEvents(to);
     }
 
     @Transactional
     @Override
-    public Event save(Event object) {
+    public Event save(final Event object) {
         return eventDao.save(object);
     }
 
     @Transactional
     @Override
-    public void remove(Event object) {
+    public void remove(final Event object) {
         eventDao.remove(object);
     }
 
     @Override
-    public Event getById(Long id) {
+    public Event getById(final Long id) {
         return eventDao.getById(id);
     }
 
@@ -61,7 +61,7 @@ public class DefaultEventService implements EventService {
 
     @Transactional
     @Override
-    public Collection<Event> saveAll(Collection<Event> events) {
+    public Collection<Event> saveAll(final Collection<Event> events) {
         events.forEach(eventDao::save);
 
         return events;

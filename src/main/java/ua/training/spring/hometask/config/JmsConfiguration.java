@@ -47,36 +47,34 @@ public class JmsConfiguration {
     private String routingKey;
 
     @Bean
-    Queue userQueue() {
+    public Queue userQueue() {
         return new Queue(userQueueName, false);
     }
 
     @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(userExchangeName);
-    }
-
-    @Bean
-    Binding userBinding() {
-        return BindingBuilder.bind(userQueue()).to(exchange()).with(routingKey);
-    }
-
-
-    @Bean
-    Queue eventQueue() {
+    public Queue eventQueue() {
         return new Queue(eventQueueName, false);
     }
 
     @Bean
-    TopicExchange eventExchange() {
+    public TopicExchange userExchange() {
+        return new TopicExchange(userExchangeName);
+    }
+
+    @Bean
+    public TopicExchange eventExchange() {
         return new TopicExchange(eventExchangeName);
     }
 
     @Bean
-    Binding eventBinding() {
-        return BindingBuilder.bind(eventQueue()).to(eventExchange()).with(routingKey);
+    Binding userBinding() {
+        return BindingBuilder.bind(userQueue()).to(userExchange()).with(routingKey);
     }
 
+    @Bean
+    public Binding eventBinding() {
+        return BindingBuilder.bind(eventQueue()).to(eventExchange()).with(routingKey);
+    }
 
     @Bean
     public ConnectionFactory connectionFactory() throws URISyntaxException {
@@ -96,7 +94,7 @@ public class JmsConfiguration {
     }
 
     @Bean
-    SimpleMessageListenerContainer userContainer(ConnectionFactory connectionFactory) {
+    public SimpleMessageListenerContainer userContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(userQueueName);
@@ -106,7 +104,7 @@ public class JmsConfiguration {
     }
 
     @Bean
-    SimpleMessageListenerContainer eventContainer(ConnectionFactory connectionFactory) {
+    public SimpleMessageListenerContainer eventContainer(ConnectionFactory connectionFactory) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(eventQueueName);
@@ -116,7 +114,7 @@ public class JmsConfiguration {
     }
 
     @Bean
-    MessageListenerAdapter userListenerAdapter() {
+    public MessageListenerAdapter userListenerAdapter() {
         MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(userMessageListener());
         messageListenerAdapter.setMessageConverter(jackson2JsonMessageConverter());
 
@@ -124,7 +122,7 @@ public class JmsConfiguration {
     }
 
     @Bean
-    MessageListenerAdapter eventListenerAdapter() {
+    public MessageListenerAdapter eventListenerAdapter() {
         MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(eventMessageListener());
         messageListenerAdapter.setMessageConverter(jackson2JsonMessageConverter());
 

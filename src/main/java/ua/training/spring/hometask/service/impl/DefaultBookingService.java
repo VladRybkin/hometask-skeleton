@@ -31,7 +31,7 @@ public class DefaultBookingService implements BookingService {
     private TicketService ticketService;
 
     @Override
-    public double getTicketsPrice(Event event, User user, Set<Long> seats) {
+    public double getTicketsPrice(final Event event, User user, final Set<Long> seats) {
         Set<Ticket> tickets = seats.stream().map(seat -> createTicket(event, seat)).collect(Collectors.toSet());
         double totalPrice = getTotalPrice(tickets);
         double discount = discountService.getDiscount(user, tickets);
@@ -41,7 +41,7 @@ public class DefaultBookingService implements BookingService {
 
     @Transactional
     @Override
-    public void bookTickets(Set<Ticket> tickets, User user) {
+    public void bookTickets(final Set<Ticket> tickets, final User user) {
         tickets.forEach(ticket -> bookTicket(ticket, user));
     }
 

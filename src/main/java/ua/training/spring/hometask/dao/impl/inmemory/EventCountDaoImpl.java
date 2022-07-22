@@ -13,22 +13,22 @@ import java.util.Map;
 @Profile("IN_MEMORY")
 public class EventCountDaoImpl implements EventCountDao {
 
-    private Map<Long, EventCount> eventCounts = new HashMap<>();
+    private final Map<Long, EventCount> eventCounts = new HashMap<>();
 
     @Override
-    public EventCount save(EventCount object) {
-        object.setId((long) (eventCounts.size() + 1));
-        eventCounts.put(object.getId(), object);
-        return object;
+    public EventCount save(final EventCount eventCount) {
+        eventCount.setId((long) (eventCounts.size() + 1));
+        eventCounts.put(eventCount.getId(), eventCount);
+        return eventCount;
     }
 
     @Override
-    public void remove(EventCount object) {
-        eventCounts.remove(object.getId());
+    public void remove(final EventCount eventCount) {
+        eventCounts.remove(eventCount.getId());
     }
 
     @Override
-    public EventCount getById(Long id) {
+    public EventCount getById(final Long id) {
         return eventCounts.get(id);
     }
 
@@ -38,12 +38,12 @@ public class EventCountDaoImpl implements EventCountDao {
     }
 
     @Override
-    public EventCount getByName(String name) {
+    public EventCount getByName(final String name) {
         return eventCounts.values().stream().filter(ev -> ev.getEventName().equals(name)).findAny().orElse(null);
     }
 
     @Override
-    public boolean update(EventCount eventCount) {
+    public boolean update(final EventCount eventCount) {
         boolean update = false;
         if (eventCounts.containsKey(eventCount.getId())) {
             eventCounts.put(eventCount.getId(), eventCount);

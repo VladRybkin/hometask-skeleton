@@ -15,7 +15,6 @@ public class RestControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
     }
 
-
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity handleException(Exception ex) {

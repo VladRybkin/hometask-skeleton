@@ -40,10 +40,10 @@ public class DefaultEventCountService implements EventCountService {
 
     @Transactional
     @Override
-    public void getByNameCountIncrement(String eventName) {
-        EventCount foundEventCount = eventCountDao.getByName(eventName);
+    public void getByNameCountIncrement(final String eventName) {
+        final EventCount foundEventCount = eventCountDao.getByName(eventName);
         if (Objects.isNull(foundEventCount)) {
-            EventCount eventCount = createEventCounter(eventName);
+            final EventCount eventCount = createEventCounter(eventName);
             eventCount.setCountGetByName(eventCount.getCountGetByName() + 1);
             eventCountDao.save(eventCount);
         } else {
@@ -54,10 +54,10 @@ public class DefaultEventCountService implements EventCountService {
 
     @Transactional
     @Override
-    public void bookTicketsCountIncrement(String eventName) {
-        EventCount foundEventCount = eventCountDao.getByName(eventName);
+    public void bookTicketsCountIncrement(final String eventName) {
+        final EventCount foundEventCount = eventCountDao.getByName(eventName);
         if (Objects.isNull(foundEventCount)) {
-            EventCount eventCount = createEventCounter(eventName);
+            final EventCount eventCount = createEventCounter(eventName);
             eventCount.setCountBookTickets(eventCount.getCountBookTickets() + 1);
             eventCountDao.save(eventCount);
         } else {

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import ua.training.spring.hometask.domain.User;
 import ua.training.spring.hometask.service.UserDiscountCountService;
 
-
 @Aspect
 @Component
 public class UserDiscountAspect {
@@ -18,7 +17,6 @@ public class UserDiscountAspect {
 
     @Value("${birthday.discount}")
     private double birthdayDiscount;
-
 
     @AfterReturning(value =
             "execution(* ua.training.spring.hometask." +

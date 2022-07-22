@@ -1,6 +1,5 @@
 package ua.training.spring.hometask.shellCommands;
 
-
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.core.CommandMarker;
@@ -18,7 +17,6 @@ import ua.training.spring.hometask.service.UserService;
 
 import java.util.Collection;
 import java.util.Set;
-
 
 @Component
 public class TheatreCommand implements CommandMarker {

@@ -39,8 +39,8 @@ public class TicketsController {
     private EventService eventService;
 
     @GetMapping
-    public String getTickets(Model model) {
-        Collection<Ticket> tickets = ticketService.getAll();
+    public String getTickets(final Model model) {
+        final Collection<Ticket> tickets = ticketService.getAll();
 
         model.addAttribute("tickets", tickets);
         addEventNamesAttribute(model);
@@ -50,7 +50,7 @@ public class TicketsController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @PostMapping(value = "/add")
-    public String addTicket(@RequestParam String eventName, @ModelAttribute Ticket ticket) {
+    public String addTicket(@RequestParam final String eventName, @ModelAttribute final Ticket ticket) {
         ticketFacade.saveTicketWithEvent(eventName, ticket);
 
         return "redirect:/tickets";
@@ -58,15 +58,15 @@ public class TicketsController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/remove/{id}")
-    public String remove(Model model, @PathVariable Long id) {
+    public String remove(Model model, @PathVariable final Long id) {
         ticketService.remove(ticketService.getById(id));
 
         return "redirect:/tickets";
     }
 
     @GetMapping(value = "/getbyid/{id}")
-    public String getById(Model model, @PathVariable Long id) {
-        List<Ticket> tickets = Lists.newArrayList();
+    public String getById(final Model model, @PathVariable final Long id) {
+        final List<Ticket> tickets = Lists.newArrayList();
         Ticket ticket = ticketService.getById(id);
 
         if (Objects.nonNull(ticket)) {
@@ -80,14 +80,14 @@ public class TicketsController {
 
     @PreAuthorize("hasAuthority('BOOKING_MANAGER')")
     @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ModelAndView getPdf(@RequestParam String ticketDate, @RequestParam String eventName) {
-        Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);
+    public ModelAndView getPdf(@RequestParam final String ticketDate, @RequestParam final String eventName) {
+        final Collection<Ticket> tickets = ticketFacade.getPurchasedTicketsForEvent(eventName, ticketDate);
 
         return new ModelAndView("ticketPdfView", "ticketData", tickets);
     }
 
 
-    private void addEventNamesAttribute(Model model) {
+    private void addEventNamesAttribute(final Model model) {
         Set<String> eventNames = eventService.getAll().stream().map(Event::getName)
                 .collect(Collectors.toSet());
         model.addAttribute("eventNames", eventNames);

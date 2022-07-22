@@ -15,8 +15,8 @@ import java.util.Objects;
 public class UserMapper implements RowMapper<User> {
 
     @Override
-    public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User();
+    public User mapRow(final ResultSet resultSet, int i) throws SQLException {
+        final User user = new User();
         user.setId(resultSet.getLong("id"));
         user.setFirstName(resultSet.getString("first_name"));
         user.setLastName(resultSet.getString("last_name"));
@@ -28,7 +28,7 @@ public class UserMapper implements RowMapper<User> {
         return user;
     }
 
-    private void setDateOfBirthToUser(User user, String dateOfBirth) {
+    private void setDateOfBirthToUser(final User user, final String dateOfBirth) {
         if (!Objects.isNull(dateOfBirth)) {
             user.setDateOfBirth(LocalDateTime.parse(dateOfBirth));
         }

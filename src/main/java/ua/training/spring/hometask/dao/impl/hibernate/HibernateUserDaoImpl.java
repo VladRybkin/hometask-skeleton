@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import ua.training.spring.hometask.dao.UserDao;
 import ua.training.spring.hometask.domain.User;
 
-import javax.persistence.NoResultException;
 import java.util.Collection;
 
 @Repository
@@ -22,22 +21,20 @@ public class HibernateUserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public User getUserByEmail(String email) {
-        User user;
+    public User getUserByEmail(final String email) {
+        final User user;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM User where email=:email");
+            final Query query = session.createQuery("FROM User where email=:email");
             query.setParameter("email", email);
             query.setCacheable(true);
             user = (User) query.getSingleResult();
-        } catch (NoResultException e) {
-            user = null;
         }
 
         return user;
     }
 
     @Override
-    public User save(User user) {
+    public User save(final User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.persist(user);
@@ -48,7 +45,7 @@ public class HibernateUserDaoImpl implements UserDao {
     }
 
     @Override
-    public void remove(User user) {
+    public void remove(final User user) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.remove(user);
@@ -57,8 +54,8 @@ public class HibernateUserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getById(Long id) {
-        User user;
+    public User getById(final Long id) {
+        final User user;
         try (Session session = sessionFactory.openSession()) {
             user = session.get(User.class, id);
         }
@@ -68,7 +65,7 @@ public class HibernateUserDaoImpl implements UserDao {
 
     @Override
     public Collection<User> getAll() {
-        Collection<User> users;
+        final Collection<User> users;
         try (Session session = sessionFactory.openSession()) {
             users = session.createQuery("FROM User", User.class).setCacheable(true).list();
         }

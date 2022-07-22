@@ -26,7 +26,7 @@ public class UploadController {
     }
 
     @PostMapping
-    public String importDataFromJsonFile(@ModelAttribute MultipartFile jsonFile) throws IOException {
+    public String importDataFromJsonFile(@ModelAttribute final MultipartFile jsonFile) throws IOException {
         uploadFacade.saveDataFromJsonFile(jsonFile);
 
         return "redirect:/upload";

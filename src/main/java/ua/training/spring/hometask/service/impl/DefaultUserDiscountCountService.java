@@ -18,7 +18,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
 
     @Transactional
     @Override
-    public UserDiscountCount save(UserDiscountCount object) {
+    public UserDiscountCount save(final UserDiscountCount object) {
         return userDiscountCountDao.save(object);
     }
 
@@ -40,7 +40,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
 
     @Transactional
     @Override
-    public void countTenthTicketDiscountIncrement(String name) {
+    public void countTenthTicketDiscountIncrement(final String name) {
         UserDiscountCount foundUserDiscountCount = userDiscountCountDao.getByName(name);
         if (Objects.isNull(foundUserDiscountCount)) {
             UserDiscountCount eventCountInfo = createUserDiscountCounter(name);
@@ -54,7 +54,7 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
 
     @Transactional
     @Override
-    public void countBirthdayDiscountIncrement(String name) {
+    public void countBirthdayDiscountIncrement(final String name) {
         UserDiscountCount foundUserDiscountCount = userDiscountCountDao.getByName(name);
         if (Objects.isNull(foundUserDiscountCount)) {
             UserDiscountCount eventCountInfo = createUserDiscountCounter(name);
@@ -68,11 +68,11 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
     }
 
     @Override
-    public UserDiscountCount getByName(String name) {
+    public UserDiscountCount getByName(final String name) {
         return userDiscountCountDao.getByName(name);
     }
 
-    private UserDiscountCount createUserDiscountCounter(String name) {
+    private UserDiscountCount createUserDiscountCounter(final String name) {
         return new UserDiscountCount.Builder()
                 .withCountBirthdayDiscount(0)
                 .withCountTenthTicketDiscount(0)
@@ -80,12 +80,12 @@ public class DefaultUserDiscountCountService implements UserDiscountCountService
     }
 
     @Override
-    public boolean update(UserDiscountCount userDiscountCount) {
+    public boolean update(final UserDiscountCount userDiscountCount) {
         return userDiscountCountDao.update(userDiscountCount);
     }
 
     @Override
-    public Collection<UserDiscountCount> saveAll(Collection<UserDiscountCount> userDiscountCounts) {
+    public Collection<UserDiscountCount> saveAll(final Collection<UserDiscountCount> userDiscountCounts) {
         userDiscountCounts.forEach(userDiscountCountDao::save);
 
         return userDiscountCounts;

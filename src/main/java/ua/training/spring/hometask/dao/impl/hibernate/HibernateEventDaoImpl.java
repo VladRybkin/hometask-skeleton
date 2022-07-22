@@ -12,7 +12,6 @@ import ua.training.spring.hometask.dao.EventDao;
 import ua.training.spring.hometask.domain.AirDate;
 import ua.training.spring.hometask.domain.Event;
 
-import javax.persistence.NoResultException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -26,25 +25,23 @@ public class HibernateEventDaoImpl implements EventDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public Event getByName(String name) {
-        Event event;
+    public Event getByName(final String name) {
+        final Event event;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("FROM Event where name=:name");
+            final Query query = session.createQuery("FROM Event where name=:name");
             query.setParameter("name", name);
             query.setCacheable(true);
             event = (Event) query.getSingleResult();
-        } catch (NoResultException e) {
-            event = null;
         }
 
         return event;
     }
 
     @Override
-    public Set<Event> getForDateRange(LocalDateTime from, LocalDateTime to) {
-        Collection<Event> events;
+    public Set<Event> getForDateRange(final LocalDateTime from, final LocalDateTime to) {
+        final Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery("select ev from Event ev "
+            final Query query = session.createQuery("select ev from Event ev "
                     + "left join  ev.eventAirDates ed "
                     + "where ed.eventDate "
                     + "BETWEEN :from AND :to"
@@ -61,8 +58,8 @@ public class HibernateEventDaoImpl implements EventDao {
     }
 
     @Override
-    public Set<Event> getNextEvents(LocalDateTime to) {
-        Collection<Event> events;
+    public Set<Event> getNextEvents(final LocalDateTime to) {
+        final Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery("select ev from Event ev "
                     + "left join ev.eventAirDates ed "
@@ -77,30 +74,30 @@ public class HibernateEventDaoImpl implements EventDao {
     }
 
     @Override
-    public Event save(Event object) {
-        object.getAirDates().forEach(ai -> object.getEventAirDates().add(new AirDate(ai)));
+    public Event save(final Event event) {
+        event.getAirDates().forEach(ai -> event.getEventAirDates().add(new AirDate(ai)));
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.persist(object);
+            session.persist(event);
             session.getTransaction().commit();
         }
-        object.getEventAirDates().clear();
+        event.getEventAirDates().clear();
 
-        return object;
+        return event;
     }
 
     @Override
-    public void remove(Event object) {
+    public void remove(final Event event) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.remove(object);
+            session.remove(event);
             session.getTransaction().commit();
         }
     }
 
     @Override
-    public Event getById(Long id) {
-        Event event;
+    public Event getById(final Long id) {
+        final Event event;
         try (Session session = sessionFactory.openSession()) {
             event = session.get(Event.class, id);
         }
@@ -110,7 +107,7 @@ public class HibernateEventDaoImpl implements EventDao {
 
     @Override
     public Collection<Event> getAll() {
-        Collection<Event> events;
+        final Collection<Event> events;
         try (Session session = sessionFactory.openSession()) {
             events = session.createQuery("from Event", Event.class).setCacheable(true).list();
             events.forEach(event -> event.getEventAirDates().forEach(ai -> event.getAirDates().add(ai.getEventDate())));

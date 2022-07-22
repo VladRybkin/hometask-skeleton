@@ -30,7 +30,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerUser(@ModelAttribute RegistrationUserForm userForm,
+    public String registerUser(@ModelAttribute final RegistrationUserForm userForm,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateOfTheBirth) {
         userFacade.registerUser(userForm, dateOfTheBirth);
         securityService.autoLogin(userForm.getEmail());

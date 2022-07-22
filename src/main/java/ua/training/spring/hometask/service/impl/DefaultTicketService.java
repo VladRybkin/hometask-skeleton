@@ -20,18 +20,18 @@ public class DefaultTicketService implements TicketService {
 
     @Transactional
     @Override
-    public Ticket save(Ticket ticket) {
+    public Ticket save(final Ticket ticket) {
         return ticketDao.save(ticket);
     }
 
     @Transactional
     @Override
-    public void remove(Ticket ticket) {
+    public void remove(final Ticket ticket) {
         ticketDao.remove(ticket);
     }
 
     @Override
-    public Ticket getById(Long id) {
+    public Ticket getById(final Long id) {
         return ticketDao.getById(id);
     }
 
@@ -41,18 +41,18 @@ public class DefaultTicketService implements TicketService {
     }
 
     @Override
-    public Set<Ticket> getPurchasedTicketsForEvent(Event event, LocalDateTime dateTime) {
+    public Set<Ticket> getPurchasedTicketsForEvent(final Event event, final LocalDateTime dateTime) {
         return ticketDao.getPurchasedTicketsForEvent(event, dateTime);
     }
 
     @Override
-    public boolean update(Ticket ticket) {
+    public boolean update(final Ticket ticket) {
         return ticketDao.update(ticket);
     }
 
     @Transactional
     @Override
-    public Collection<Ticket> saveAll(Collection<Ticket> tickets) {
+    public Collection<Ticket> saveAll(final Collection<Ticket> tickets) {
         tickets.forEach(ticketDao::save);
 
         return tickets;

@@ -16,20 +16,20 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
     private Map<Long, UserDiscountCount> userDiscountCounts = new HashMap<>();
 
     @Override
-    public UserDiscountCount save(UserDiscountCount object) {
-        object.setId((long) (userDiscountCounts.size() + 1));
-        userDiscountCounts.put(object.getId(), object);
+    public UserDiscountCount save(final UserDiscountCount userDiscountCount) {
+        userDiscountCount.setId((long) (userDiscountCounts.size() + 1));
+        userDiscountCounts.put(userDiscountCount.getId(), userDiscountCount);
 
-        return object;
+        return userDiscountCount;
     }
 
     @Override
-    public void remove(UserDiscountCount object) {
-        userDiscountCounts.remove(object.getId());
+    public void remove(final UserDiscountCount userDiscountCount) {
+        userDiscountCounts.remove(userDiscountCount.getId());
     }
 
     @Override
-    public UserDiscountCount getById(Long id) {
+    public UserDiscountCount getById(final Long id) {
         return userDiscountCounts.get(id);
     }
 
@@ -39,12 +39,12 @@ public class UserDiscountCountDaoImpl implements UserDiscountCountDao {
     }
 
     @Override
-    public UserDiscountCount getByName(String name) {
+    public UserDiscountCount getByName(final String name) {
         return userDiscountCounts.values().stream().filter(ev -> ev.getName().equals(name)).findAny().orElse(null);
     }
 
     @Override
-    public boolean update(UserDiscountCount userDiscountCount) {
+    public boolean update(final UserDiscountCount userDiscountCount) {
         boolean updated = false;
         if (userDiscountCounts.containsKey(userDiscountCount.getId())) {
             userDiscountCounts.put(userDiscountCount.getId(), userDiscountCount);

@@ -20,8 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) {
-        User user = userService.getUserByEmail(email);
+    public UserDetails loadUserByUsername(final String email) {
+        final User user = userService.getUserByEmail(email);
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("user with email: " + email + " not found");
         }
@@ -29,8 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return getUserDetailsFromUser(user);
     }
 
-    private UserDetails getUserDetailsFromUser(User user) {
-        Set<SimpleGrantedAuthority> grantedAuthorities = getGrantedAuthoritiesFromUserRoles(user);
+    private UserDetails getUserDetailsFromUser(final User user) {
+        final Set<SimpleGrantedAuthority> grantedAuthorities = getGrantedAuthoritiesFromUserRoles(user);
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
@@ -39,11 +39,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .build();
     }
 
-    private Set<SimpleGrantedAuthority> getGrantedAuthoritiesFromUserRoles(User user) {
-        Set<SimpleGrantedAuthority> grantedAuthorities = Sets.newHashSet();
+    private Set<SimpleGrantedAuthority> getGrantedAuthoritiesFromUserRoles(final User user) {
+        final Set<SimpleGrantedAuthority> grantedAuthorities = Sets.newHashSet();
 
         user.getRoles().forEach(role -> {
-            SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
+            final SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
             grantedAuthorities.add(grantedAuthority);
         });
 

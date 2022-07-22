@@ -13,8 +13,8 @@ import java.sql.SQLException;
 public class EventCountMapper implements RowMapper<EventCount> {
 
     @Override
-    public EventCount mapRow(ResultSet resultSet, int i) throws SQLException {
-        EventCount eventCount = new EventCount();
+    public EventCount mapRow(final ResultSet resultSet, final int i) throws SQLException {
+        final EventCount eventCount = new EventCount();
         eventCount.setId(resultSet.getLong("id"));
         eventCount.setEventName(resultSet.getString("name"));
         eventCount.setCountBookTickets(resultSet.getLong("count_book_tickets"));

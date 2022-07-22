@@ -27,14 +27,14 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
     private AirDateMapper airDateMapper;
 
     @Override
-    public Collection<Event> extractData(ResultSet resultSet) throws SQLException {
-        Map<Long, Event> events = new HashMap<>();
+    public Collection<Event> extractData(final ResultSet resultSet) throws SQLException {
+        final Map<Long, Event> events = new HashMap<>();
         int row = 0;
         Event event;
 
         while (resultSet.next()) {
             event = eventMapper.mapRow(resultSet, row);
-            LocalDateTime airDate = airDateMapper.mapRow(resultSet, row);
+            final LocalDateTime airDate = airDateMapper.mapRow(resultSet, row);
 
             if (events.containsKey(event.getId())) {
                 addAirDateToEvent(airDate, events.get(event.getId()));
@@ -48,7 +48,7 @@ public class EventResultSetExtractor implements ResultSetExtractor<Collection<Ev
         return events.values();
     }
 
-    private void addAirDateToEvent(LocalDateTime airDate, Event event) {
+    private void addAirDateToEvent(final LocalDateTime airDate, final Event event) {
         if (!Objects.isNull(airDate)) {
             event.getAirDates().add(airDate);
         }
